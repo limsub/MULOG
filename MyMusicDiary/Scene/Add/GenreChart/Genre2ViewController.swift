@@ -1,47 +1,35 @@
 //
-//  SearchViewController.swift
+//  Genre2ViewController.swift
 //  MyMusicDiary
 //
 //  Created by 임승섭 on 2023/09/27.
 //
 
 import UIKit
+import MusicKit
 
-// 1. collectionView
-    // custom Cell
-// 2. searchBar
-
-
-class SearchViewController: BaseViewController {
+class Genre2ViewController: BaseViewController {
     
-    // ViewModel
-    let viewModel = SearchViewModel()
+    var myGenre = GenreDataModel.shared.genres[1]
+    
+    var musicList: Observable<[MusicItem]> = Observable([])
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
-    let searchController = UISearchController()
-    
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("2 viewdidload")
         view.backgroundColor = .systemBackground
-        
-        GenreDataModel.shared.fetchGenreChart()
-        
-        
         
         collectionView.prefetchDataSource = self
         collectionView.delegate = self
         
-        navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
-        
         configureDataSource()
-        bindModelData()
-        viewModel.fetchMusic("블랙핑크")
+        
+        fetchMusic()
+        
     }
     
     // set
@@ -58,14 +46,26 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    
-    // bind
-    func bindModelData() {
-        viewModel.musicList.bind { _ in
-            print("hi")
-            self.updateSnapshot()
+    func fetchMusic() {
+        Task {
+            var request = MusicCatalogChartsRequest(
+                genre: myGenre,
+                kinds: [.cityTop],
+                types: [Song.self]
+            )
+            request.limit = 25
+            request.offset = 1
+            
+            let result = try await request.response()
+            
+            self.musicList.value = result.songCharts[0].items.map {
+                return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, imageURL: $0.artwork, previewURL: $0.previewAssets?[0].url, genres: $0.genreNames)
+            }
+            
+            updateSnapshot()
         }
     }
+    
     
     // datasource
     private func configureDataSource() {
@@ -91,23 +91,13 @@ class SearchViewController: BaseViewController {
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItem>()
         snapshot.appendSections([0])
-        snapshot.appendItems(viewModel.musicList.value)
+        snapshot.appendItems(musicList.value)
         dataSource?.apply(snapshot)
-    }
-    
-    
-}
-
-// searchBar
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text else { return }
-        viewModel.fetchMusic(text)
     }
 }
 
 // prefetch
-extension SearchViewController: UICollectionViewDataSourcePrefetching {
+extension Genre2ViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         print("hi")
     }
@@ -116,7 +106,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 }
 
 // delegate
-extension SearchViewController: UICollectionViewDelegate {
+extension Genre2ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if !GenreDataModel.shared.genres.isEmpty {
@@ -125,3 +115,4 @@ extension SearchViewController: UICollectionViewDelegate {
         }
     }
 }
+
