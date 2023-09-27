@@ -11,15 +11,25 @@ import Pageboy
 
 class TabViewController: TabmanViewController {
     
-    private var viewControllers = [Genre1ViewController(), Genre2ViewController(), Genre3ViewController(), Genre4ViewController(), Genre5ViewController()]
+    var delegate: UpdateDataDelegate?
+    
+    let v1 = Genre1ViewController()
+    let v2 = Genre2ViewController()
+    let v3 = Genre3ViewController()
+    let v4 = Genre4ViewController()
+    let v5 = Genre5ViewController()
+    
+    private lazy var viewControllers = [v1, v2, v3, v4, v5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        print(GenreDataModel.shared.genres)
-        
-        
+        v1.delegate = delegate
+        v2.delegate = delegate
+        v3.delegate = delegate
+        v4.delegate = delegate
+        v5.delegate = delegate
         
         
         self.dataSource = self

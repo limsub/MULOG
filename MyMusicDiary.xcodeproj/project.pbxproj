@@ -32,6 +32,8 @@
 		4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53E2AC3D62500E7C6A4 /* Genre4ViewController.swift */; };
 		4812D5412AC3D62B00E7C6A4 /* Genre5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5402AC3D62B00E7C6A4 /* Genre5ViewController.swift */; };
 		4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */; };
+		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
+		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		4812D5402AC3D62B00E7C6A4 /* Genre5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre5ViewController.swift; sourceTree = "<group>"; };
 		4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDataModel.swift; sourceTree = "<group>"; };
 		4812D5452AC4055E00E7C6A4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
+		4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 		4812D51C2AC3AC6F00E7C6A4 /* Save */ = {
 			isa = PBXGroup;
 			children = (
+				4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */,
+				4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */,
 			);
 			path = Save;
 			sourceTree = "<group>";
@@ -286,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */,
+				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
@@ -301,6 +308,7 @@
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,
+				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);

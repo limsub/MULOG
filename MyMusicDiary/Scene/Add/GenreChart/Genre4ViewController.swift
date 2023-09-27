@@ -10,6 +10,8 @@ import MusicKit
 
 class Genre4ViewController: BaseViewController {
     
+    var delegate: UpdateDataDelegate?
+    
     var myGenre = GenreDataModel.shared.genres[3]
     
     var musicList: Observable<[MusicItem]> = Observable([])
@@ -109,9 +111,14 @@ extension Genre4ViewController: UICollectionViewDataSourcePrefetching {
 extension Genre4ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if !GenreDataModel.shared.genres.isEmpty {
-            let vc = TabViewController()
-            navigationController?.pushViewController(vc, animated: true)
+        delegate?.updateMusicList(item: musicList.value[indexPath.row])
+        
+        guard let viewControllerStack = self.navigationController?.viewControllers else { return }
+        // 뷰 스택에서 RedViewController를 찾아서 거기까지 pop 합니다.
+        for viewController in viewControllerStack {
+            if let saveVC = viewController as? SaveViewController {
+                self.navigationController?.popToViewController(saveVC, animated: true)
+            }
         }
     }
 }

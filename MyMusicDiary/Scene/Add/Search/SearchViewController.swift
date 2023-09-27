@@ -14,6 +14,9 @@ import UIKit
 
 class SearchViewController: BaseViewController {
     
+    // 값전달 (delegate)
+    var delegate: UpdateDataDelegate?
+    
     // ViewModel
     let viewModel = SearchViewModel()
     
@@ -29,9 +32,6 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        GenreDataModel.shared.fetchGenreChart()
-        
-        
         
         collectionView.prefetchDataSource = self
         collectionView.delegate = self
@@ -42,6 +42,17 @@ class SearchViewController: BaseViewController {
         configureDataSource()
         bindModelData()
         viewModel.fetchMusic("블랙핑크")
+        
+        let tmpButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
+        navigationItem.rightBarButtonItem = tmpButton
+        
+    }
+    
+    @objc
+    func buttonClicked() {
+        let vc = TabViewController()
+        vc.delegate = delegate
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // set
@@ -119,9 +130,13 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if !GenreDataModel.shared.genres.isEmpty {
-            let vc = TabViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.item])
+        
+        navigationController?.popViewController(animated: true)
+        
+//        if !GenreDataModel.shared.genres.isEmpty {
+//            let vc = TabViewController()
+//            navigationController?.pushViewController(vc, animated: true)
+//        }
     }
 }
