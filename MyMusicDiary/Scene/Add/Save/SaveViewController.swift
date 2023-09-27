@@ -17,12 +17,17 @@ class SaveViewController: BaseViewController {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout() )
     
+    let nextButton = {
+        let view = UIButton()
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 20
+        view.setTitle("음악 검색하러 가기", for: .normal)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
-        let tmpButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-        navigationItem.rightBarButtonItem = tmpButton
         
         
         GenreDataModel.shared.fetchGenreChart()
@@ -33,7 +38,9 @@ class SaveViewController: BaseViewController {
         collectionView.dropDelegate = self
         collectionView.dragInteractionEnabled = true
         
-        collectionView.register(SearchCatalogCell.self, forCellWithReuseIdentifier: SearchCatalogCell.description())
+        collectionView.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
+        
+        nextButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
     }
     
     @objc
@@ -49,6 +56,7 @@ class SaveViewController: BaseViewController {
         super.setConfigure()
         
         view.addSubview(collectionView)
+        view.addSubview(nextButton)
     }
     
     override func setConstraints() {
@@ -56,6 +64,10 @@ class SaveViewController: BaseViewController {
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        nextButton.snp.makeConstraints { make in
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(60)
         }
     }
 }
@@ -67,9 +79,12 @@ extension SaveViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCatalogCell.description(), for: indexPath) as? SearchCatalogCell else { return UICollectionViewCell() }
+        print("cellForRowAtcellForRowAtcellForRowAtcellForRowAtcellForRowAt")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
         
         cell.designCell(viewModel.musicList.value[indexPath.row])
+        
+        cell.representView.isHidden = (indexPath.item == 0) ? false : true
         
         return cell
     }
@@ -82,7 +97,39 @@ extension SaveViewController: UICollectionViewDataSource {
 
 // delegate
 extension SaveViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            
+//        viewModel.musicList.value.remove(at: indexPath.item)
+//        collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
+//
+//        nextButton.isHidden = false
+//
+//        print("wowowowowowowowowowowowowowo")
+//
+//        collectionView.reloadData()
+//        print("pqpqpqpqpqpqpqpqpqpqpqpqpqpqpq")
+        
+        collectionView.performBatchUpdates {
+            viewModel.musicList.value.remove(at: indexPath.item)
+            collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
+            nextButton.isHidden = false
+        } completion: { [weak self] _ in
+            self?.collectionView.reloadData()
+        }
+
+    }
     
+//    @objc func didTapInsertButton(_ sender: Any) {
+//        collectionView.performBatchUpdates {
+//            dataSource.insert("123", at: 0)
+//            collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+//
+//            dataSource.remove(at: 5)
+//            collectionView.deleteItems(at: [IndexPath(item: 5, section: 0)])
+//        } completion: { [weak self] _ in
+//            print(self?.collectionView.numberOfItems(inSection: 0))
+//        }
+//    }
 }
 
 // drag and drop
@@ -121,6 +168,7 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         } completion: { finish in
             print("finish : ", finish)
             coordinator.drop(sourceItem.dragItem, toItemAt: destinationIndexPath)
+            self.collectionView.reloadData()
         }
 
     }
@@ -137,10 +185,16 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        
+        
         if collectionView.hasActiveDrag {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         }
         return UICollectionViewDropProposal(operation: .forbidden)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
+        collectionView.reloadData()
     }
 }
 
@@ -149,6 +203,11 @@ extension SaveViewController: UpdateDataDelegate {
     func updateMusicList(item: MusicItem) {
         viewModel.musicList.value.append(item)
         
+        if viewModel.musicList.value.count == 3 {
+            nextButton.isHidden = true
+        } else {
+            nextButton.isHidden = false
+        }
         collectionView.reloadData()
     }
 }

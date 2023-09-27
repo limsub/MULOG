@@ -32,6 +32,7 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        collectionView.keyboardDismissMode = .onDrag
         
         collectionView.prefetchDataSource = self
         collectionView.delegate = self
@@ -50,9 +51,11 @@ class SearchViewController: BaseViewController {
     
     @objc
     func buttonClicked() {
-        let vc = TabViewController()
-        vc.delegate = delegate
-        navigationController?.pushViewController(vc, animated: true)
+        if !GenreDataModel.shared.genres.isEmpty {
+            let vc = TabViewController()
+            vc.delegate = delegate
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // set
