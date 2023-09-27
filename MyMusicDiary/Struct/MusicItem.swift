@@ -17,4 +17,6 @@ struct MusicItem: Identifiable, Hashable, Decodable {
     let artist: String
     let imageURL: Artwork?
     let previewURL: URL?
+    
+    let genres: [String]?
 }

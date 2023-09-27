@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import MusicKit
+
+
+class SearchCatalogAPIManager {
+    
+    let shared = SearchCatalogAPIManager()
+    private init() { }
+    
+    
+ }

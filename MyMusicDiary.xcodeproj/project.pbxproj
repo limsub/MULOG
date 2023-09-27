@@ -21,6 +21,9 @@
 		4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5232AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift */; };
 		4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5262AC3AE8600E7C6A4 /* MusicItem.swift */; };
 		4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5292AC3AF3900E7C6A4 /* Observable.swift */; };
+		4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */; };
+		4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */; };
+		4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		4812D5232AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogAPIManager.swift; sourceTree = "<group>"; };
 		4812D5262AC3AE8600E7C6A4 /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 		4812D5292AC3AF3900E7C6A4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogCell.swift; sourceTree = "<group>"; };
+		4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,8 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
+				4812D52E2AC3BBA700E7C6A4 /* Base */,
+				4812D52B2AC3B94300E7C6A4 /* Cell */,
 				4812D5282AC3AF3200E7C6A4 /* Observable */,
 				4812D5252AC3AE7D00E7C6A4 /* Struct */,
 				4812D5192AC3ABE100E7C6A4 /* Scene */,
@@ -141,6 +149,23 @@
 				4812D5292AC3AF3900E7C6A4 /* Observable.swift */,
 			);
 			path = Observable;
+			sourceTree = "<group>";
+		};
+		4812D52B2AC3B94300E7C6A4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		4812D52E2AC3BBA700E7C6A4 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */,
+				4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,8 +254,11 @@
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
+				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
+				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
+				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);

@@ -14,7 +14,7 @@ class SearchViewModel {
     var musicList: Observable<[MusicItem]> = Observable([])
     
     
-    func fetchMusic() {
+    func fetchMusic(_ term: String) {
         
         Task {
             let status = await MusicAuthorization.request() // 나중에 첫화면으로 옮기기
@@ -23,7 +23,7 @@ class SearchViewModel {
             case .authorized:
                 do {
                     var request = MusicCatalogSearchRequest(
-                        term: "blackPink",
+                        term: term,
                         types: [Song.self]
                     )
                     request.limit = 25
@@ -31,12 +31,17 @@ class SearchViewModel {
 
                     let result = try await request.response()
 
-                    // contentsOf : 배열에 배열을 붙인다
-                    self.musicList.value.append(
-                        contentsOf: result.songs.map({
-                            return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, imageURL: $0.artwork, previewURL: $0.previewAssets?[0].url)
-                        })
-                    )
+//                    // contentsOf : 배열에 배열을 붙인다
+//                    self.musicList.value.append(
+//                        contentsOf: result.songs.map({
+//                            return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, imageURL: $0.artwork, previewURL: $0.previewAssets?[0].url, genres: $0.genreNames)
+//                        })
+//                    )
+                    
+                    self.musicList.value = result.songs.map({
+                        return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, imageURL: $0.artwork, previewURL: $0.previewAssets?[0].url, genres: $0.genreNames)
+                    })
+                    
                     print(musicList.value)
                 } catch {
                     print("에러 발생", error)
