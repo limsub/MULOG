@@ -35,6 +35,10 @@
 		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
 		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
 		4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */; };
+		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
+		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
+		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
+		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,8 @@
 		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewModel.swift; sourceTree = "<group>"; };
 		4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCatalogCell.swift; sourceTree = "<group>"; };
+		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +77,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A0A0E02AC54896008DC198 /* Realm in Frameworks */,
 				4812D5352AC3D42200E7C6A4 /* Tabman in Frameworks */,
+				48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */,
 				4812D5182AC3AB2400E7C6A4 /* DGCharts in Frameworks */,
 				4812D50F2AC3AAE600E7C6A4 /* Kingfisher in Frameworks */,
 				4812D5152AC3AB1000E7C6A4 /* FSCalendar in Frameworks */,
@@ -101,7 +109,8 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
-				4812D5422AC3D73900E7C6A4 /* Model */,
+				48A0A0E32AC548C3008DC198 /* Realm */,
+				4812D5422AC3D73900E7C6A4 /* GenreModel */,
 				4812D52E2AC3BBA700E7C6A4 /* Base */,
 				4812D52B2AC3B94300E7C6A4 /* Cell */,
 				4812D5282AC3AF3200E7C6A4 /* Observable */,
@@ -201,12 +210,21 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		4812D5422AC3D73900E7C6A4 /* Model */ = {
+		4812D5422AC3D73900E7C6A4 /* GenreModel */ = {
 			isa = PBXGroup;
 			children = (
 				4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */,
 			);
-			path = Model;
+			path = GenreModel;
+			sourceTree = "<group>";
+		};
+		48A0A0E32AC548C3008DC198 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				48A0A0E42AC548CB008DC198 /* RealmModel.swift */,
+				48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +249,8 @@
 				4812D5142AC3AB1000E7C6A4 /* FSCalendar */,
 				4812D5172AC3AB2400E7C6A4 /* DGCharts */,
 				4812D5342AC3D42200E7C6A4 /* Tabman */,
+				48A0A0DF2AC54896008DC198 /* Realm */,
+				48A0A0E12AC54896008DC198 /* RealmSwift */,
 			);
 			productName = MyMusicDiary;
 			productReference = 4812D4F62AC3A9ED00E7C6A4 /* MyMusicDiary.app */;
@@ -267,6 +287,7 @@
 				4812D5132AC3AB1000E7C6A4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4812D5162AC3AB2400E7C6A4 /* XCRemoteSwiftPackageReference "Charts" */,
 				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */,
+				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 4812D4F72AC3A9ED00E7C6A4 /* Products */;
 			projectDirPath = "";
@@ -294,9 +315,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
+				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
@@ -577,6 +600,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -604,6 +635,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		48A0A0DF2AC54896008DC198 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		48A0A0E12AC54896008DC198 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

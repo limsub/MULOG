@@ -79,14 +79,14 @@ class SearchCatalogCell: BaseCollectionViewCell {
         titleLabel.text = sender.name
         
         var genresText = ""
-        if let genreArr = sender.genres {
-            for (index, item) in genreArr.enumerated() {
-                genresText += item
-                if index != genreArr.count - 1 {
-                    genresText += ", "
-                }
+        
+        for (index, item) in sender.genres.enumerated() {
+            genresText += item
+            if index != sender.genres.count - 1 {
+                genresText += ", "
             }
         }
+    
         artistAndGenreLabel.text = "\(sender.artist) • \(genresText)"
     }
 }

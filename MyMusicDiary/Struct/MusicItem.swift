@@ -20,5 +20,5 @@ struct MusicItem: Identifiable, Hashable, Decodable {
     let smallImageURL: String?  // 150 x 150
     let previewURL: URL?
     
-    let genres: [String]?
+    let genres: [String]
 }
