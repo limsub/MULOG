@@ -71,7 +71,9 @@ class SearchCatalogCell: BaseCollectionViewCell {
     }
     
     func designCell(_ sender: MusicItem) {
-        let url = sender.imageURL?.url(width: 100, height: 100)
+//        let url = sender.imageURL?.url(width: 150, height: 150)
+        guard let smallURL = sender.smallImageURL else { return }
+        let url = URL(string: smallURL)
         
         artworkImageView.kf.setImage(with: url)
         titleLabel.text = sender.name

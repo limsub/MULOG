@@ -30,8 +30,6 @@ class SearchViewModel {
                     request.offset = 1
 
                     let result = try await request.response()
-                    
-                    let a = result.songs
 
 //                    // contentsOf : 배열에 배열을 붙인다
 //                    self.musicList.value.append(
@@ -41,7 +39,15 @@ class SearchViewModel {
 //                    )
                     
                     self.musicList.value = result.songs.map({
-                        return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, imageURL: $0.artwork, previewURL: $0.previewAssets?[0].url, genres: $0.genreNames)
+                        return .init(
+                            id: $0.id.rawValue,
+                            name: $0.title,
+                            artist: $0.artistName,
+                            bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
+                            smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
+                            previewURL: $0.previewAssets?[0].url,
+                            genres: $0.genreNames
+                        )
                     })
                     
 //                    print(musicList.value)
