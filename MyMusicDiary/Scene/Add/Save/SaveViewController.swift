@@ -52,16 +52,31 @@ class SaveViewController: BaseViewController {
         print("데이터가 저장됩니다")
         print(viewModel.musicList.value)
         
+        // 오늘 날짜로 추가
+        let todayNew = DayItemTable(day: Date())
+        repository.createDayItem(todayNew)
+        
+        // 방금 추가한 데이터 가져옴
+        guard let todayData = repository.fetchDay(Date()) else { return }
+        
+        // 저장할 음악 데이터들 loop
         viewModel.musicList.value.forEach {
             
-            if let alreadyData = repository.alreadySave($0.id) {    // 데이터가 이미 있는 경우
-                repository.plusCnt(
-                    ["id": alreadyData.id, "name": alreadyData.name,
-                     "artist": alreadyData.artist, "bigImageURL": alreadyData.bigImageURL, "smallImageURL": alreadyData.smallImageURL, "previewURL": alreadyData.previewURL, "genres": alreadyData.genres, "count": alreadyData.count + 1]
-                )
-            } else {    // 데이터가 없는 경우
-                let task = MusicItemTable(id: $0.id, name: $0.name, artist: $0.artist, bigImageURL: $0.bigImageURL, smallImageURL: $0.smallImageURL, previewURL: $0.previewURL?.absoluteString, genres: $0.genres)
-                repository.createItem(task)
+            // 이미 저장된 음악 데이터인 경우
+            if let alreadyData = repository.alreadySave($0.id) {
+                // count를 1 증가시킨다
+                repository.plusCnt(alreadyData)
+
+                // 오늘 날짜 데이터의 musicItem에 추가
+                repository.appendMusicItem(todayData, musicItem: alreadyData)
+            }
+            // 기존에 없는 음악 데이터인 경우
+            else {
+                // 새로운 테이블 생성
+                let task = repository.makeMusicItemTable($0)
+                
+                // 오늘 날짜 데이터의 musicItem에 추가 -> 자동으로 musicItemTable에도 추가된다
+                repository.appendMusicItem(todayData, musicItem: task)
             }
         }
         
@@ -74,7 +89,8 @@ class SaveViewController: BaseViewController {
     func buttonClicked() {
         
         print("디비에 저장된 데이터입니다")
-        print(repository.fetch())
+        print(repository.fetchMusic())
+        print(repository.fetchDay())
         
         let vc = SearchViewController()
         vc.delegate = self

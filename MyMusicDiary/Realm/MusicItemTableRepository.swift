@@ -10,9 +10,10 @@ import RealmSwift
 
 class MusicItemTableRepository {
     
-    private let realm = try! Realm()
+    let realm = try! Realm()
     
-    func createItem(_ item: MusicItemTable) {
+    
+    func createDayItem(_ item: DayItemTable) {
         do {
             try realm.write {
                 realm.add(item)
@@ -23,10 +24,50 @@ class MusicItemTableRepository {
         }
     }
     
-    func fetch() -> Results<MusicItemTable> {
+    func appendMusicItem(_ dayItem: DayItemTable, musicItem: MusicItemTable) {
+        do {
+            try realm.write {
+                dayItem.musicItems.append(musicItem)
+            }
+        } catch {
+            
+        }
+    }
+    
+    
+    
+    func createMusicItem(_ item: MusicItemTable) {
+        do {
+            try realm.write {
+                realm.add(item)
+            }
+        } catch {
+            print("Create Error : ", error)
+            // Alert : 데이터를 저장하는 과정에서 문제가 생겼습니다
+        }
+    }
+    
+    func fetchMusic() -> Results<MusicItemTable> {
         let data = realm.objects(MusicItemTable.self)
         return data
     }
+    func fetchDay() -> Results<DayItemTable> {
+        let data = realm.objects(DayItemTable.self)
+        return data
+    }
+    
+    
+    func fetchDay(_ day: Date) -> DayItemTable? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let dateString = dateFormatter.string(from: day)
+        
+        let data = realm.objects(DayItemTable.self).where {
+            $0.day == dateString
+        }
+        return data.first
+    }
+    
     
     func alreadySave(_ id: String) -> MusicItemTable? {
         let data = realm.objects(MusicItemTable.self).where {
@@ -37,17 +78,22 @@ class MusicItemTableRepository {
     }
     
     
-    func plusCnt(_ value: [String: Any]) {
+    func plusCnt(_ data: MusicItemTable) {
         do {
             try realm.write {
                 realm.create(
                     MusicItemTable.self,
-                    value: value,
+                    value: ["id": data.id, "name": data.name,
+                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count + 1],
                     update: .modified
                 )
             }
         } catch {
             print("업데이트 에러")
         }
+    }
+    
+    func makeMusicItemTable(_ data: MusicItem) -> MusicItemTable {
+        return MusicItemTable(id: data.id, name: data.name, artist: data.artist, bigImageURL: data.bigImageURL, smallImageURL: data.smallImageURL, previewURL: data.previewURL?.absoluteString, genres: data.genres)
     }
 }

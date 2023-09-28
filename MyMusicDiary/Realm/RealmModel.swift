@@ -8,6 +8,24 @@
 import Foundation
 import RealmSwift
 
+
+class DayItemTable: Object {
+    
+    @Persisted(primaryKey: true) var day: String    // 20230928
+    @Persisted var musicItems: List<MusicItemTable>
+    
+    convenience init(day: Date) {
+        self.init()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+
+        let dateString = dateFormatter.string(from: day)
+
+        self.day = dateString
+    }
+}
+
 class MusicItemTable: Object {
     
     @Persisted(primaryKey: true) var id: String
@@ -20,7 +38,6 @@ class MusicItemTable: Object {
     @Persisted var genres: List<String> = List<String>()
     
     @Persisted var count: Int = 1
-    
     
     convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String]) {
         self.init()
