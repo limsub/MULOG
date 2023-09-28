@@ -55,8 +55,6 @@ class MusicItemTableRepository {
         let data = realm.objects(DayItemTable.self)
         return data
     }
-    
-    
     func fetchDay(_ day: Date) -> DayItemTable? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"

@@ -7,7 +7,11 @@
 
 import UIKit
 
+// collectionView index 기반으로 구현
+
+
 protocol UpdateDataDelegate {
+    // Save 화면의 데이터를 업데이트
     func updateMusicList(item: MusicItem)
 }
 
@@ -17,7 +21,7 @@ class SaveViewController: BaseViewController {
     
     let viewModel = SaveViewModel()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout() )
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createSaveLayout() )
     
     let nextButton = {
         let view = UIButton()
@@ -31,19 +35,21 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
+        
+        // 임시
+        let music = repository.fetchMusic().first!
+        var musicGenres: [String] = []
+        music.genres.forEach { item in
+            musicGenres.append(item)
+        }
+        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres)
+        viewModel.musicList.value.append(music2)
+        
+        setCollectionView()
+        
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = saveButton
-        
-        GenreDataModel.shared.fetchGenreChart()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.dragDelegate = self
-        collectionView.dropDelegate = self
-        collectionView.dragInteractionEnabled = true
-        
-        collectionView.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
-        
         nextButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
     }
     
@@ -79,10 +85,6 @@ class SaveViewController: BaseViewController {
                 repository.appendMusicItem(todayData, musicItem: task)
             }
         }
-        
-        
-        
-        
     }
     
     @objc
@@ -96,8 +98,6 @@ class SaveViewController: BaseViewController {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
     
     override func setConfigure() {
         super.setConfigure()
@@ -117,6 +117,16 @@ class SaveViewController: BaseViewController {
             make.height.equalTo(60)
         }
     }
+    
+    func setCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
+        collectionView.dragInteractionEnabled = true
+        
+        collectionView.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
+    }
 }
 
 // datasource
@@ -126,12 +136,12 @@ extension SaveViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("cellForRowAtcellForRowAtcellForRowAtcellForRowAtcellForRowAt")
+        print("cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
         
         cell.designCell(viewModel.musicList.value[indexPath.row])
         
-        cell.representView.isHidden = (indexPath.item == 0) ? false : true
+        cell.representLabel.isHidden = (indexPath.item == 0) ? false : true
         
         return cell
     }
@@ -144,17 +154,8 @@ extension SaveViewController: UICollectionViewDataSource {
 
 // delegate
 extension SaveViewController: UICollectionViewDelegate {
+    // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
-//        viewModel.musicList.value.remove(at: indexPath.item)
-//        collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
-//
-//        nextButton.isHidden = false
-//
-//        print("wowowowowowowowowowowowowowo")
-//
-//        collectionView.reloadData()
-//        print("pqpqpqpqpqpqpqpqpqpqpqpqpqpqpq")
         
         collectionView.performBatchUpdates {
             viewModel.musicList.value.remove(at: indexPath.item)
@@ -163,20 +164,7 @@ extension SaveViewController: UICollectionViewDelegate {
         } completion: { [weak self] _ in
             self?.collectionView.reloadData()
         }
-
     }
-    
-//    @objc func didTapInsertButton(_ sender: Any) {
-//        collectionView.performBatchUpdates {
-//            dataSource.insert("123", at: 0)
-//            collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
-//
-//            dataSource.remove(at: 5)
-//            collectionView.deleteItems(at: [IndexPath(item: 5, section: 0)])
-//        } completion: { [weak self] _ in
-//            print(self?.collectionView.numberOfItems(inSection: 0))
-//        }
-//    }
 }
 
 // drag and drop
@@ -186,6 +174,9 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         print("itemsForBeginning", indexPath)
         
         return [UIDragItem(itemProvider: NSItemProvider())]
+        
+        // NSItemProvider: 현재 앱이 다른 앱에 데이터를 전달하는 목적으로 사용
+        // drag and drop : 화면 하나에 여러 가지 앱이 띄워져 있을 경우, 다른 앱으로 drop하여 아이템을 전달할 때, 이 provider에 담아서 전송한다
     }
     
     
@@ -231,9 +222,10 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         collectionView.insertItems(at: [destinationIndexPath])
     }
     
+    // dropSessionDidUpdate: drag하는 동안 계속 호출
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         
-        
+        // drag가 활성화되어 있는 경우에만 drop이 동작.
         if collectionView.hasActiveDrag {
             return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         }
