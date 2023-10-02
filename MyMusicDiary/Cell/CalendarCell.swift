@@ -14,9 +14,9 @@ class CalendarCell: FSCalendarCell {
     var backImageView = {
         let view = UIImageView()
         
-//        view.image = UIImage(named: "sample1")
+//        view.image = UIImage(named: ["sample1"].randomElement()!)
         view.contentMode = .scaleAspectFill
-        view.backgroundColor = [.brown, .blue, .red, .clear].randomElement()!
+//        view.backgroundColor = [.brown, .blue, .red, .clear].randomElement()!
         view.clipsToBounds = true
         
         view.layer.borderWidth = 1
@@ -51,10 +51,12 @@ class CalendarCell: FSCalendarCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-            
-            
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        
+        backImageView.image = nil
     }
     
     func minSize() -> CGFloat {

@@ -7,8 +7,11 @@
 
 import UIKit
 import FSCalendar
+import Kingfisher
 
 class MonthCalendarViewController: BaseViewController {
+    
+    let repository = MusicItemTableRepository()
     
     var calendar = FSCalendar()
     
@@ -16,6 +19,9 @@ class MonthCalendarViewController: BaseViewController {
     var currentSelectedDate: Date = Date()
     var previousMonthPosition = FSCalendarMonthPosition(rawValue: 1)    // 얘네는 옵셔널
     var currentMonthPosition = FSCalendarMonthPosition(rawValue: 1)
+    
+    var previousCell: CalendarCell?
+    var currentCell: CalendarCell?
     
     
     override func viewDidLoad() {
@@ -28,7 +34,7 @@ class MonthCalendarViewController: BaseViewController {
         calendar.dataSource = self
         
         
-        
+        settingWholeCalendar()
     }
     
     override func setConfigure() {
@@ -55,9 +61,19 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         calendar.locale = Locale.init(identifier: "ko_KR")
         calendar.scope = .month
         
-        calendar.appearance.borderRadius = 0    // ??
+//        calendar.appearance.borderRadius = 0    // ??
         
         calendar.translatesAutoresizingMaskIntoConstraints = false
+        
+        calendar.today = nil
+//        calendar.allowsSelection = false
+        
+//        calendar.appearance.eventSelectionColor = .clear
+        calendar.appearance.selectionColor = .clear
+        
+        // 글자 색 조절
+        
+        
     }
     
 //    func configureVisibleCells() {
@@ -81,6 +97,18 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         
         cell.backImageView.alpha = (date == currentSelectedDate) ? 1 : 0.5
         
+        
+        
+        if let data = repository.fetchDay(date) {
+            // 해당 데이터의 musicList의 첫 번째 데이터를 대표로 띄워줌 (인덱스 0)
+            let url = URL(string: data.musicItems[0].smallImageURL!)
+            cell.backImageView.kf.setImage(with: url)
+            
+        } else {
+            // 데이터 없으면 빈칸
+        }
+        
+        
         return cell
     }
     
@@ -94,16 +122,24 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         
         previousSelectedDate = currentSelectedDate
         currentSelectedDate = date
-        previousMonthPosition = currentMonthPosition ?? nil
-        currentMonthPosition = monthPosition
+//        previousMonthPosition = currentMonthPosition ?? nil
+//        currentMonthPosition = monthPosition
+//
+//
+//
+//        guard let previousCell = calendar.cell(for: previousSelectedDate, at: previousMonthPosition!) as? CalendarCell else { return }
+//        guard let currentCell = calendar.cell(for: currentSelectedDate, at: currentMonthPosition!) as? CalendarCell else { return }
+//
+//        previousCell.backImageView.alpha = 0.5
+//        currentCell.backImageView.alpha = 1
         
         
+        let cell = calendar.cell(for: date, at: monthPosition) as! CalendarCell
+        previousCell = currentCell
+        currentCell = cell
         
-        guard let previousCell = calendar.cell(for: previousSelectedDate, at: previousMonthPosition!) as? CalendarCell else { return }
-        guard let currentCell = calendar.cell(for: currentSelectedDate, at: currentMonthPosition!) as? CalendarCell else { return }
-        
-        previousCell.backImageView.alpha = 0.5
-        currentCell.backImageView.alpha = 1
+        previousCell?.backImageView.alpha = 0.5
+        currentCell?.backImageView.alpha = 1
     }
     
 
@@ -125,6 +161,8 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         calendar.reloadData()
 //        print(calendar.currentPage)
     }
+    
+    
 }
 
 
