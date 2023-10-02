@@ -35,7 +35,7 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
+        
         
         // 임시
         let music = repository.fetchMusic().first!
@@ -43,7 +43,8 @@ class SaveViewController: BaseViewController {
         music.genres.forEach { item in
             musicGenres.append(item)
         }
-        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres)
+        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres
+        )
         viewModel.musicList.value.append(music2)
         
         setCollectionView()
@@ -140,6 +141,8 @@ extension SaveViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
         
         cell.designCell(viewModel.musicList.value[indexPath.row])
+        
+        
         
         cell.representLabel.isHidden = (indexPath.item == 0) ? false : true
         
@@ -239,6 +242,7 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
 
 // delegate function
 extension SaveViewController: UpdateDataDelegate {
+    
     func updateMusicList(item: MusicItem) {
         viewModel.musicList.value.append(item)
         

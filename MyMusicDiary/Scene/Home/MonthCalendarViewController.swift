@@ -28,6 +28,20 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
+        
+        let nextButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
+        
+        navigationItem.rightBarButtonItem = nextButton
+        
+        
+        
+        navigationItem.titleView?.largeContentTitle = "메인"
+        
+        navigationItem.titleView?.tintColor = Constant.Color.main
+        navigationItem.titleView?.backgroundColor = Constant.Color.main
+        navigationController?.navigationBar.tintColor = Constant.Color.main
+        
         
         calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
         calendar.delegate = self
@@ -35,6 +49,12 @@ class MonthCalendarViewController: BaseViewController {
         
         
         settingWholeCalendar()
+    }
+    
+    @objc
+    func buttonClicked() {
+        let vc = SaveViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func setConfigure() {
@@ -48,7 +68,7 @@ class MonthCalendarViewController: BaseViewController {
         calendar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.7)
+            make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.6)
         }
     }
 }

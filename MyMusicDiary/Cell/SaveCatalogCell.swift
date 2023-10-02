@@ -9,6 +9,28 @@ import UIKit
 import Kingfisher
 
 
+class BasePaddingLabel: UILabel {
+    private var padding = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+
+    convenience init(padding: UIEdgeInsets) {
+        self.init()
+        self.padding = padding
+    }
+
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: rect.inset(by: padding))
+    }
+
+    override var intrinsicContentSize: CGSize {
+        var contentSize = super.intrinsicContentSize
+        contentSize.height += padding.top + padding.bottom
+        contentSize.width += padding.left + padding.right
+
+        return contentSize
+    }
+}
+
+
 class BezierView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,8 +59,11 @@ class SaveCatalogCell: BaseCollectionViewCell {
         let view = BezierView()
 //        view.backgroundColor = .lightGray.withAlphaComponent(0.05)
 //        view.backgroundColor = .systemPink.withAlphaComponent(0.2)
-        view.backgroundColor = .cyan.withAlphaComponent(0.1)
+        view.backgroundColor = .blue.withAlphaComponent(0.1)
+//        view.backgroundColor = .cyan.withAlphaComponent(0.1)
 //        view.backgroundColor = .brown.withAlphaComponent(0.1)
+//        view.backgroundColor = .lightGray.withAlphaComponent(0.1)
+        
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
         
@@ -61,17 +86,24 @@ class SaveCatalogCell: BaseCollectionViewCell {
     
     let artistLabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 12)
-        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 13)
+        view.textColor = .darkGray
         return view
     }()
     
     
     let genre1Label = {
-        let view = UILabel()
+        
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5))
+    
         view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .orange.withAlphaComponent(0.2)
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.5)
+        view.textColor = .darkGray
+        view.font = .systemFont(ofSize: 14)
+        
 //        view.text = "대표"
         view.textAlignment = .center
         return view
@@ -79,8 +111,8 @@ class SaveCatalogCell: BaseCollectionViewCell {
     let genre2Label = {
         let view = UILabel()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .orange.withAlphaComponent(0.2)
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .clear
 //        view.text = "대표"
         view.textAlignment = .center
         return view
@@ -88,8 +120,8 @@ class SaveCatalogCell: BaseCollectionViewCell {
     let genre3Label = {
         let view = UILabel()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .orange.withAlphaComponent(0.2)
+        view.layer.cornerRadius = 10
+        view.backgroundColor = .white.withAlphaComponent(0.5)
 //        view.text = "대표"
         view.textAlignment = .center
         return view
@@ -110,13 +142,13 @@ class SaveCatalogCell: BaseCollectionViewCell {
         super.setConfigure()
         
         contentView.addSubview(backView)
-        contentView.addSubview(artworkImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(artistLabel)
-        contentView.addSubview(representLabel)
-        contentView.addSubview(genre1Label)
-        contentView.addSubview(genre2Label)
-        contentView.addSubview(genre3Label)
+        backView.addSubview(artworkImageView)
+        backView.addSubview(titleLabel)
+        backView.addSubview(artistLabel)
+        backView.addSubview(representLabel)
+        backView.addSubview(genre1Label)
+        backView.addSubview(genre2Label)
+        backView.addSubview(genre3Label)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -149,17 +181,17 @@ class SaveCatalogCell: BaseCollectionViewCell {
         genre1Label.snp.makeConstraints { make in
             make.leading.equalTo(artworkImageView.snp.centerX)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(40)
+            make.height.equalTo(30)
         }
         genre2Label.snp.makeConstraints { make in
             make.leading.equalTo(genre1Label.snp.trailing).offset(10)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(40)
+            make.height.equalTo(30)
         }
         genre3Label.snp.makeConstraints { make in
             make.leading.equalTo(genre2Label.snp.trailing).offset(10)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(40)
+            make.height.equalTo(30)
         }
     }
     
@@ -171,6 +203,14 @@ class SaveCatalogCell: BaseCollectionViewCell {
         artworkImageView.kf.setImage(with: url)
         titleLabel.text = sender.name
         artistLabel.text = "\(sender.artist)"
+        
+        
+        if let backColor = sender.backgroundColor {
+            backView.backgroundColor = UIColor(cgColor: backColor).withAlphaComponent(0.2)
+        } else {
+            backView.backgroundColor = .lightGray.withAlphaComponent(0.1)
+        }
+        
         
         
         // "음악" 제외 -> 모든 곡에 다 포함되어있음 -> genre count를 무조건 1 빼서 계산 -> 모든 곡의 두번째 인덱스가 "음악" -> 제외시킴

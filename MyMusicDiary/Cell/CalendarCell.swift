@@ -19,7 +19,7 @@ class CalendarCell: FSCalendarCell {
 //        view.backgroundColor = [.brown, .blue, .red, .clear].randomElement()!
         view.clipsToBounds = true
         
-        view.layer.borderWidth = 1
+//        view.layer.borderWidth = 1
 //        view.layer.borderColor = UIColor.purple.cgColor
         
         
@@ -34,8 +34,8 @@ class CalendarCell: FSCalendarCell {
             make.center.equalTo(contentView)
         }
         
-        contentView.layer.borderColor = UIColor.blue.cgColor
-        contentView.layer.borderWidth = 0.5
+//        contentView.layer.borderColor = UIColor.blue.cgColor
+//        contentView.layer.borderWidth = 0.5
         
         contentView.insertSubview(backImageView, at: 0)
         backImageView.snp.makeConstraints { make in

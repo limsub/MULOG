@@ -8,6 +8,19 @@
 import UIKit
 import MusicKit
 
+extension UIView{
+    func setGradient(color1:UIColor,color2:UIColor){
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.colors = [color1.cgColor,color2.cgColor]
+        gradient.locations = [0.0 , 1.0]
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.frame = bounds
+        layer.addSublayer(gradient)
+    }
+}
+
+
 class Genre1ViewController: BaseViewController {
     
     
@@ -32,6 +45,14 @@ class Genre1ViewController: BaseViewController {
         configureDataSource()
         
         fetchMusic()
+        
+        
+        
+        let backView = UIView()
+        backView.setGradient(color1: .white, color2: .black)
+        collectionView.backgroundView = backView
+        collectionView.addSubview(backView)
+        
         
     }
     
@@ -66,7 +87,9 @@ class Genre1ViewController: BaseViewController {
                     id: $0.id.rawValue, name: $0.title, artist: $0.artistName,
                     bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
                     smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
-                    previewURL: $0.previewAssets?[0].url, genres: $0.genreNames)
+                    previewURL: $0.previewAssets?[0].url, genres: $0.genreNames,
+                    backgroundColor: $0.artwork?.backgroundColor
+                )
             }
             
             updateSnapshot()

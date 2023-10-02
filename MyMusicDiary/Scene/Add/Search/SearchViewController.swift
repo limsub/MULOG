@@ -87,6 +87,8 @@ class SearchViewController: BaseViewController {
             
             cell.designCell(itemIdentifier)
             
+            
+            
         }
         
         dataSource = UICollectionViewDiffableDataSource(

@@ -38,6 +38,8 @@ class SearchViewModel {
 //                        })
 //                    )
                     
+                    print(result.songs[0].title,  result.songs[0].artwork?.backgroundColor)
+                    
                     self.musicList.value = result.songs.map({
                         return .init(
                             id: $0.id.rawValue,
@@ -46,7 +48,9 @@ class SearchViewModel {
                             bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
                             smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
                             previewURL: $0.previewAssets?[0].url,
-                            genres: $0.genreNames
+                            genres: $0.genreNames,
+                            backgroundColor: $0.artwork?.backgroundColor
+                            
                         )
                     })
                     

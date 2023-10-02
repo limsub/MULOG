@@ -39,6 +39,8 @@
 		4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837903E2ACA4C86003AC436 /* CalendarCell.swift */; };
 		483790412ACA7873003AC436 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790402ACA7873003AC436 /* CalendarViewModel.swift */; };
 		483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */; };
+		483790462ACA9046003AC436 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790452ACA9046003AC436 /* UIColor.swift */; };
+		483790492ACA9090003AC436 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790482ACA9090003AC436 /* Constant.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -76,6 +78,8 @@
 		4837903E2ACA4C86003AC436 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		483790402ACA7873003AC436 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayItemTableRepository.swift; sourceTree = "<group>"; };
+		483790452ACA9046003AC436 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		483790482ACA9090003AC436 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +121,8 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
+				483790472ACA9089003AC436 /* Constant */,
+				483790442ACA903E003AC436 /* Extension */,
 				48A0A0E32AC548C3008DC198 /* Realm */,
 				4812D5422AC3D73900E7C6A4 /* GenreModel */,
 				4812D52E2AC3BBA700E7C6A4 /* Base */,
@@ -237,6 +243,22 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		483790442ACA903E003AC436 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				483790452ACA9046003AC436 /* UIColor.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		483790472ACA9089003AC436 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				483790482ACA9090003AC436 /* Constant.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
+				483790462ACA9046003AC436 /* UIColor.swift in Sources */,
 				4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
@@ -344,6 +367,7 @@
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
+				483790492ACA9090003AC436 /* Constant.swift in Sources */,
 				4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,

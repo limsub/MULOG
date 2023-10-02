@@ -7,9 +7,10 @@
 
 import Foundation
 import MusicKit
+import UIKit
 
 
-struct MusicItem: Identifiable, Hashable, Decodable {
+struct MusicItem: Identifiable, Hashable {
     var _id = UUID()
     
     let id: String
@@ -21,4 +22,6 @@ struct MusicItem: Identifiable, Hashable, Decodable {
     let previewURL: URL?
     
     let genres: [String]
+    
+    var backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
 }
