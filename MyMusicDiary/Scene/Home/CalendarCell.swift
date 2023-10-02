@@ -16,7 +16,7 @@ class CalendarCell: FSCalendarCell {
         
 //        view.image = UIImage(named: "sample1")
         view.contentMode = .scaleAspectFill
-        view.backgroundColor = [.red, .clear].randomElement()!
+        view.backgroundColor = [.brown, .blue, .red, .clear].randomElement()!
         view.clipsToBounds = true
         
         view.layer.borderWidth = 1
