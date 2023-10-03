@@ -32,31 +32,15 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        collectionView.keyboardDismissMode = .onDrag
-        
-        collectionView.prefetchDataSource = self
-        collectionView.delegate = self
-        
-        navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
-        
+        settingCollectionView()
+        settingNavigationItem()
+
         configureDataSource()
         bindModelData()
         viewModel.fetchMusic("블랙핑크")
-        
-        let tmpButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-        navigationItem.rightBarButtonItem = tmpButton
-        
     }
     
-    @objc
-    func buttonClicked() {
-        if !GenreDataModel.shared.genres.isEmpty {
-            let vc = TabViewController()
-            vc.delegate = delegate
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
+    
     
     // set
     override func setConfigure() {
@@ -71,24 +55,46 @@ class SearchViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    private func settingCollectionView() {
+        collectionView.keyboardDismissMode = .onDrag
+        collectionView.prefetchDataSource = self
+        collectionView.delegate = self
+    }
+    private func settingNavigationItem() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        
+        let tmpButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(chartButtonClicked))
+        navigationItem.rightBarButtonItem = tmpButton
+    }
     
     
     // bind
-    func bindModelData() {
+    private func bindModelData() {
+        print("musicList에 바인드 : updateSnapshot")
         viewModel.musicList.bind { _ in
-            print("hi")
             self.updateSnapshot()
         }
     }
+    
+    @objc
+    private func chartButtonClicked() {
+        if !GenreDataModel.shared.genres.isEmpty {  // 장르 데이터를 정상적으로 받아왔을 때 전환 가능
+            let vc = TabViewController()
+            vc.delegate = delegate
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            // 에러 발생 alert
+        }
+    }
+    
+    
     
     // datasource
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<SearchCatalogCell, MusicItem> { cell, indexPath, itemIdentifier in
             
             cell.designCell(itemIdentifier)
-            
-            
-            
         }
         
         dataSource = UICollectionViewDiffableDataSource(
@@ -110,8 +116,6 @@ class SearchViewController: BaseViewController {
         snapshot.appendItems(viewModel.musicList.value)
         dataSource?.apply(snapshot)
     }
-    
-    
 }
 
 // searchBar
@@ -125,10 +129,8 @@ extension SearchViewController: UISearchBarDelegate {
 // prefetch
 extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("hi")
+        print("prefetch. 추후 pagination 필요")
     }
-    
-    
 }
 
 // delegate
@@ -138,10 +140,5 @@ extension SearchViewController: UICollectionViewDelegate {
         delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.item])
         
         navigationController?.popViewController(animated: true)
-        
-//        if !GenreDataModel.shared.genres.isEmpty {
-//            let vc = TabViewController()
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
     }
 }

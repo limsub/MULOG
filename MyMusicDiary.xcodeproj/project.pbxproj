@@ -41,6 +41,9 @@
 		483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */; };
 		483790462ACA9046003AC436 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790452ACA9046003AC436 /* UIColor.swift */; };
 		483790492ACA9090003AC436 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790482ACA9090003AC436 /* Constant.swift */; };
+		4837904B2ACBA208003AC436 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904A2ACBA208003AC436 /* UIView.swift */; };
+		4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */; };
+		483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790502ACBA595003AC436 /* Protocol_UpdateData.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -80,6 +83,9 @@
 		483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayItemTableRepository.swift; sourceTree = "<group>"; };
 		483790452ACA9046003AC436 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		483790482ACA9090003AC436 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		4837904A2ACBA208003AC436 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewModel.swift; sourceTree = "<group>"; };
+		483790502ACBA595003AC436 /* Protocol_UpdateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_UpdateData.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +170,7 @@
 			children = (
 				4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */,
 				4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */,
+				483790502ACBA595003AC436 /* Protocol_UpdateData.swift */,
 			);
 			path = Save;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 		4812D51E2AC3AC7A00E7C6A4 /* GenreChart */ = {
 			isa = PBXGroup;
 			children = (
+				4837904C2ACBA3B3003AC436 /* ViewModel */,
 				4812D5362AC3D43A00E7C6A4 /* TabViewController.swift */,
 				4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */,
 				4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */,
@@ -247,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				483790452ACA9046003AC436 /* UIColor.swift */,
+				4837904A2ACBA208003AC436 /* UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -257,6 +266,14 @@
 				483790482ACA9090003AC436 /* Constant.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		4837904C2ACBA3B3003AC436 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -359,6 +376,7 @@
 			files = (
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* UIColor.swift in Sources */,
+				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
 				4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
@@ -367,8 +385,10 @@
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
+				4837904B2ACBA208003AC436 /* UIView.swift in Sources */,
 				483790492ACA9090003AC436 /* Constant.swift in Sources */,
 				4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */,
+				4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,
 				4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */,

@@ -11,7 +11,7 @@ import Pageboy
 
 class TabViewController: TabmanViewController {
     
-    var delegate: UpdateDataDelegate?
+    weak var delegate: UpdateDataDelegate?
     
     let v1 = Genre1ViewController()
     let v2 = Genre2ViewController()
@@ -31,24 +31,17 @@ class TabViewController: TabmanViewController {
         v4.delegate = delegate
         v5.delegate = delegate
         
-        
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
-        
         
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .leading
         bar.layout.contentMode = .intrinsic
         bar.layout.interButtonSpacing = 30
-        
-        
-        
-
         bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
 
         bar.backgroundView.style = .clear
-        
         
         addBar(bar, dataSource: self, at: .top)
     }

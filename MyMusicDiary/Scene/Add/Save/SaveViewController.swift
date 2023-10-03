@@ -10,11 +10,6 @@ import UIKit
 // collectionView index 기반으로 구현
 
 
-protocol UpdateDataDelegate {
-    // Save 화면의 데이터를 업데이트
-    func updateMusicList(item: MusicItem)
-}
-
 class SaveViewController: BaseViewController {
     
     let repository = MusicItemTableRepository()

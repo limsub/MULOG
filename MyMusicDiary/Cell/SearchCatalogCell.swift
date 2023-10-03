@@ -78,8 +78,8 @@ class SearchCatalogCell: BaseCollectionViewCell {
         artworkImageView.kf.setImage(with: url)
         titleLabel.text = sender.name
         
-        var genresText = ""
         
+        var genresText = ""
         for (index, item) in sender.genres.enumerated() {
             genresText += item
             if index != sender.genres.count - 1 {

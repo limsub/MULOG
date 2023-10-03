@@ -8,27 +8,16 @@
 import UIKit
 import MusicKit
 
-extension UIView{
-    func setGradient(color1:UIColor,color2:UIColor){
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [color1.cgColor,color2.cgColor]
-        gradient.locations = [0.0 , 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradient.frame = bounds
-        layer.addSublayer(gradient)
-    }
-}
-
 
 class Genre1ViewController: BaseViewController {
     
+    weak var delegate: UpdateDataDelegate?
     
-    var delegate: UpdateDataDelegate?
+    let viewModel = Genre1ViewModel()
     
-    var myGenre = GenreDataModel.shared.genres[0]
+//    var myGenre = GenreDataModel.shared.genres[0]
     
-    var musicList: Observable<[MusicItem]> = Observable([])
+//    var musicList: Observable<[MusicItem]> = Observable([])
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
@@ -44,16 +33,14 @@ class Genre1ViewController: BaseViewController {
         
         configureDataSource()
         
-        fetchMusic()
+        bindModelData()
         
-        
+        viewModel.fetchMusic()
         
         let backView = UIView()
         backView.setGradient(color1: .white, color2: .black)
         collectionView.backgroundView = backView
         collectionView.addSubview(backView)
-        
-        
     }
     
     // set
@@ -70,31 +57,39 @@ class Genre1ViewController: BaseViewController {
         }
     }
     
-    func fetchMusic() {
-        Task {
-            var request = MusicCatalogChartsRequest(
-                genre: myGenre,
-                kinds: [.cityTop],
-                types: [Song.self]
-            )
-            request.limit = 25
-            request.offset = 1
-            
-            let result = try await request.response()
-            
-            self.musicList.value = result.songCharts[0].items.map {
-                return .init(
-                    id: $0.id.rawValue, name: $0.title, artist: $0.artistName,
-                    bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
-                    smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
-                    previewURL: $0.previewAssets?[0].url, genres: $0.genreNames,
-                    backgroundColor: $0.artwork?.backgroundColor
-                )
-            }
-            
-            updateSnapshot()
+    // bind
+    private func bindModelData() {
+        print("musicList에 바인드 : updateSnapshot")
+        viewModel.musicList.bind { _ in
+            self.updateSnapshot()
         }
     }
+    
+//    func fetchMusic() {
+//        Task {
+//            var request = MusicCatalogChartsRequest(
+//                genre: myGenre,
+//                kinds: [.cityTop],
+//                types: [Song.self]
+//            )
+//            request.limit = 25
+//            request.offset = 1
+//
+//            let result = try await request.response()
+//
+//            self.musicList.value = result.songCharts[0].items.map {
+//                return .init(
+//                    id: $0.id.rawValue, name: $0.title, artist: $0.artistName,
+//                    bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
+//                    smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
+//                    previewURL: $0.previewAssets?[0].url, genres: $0.genreNames,
+//                    backgroundColor: $0.artwork?.backgroundColor
+//                )
+//            }
+//
+//            updateSnapshot()
+//        }
+//    }
     
     
     // datasource
@@ -121,7 +116,7 @@ class Genre1ViewController: BaseViewController {
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItem>()
         snapshot.appendSections([0])
-        snapshot.appendItems(musicList.value)
+        snapshot.appendItems(viewModel.musicList.value)
         dataSource?.apply(snapshot)
     }
 }
@@ -129,7 +124,7 @@ class Genre1ViewController: BaseViewController {
 // prefetch
 extension Genre1ViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("hi")
+        
     }
     
     
@@ -139,10 +134,10 @@ extension Genre1ViewController: UICollectionViewDataSourcePrefetching {
 extension Genre1ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        delegate?.updateMusicList(item: musicList.value[indexPath.row])
+        delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.row])
         
         guard let viewControllerStack = self.navigationController?.viewControllers else { return }
-        // 뷰 스택에서 RedViewController를 찾아서 거기까지 pop 합니다.
+        // 뷰 스택에서 RedViewController를 찾아서 거기까지 pop
         for viewController in viewControllerStack {
             if let saveVC = viewController as? SaveViewController {
                 self.navigationController?.popToViewController(saveVC, animated: true)
