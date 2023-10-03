@@ -11,149 +11,209 @@ import Kingfisher
 
 class MonthCalendarViewController: BaseViewController {
     
-    let repository = MusicItemTableRepository()
+//    let repository = MusicItemTableRepository()
+//    var currentSelectedDate: Date = Date()
+    
+    let viewModel = CalendarViewModel()
     
     var calendar = FSCalendar()
     
-    var previousSelectedDate: Date = Date() // 초기값은 의미 없다 (옵셔널로 만들기 싫어서 넣어줌)
-    var currentSelectedDate: Date = Date()
-    var previousMonthPosition = FSCalendarMonthPosition(rawValue: 1)    // 얘네는 옵셔널
-    var currentMonthPosition = FSCalendarMonthPosition(rawValue: 1)
-    
     var previousCell: CalendarCell?
     var currentCell: CalendarCell?
+    
+    // 헤더 타이틀 레이블
+    let headerDateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.init(identifier: "en")
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter
+    }()
+    
+    lazy var headerLabel = {
+        let view = UILabel()
+        
+        view.text = headerDateFormatter.string(from: Date())  // 초기값
+        view.font = .boldSystemFont(ofSize: 24)
+        
+       return view
+    }()
+    lazy var reloadButton = {
+        let view = UIButton(frame: .zero)
+        view.setImage(UIImage(named: "reload"), for: .normal)
+        view.addTarget(self, action: #selector(reloadButtonClicked), for: .touchUpInside)
+        return view
+    }()
+    lazy var plusButton = {
+        let view = UIButton(frame: .zero)
+        view.setImage(UIImage(named: "add"), for: .normal)
+        view.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
+        return view
+    }()
+    
+    @objc
+    private func reloadButtonClicked() {
+        calendar.setCurrentPage(Date(), animated: true)
+    }
+    @objc
+    private func plusButtonClicked() {
+        let vc = SaveViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+//    lazy var beforeButton = {
+//        let view = UIButton()
+//        view.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+//        view.addTarget(self, action: #selector(beforeButtonClicked), for: .touchUpInside)
+//        return view
+//    }()
+//    lazy var afterButton = {
+//        let view = UIButton()
+//        view.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+//        view.addTarget(self, action: #selector(afterButtonClicked), for: .touchUpInside)
+//        return view
+//    }()
+//
+//    private func getBefore(date: Date) -> Date {
+//        guard let date = Calendar.current.date(byAdding: .month, value: -1, to: date) else { return Date() }
+//        return date
+//    }
+//    private func getAfter(date: Date) -> Date {
+//        guard let date = Calendar.current.date(byAdding: .month, value: 1, to: date) else { return Date() }
+//        return date
+//    }
+//
+//    @objc
+//    private func beforeButtonClicked() {
+//        calendar.setCurrentPage(getBefore(date: calendar.currentPage), animated: true)
+//    }
+//    @objc
+//    private func afterButtonClicked() {
+//        calendar.setCurrentPage(getAfter(date: calendar.currentPage), animated: true)
+//    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
-        
-        let nextButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-        
-        navigationItem.rightBarButtonItem = nextButton
         
         
-        
-        navigationItem.titleView?.largeContentTitle = "메인"
-        
-        navigationItem.titleView?.tintColor = Constant.Color.main
-        navigationItem.titleView?.backgroundColor = Constant.Color.main
-        navigationController?.navigationBar.tintColor = Constant.Color.main
+//        navigationItem.title = "기록"
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .always
         
         
-        calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
-        calendar.delegate = self
-        calendar.dataSource = self
         
         
-        settingWholeCalendar()
+        settingCalendar()
     }
     
-    @objc
-    func buttonClicked() {
-        let vc = SaveViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
     
+    // set
     override func setConfigure() {
         super.setConfigure()
         
         view.addSubview(calendar)
+        view.addSubview(headerLabel)
+//        view.addSubview(beforeButton)
+//        view.addSubview(afterButton)
+        view.addSubview(reloadButton)
+        view.addSubview(plusButton)
     }
     override func setConstraints() {
         super.setConstraints()
         
         calendar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(18)
             make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.6)
         }
+        headerLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            make.leading.equalTo(calendar.collectionView).inset(18)
+        }
+//        beforeButton.snp.makeConstraints { make in
+//            make.centerY.equalTo(calendar.calendarHeaderView)
+//            make.width.equalTo(20)
+////            make.leading.equalTo(headerLabel.snp.trailing).offset(8)
+//            make.centerX.equalTo(view).offset(-20)
+//        }
+//        afterButton.snp.makeConstraints { make in
+//            make.centerY.equalTo(calendar.calendarHeaderView)
+//            make.width.equalTo(20)
+//            make.leading.equalTo(beforeButton.snp.trailing).offset(8)
+//        }
+        reloadButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            make.trailing.equalTo(view).inset(32)
+            make.width.equalTo(25)
+            make.height.equalTo(25)
+        }
+        plusButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            
+            make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
+            make.width.equalTo(25)
+            make.height.equalTo(25)
+        }
+    }
+
+    private func settingCalendar() {
+        // register, 프로토콜 채택
+        calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
+        calendar.delegate = self
+        calendar.dataSource = self
+        
+        // 기존의 헤더 가림
+        calendar.appearance.headerTitleColor = .clear
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        calendar.headerHeight = 66
+        
+        // 각종 설정
+        calendar.today = nil
+        calendar.scrollDirection = .horizontal
+        calendar.locale = Locale.init(identifier: "en")
+        calendar.scope = .month
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        calendar.appearance.selectionColor = .clear
+        calendar.appearance.weekdayFont = .boldSystemFont(ofSize: 14)
+        calendar.appearance.caseOptions = .weekdayUsesSingleUpperCase
+        calendar.appearance.weekdayTextColor = .black
+        calendar.appearance.titleFont = .boldSystemFont(ofSize: 12)
+        calendar.weekdayHeight = 10
+        calendar.placeholderType = .none
     }
 }
 
+
 extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
-    func settingWholeCalendar() {
-        calendar.today = nil
-        calendar.scrollDirection = .horizontal
-        calendar.locale = Locale.init(identifier: "ko_KR")
-        calendar.scope = .month
-        
-//        calendar.appearance.borderRadius = 0    // ??
-        
-        calendar.translatesAutoresizingMaskIntoConstraints = false
-        
-        calendar.today = nil
-//        calendar.allowsSelection = false
-        
-//        calendar.appearance.eventSelectionColor = .clear
-        calendar.appearance.selectionColor = .clear
-        
-        // 글자 색 조절
-        
-        
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date()
     }
-    
-//    func configureVisibleCells() {
-//        calendar.visibleCells().forEach { cell in
-//            let date = self.calendar.date(for: cell)
-//            let position = self.calendar.monthPosition(for: cell)
-//            
-//            self.configureCell(cell, for: date, at: position)
-//        }
-//    }
-    
-//    func configureCell(_ cell: FSCalendarCell?, for date: Date?, at position: FSCalendarMonthPosition) {
-//        guard let diyCell = cell as? CalendarCell else { return }
-//    }
-    
+
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
         
         print(date, position.rawValue)
         
-        cell.backImageView.alpha = (date == currentSelectedDate) ? 1 : 0.5
+        cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
         
-        
-        
-        if let data = repository.fetchDay(date) {
-            // 해당 데이터의 musicList의 첫 번째 데이터를 대표로 띄워줌 (인덱스 0)
-            let url = URL(string: data.musicItems[0].smallImageURL!)
-            cell.backImageView.kf.setImage(with: url)
-            
+        if let thumb = viewModel.firstMusicUrl(date) {
+            cell.backImageView.kf.setImage(with: thumb)
         } else {
-            // 데이터 없으면 빈칸
+            
         }
-        
         
         return cell
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        let cell = calendar.cell(for: date, at: monthPosition) as! CalendarCell
-//        cell.backImageView.alpha = 1
         
-//        calendar.reloadData()
-        
-        
-        
-        previousSelectedDate = currentSelectedDate
-        currentSelectedDate = date
-//        previousMonthPosition = currentMonthPosition ?? nil
-//        currentMonthPosition = monthPosition
-//
-//
-//
-//        guard let previousCell = calendar.cell(for: previousSelectedDate, at: previousMonthPosition!) as? CalendarCell else { return }
-//        guard let currentCell = calendar.cell(for: currentSelectedDate, at: currentMonthPosition!) as? CalendarCell else { return }
-//
-//        previousCell.backImageView.alpha = 0.5
-//        currentCell.backImageView.alpha = 1
-        
-        
+        // currentSelectedDate 업데이트
+        viewModel.currentSelectedDate.value = date
+
         let cell = calendar.cell(for: date, at: monthPosition) as! CalendarCell
         previousCell = currentCell
         currentCell = cell
@@ -177,12 +237,15 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     // 페이지를 넘길 때, monthPosition이 바뀌기 때문에 이 때는 reload를 해주자
     // reload를 해주기 때문에 cellFor에서도 selectedDay인지 확인해서 alpha 조절 -> 차피 오늘 날짜 초기값 주니까 괜찮은듯
     
+    // 10/3
+    // 이전/다음 달 날짜는 아예 안나오게 설정해서 복잡하게 로직 짤 필요가 없어졌다
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let currentPage = calendar.currentPage
+        headerLabel.text = headerDateFormatter.string(from: currentPage)
+        
         calendar.reloadData()
-//        print(calendar.currentPage)
     }
-    
-    
 }
 
 

@@ -9,7 +9,7 @@ import UIKit
 import Tabman
 import Pageboy
 
-class TabViewController: TabmanViewController {
+class GenreTabViewController: TabmanViewController {
     
     weak var delegate: UpdateDataDelegate?
     
@@ -48,7 +48,7 @@ class TabViewController: TabmanViewController {
     
 }
 
-extension TabViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension GenreTabViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: Pageboy.PageboyViewController) -> Int {
         return viewControllers.count
     }

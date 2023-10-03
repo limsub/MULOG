@@ -25,7 +25,7 @@
 		4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */; };
 		4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */; };
 		4812D5352AC3D42200E7C6A4 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 4812D5342AC3D42200E7C6A4 /* Tabman */; };
-		4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5362AC3D43A00E7C6A4 /* TabViewController.swift */; };
+		4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */; };
 		4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */; };
 		4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */; };
 		4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */; };
@@ -44,6 +44,7 @@
 		4837904B2ACBA208003AC436 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904A2ACBA208003AC436 /* UIView.swift */; };
 		4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */; };
 		483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790502ACBA595003AC436 /* Protocol_UpdateData.swift */; };
+		483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790532ACBDD45003AC436 /* HomeTabViewController.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -66,7 +67,7 @@
 		4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogCell.swift; sourceTree = "<group>"; };
 		4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		4812D5362AC3D43A00E7C6A4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreTabViewController.swift; sourceTree = "<group>"; };
 		4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewController.swift; sourceTree = "<group>"; };
 		4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre2ViewController.swift; sourceTree = "<group>"; };
 		4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre3ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		4837904A2ACBA208003AC436 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewModel.swift; sourceTree = "<group>"; };
 		483790502ACBA595003AC436 /* Protocol_UpdateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_UpdateData.swift; sourceTree = "<group>"; };
+		483790532ACBDD45003AC436 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				4837904C2ACBA3B3003AC436 /* ViewModel */,
-				4812D5362AC3D43A00E7C6A4 /* TabViewController.swift */,
+				4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */,
 				4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */,
 				4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */,
 				4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */,
@@ -245,6 +247,8 @@
 		4837903B2ACA4C04003AC436 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				483790532ACBDD45003AC436 /* HomeTabViewController.swift */,
+				483790522ACBDD39003AC436 /* Calendar */,
 				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
 				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
 			);
@@ -274,6 +278,13 @@
 				4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		483790522ACBDD39003AC436 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -377,7 +388,7 @@
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* UIColor.swift in Sources */,
 				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
-				4812D5372AC3D43A00E7C6A4 /* TabViewController.swift in Sources */,
+				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
@@ -403,6 +414,7 @@
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,
+				483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */,
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
