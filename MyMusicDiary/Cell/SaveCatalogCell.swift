@@ -94,48 +94,84 @@ class SaveCatalogCell: BaseCollectionViewCell {
     
     let genre1Label = {
         
-        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 1, left: 5, bottom: 1, right: 5))
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 0.4
-        view.backgroundColor = .white.withAlphaComponent(0.5)
-        view.textColor = .darkGray
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
         view.font = .systemFont(ofSize: 14)
-        
-//        view.text = "대표"
         view.textAlignment = .center
         return view
     }()
     let genre2Label = {
-        let view = UILabel()
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
+        
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        view.backgroundColor = .clear
-//        view.text = "대표"
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
         view.textAlignment = .center
         return view
     }()
     let genre3Label = {
-        let view = UILabel()
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
+        
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
-        view.backgroundColor = .white.withAlphaComponent(0.5)
-//        view.text = "대표"
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
         view.textAlignment = .center
         return view
     }()
     
     let representLabel = {
-        let view = UILabel()
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12))
+        
         view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .orange.withAlphaComponent(0.2)
+        view.layer.cornerRadius = 16
+        
+        view.backgroundColor = Constant.Color.main.withAlphaComponent(0.4)
+//        view.backgroundColor = UIColor(hexCode: "#FF9E85", alpha: 0.4)
+//        view.layer.borderColor = UIColor(hexCode: "#FF9E85", alpha: 0.8).cgColor
+//        view.layer.borderWidth = 1
+        
         view.text = "대표"
+        
+        view.textColor = .white
+        
+        view.font = .boldSystemFont(ofSize: 16)
+        
         view.textAlignment = .center
         return view
     }()
+    
+    let recordView = UIView()
+    
+    let cntLabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 20)
+        view.textColor = .white
+        view.text = "3"
+        return view
+    }()
+    
+    let recordLabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 14)
+        view.textColor = .white
+        view.text = "records"
+        return view
+    }()
+    
     
     
     override func setConfigure() {
@@ -145,10 +181,19 @@ class SaveCatalogCell: BaseCollectionViewCell {
         backView.addSubview(artworkImageView)
         backView.addSubview(titleLabel)
         backView.addSubview(artistLabel)
-        backView.addSubview(representLabel)
+        
         backView.addSubview(genre1Label)
         backView.addSubview(genre2Label)
         backView.addSubview(genre3Label)
+        
+        
+        recordView.addSubview(cntLabel)
+        recordView.addSubview(recordLabel)
+        
+        
+        backView.addSubview(recordView)
+        
+        backView.addSubview(representLabel)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -172,26 +217,50 @@ class SaveCatalogCell: BaseCollectionViewCell {
             make.trailing.equalTo(backView).inset(12)
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
         }
-        representLabel.snp.makeConstraints { make in
-            make.trailing.bottom.equalTo(backView).inset(10)
-            
-            make.width.equalTo(50)
-            make.height.equalTo(40)
-        }
+        
         genre1Label.snp.makeConstraints { make in
-            make.leading.equalTo(artworkImageView.snp.centerX)
+            make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(30)
+//            make.height.equalTo(30)
         }
         genre2Label.snp.makeConstraints { make in
             make.leading.equalTo(genre1Label.snp.trailing).offset(10)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(30)
+//            make.height.equalTo(30)
         }
         genre3Label.snp.makeConstraints { make in
             make.leading.equalTo(genre2Label.snp.trailing).offset(10)
             make.bottom.equalTo(backView).inset(10)
-            make.height.equalTo(30)
+//            make.height.equalTo(30)
+        }
+        
+        representLabel.snp.makeConstraints { make in
+//            make.trailing.equalTo(backView).inset(10)
+//            make.top.equalTo(titleLabel)
+            
+//            make.leading.equalTo(backView).inset(8)
+            
+            make.centerX.equalTo(artworkImageView)
+            make.centerY.equalTo(genre1Label)
+            
+//            make.width.equalTo(50)
+//            make.height.equalTo(40)
+        }
+        
+        cntLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(recordView)
+            make.top.equalTo(recordView)
+        }
+        recordLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(recordView)
+            make.top.equalTo(cntLabel.snp.bottom)
+            make.bottom.equalTo(recordView)
+        }
+        
+        recordView.snp.makeConstraints { make in
+            make.centerY.equalTo(backView)
+            make.trailing.equalTo(backView).inset(40)
+            
         }
     }
     
@@ -203,6 +272,7 @@ class SaveCatalogCell: BaseCollectionViewCell {
         artworkImageView.kf.setImage(with: url)
         titleLabel.text = sender.name
         artistLabel.text = "\(sender.artist)"
+        
         
         
         if let backColor = sender.backgroundColor {

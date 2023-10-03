@@ -24,4 +24,6 @@ struct MusicItem: Identifiable, Hashable {
     let genres: [String]
     
     var backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
+    
+
 }

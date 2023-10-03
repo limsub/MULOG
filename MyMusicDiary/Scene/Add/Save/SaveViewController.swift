@@ -138,6 +138,17 @@ extension SaveViewController: UICollectionViewDataSource {
         cell.designCell(viewModel.musicList.value[indexPath.row])
         
         
+        if let music = repository.fetchMusic(viewModel.musicList.value[indexPath.row].id) {
+            cell.cntLabel.text = "\(music.count)"
+            cell.recordLabel.text = "records"
+            if music.count == 1 {
+                cell.recordLabel.text = "record"
+            }
+        } else {
+            cell.cntLabel.text = "0"
+            cell.recordLabel.text = "record"
+        }
+
         
         cell.representLabel.isHidden = (indexPath.item == 0) ? false : true
         

@@ -51,6 +51,12 @@ class MusicItemTableRepository {
         let data = realm.objects(MusicItemTable.self)
         return data
     }
+    func fetchMusic(_ id: String) -> MusicItemTable? {
+        let data = realm.objects(MusicItemTable.self).where {
+            $0.id == id
+        }
+        return data.first
+    }
     func fetchDay() -> Results<DayItemTable> {
         let data = realm.objects(DayItemTable.self)
         return data
