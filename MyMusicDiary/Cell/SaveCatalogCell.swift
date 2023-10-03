@@ -264,8 +264,18 @@ class SaveCatalogCell: BaseCollectionViewCell {
         }
     }
     
-    func designCell(_ sender: MusicItem) {
-//        let url = sender.imageURL?.url(width: 100, height: 100)
+    func designCell(_ sender: MusicItem, recordCnt: Int, indexPath: IndexPath) {
+        
+        representLabel.isHidden = (indexPath.item == 0) ? false : true
+
+        cntLabel.text = "\(recordCnt)"
+        if recordCnt == 1 {
+            recordLabel.text = "record"
+        } else {
+            recordLabel.text = "records"
+        }
+        
+        
         guard let smallURL = sender.smallImageURL else { return }
         let url = URL(string: smallURL)
         
@@ -299,17 +309,6 @@ class SaveCatalogCell: BaseCollectionViewCell {
             }
             
         }
-        
-//
-//        for (index, item) in sender.genres.enumerated() {
-//            genresText += item
-//            if index != sender.genres.count - 1 {
-//                genresText += ", "
-//            }
-//        }
-        
-        
-        representLabel.isHidden = true
     }
     
 }

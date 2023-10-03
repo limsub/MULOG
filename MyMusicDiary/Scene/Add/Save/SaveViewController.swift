@@ -12,7 +12,7 @@ import UIKit
 
 class SaveViewController: BaseViewController {
     
-    let repository = MusicItemTableRepository()
+//    let repository = MusicItemTableRepository()
     
     let viewModel = SaveViewModel()
     
@@ -33,14 +33,15 @@ class SaveViewController: BaseViewController {
         
         
         // 임시
-        let music = repository.fetchMusic().first!
-        var musicGenres: [String] = []
-        music.genres.forEach { item in
-            musicGenres.append(item)
-        }
-        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres
-        )
-        viewModel.musicList.value.append(music2)
+//        let music = repository.fetchMusic().first!
+//        var musicGenres: [String] = []
+//        music.genres.forEach { item in
+//            musicGenres.append(item)
+//        }
+//        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres
+//        )
+//        viewModel.musicList.value.append(music2)
+        
         
         setCollectionView()
         
@@ -54,41 +55,41 @@ class SaveViewController: BaseViewController {
         print("데이터가 저장됩니다")
         print(viewModel.musicList.value)
         
-        // 오늘 날짜로 추가
-        let todayNew = DayItemTable(day: Date())
-        repository.createDayItem(todayNew)
+        viewModel.addNewData()
         
-        // 방금 추가한 데이터 가져옴
-        guard let todayData = repository.fetchDay(Date()) else { return }
-        
-        // 저장할 음악 데이터들 loop
-        viewModel.musicList.value.forEach {
-            
-            // 이미 저장된 음악 데이터인 경우
-            if let alreadyData = repository.alreadySave($0.id) {
-                // count를 1 증가시킨다
-                repository.plusCnt(alreadyData)
-
-                // 오늘 날짜 데이터의 musicItem에 추가
-                repository.appendMusicItem(todayData, musicItem: alreadyData)
-            }
-            // 기존에 없는 음악 데이터인 경우
-            else {
-                // 새로운 테이블 생성
-                let task = repository.makeMusicItemTable($0)
-                
-                // 오늘 날짜 데이터의 musicItem에 추가 -> 자동으로 musicItemTable에도 추가된다
-                repository.appendMusicItem(todayData, musicItem: task)
-            }
-        }
+//        // 오늘 날짜로 추가
+//        let todayNew = DayItemTable(day: Date())
+//        repository.createDayItem(todayNew)
+//
+//        // 방금 추가한 데이터 가져옴
+//        guard let todayData = repository.fetchDay(Date()) else { return }
+//
+//        // 저장할 음악 데이터들 loop
+//        viewModel.musicList.value.forEach {
+//
+//            // 이미 저장된 음악 데이터인 경우
+//            if let alreadyData = repository.alreadySave($0.id) {
+//                // count를 1 증가시킨다
+//                repository.plusCnt(alreadyData)
+//
+//                // 오늘 날짜 데이터의 musicItem에 추가
+//                repository.appendMusicItem(todayData, musicItem: alreadyData)
+//            }
+//            // 기존에 없는 음악 데이터인 경우
+//            else {
+//                // 새로운 테이블 생성
+//                let task = repository.makeMusicItemTable($0)
+//
+//                // 오늘 날짜 데이터의 musicItem에 추가 -> 자동으로 musicItemTable에도 추가된다
+//                repository.appendMusicItem(todayData, musicItem: task)
+//            }
+//        }
     }
     
     @objc
     func buttonClicked() {
         
         print("디비에 저장된 데이터입니다")
-        print(repository.fetchMusic())
-        print(repository.fetchDay())
         
         let vc = SearchViewController()
         vc.delegate = self
@@ -128,29 +129,17 @@ class SaveViewController: BaseViewController {
 // datasource
 extension SaveViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return viewModel.musicListCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
         
-        cell.designCell(viewModel.musicList.value[indexPath.row])
+        let music = viewModel.music(indexPath)
+        let recordCnt = viewModel.musicRecordCount(indexPath)
         
-        
-        if let music = repository.fetchMusic(viewModel.musicList.value[indexPath.row].id) {
-            cell.cntLabel.text = "\(music.count)"
-            cell.recordLabel.text = "records"
-            if music.count == 1 {
-                cell.recordLabel.text = "record"
-            }
-        } else {
-            cell.cntLabel.text = "0"
-            cell.recordLabel.text = "record"
-        }
-
-        
-        cell.representLabel.isHidden = (indexPath.item == 0) ? false : true
+        cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
         
         return cell
     }
@@ -167,7 +156,7 @@ extension SaveViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         collectionView.performBatchUpdates {
-            viewModel.musicList.value.remove(at: indexPath.item)
+            viewModel.removeMusic(indexPath)
             collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
             nextButton.isHidden = false
         } completion: { [weak self] _ in
@@ -222,11 +211,11 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
                 
     private func move2(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
         
-        let sourceItem = viewModel.musicList.value[sourceIndexPath.item]
+        let sourceItem = viewModel.music(sourceIndexPath)
         
-        viewModel.musicList.value.remove(at: sourceIndexPath.item)
-        viewModel.musicList.value.insert(sourceItem, at: destinationIndexPath.item)
-        
+        viewModel.removeMusic(sourceIndexPath)
+        viewModel.insertMusic(sourceItem, indexPath: destinationIndexPath)
+
         collectionView.deleteItems(at: [sourceIndexPath])
         collectionView.insertItems(at: [destinationIndexPath])
     }
@@ -250,13 +239,14 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
 extension SaveViewController: UpdateDataDelegate {
     
     func updateMusicList(item: MusicItem) {
-        viewModel.musicList.value.append(item)
         
-        if viewModel.musicList.value.count == 3 {
-            nextButton.isHidden = true
-        } else {
-            nextButton.isHidden = false
-        }
+        print("update :", item)
+        print("data : ", viewModel.musicList.value)
+        
+        viewModel.appendMusic(item)
+        
+        nextButton.isHidden = (viewModel.musicListCount() == 3) ? true : false
+        
         collectionView.reloadData()
     }
 }
