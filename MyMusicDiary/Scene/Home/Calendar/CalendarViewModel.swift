@@ -11,6 +11,7 @@ class CalendarViewModel {
     
     let repository = MusicItemTableRepository()
     
+    var previousSelectedDate: Observable<Date> = Observable(Date())
     var currentSelectedDate: Observable<Date> = Observable(Date())  // 초기값 오늘
     
     var currentMusicList: Observable<[MusicItemTable]> = Observable([])
@@ -40,5 +41,10 @@ class CalendarViewModel {
         data.musicItems.forEach { item in
             currentMusicList.value.append(item)
         }
+    }
+    
+    func updateSelectedDate(_ newDate: Date) {
+        previousSelectedDate.value = currentSelectedDate.value
+        currentSelectedDate.value = newDate
     }
 }

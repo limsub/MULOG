@@ -10,6 +10,13 @@ import UIKit
 
 enum Constant {
     
+    static let headerDateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.init(identifier: "en")
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter
+    }()
+    
     enum Color {
         static let main = UIColor(hexCode: "#C8A2C8")
     }

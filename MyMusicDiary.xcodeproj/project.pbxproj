@@ -46,6 +46,9 @@
 		483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790502ACBA595003AC436 /* Protocol_UpdateData.swift */; };
 		483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790532ACBDD45003AC436 /* HomeTabViewController.swift */; };
 		4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */; };
+		483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790812ACD3B40003AC436 /* MonthCalendarView.swift */; };
+		483790842ACD3B7E003AC436 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790832ACD3B7E003AC436 /* BaseView.swift */; };
+		483790862ACD4263003AC436 /* WeekCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790852ACD4263003AC436 /* WeekCalendarView.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -90,6 +93,9 @@
 		483790502ACBA595003AC436 /* Protocol_UpdateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_UpdateData.swift; sourceTree = "<group>"; };
 		483790532ACBDD45003AC436 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarCatalogCell.swift; sourceTree = "<group>"; };
+		483790812ACD3B40003AC436 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
+		483790832ACD3B7E003AC436 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		483790852ACD4263003AC436 /* WeekCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCalendarView.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,6 +241,7 @@
 			children = (
 				4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */,
 				4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */,
+				483790832ACD3B7E003AC436 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -252,8 +259,6 @@
 			children = (
 				483790532ACBDD45003AC436 /* HomeTabViewController.swift */,
 				483790522ACBDD39003AC436 /* Calendar */,
-				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
-				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -286,6 +291,10 @@
 		483790522ACBDD39003AC436 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
+				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
+				483790812ACD3B40003AC436 /* MonthCalendarView.swift */,
+				483790852ACD4263003AC436 /* WeekCalendarView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -391,17 +400,20 @@
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* UIColor.swift in Sources */,
 				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
+				483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */,
 				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
+				483790862ACD4263003AC436 /* WeekCalendarView.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
 				4837904B2ACBA208003AC436 /* UIView.swift in Sources */,
 				483790492ACA9090003AC436 /* Constant.swift in Sources */,
 				4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */,
+				483790842ACD3B7E003AC436 /* BaseView.swift in Sources */,
 				4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,
