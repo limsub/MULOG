@@ -14,14 +14,15 @@ class MonthCalendarViewController: BaseViewController {
 //    let repository = MusicItemTableRepository()
 //    var currentSelectedDate: Date = Date()
     
+    /* viewModel */
     let viewModel = CalendarViewModel()
     
+    /* calendar */
     var calendar = FSCalendar()
     
     var previousCell: CalendarCell?
     var currentCell: CalendarCell?
     
-    // 헤더 타이틀 레이블
     let headerDateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.init(identifier: "en")
@@ -92,6 +93,48 @@ class MonthCalendarViewController: BaseViewController {
 //    }
     
     
+    
+    /* CollectionView */
+    lazy var collectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionLayout())
+//        view.delegate = self
+        
+        view.backgroundColor = .red.withAlphaComponent(0.1)
+        
+        return view
+    }()
+    var dataSource: UICollectionViewDiffableDataSource<Int, MusicItemTable>?
+    
+    
+    func configureCollectionLayout() -> UICollectionViewLayout {
+        // item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            repeatingSubitem: item,
+            count: 3
+        )
+        group.interItemSpacing = .fixed(10)
+        
+        
+        // section
+        let section = NSCollectionLayoutSection(group: group)
+        
+        // configuration -> 일단 사용x
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        
+        // layout
+        let layout = UICollectionViewCompositionalLayout(section: section)
+//        layout.configuration = configuration
+        
+        return layout
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -106,6 +149,8 @@ class MonthCalendarViewController: BaseViewController {
         
         
         settingCalendar()
+        
+        updateSnapshot()
     }
     
     
@@ -119,6 +164,8 @@ class MonthCalendarViewController: BaseViewController {
 //        view.addSubview(afterButton)
         view.addSubview(reloadButton)
         view.addSubview(plusButton)
+        
+        view.addSubview(collectionView)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -156,6 +203,13 @@ class MonthCalendarViewController: BaseViewController {
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(calendar.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(view).inset(18)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    
     }
 
     private func settingCalendar() {
@@ -220,6 +274,12 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         
         previousCell?.backImageView.alpha = 0.5
         currentCell?.backImageView.alpha = 1
+        
+        
+        // collectionView
+        configureDataSource()
+        viewModel.updateMusicList(date)
+        updateSnapshot()
     }
     
 
@@ -249,3 +309,39 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
 }
 
 
+
+extension MonthCalendarViewController {
+    
+    func configureDataSource() {
+        // cellRegistration
+         let cellRegistration = UICollectionView.CellRegistration<MonthCalendarCatalogCell, MusicItemTable> { cell, indexPath, itemIdentifier in
+            
+            cell.designCell(itemIdentifier)
+        }
+        
+        // dataSource
+        dataSource = UICollectionViewDiffableDataSource(
+            collectionView: collectionView,
+            cellProvider: { collectionView, indexPath, itemIdentifier in
+                let cell = collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier
+                )
+                return cell
+            }
+        )
+        
+    }
+    
+    
+    func updateSnapshot() {
+        print("update snapshot")
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItemTable>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(viewModel.currentMusicList.value)
+        dataSource?.apply(snapshot)
+    }
+    
+}

@@ -45,6 +45,7 @@
 		4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */; };
 		483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790502ACBA595003AC436 /* Protocol_UpdateData.swift */; };
 		483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790532ACBDD45003AC436 /* HomeTabViewController.swift */; };
+		4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -88,6 +89,7 @@
 		4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewModel.swift; sourceTree = "<group>"; };
 		483790502ACBA595003AC436 /* Protocol_UpdateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_UpdateData.swift; sourceTree = "<group>"; };
 		483790532ACBDD45003AC436 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
+		4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarCatalogCell.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -223,6 +225,7 @@
 				4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */,
 				4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */,
 				4837903E2ACA4C86003AC436 /* CalendarCell.swift */,
+				4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
 				483790412ACA7873003AC436 /* CalendarViewModel.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
+				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,

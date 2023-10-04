@@ -11,9 +11,11 @@ class CalendarViewModel {
     
     let repository = MusicItemTableRepository()
     
-    var currentSelectedDate: Observable<Date> = Observable(Date())
+    var currentSelectedDate: Observable<Date> = Observable(Date())  // 초기값 오늘
     
-    var musicList: Observable<DayItemTable>?
+    var currentMusicList: Observable<[MusicItemTable]> = Observable([])
+    
+//    var musicList: Observable<DayItemTable>?
     
     func isCurrentSelected(_ date: Date) -> Bool {
         return (currentSelectedDate.value == date) ? true : false
@@ -27,7 +29,16 @@ class CalendarViewModel {
         }
     }
     
-    func musicsForDate(_ date: Date) -> DayItemTable? {
-        return repository.fetchDay(date)
+//    func musicsForDate(_ date: Date) -> DayItemTable? {
+//        return repository.fetchDay(date)
+//    }
+    
+    func updateMusicList(_ date: Date) {
+        guard let data = repository.fetchDay(date) else { return }
+        
+        currentMusicList.value.removeAll()
+        data.musicItems.forEach { item in
+            currentMusicList.value.append(item)
+        }
     }
 }
