@@ -66,7 +66,6 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
         }
         
         titleLabel.text = sender.name
-        
         artistLabel.text = sender.artist
         
     }

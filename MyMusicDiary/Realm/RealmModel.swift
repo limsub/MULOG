@@ -37,7 +37,9 @@ class MusicItemTable: Object {
     
     @Persisted var count: Int = 1
     
-    convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String]) {
+    @Persisted var backgroundColors: List<Float> = List<Float>()
+    
+    convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String], colors: [Float]) {
         self.init()
         
         self.id = id
@@ -49,6 +51,9 @@ class MusicItemTable: Object {
         
         genres.forEach { item in
             self.genres.append(item)
+        }
+        colors.forEach { item in
+            self.backgroundColors.append(item)
         }
     }
 

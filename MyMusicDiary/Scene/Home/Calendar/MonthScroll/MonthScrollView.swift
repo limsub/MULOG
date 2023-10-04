@@ -28,6 +28,8 @@ class MonthScrollView: BaseView {
     override func setting() {
         super.setting()
         
+        backgroundColor = .systemBackground
+        
         collectionView.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
     }
     
@@ -36,8 +38,10 @@ class MonthScrollView: BaseView {
         
         let width = UIScreen.main.bounds.width - 32
         
-        layout.itemSize = CGSize(width: width, height: 100)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 18, bottom: 5, right: 18)
+        layout.itemSize = CGSize(width: width, height: 80)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 18, bottom: 10, right: 18)
+        
+        layout.minimumLineSpacing = 10
         
         return layout
     }

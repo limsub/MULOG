@@ -45,11 +45,23 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
+        navigationItem.rightBarButtonItem = barbutton
 
         settingMonthCalendarAndCollectionView()
         updateSnapshot()
     }
     
+    let vc = MonthScrollViewController()
+    
+    @objc
+    func buttonClicked() {
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalTransitionStyle = .crossDissolve
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
+    }
 
     func settingMonthCalendarAndCollectionView() {
         monthView.calendar.delegate = self
@@ -147,11 +159,8 @@ extension MonthCalendarViewController {
          let cellRegistration = UICollectionView.CellRegistration<MonthCalendarCatalogCell, MusicItemTable> { cell, indexPath, itemIdentifier in
             
              print(indexPath)
-            cell.designCell(itemIdentifier)
+             cell.designCell(itemIdentifier)
              
-             if indexPath.item == 0 {
-                 cell.artworkImageView.isHidden = true
-             }
         }
         
         // dataSource

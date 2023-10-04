@@ -298,14 +298,22 @@
 		483790522ACBDD39003AC436 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				4837908F2ACD8538003AC436 /* MonthScroll */,
 				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
 				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
 				483790812ACD3B40003AC436 /* MonthCalendarView.swift */,
 				483790852ACD4263003AC436 /* WeekCalendarView.swift */,
-				483790892ACD52B8003AC436 /* MonthScrollViewController.swift */,
-				4837908B2ACD535D003AC436 /* MonthScrollView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		4837908F2ACD8538003AC436 /* MonthScroll */ = {
+			isa = PBXGroup;
+			children = (
+				4837908B2ACD535D003AC436 /* MonthScrollView.swift */,
+				483790892ACD52B8003AC436 /* MonthScrollViewController.swift */,
+			);
+			path = MonthScroll;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {

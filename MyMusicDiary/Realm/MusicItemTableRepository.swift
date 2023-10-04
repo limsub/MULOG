@@ -87,11 +87,6 @@ class MusicItemTableRepository {
         return ans
     }
     
-    
-    
-    
-    
-    
     func alreadySave(_ id: String) -> MusicItemTable? {
         let data = realm.objects(MusicItemTable.self).where {
             $0.id == id
@@ -117,7 +112,15 @@ class MusicItemTableRepository {
     }
     
     func makeMusicItemTable(_ data: MusicItem) -> MusicItemTable {
-        return MusicItemTable(id: data.id, name: data.name, artist: data.artist, bigImageURL: data.bigImageURL, smallImageURL: data.smallImageURL, previewURL: data.previewURL?.absoluteString, genres: data.genres)
+
+        let colorArr: [Float]
+        if let CGColorArr = data.backgroundColor?.components {
+            colorArr = CGColorArr.map{ Float($0) }
+        } else {
+            colorArr = [0.0, 0.0, 0.0, 0.0]
+        }
+        
+        return MusicItemTable(id: data.id, name: data.name, artist: data.artist, bigImageURL: data.bigImageURL, smallImageURL: data.smallImageURL, previewURL: data.previewURL?.absoluteString, genres: data.genres, colors: colorArr)
     }
     
     

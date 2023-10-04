@@ -31,7 +31,16 @@ class MonthScrollViewController: BaseViewController {
         mainView.collectionView.dataSource = self
         mainView.collectionView.delegate = self
         
+        
+        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
+        navigationItem.rightBarButtonItem = barbutton
     }
+    
+    @objc
+    func buttonClicked() {
+        dismiss(animated: true)
+    }
+
 }
 
 extension MonthScrollViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -51,7 +60,7 @@ extension MonthScrollViewController: UICollectionViewDataSource, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthScrollCatalogCell.description(), for: indexPath) as? MonthScrollCatalogCell else { return UICollectionViewCell() }
         
         
-        cell.designCell(data.value[indexPath.section].musicItems[indexPath.item], day: data.value[indexPath.section].day)
+        cell.designCell(data.value[indexPath.section].musicItems[indexPath.item], day: data.value[indexPath.section].day, indexPath: indexPath)
         
         return cell
         

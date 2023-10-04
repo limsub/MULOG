@@ -20,7 +20,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     let yoilLabel = {
         let view = UILabel()
         view.text = "요일"
-        view.font = .systemFont(ofSize: 18)
+        view.font = .systemFont(ofSize: 16)
         view.textAlignment = .center
         return view
     }()
@@ -28,6 +28,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     let backView = {
         let view = UIView()
         view.backgroundColor = .lightGray
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5
         return view
     }()
     
@@ -59,7 +61,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     override func setConfigure() {
         super.setConfigure()
         
-        contentView.backgroundColor = .systemRed
+//        contentView.backgroundColor = .systemRed
         
         contentView.addSubview(dateLabel)
         contentView.addSubview(yoilLabel)
@@ -72,12 +74,12 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         super.setConstraints()
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView).inset(8)
+            make.top.equalTo(contentView)
             make.leading.equalTo(contentView).inset(12)
             make.width.equalTo(contentView).multipliedBy(0.15)
         }
         yoilLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(8)
+            make.top.equalTo(dateLabel.snp.bottom).offset(4)
             make.centerX.equalTo(dateLabel)
         }
         backView.snp.makeConstraints { make in
@@ -91,24 +93,25 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
             make.trailing.equalTo(backView).inset(12)
-            make.top.equalTo(backView).inset(10)
+            make.top.equalTo(backView).inset(5)
         }
         artistLabel.snp.makeConstraints { make in
             make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
             make.trailing.equalTo(backView).inset(12)
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
         }
     }
     
     
-    func designCell(_ sender: MusicItemTable, day: String) {
+    func designCell(_ sender: MusicItemTable, day: String, indexPath: IndexPath) {
         guard let date = Constant.DateFormat.realmDateFormatter.date(from: day) else { return }
         
         let dayFormat = DateFormatter()
         dayFormat.dateFormat = "dd"
-
+        
         let yoilFormat = DateFormatter()
         yoilFormat.dateFormat = "EEE"
+        yoilFormat.locale = Locale.init(identifier: "en")
         
         dateLabel.text = dayFormat.string(from: date)
         yoilLabel.text = yoilFormat.string(from: date)
@@ -118,5 +121,22 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         
         titleLabel.text = sender.name
         artistLabel.text = sender.artist
+        
+        if indexPath.item != 0 {
+            dateLabel.isHidden = true
+            yoilLabel.isHidden = true
+        }
+        
+        
+        
+        backView.backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(sender.backgroundColors[0]), green: CGFloat(sender.backgroundColors[1]), blue: CGFloat(sender.backgroundColors[2]), alpha: CGFloat(sender.backgroundColors[3]))).withAlphaComponent(0.2)
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dateLabel.isHidden = false
+        yoilLabel.isHidden = false
     }
 }
