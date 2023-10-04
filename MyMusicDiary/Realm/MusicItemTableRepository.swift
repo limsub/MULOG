@@ -62,15 +62,34 @@ class MusicItemTableRepository {
         return data
     }
     func fetchDay(_ day: Date) -> DayItemTable? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let dateString = dateFormatter.string(from: day)
+        let dateString = Constant.DateFormat.realmDateFormatter.string(from: day)
         
         let data = realm.objects(DayItemTable.self).where {
             $0.day == dateString
         }
         return data.first
     }
+    
+    
+    func fetchMonth(_ yearAndMonth: String) -> [DayItemTable]? {    // 202309
+        
+        
+        let data = realm.objects(DayItemTable.self).where {
+            $0.day.contains(yearAndMonth)
+        }
+        
+        var ans: [DayItemTable] = []
+        
+        data.forEach { item in
+            ans.append(item)
+        }
+        
+        return ans
+    }
+    
+    
+    
+    
     
     
     func alreadySave(_ id: String) -> MusicItemTable? {
@@ -100,4 +119,7 @@ class MusicItemTableRepository {
     func makeMusicItemTable(_ data: MusicItem) -> MusicItemTable {
         return MusicItemTable(id: data.id, name: data.name, artist: data.artist, bigImageURL: data.bigImageURL, smallImageURL: data.smallImageURL, previewURL: data.previewURL?.absoluteString, genres: data.genres)
     }
+    
+    
+    
 }

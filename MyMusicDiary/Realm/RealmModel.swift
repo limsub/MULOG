@@ -17,10 +17,8 @@ class DayItemTable: Object {
     convenience init(day: Date) {
         self.init()
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-
-        let dateString = dateFormatter.string(from: day)
+        let dateString = Constant.DateFormat.realmDateFormatter.string(from: day)
+        
 
         self.day = dateString
     }

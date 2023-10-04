@@ -132,7 +132,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPage = calendar.currentPage
-        monthView.headerLabel.text = Constant.headerDateFormatter.string(from: currentPage)
+        monthView.headerLabel.text = Constant.DateFormat.headerDateFormatter.string(from: currentPage)
         
         calendar.reloadData()
     }
@@ -146,7 +146,12 @@ extension MonthCalendarViewController {
         // cellRegistration
          let cellRegistration = UICollectionView.CellRegistration<MonthCalendarCatalogCell, MusicItemTable> { cell, indexPath, itemIdentifier in
             
+             print(indexPath)
             cell.designCell(itemIdentifier)
+             
+             if indexPath.item == 0 {
+                 cell.artworkImageView.isHidden = true
+             }
         }
         
         // dataSource

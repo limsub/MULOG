@@ -16,7 +16,7 @@ class MonthCalendarView: BaseView {
     let headerLabel = {
         let view = UILabel()
         
-        view.text = Constant.headerDateFormatter.string(from: Date())  // 초기값
+        view.text = Constant.DateFormat.headerDateFormatter.string(from: Date())  // 초기값
         view.font = .boldSystemFont(ofSize: 24)
         
        return view
@@ -36,7 +36,7 @@ class MonthCalendarView: BaseView {
     /* CollectionView */
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionLayout())
-        view.backgroundColor = .red.withAlphaComponent(0.1)
+        view.isScrollEnabled = false
         return view
     }()
     
@@ -119,6 +119,8 @@ class MonthCalendarView: BaseView {
     }
     
     func settingCalendar() {
+        
+        
         calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
        
         

@@ -49,6 +49,9 @@
 		483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790812ACD3B40003AC436 /* MonthCalendarView.swift */; };
 		483790842ACD3B7E003AC436 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790832ACD3B7E003AC436 /* BaseView.swift */; };
 		483790862ACD4263003AC436 /* WeekCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790852ACD4263003AC436 /* WeekCalendarView.swift */; };
+		4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790892ACD52B8003AC436 /* MonthScrollViewController.swift */; };
+		4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837908B2ACD535D003AC436 /* MonthScrollView.swift */; };
+		4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -96,6 +99,9 @@
 		483790812ACD3B40003AC436 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
 		483790832ACD3B7E003AC436 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		483790852ACD4263003AC436 /* WeekCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCalendarView.swift; sourceTree = "<group>"; };
+		483790892ACD52B8003AC436 /* MonthScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollViewController.swift; sourceTree = "<group>"; };
+		4837908B2ACD535D003AC436 /* MonthScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollView.swift; sourceTree = "<group>"; };
+		4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollCatalogCell.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +238,7 @@
 				4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */,
 				4837903E2ACA4C86003AC436 /* CalendarCell.swift */,
 				4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */,
+				4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -295,6 +302,8 @@
 				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
 				483790812ACD3B40003AC436 /* MonthCalendarView.swift */,
 				483790852ACD4263003AC436 /* WeekCalendarView.swift */,
+				483790892ACD52B8003AC436 /* MonthScrollViewController.swift */,
+				4837908B2ACD535D003AC436 /* MonthScrollView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -404,6 +413,8 @@
 				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
+				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
+				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
@@ -423,6 +434,7 @@
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
 				483790412ACA7873003AC436 /* CalendarViewModel.swift in Sources */,
+				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
 				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
