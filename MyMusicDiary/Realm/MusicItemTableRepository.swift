@@ -84,7 +84,7 @@ class MusicItemTableRepository {
             ans.append(item)
         }
         
-        return ans
+        return ans.reversed()
     }
     
     func alreadySave(_ id: String) -> MusicItemTable? {

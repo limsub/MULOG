@@ -140,14 +140,7 @@ extension SaveViewController: UICollectionViewDataSource {
         let recordCnt = viewModel.musicRecordCount(indexPath)
         
         cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
-        
-//        let colors = music.backgroundColor!.components!
-//        print(indexPath, colors)
-//
-//        let c = CGColor(red: colors[0], green: colors[1], blue: colors[2], alpha: colors[3])
-//
-//        collectionView.backgroundColor = UIColor(cgColor: c)
-        
+
         return cell
     }
     

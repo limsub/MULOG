@@ -28,7 +28,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     
     let artistLabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 14)
+        view.font = .systemFont(ofSize: 12)
         view.text = "가수"
         view.textColor = .lightGray
         view.numberOfLines = 1
@@ -61,7 +61,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     
     func designCell(_ sender: MusicItemTable) {
         
-        if let str = sender.smallImageURL, let url = URL(string: str) {
+        if let str = sender.bigImageURL, let url = URL(string: str) {
             artworkImageView.kf.setImage(with: url)
         }
         

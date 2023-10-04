@@ -23,6 +23,7 @@ class MonthCalendarViewController: BaseViewController {
     /* dataSource */
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItemTable>?
     
+    var currentPageDate = Date()
     
     
     @objc
@@ -52,11 +53,13 @@ class MonthCalendarViewController: BaseViewController {
         updateSnapshot()
     }
     
-    let vc = MonthScrollViewController()
+    
     
     @objc
     func buttonClicked() {
         
+        let vc = MonthScrollViewController()
+        vc.currentPageDate = currentPageDate
         let nav = UINavigationController(rootViewController: vc)
         nav.modalTransitionStyle = .crossDissolve
         nav.modalPresentationStyle = .fullScreen
@@ -143,8 +146,8 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     // 이전/다음 달 날짜는 아예 안나오게 설정해서 복잡하게 로직 짤 필요가 없어졌다
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        let currentPage = calendar.currentPage
-        monthView.headerLabel.text = Constant.DateFormat.headerDateFormatter.string(from: currentPage)
+        currentPageDate = calendar.currentPage
+        monthView.headerLabel.text = Constant.DateFormat.headerDateFormatter.string(from: currentPageDate)
         
         calendar.reloadData()
     }
