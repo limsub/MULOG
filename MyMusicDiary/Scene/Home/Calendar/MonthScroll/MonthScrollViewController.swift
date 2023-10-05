@@ -8,11 +8,21 @@
 import UIKit
 
 
+enum Month: Int, CaseIterable {
+
+    case January
+}
+
 
 class MonthScrollViewController: BaseViewController {
     
-    let allMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    let allYear = [2021, 2022, 2023]
+    let allMonth = Array(1...12)
+    let allYear = Array(2020...2030)
+    
+    var selectedYear: Int?
+    var selectedMonth: Int?
+    
+    
     
 
     let repository = MusicItemTableRepository()
@@ -25,6 +35,9 @@ class MonthScrollViewController: BaseViewController {
 
     var currentPageDate = Date()    // 이전 화면에서 값 받기
     let titleButton = UIButton()
+    
+    
+    var isPickerViewHidden = true
 
     override func loadView() {
         self.view = mainView
@@ -74,8 +87,35 @@ class MonthScrollViewController: BaseViewController {
     
     @objc
     func titleButtonClicked() {
-        print("hihi")
-        mainView.pickerView.isHidden = false
+        
+        
+        if !isPickerViewHidden {
+            // 펼쳐져 있는 상태 -> 접어줘야 함
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                [weak self] in
+                self?.mainView.pickerView.backgroundColor = .clear
+                self?.mainView.pickerView.frame = CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0)
+            } completion: { [weak self] _ in
+                self?.mainView.pickerView.isHidden = true
+                
+            }
+
+            
+        } else {
+            // 접혀 있는 상태 -> 펼쳐줘야 함
+            
+            mainView.pickerView.isHidden = false
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
+                [weak self] in
+                self?.mainView.pickerView.backgroundColor = .lightGray
+                self?.mainView.pickerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
+            } completion: { _ in
+                
+            }
+        }
+        
+        
+        isPickerViewHidden.toggle()
     }
     
     @objc
@@ -107,6 +147,8 @@ extension MonthScrollViewController: UICollectionViewDataSource, UICollectionVie
     }
 }
 
+
+
 extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -122,5 +164,38 @@ extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             return 0
         }
     }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            
+            let monthDateFormatter = DateFormatter()
+            monthDateFormatter.dateFormat = "MMMM"
+            let inverseDateFormatter = DateFormatter()
+            inverseDateFormatter.dateFormat = "M"
+            
+            guard let date = inverseDateFormatter.date(from: String(allMonth[row])) else { return "" }
+            
+            return monthDateFormatter.string(from: date)
+        case 1:
+            return String(allYear[row])
+        default:
+            return ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            selectedMonth = allMonth[row]
+        case 1:
+            selectedYear = allYear[row]
+        default:
+            break
+        }
+        
+        print(selectedMonth, selectedYear)
+    }
+    
     
 }

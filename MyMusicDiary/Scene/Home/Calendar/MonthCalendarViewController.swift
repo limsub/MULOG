@@ -188,7 +188,7 @@ extension MonthCalendarViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItemTable>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.currentMusicList.value)
-        dataSource?.apply(snapshot)
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
 }
