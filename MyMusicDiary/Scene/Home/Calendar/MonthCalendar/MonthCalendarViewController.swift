@@ -15,7 +15,7 @@ import Kingfisher
 class MonthCalendarViewController: BaseViewController {
     
     /* viewModel */
-    let viewModel = CalendarViewModel()
+    let viewModel = MonthCalendarViewModel()
     
     /* view */
     let monthView = MonthCalendarView()
@@ -28,7 +28,8 @@ class MonthCalendarViewController: BaseViewController {
     @objc
     private func menuButtonClicked() {
         let vc = MonthScrollViewController()
-        vc.currentPageDate = currentPageDate
+        vc.viewModel.currentPageDate = currentPageDate
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc

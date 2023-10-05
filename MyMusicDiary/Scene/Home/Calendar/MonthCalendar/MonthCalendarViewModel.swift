@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CalendarViewModel {
+class MonthCalendarViewModel {
     
     let repository = MusicItemTableRepository()
     

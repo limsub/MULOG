@@ -9,21 +9,12 @@ import UIKit
 
 class MonthScrollViewController: BaseViewController {
     
-    let allYear = Array(2020...2030)
-    let allMonth = Array(1...12)
-    
-    
-    let repository = MusicItemTableRepository()
-
     let mainView = MonthScrollView()
+    
+    let viewModel = MonthScrollViewModel()
 
-    let data: Observable<[DayItemTable]> = Observable([])
-
-    var currentPageDate = Date()    // 이전 화면에서 값 받기
     
     let titleButton = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40))    // navigation Item에 들어가는 버튼
-    
-    var isPickerViewHidden = true
 
     override func loadView() {
         self.view = mainView
@@ -32,50 +23,25 @@ class MonthScrollViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        mainView.collectionView.addGestureRecognizer(tapGestureRecognizer)
-        
         settingNavigaionItem()
         settingCollectionView()
         settingPickerView()
-
         
-        updateData()
+        viewModel.updateData()
         setMonthYear()
     }
     
     @objc
     func didTapView(_ sender: UITapGestureRecognizer) {
-        if !isPickerViewHidden {
+        if !viewModel.pickerViewHiddenState() {
             foldPickerView()
-            isPickerViewHidden.toggle()
+            viewModel.togglePickerViewHidden()
         }
         print("taptap")
     }
     
     
-    func setMonthYear() {
-        // (x) currentPageData로 selected Year, Month 지정
-        guard let year = Int(currentPageDate.toString(of: .year)) else { return }
-        guard let month = Int(currentPageDate.toString(of: .singleMonth)) else { return }
 
-        // selected Year, Month로 pickerView의 초기 선택값 지정
-        guard let selectedYearIndex = allYear.firstIndex(of: year) else { return }
-        guard let selectedMonthIndex = allMonth.firstIndex(of: month) else { return }
-
-        mainView.pickerView.selectRow(selectedMonthIndex, inComponent: 0, animated: false)
-        mainView.pickerView.selectRow(selectedYearIndex, inComponent: 1, animated: false)
-    }
-    
-    func updateData() {
-        let yearMonth = currentPageDate.toString(of: .yearMonth)
-        
-        if let newData = repository.fetchMonth(yearMonth) {
-            data.value = newData
-        } else {
-            data.value.removeAll()
-        }
-    }
     
     func settingNavigaionItem() {
         // right Button
@@ -83,7 +49,7 @@ class MonthScrollViewController: BaseViewController {
         navigationItem.rightBarButtonItem = barbutton
         
         // titleView
-        let title = currentPageDate.toString(of: .fullMonthYear)
+        let title = viewModel.currentPageDate.toString(of: .fullMonthYear)
         
         titleButton.setTitle(title, for: .normal)
         titleButton.setTitleColor(.black, for: .normal)
@@ -104,6 +70,9 @@ class MonthScrollViewController: BaseViewController {
     }
     
     func settingCollectionView() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        mainView.collectionView.addGestureRecognizer(tapGestureRecognizer)
+        
         mainView.collectionView.dataSource = self
         mainView.collectionView.delegate = self
     }
@@ -113,58 +82,62 @@ class MonthScrollViewController: BaseViewController {
         mainView.pickerView.dataSource = self
     }
     
+    
     func foldPickerView() {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
             [weak self] in
             // animation
-//                self?.mainView.pickerView.backgroundColor = .clear
-            
             self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0)
             self?.mainView.pickerView.frame = CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0)
             self?.mainView.pickerView.alpha = 0
-            
             self?.titleButton.setTitleColor(.black, for: .normal)
             
         } completion: { [weak self] _ in
             self?.mainView.pickerView.isHidden = true   // hidden 처리
-            self?.updateData()    // 선택한 날짜로 데이터 업데이트
+            self?.viewModel.updateData()    // 선택한 날짜로 데이터 업데이트
             self?.mainView.collectionView.reloadData() // collectionView reload
             self?.setMonthYear()    // pickerView 초기값 지정
             self?.mainView.pickerView.alpha = 1
+        }
+    }
+    
+    func unfoldPickerView() {
+        mainView.pickerView.isHidden = false
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+            [weak self] in
+            // animation
+            self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
+            self?.mainView.pickerView.frame = CGRect(x: 0, y: 80, width: UIScreen.main.bounds.size.width, height: 200)
+            self?.titleButton.setTitleColor(.white, for: .normal)
+        } completion: { _ in
+            print("unfold done")
         }
     }
   
     
     @objc
     func titleButtonClicked() {
-
-        if !isPickerViewHidden {
+        if !viewModel.pickerViewHiddenState() {
             // 펼쳐져 있는 상태 -> 접어줘야 함
             foldPickerView()
         } else {
             // 접혀 있는 상태 -> 펼쳐줘야 함
-            mainView.pickerView.isHidden = false
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
-                [weak self] in
-                // animation
-                
-//                self?.mainView.pickerView.backgroundColor = .lightGray
-                
-                self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
-                self?.mainView.pickerView.frame = CGRect(x: 0, y: 80, width: UIScreen.main.bounds.size.width, height: 200)
-                
-                self?.titleButton.setTitleColor(.white, for: .normal)
-            }
+            unfoldPickerView()
         }
-        
-        isPickerViewHidden.toggle()
+        viewModel.togglePickerViewHidden()
+//        isPickerViewHidden.toggle()
     }
     
     @objc
     func buttonClicked() {
         dismiss(animated: true)
     }
-
+    
+    
+    func setMonthYear() {
+        mainView.pickerView.selectRow(viewModel.currentMonthIdx(), inComponent: 0, animated: false)
+        mainView.pickerView.selectRow(viewModel.currentYearIdx(), inComponent: 1, animated: false)
+    }
 }
 
 
@@ -172,22 +145,27 @@ class MonthScrollViewController: BaseViewController {
 extension MonthScrollViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return data.value.count
+        return viewModel.numberOfSections()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.value[section].musicItems.count
+        return viewModel.numberOfItemsInSection(section)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MonthScrollCatalogCell.description(), for: indexPath) as? MonthScrollCatalogCell else { return UICollectionViewCell() }
-
-        cell.designCell(data.value[indexPath.section].musicItems[indexPath.item], day: data.value[indexPath.section].day, indexPath: indexPath)
+        
+        let item = viewModel.cellForItemData(indexPath)
+        let day = viewModel.cellForItemDay(indexPath)
+        
+        cell.designCell(item, day: day, indexPath: indexPath)
 
         return cell
     }
 }
+
+
 
 
 
@@ -198,79 +176,25 @@ extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return allMonth.count
-        case 1:
-            return allYear.count
-        default:
-            return 0
-        }
+        return viewModel.numberOfRowsInComponent(component)
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch component {
-        case 0:
-            // allMonth -> 8, 9, 10, 11 => MM으로 만들어줘야 함 (int -> String -> date)
-            // MM => MMMM으로 만들어줘야 함 (date -> string)
-            let month = allMonth[row]   // Int
-            let monthString = (month < 10) ? "0\(month)" : "\(month)"   // String
-            let monthDate = monthString.toDate(to: .month)  // Date
-            let ansString = monthDate?.toString(of: .fullMonth) // String
-            return ansString
-        case 1:
-            return String(allYear[row])
-        default:
-            return ""
-        }
+        return viewModel.titleForRow(row: row, component: component)
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // currentPageDate로
-        guard let tmpYear = Int(currentPageDate.toString(of: .year)) else { return }
-        guard let tmpMonth = Int(currentPageDate.toString(of: .singleMonth)) else { return }
+        // 1. currentPageDate 업데이트      -> 함수 내에서 끝
+        // 2. titleButton setTitle        -> 리턴값
         
-        var selectedMonth = tmpMonth
-        var selectedYear = tmpYear
-        
-        switch component {
-        case 0:
-            selectedMonth = allMonth[row]
-        case 1:
-            selectedYear = allYear[row]
-        default:
-            break
-        }
-        
-        let dateString = (selectedMonth < 10) ? "\(selectedYear)0\(selectedMonth)" : "\(selectedYear)\(selectedMonth)"
-        
-        guard let newDate = dateString.toDate(to: .yearMonth) else { return }   // Date
-        
-        currentPageDate = newDate
-        
-        // titleButton은 실시간 업데이트
-        let newTitle = newDate.toString(of: .fullMonthYear)
+        let newTitle = viewModel.didSelectRow(row: row, component: component)
         titleButton.setTitle(newTitle, for: .normal)
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        switch component {
-        case 0:
-            // allMonth -> 8, 9, 10, 11 => MM으로 만들어줘야 함 (int -> String -> date)
-            // MM => MMMM으로 만들어줘야 함 (date -> string)
-            let month = allMonth[row]   // Int
-            let monthString = (month < 10) ? "0\(month)" : "\(month)"   // String
-            let monthDate = monthString.toDate(to: .month)  // Date
-            let ansString = monthDate?.toString(of: .fullMonth) // String
-            return NSAttributedString(string: ansString ?? "", attributes: [.foregroundColor:UIColor.white])
-        case 1:
-            return NSAttributedString(string: String(allYear[row]), attributes: [.foregroundColor:UIColor.white])
-        default:
-            return NSAttributedString(string: "", attributes: [.foregroundColor:UIColor.white])
-        }
+        let ansString = viewModel.attributedTitleForRow(row: row, component: component)
         
-        
-        
+        return NSAttributedString(string: ansString ?? "", attributes: [.foregroundColor:UIColor.white])
     }
 }

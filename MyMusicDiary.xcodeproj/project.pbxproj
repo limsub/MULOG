@@ -37,7 +37,7 @@
 		4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */; };
 		4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */; };
 		4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837903E2ACA4C86003AC436 /* CalendarCell.swift */; };
-		483790412ACA7873003AC436 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790402ACA7873003AC436 /* CalendarViewModel.swift */; };
+		483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790402ACA7873003AC436 /* MonthCalendarViewModel.swift */; };
 		483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */; };
 		483790462ACA9046003AC436 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790452ACA9046003AC436 /* Extension+UIColor.swift */; };
 		483790492ACA9090003AC436 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790482ACA9090003AC436 /* Constant.swift */; };
@@ -48,13 +48,13 @@
 		4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */; };
 		483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790812ACD3B40003AC436 /* MonthCalendarView.swift */; };
 		483790842ACD3B7E003AC436 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790832ACD3B7E003AC436 /* BaseView.swift */; };
-		483790862ACD4263003AC436 /* WeekCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790852ACD4263003AC436 /* WeekCalendarView.swift */; };
 		4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790892ACD52B8003AC436 /* MonthScrollViewController.swift */; };
 		4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837908B2ACD535D003AC436 /* MonthScrollView.swift */; };
 		4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */; };
 		483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790912ACEA490003AC436 /* Enum+DateFormatType.swift */; };
 		483790942ACEA51B003AC436 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790932ACEA51B003AC436 /* Extension+String.swift */; };
 		483790962ACEA58F003AC436 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790952ACEA58F003AC436 /* Extension+Date.swift */; };
+		483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -90,7 +90,7 @@
 		4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCatalogCell.swift; sourceTree = "<group>"; };
 		4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewController.swift; sourceTree = "<group>"; };
 		4837903E2ACA4C86003AC436 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
-		483790402ACA7873003AC436 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		483790402ACA7873003AC436 /* MonthCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewModel.swift; sourceTree = "<group>"; };
 		483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayItemTableRepository.swift; sourceTree = "<group>"; };
 		483790452ACA9046003AC436 /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		483790482ACA9090003AC436 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -101,13 +101,13 @@
 		4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarCatalogCell.swift; sourceTree = "<group>"; };
 		483790812ACD3B40003AC436 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
 		483790832ACD3B7E003AC436 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		483790852ACD4263003AC436 /* WeekCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekCalendarView.swift; sourceTree = "<group>"; };
 		483790892ACD52B8003AC436 /* MonthScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollViewController.swift; sourceTree = "<group>"; };
 		4837908B2ACD535D003AC436 /* MonthScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollView.swift; sourceTree = "<group>"; };
 		4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollCatalogCell.swift; sourceTree = "<group>"; };
 		483790912ACEA490003AC436 /* Enum+DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+DateFormatType.swift"; sourceTree = "<group>"; };
 		483790932ACEA51B003AC436 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		483790952ACEA58F003AC436 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
+		483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollViewModel.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -307,11 +307,8 @@
 		483790522ACBDD39003AC436 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				483790972ACEDD82003AC436 /* MonthCalendar */,
 				4837908F2ACD8538003AC436 /* MonthScroll */,
-				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
-				483790402ACA7873003AC436 /* CalendarViewModel.swift */,
-				483790812ACD3B40003AC436 /* MonthCalendarView.swift */,
-				483790852ACD4263003AC436 /* WeekCalendarView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -321,6 +318,7 @@
 			children = (
 				4837908B2ACD535D003AC436 /* MonthScrollView.swift */,
 				483790892ACD52B8003AC436 /* MonthScrollViewController.swift */,
+				483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */,
 			);
 			path = MonthScroll;
 			sourceTree = "<group>";
@@ -331,6 +329,16 @@
 				483790912ACEA490003AC436 /* Enum+DateFormatType.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		483790972ACEDD82003AC436 /* MonthCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */,
+				483790812ACD3B40003AC436 /* MonthCalendarView.swift */,
+				483790402ACA7873003AC436 /* MonthCalendarViewModel.swift */,
+			);
+			path = MonthCalendar;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -444,7 +452,6 @@
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
-				483790862ACD4263003AC436 /* WeekCalendarView.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
 				4837904B2ACBA208003AC436 /* Extension+UIView.swift in Sources */,
@@ -459,7 +466,7 @@
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
-				483790412ACA7873003AC436 /* CalendarViewModel.swift in Sources */,
+				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
 				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
@@ -473,6 +480,7 @@
 				483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */,
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
+				483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
