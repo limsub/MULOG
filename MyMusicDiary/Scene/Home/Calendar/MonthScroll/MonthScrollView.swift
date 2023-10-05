@@ -47,7 +47,7 @@ extension UIView {
 
 class MonthScrollView: BaseView {
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout2())
     
     let pickerView = {
         let view = UIPickerView(frame: CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0))
@@ -83,7 +83,7 @@ class MonthScrollView: BaseView {
         collectionView.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
     }
     
-    func createLayout() -> UICollectionViewLayout {
+    static func createLayout2() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
         let width = UIScreen.main.bounds.width - 32

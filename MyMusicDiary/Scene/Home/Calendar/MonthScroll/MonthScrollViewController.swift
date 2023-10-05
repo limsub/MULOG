@@ -19,8 +19,8 @@ class MonthScrollViewController: BaseViewController {
     let allMonth = Array(1...12)
     let allYear = Array(2020...2030)
     
-    var selectedYear: Int?
-    var selectedMonth: Int?
+    var selectedYear = 1
+    var selectedMonth = 2020
     
     
     
@@ -98,6 +98,20 @@ class MonthScrollViewController: BaseViewController {
             } completion: { [weak self] _ in
                 self?.mainView.pickerView.isHidden = true
                 
+                let yearMonthDateFormatter = DateFormatter()
+                yearMonthDateFormatter.dateFormat = "yyyyMM"
+                
+                let yearMonth = yearMonthDateFormatter.string(from: self!.currentPageDate)
+                
+                if let v = self?.repository.fetchMonth(yearMonth)  {
+                    self?.data.value = v
+                } else {
+                    self?.data.value.removeAll()
+                }
+
+                print(self?.data.value)
+                
+                self?.mainView.collectionView.reloadData()
             }
 
             
@@ -193,6 +207,31 @@ extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         default:
             break
         }
+        
+        let dateString: String
+        if selectedMonth < 10 {
+            dateString = "\(selectedYear)0\(selectedMonth)"
+        } else {
+            dateString = "\(selectedYear)\(selectedMonth)"
+        }
+        
+        let yearMonthDateFormatter = DateFormatter()
+        yearMonthDateFormatter.dateFormat = "yyyyMM"
+        
+        let d = yearMonthDateFormatter.date(from: dateString)
+        print(d)
+        
+        if let currentPageDate = d {
+            let monthYearDateFormatter = DateFormatter()
+            monthYearDateFormatter.dateFormat = "MMMM yyyy"
+            monthYearDateFormatter.locale = Locale.init(identifier: "en")
+            let title = monthYearDateFormatter.string(from: currentPageDate)
+            
+            titleButton.setTitle(title, for: .normal)
+            
+            self.currentPageDate = currentPageDate
+        }
+        
         
         print(selectedMonth, selectedYear)
     }
