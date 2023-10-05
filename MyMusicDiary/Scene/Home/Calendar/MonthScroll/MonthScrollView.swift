@@ -19,16 +19,30 @@ class MonthScrollView: BaseView {
         return view
     }()
     
+    let backView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0))
+        view.backgroundColor = .darkGray
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let tappableView = UIView()
+    
     override func setConfigure() {
         super.setConfigure()
         
+        addSubview(tappableView)
         addSubview(collectionView)
-        addSubview(pickerView)
+        addSubview(backView)
+        backView.addSubview(pickerView)
     }
     override func setConstraints() {
         super.setConstraints()
         
         collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
+        }
+        tappableView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }

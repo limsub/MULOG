@@ -12,9 +12,6 @@ class MonthScrollViewController: BaseViewController {
     let allYear = Array(2020...2030)
     let allMonth = Array(1...12)
     
-//    var selectedYear = 2020
-//    var selectedMonth = 1
-    
     
     let repository = MusicItemTableRepository()
 
@@ -24,7 +21,7 @@ class MonthScrollViewController: BaseViewController {
 
     var currentPageDate = Date()    // 이전 화면에서 값 받기
     
-    let titleButton = UIButton()    // navigation Item에 들어가는 버튼
+    let titleButton = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40))    // navigation Item에 들어가는 버튼
     
     var isPickerViewHidden = true
 
@@ -35,6 +32,9 @@ class MonthScrollViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        mainView.collectionView.addGestureRecognizer(tapGestureRecognizer)
+        
         settingNavigaionItem()
         settingCollectionView()
         settingPickerView()
@@ -42,6 +42,15 @@ class MonthScrollViewController: BaseViewController {
         
         updateData()
         setMonthYear()
+    }
+    
+    @objc
+    func didTapView(_ sender: UITapGestureRecognizer) {
+        if !isPickerViewHidden {
+            foldPickerView()
+            isPickerViewHidden.toggle()
+        }
+        print("taptap")
     }
     
     
@@ -75,12 +84,23 @@ class MonthScrollViewController: BaseViewController {
         
         // titleView
         let title = currentPageDate.toString(of: .fullMonthYear)
+        
         titleButton.setTitle(title, for: .normal)
         titleButton.setTitleColor(.black, for: .normal)
         titleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        titleButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+//        titleButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
         titleButton.addTarget(self, action: #selector(titleButtonClicked), for: .touchUpInside)
         navigationItem.titleView = titleButton
+        
+        // navigation item
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = .clear
+        navigationBarAppearance.shadowColor = .clear
+        
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     func settingCollectionView() {
@@ -92,6 +112,27 @@ class MonthScrollViewController: BaseViewController {
         mainView.pickerView.delegate = self
         mainView.pickerView.dataSource = self
     }
+    
+    func foldPickerView() {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+            [weak self] in
+            // animation
+//                self?.mainView.pickerView.backgroundColor = .clear
+            
+            self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0)
+            self?.mainView.pickerView.frame = CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0)
+            self?.mainView.pickerView.alpha = 0
+            
+            self?.titleButton.setTitleColor(.black, for: .normal)
+            
+        } completion: { [weak self] _ in
+            self?.mainView.pickerView.isHidden = true   // hidden 처리
+            self?.updateData()    // 선택한 날짜로 데이터 업데이트
+            self?.mainView.collectionView.reloadData() // collectionView reload
+            self?.setMonthYear()    // pickerView 초기값 지정
+            self?.mainView.pickerView.alpha = 1
+        }
+    }
   
     
     @objc
@@ -99,25 +140,20 @@ class MonthScrollViewController: BaseViewController {
 
         if !isPickerViewHidden {
             // 펼쳐져 있는 상태 -> 접어줘야 함
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
-                [weak self] in
-                // animation
-                self?.mainView.pickerView.backgroundColor = .clear
-                self?.mainView.pickerView.frame = CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0)
-            } completion: { [weak self] _ in
-                self?.mainView.pickerView.isHidden = true   // hidden 처리
-                self?.updateData()    // 선택한 날짜로 데이터 업데이트
-                self?.mainView.collectionView.reloadData() // collectionView reload
-                self?.setMonthYear()    // pickerView 초기값 지정
-            }
+            foldPickerView()
         } else {
             // 접혀 있는 상태 -> 펼쳐줘야 함
             mainView.pickerView.isHidden = false
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
                 [weak self] in
                 // animation
-                self?.mainView.pickerView.backgroundColor = .lightGray
-                self?.mainView.pickerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
+                
+//                self?.mainView.pickerView.backgroundColor = .lightGray
+                
+                self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
+                self?.mainView.pickerView.frame = CGRect(x: 0, y: 80, width: UIScreen.main.bounds.size.width, height: 200)
+                
+                self?.titleButton.setTitleColor(.white, for: .normal)
             }
         }
         
@@ -215,5 +251,26 @@ extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         // titleButton은 실시간 업데이트
         let newTitle = newDate.toString(of: .fullMonthYear)
         titleButton.setTitle(newTitle, for: .normal)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        switch component {
+        case 0:
+            // allMonth -> 8, 9, 10, 11 => MM으로 만들어줘야 함 (int -> String -> date)
+            // MM => MMMM으로 만들어줘야 함 (date -> string)
+            let month = allMonth[row]   // Int
+            let monthString = (month < 10) ? "0\(month)" : "\(month)"   // String
+            let monthDate = monthString.toDate(to: .month)  // Date
+            let ansString = monthDate?.toString(of: .fullMonth) // String
+            return NSAttributedString(string: ansString ?? "", attributes: [.foregroundColor:UIColor.white])
+        case 1:
+            return NSAttributedString(string: String(allYear[row]), attributes: [.foregroundColor:UIColor.white])
+        default:
+            return NSAttributedString(string: "", attributes: [.foregroundColor:UIColor.white])
+        }
+        
+        
+        
     }
 }
