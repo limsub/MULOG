@@ -7,49 +7,12 @@
 
 import UIKit
 
-extension UIView {
-    func animateHiddenToLeft() {
-            self.isHidden = false
-            let identityX = center.x
-
-            UIView.animateKeyframes(withDuration: 1.2, delay: 2) { [weak self] in
-                guard let width = self?.bounds.width else {
-                    return
-                }
-                self?.alpha = 0
-                self?.center.x = -width/2
-            } completion: { [weak self] _ in
-                self?.alpha = 1
-                self?.center.x = identityX
-                self?.isHidden = true
-            }
-        }
-    
-    func animatedDisappearTop() {
-        self.isHidden = false
-        let identityY = center.y
-        
-        UIView.animateKeyframes(withDuration: 0.5, delay: 0) {
-            [weak self] in
-            
-            guard let height = self?.bounds.height else { return }
-            self?.alpha = 0
-            self?.center.y = -height/2
-        } completion: { [weak self] _ in
-            self?.alpha = 1
-            self?.center.y = identityY
-            self?.isHidden = true
-        }
-    }
-    
-
-}
-
 class MonthScrollView: BaseView {
     
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout2())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     let pickerView = {
+        // pickerView 레이아웃은 frame으로 잡는다
         let view = UIPickerView(frame: CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0))
         view.backgroundColor = .clear
         view.layer.cornerRadius = 10
@@ -68,22 +31,17 @@ class MonthScrollView: BaseView {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
-//        pickerView.snp.makeConstraints { make in
-//            make.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
-//            make.height.equalTo(0)
-//        }
     }
     override func setting() {
         super.setting()
-        
-        pickerView.isHidden = true
-        
         backgroundColor = .systemBackground
         
+        pickerView.isHidden = true
         collectionView.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
     }
     
-    static func createLayout2() -> UICollectionViewLayout {
+    // collectionView Layout
+    func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
         let width = UIScreen.main.bounds.width - 32
