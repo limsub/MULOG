@@ -25,7 +25,12 @@ class MonthCalendarViewController: BaseViewController {
     
     var currentPageDate = Date()
     
-    
+    @objc
+    private func menuButtonClicked() {
+        let vc = MonthScrollViewController()
+        vc.currentPageDate = currentPageDate
+        navigationController?.pushViewController(vc, animated: true)
+    }
     @objc
     private func reloadButtonClicked() {
         monthView.calendar.setCurrentPage(Date(), animated: true)
@@ -46,8 +51,8 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-        navigationItem.rightBarButtonItem = barbutton
+//        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
+//        navigationItem.rightBarButtonItem = barbutton
 
         settingMonthCalendarAndCollectionView()
         updateSnapshot()
@@ -55,21 +60,21 @@ class MonthCalendarViewController: BaseViewController {
     
     
     
-    @objc
-    func buttonClicked() {
-        
-        let vc = MonthScrollViewController()
-        vc.currentPageDate = currentPageDate
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalTransitionStyle = .crossDissolve
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: true)
-    }
+//    @objc
+//    func buttonClicked() {
+//        let vc = MonthScrollViewController()
+//        vc.currentPageDate = currentPageDate
+//        let nav = UINavigationController(rootViewController: vc)
+//        nav.modalTransitionStyle = .crossDissolve
+//        nav.modalPresentationStyle = .fullScreen
+//        present(nav, animated: true)
+//    }
 
     func settingMonthCalendarAndCollectionView() {
         monthView.calendar.delegate = self
         monthView.calendar.dataSource = self
         
+        monthView.menuButton.addTarget(self, action: #selector(menuButtonClicked), for: .touchUpInside)
         monthView.reloadButton.addTarget(self, action: #selector(reloadButtonClicked), for: .touchUpInside)
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         

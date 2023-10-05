@@ -74,9 +74,11 @@ class MusicItemTableRepository {
     func fetchMonth(_ yearAndMonth: String) -> [DayItemTable]? {    // 202309
         
         
-        let data = realm.objects(DayItemTable.self).where {
+        let data = realm.objects(DayItemTable.self).sorted(byKeyPath: "day").where {
             $0.day.contains(yearAndMonth)
         }
+        
+        print(data)
         
         var ans: [DayItemTable] = []
         
@@ -84,7 +86,8 @@ class MusicItemTableRepository {
             ans.append(item)
         }
         
-        return ans.reversed()
+        
+        return ans
     }
     
     func alreadySave(_ id: String) -> MusicItemTable? {

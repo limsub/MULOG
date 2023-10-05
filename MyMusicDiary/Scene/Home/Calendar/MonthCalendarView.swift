@@ -21,6 +21,11 @@ class MonthCalendarView: BaseView {
         
        return view
     }()
+    let menuButton = {
+        let view = UIButton(frame: .zero)
+        view.setImage(UIImage(named: "menu"), for: .normal)
+        return view
+    }()
     let reloadButton = {
         let view = UIButton(frame: .zero)
         view.setImage(UIImage(named: "reload"), for: .normal)
@@ -74,6 +79,7 @@ class MonthCalendarView: BaseView {
         
         addSubview(calendar)
         addSubview(headerLabel)
+        addSubview(menuButton)
         addSubview(reloadButton)
         addSubview(plusButton)
         
@@ -91,15 +97,20 @@ class MonthCalendarView: BaseView {
             make.centerY.equalTo(calendar.calendarHeaderView)
             make.leading.equalTo(calendar.collectionView).inset(18)
         }
-        reloadButton.snp.makeConstraints { make in
+        menuButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
             make.trailing.equalTo(self).inset(32)
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
+        reloadButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            make.trailing.equalTo(menuButton.snp.leading).offset(-26)
+            make.width.equalTo(25)
+            make.height.equalTo(25)
+        }
         plusButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
-            
             make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
             make.width.equalTo(25)
             make.height.equalTo(25)

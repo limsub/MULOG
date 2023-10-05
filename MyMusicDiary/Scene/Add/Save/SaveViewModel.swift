@@ -19,10 +19,10 @@ class SaveViewModel {
     
     // 데이터 추가 (저장 버튼 클릭)
     func addNewData() {
-//        let todayTable = DayItemTable(day: Date())
+        let todayTable = DayItemTable(day: Date())
         
 
-        let todayTable = DayItemTable(day: Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
+//        let todayTable = DayItemTable(day: Calendar.current.date(byAdding: .day, value: -3, to: Date())!)
         
         // 저장할 음악들
         musicList.value.forEach {
