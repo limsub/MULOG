@@ -55,6 +55,8 @@
 		483790942ACEA51B003AC436 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790932ACEA51B003AC436 /* Extension+String.swift */; };
 		483790962ACEA58F003AC436 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790952ACEA58F003AC436 /* Extension+Date.swift */; };
 		483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */; };
+		483790A02ACFAAFE003AC436 /* ChartDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */; };
+		483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A22ACFAB43003AC436 /* ChartViewController.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -108,6 +110,8 @@
 		483790932ACEA51B003AC436 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		483790952ACEA58F003AC436 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollViewModel.swift; sourceTree = "<group>"; };
+		4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataRepository.swift; sourceTree = "<group>"; };
+		483790A22ACFAB43003AC436 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				483790532ACBDD45003AC436 /* HomeTabViewController.swift */,
+				483790A12ACFAB32003AC436 /* Chart */,
 				483790522ACBDD39003AC436 /* Calendar */,
 			);
 			path = Home;
@@ -341,12 +346,21 @@
 			path = MonthCalendar;
 			sourceTree = "<group>";
 		};
+		483790A12ACFAB32003AC436 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				483790A22ACFAB43003AC436 /* ChartViewController.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
 				48A0A0E42AC548CB008DC198 /* RealmModel.swift */,
 				48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */,
 				483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */,
+				4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -439,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				483790A02ACFAAFE003AC436 /* ChartDataRepository.swift in Sources */,
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* Extension+UIColor.swift in Sources */,
 				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
@@ -452,6 +467,7 @@
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
+				483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
 				4837904B2ACBA208003AC436 /* Extension+UIView.swift in Sources */,

@@ -12,6 +12,7 @@ import UIKit
 class HomeTabViewController: UITabBarController {
     
     let calendarVC = MonthCalendarViewController()
+    let chartVC = ChartViewController()
     
     
     override func viewDidLoad() {
@@ -21,13 +22,16 @@ class HomeTabViewController: UITabBarController {
         
         
         calendarVC.tabBarItem.title = "기록"
+        chartVC.tabBarItem.title = "차트"
         
         calendarVC.tabBarItem.image = UIImage(systemName: "pencil")
+        chartVC.tabBarItem.image = UIImage(systemName: "pencil")
         
-        let navigationCalendar = UINavigationController(rootViewController: calendarVC)
+        let navCalendar = UINavigationController(rootViewController: calendarVC)
+        let navChart = UINavigationController(rootViewController: chartVC)
         
         
-        let tabItem = [navigationCalendar]
+        let tabItem = [navCalendar, navChart]
         self.viewControllers = tabItem
         
         setViewControllers(tabItem, animated: true)
