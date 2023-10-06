@@ -9,12 +9,13 @@ import Foundation
 import RealmSwift
 
 class ChartDataRepository {
+  
     
     let realm = try! Realm()
     
     // 해당 월에 등록한 음악들의 장르별 개수
     // input example: "202309"
-    func fetchMonthGenreData(_ yearMonth: String) -> Dictionary<String, Int> {
+    func fetchMonthGenreData(_ yearMonth: String) -> ([String], [Int]) {
         var ansDict: [String: Int] = [:]
         
         let data = realm.objects(DayItemTable.self).where {
@@ -44,7 +45,11 @@ class ChartDataRepository {
         // "음악" key는 지워주기 -> * 다국어 대응
         ansDict["음악"] = nil
         
-        return ansDict
+        let sortedDict = ansDict.sorted {  $0.value > $1.value }
+        let sortedKeys = sortedDict.map { $0.key }
+        let sortedValues = sortedDict.map { $0.value }
+    
+        return (sortedKeys, sortedValues)
     }
     
     

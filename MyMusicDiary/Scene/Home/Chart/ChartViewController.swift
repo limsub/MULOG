@@ -11,40 +11,34 @@ import DGCharts
 
 class ChartViewController: BaseViewController {
     
-    let repository = ChartDataRepository()
-    
-    let sub = MusicItemTableRepository()
-    
-    
+
+    // view
     let circleGraphView = CustomPieChartView()
     
     
+    // viewModel
+    let repository = ChartDataRepository()
+    
     var genres: [String] = []
     var counts: [Double] = []
+    var colors: [String] = []
+    var percentArr: [Double] = []
     
     
-    
-    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    var unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
-        
-        let dict1 = repository.fetchMonthGenreData("202310")
-//        let dict2 = repository.fetchWeekGenreData(startDate: "20231001", endDate: "20231031")
-        
-        genres = Array(dict1.keys)
-        counts = Array(dict1.values).map{ Double($0) }
+        fetchData(Date())
         
         
         // titleLabel
         circleGraphView.titleLabel.text = "과목별 비율"
         
         // pieChart
-        settingCharts(dataPoints: genres, values: counts)
+        settingCharts(dataPoints: genres, values: percentArr)
         
         
         
@@ -52,11 +46,7 @@ class ChartViewController: BaseViewController {
         circleGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
         circleGraphView.collectionView.dataSource = self
         circleGraphView.collectionView.showsVerticalScrollIndicator = false
-        
-        
-        
-        
-        
+
         
     }
     
@@ -74,58 +64,74 @@ class ChartViewController: BaseViewController {
         }
     }
     
-    func settingCharts(dataPoints: [String], values: [Double]) {
-//        var pieDataEntries: [ChartDataEntry] = []   // 그냥 ChartDataEntry 타입으로 하네?
-//
-//        for i in 0..<dataPoints.count {
-//            let pieDataEntry = ChartDataEntry(x: Double(i), y: values[i])
-//
-//            pieDataEntries.append(pieDataEntry)
-//        }
+    
+    func fetchData(_ date: Date) {
         
+        let tuple = repository.fetchMonthGenreData("202310")
+
+        genres = Array(tuple.0)
+        counts = Array(tuple.1).map{ Double($0) }
+        
+        let cnt = tuple.0.count
+        
+        var sum: Double = 0
+        counts.forEach { sum += $0 }
+        counts.forEach { item in
+            percentArr.append( (item/sum) * 100 )
+        }
+        print(percentArr)
+        let tmpColors = UIColor.GenreColor.allCases.shuffled()
+        for colorString in tmpColors {
+            colors.append(colorString.rawValue)
+        }
+        print(tmpColors)
+    }
+    
+    
+    
+    /* PieChartSideCollectionViewCell */
+    func settingCharts(dataPoints: [String], values: [Double]) {
+
         var pieDataEntries: [ChartDataEntry] = []
+        
         for i in 0..<dataPoints.count {
-            let pieDataEntry = PieChartDataEntry(value: values[i], data: dataPoints[i] as AnyObject)
-            
+            let pieDataEntry = PieChartDataEntry(
+                value: values[i],   // 차트 비율을 위한 값
+                label: percentArr[i] < 10 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
+            )
             pieDataEntries.append(pieDataEntry)
         }
         
-        
-        
-        let pieChartDataSet = PieChartDataSet(entries: pieDataEntries, label: "우와아아아아아")
+        let pieChartDataSet = PieChartDataSet(entries: pieDataEntries)
         
         pieChartDataSet.highlightEnabled = false
-        
+        pieChartDataSet.drawValuesEnabled = false
+        pieChartDataSet.colors = colors.map{ UIColor(hexCode: $0) }
         
         let pieData = PieChartData(dataSet: pieChartDataSet)
         circleGraphView.pieChartView.data = pieData
-        
-        let format = NumberFormatter()
-        format.numberStyle = .none
-        let formatter = DefaultValueFormatter(formatter: format)
-        pieData.setValueFormatter(formatter)
-        
+
         circleGraphView.pieChartView.legend.enabled = false
-        
-        pieChartDataSet.colors = [.red, .blue, .purple, .cyan, .black]
-    
     }
 }
 
 
 
 
-
+/* collectionView */
 extension ChartViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return genres.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PieChartSideCollectionViewCell.description(), for: indexPath) as? PieChartSideCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
             
         cell.nameLabel.text = genres[indexPath.item]
-        cell.countLabel.text = "\(counts[indexPath.item])"
-        cell.percentLabel.text = "70 %"
+        cell.countLabel.text = "\(Int(counts[indexPath.item]))"
+        cell.percentLabel.text = "\(Int(percentArr[indexPath.item])) %"
         
         return cell
     }
