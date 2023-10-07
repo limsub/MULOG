@@ -9,19 +9,29 @@ import UIKit
 import DGCharts
 
 
+// month
 class ChartViewController: BaseViewController {
     
     
     // pie chart랑 bar chart랑 다른 데이터 사용함 (애초에 repository 가져올 때부터)
     // 단, 장르랄 색상은 맞춰주기 위해, bar chart에서 genres, colors 배열 접근해서 해당 장르가 어떤 색상인지는 확인하기
+    
+    
 
     // view
+    let titleView = ChangeMonthView()
     let circleGraphView = CustomPieChartView()
     let barGraphView = CustomBarChartViewWithExplanation()
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     
     // viewModel
     let repository = ChartDataRepository()
+    
+    // date
+    var currentPageDate = Date()
     
     // pie chart
     var genres: [String] = []
@@ -32,13 +42,51 @@ class ChartViewController: BaseViewController {
     // bar chart
     var barData: [DayGenreCountForBarChart] = []
     
+    @objc
+    func prevButtonClicked() {
+        let calendar = Calendar.current
+        let component = calendar.date(byAdding: .month, value: -1, to: currentPageDate)
+        
+        currentPageDate = component!
+        print(currentPageDate)
+        
+    }
+    
+    @objc
+    func nextButtonClicked() {
+        let calendar = Calendar.current
+        let component = calendar.date(byAdding: .month, value: +1, to: currentPageDate)
+        
+        currentPageDate = component!
+        print(currentPageDate)
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
-        fetchDataForPieChart(Date())
-        fetchDataForBarChart(Date())
+        fetchDataForPieChart(currentPageDate)
+        fetchDataForBarChart(currentPageDate)
+        
+        let calendar = Calendar(identifier: .gregorian)
+        print("ijjijijijij", currentPageDate)
+        var component = calendar.dateComponents([.year, .month], from: currentPageDate)
+        
+        
+        component.day = 2
+        
+        print(component)
+        currentPageDate = calendar.date(from: component) ?? Date()
+        print("ㅑㅓㅑㅓㅑㅓㅑㅓㅑㅓㅑㅑ", currentPageDate)
+        
+        /* titleView */
+        titleView.monthLabel.text = currentPageDate.toString(of: .yearMonth)
+        titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
+        titleView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        
+ 
         
         /* circle Graph */
         // titleLabel
@@ -57,35 +105,57 @@ class ChartViewController: BaseViewController {
         // titleLabel
         barGraphView.titleLabel.text = "과목별 비율"
         
-        //
-        
         // collectionView
         barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
         barGraphView.collectionView.dataSource = self
         barGraphView.collectionView.showsHorizontalScrollIndicator = false
         barGraphView.collectionView.backgroundColor = .clear
-        
-        
-        
     }
+    
+    
     
     override func setConfigure() {
         super.setConfigure()
         
-        view.addSubview(circleGraphView)
-        view.addSubview(barGraphView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+
+        contentView.addSubview(titleView)
+        contentView.addSubview(circleGraphView)
+        contentView.addSubview(barGraphView)
+        
         barGraphView.backgroundColor = .white
+        
+        scrollView.showsVerticalScrollIndicator = false
+        
     }
     override func setConstraints() {
         super.setConstraints()
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.greaterThanOrEqualTo(view.snp.height).priority(.low)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
+        titleView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(contentView).inset(8)
+            make.height.equalTo(100)
+        }
         circleGraphView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.top.equalTo(titleView.snp.bottom).offset(12)
+            make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(300)
         }
         barGraphView.snp.makeConstraints { make in
             make.top.equalTo(circleGraphView.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(400)
         }
     }

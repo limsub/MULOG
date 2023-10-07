@@ -62,6 +62,7 @@
 		483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AB2AD0D862003AC436 /* CustomBarChartView.swift */; };
 		483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */; };
 		483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */; };
+		483790B22AD137AD003AC436 /* ChangeDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B12AD137AD003AC436 /* ChangeDateView.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -122,6 +123,7 @@
 		483790AB2AD0D862003AC436 /* CustomBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartView.swift; sourceTree = "<group>"; };
 		483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartViewWithExplanation.swift; sourceTree = "<group>"; };
 		483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
+		483790B12AD137AD003AC436 /* ChangeDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDateView.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -373,6 +375,7 @@
 				483790A42ACFDB32003AC436 /* CustomPieChartView.swift */,
 				483790AB2AD0D862003AC436 /* CustomBarChartView.swift */,
 				483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */,
+				483790B12AD137AD003AC436 /* ChangeDateView.swift */,
 			);
 			path = ChartView;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
+				483790B22AD137AD003AC436 /* ChangeDateView.swift in Sources */,
 				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
 				483790942ACEA51B003AC436 /* Extension+String.swift in Sources */,
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,

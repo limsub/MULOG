@@ -45,7 +45,7 @@ class CustomBarChartView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        dump(dataList)
+//        dump(dataList)
         
         
         // 상하좌우 여백 -> SnapKit 따로 안쓴다
