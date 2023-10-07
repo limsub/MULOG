@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ChangeMonthView: BaseView {
     
     let monthLabel = {
@@ -27,13 +28,13 @@ class ChangeMonthView: BaseView {
     
     let songsCountlabel = {
         let view = UILabel()
-        view.text = "9개"
+        view.text = "곡 수 : 9개"
         return view
     }()
     
     let genresCountLabel = {
         let view = UILabel()
-        view.text = "12개"
+        view.text = "장르 수 : 12개"
         return view
     }()
     
@@ -84,7 +85,13 @@ class ChangeMonthView: BaseView {
         
         self.backgroundColor = .white
         self.layer.cornerRadius = 10
-        
+    }
+    
+    
+    func setView(day: Date, musicCnt: Int, genreCnt: Int) {
+        monthLabel.text = day.toString(of: .yearMonth)
+        songsCountlabel.text = "곡 수 : \(musicCnt) 개"
+        genresCountLabel.text = "장르 수 : \(genreCnt) 개"
     }
     
 }

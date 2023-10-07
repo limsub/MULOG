@@ -117,9 +117,10 @@ class ChartDataRepository {
     
     
     /* ========== Bar Chart Data ========== */
-    func fetchMonthGenreDataForBarChart(_ yearMonth: String) -> [DayGenreCountForBarChart] {
+    func fetchMonthGenreDataForBarChart(_ yearMonth: String) -> ([DayGenreCountForBarChart],  Int) {
         
         var ansArr: [DayGenreCountForBarChart] = []
+        var ansCnt = 0  // 총 음악 개수 리턴
         
         let data = realm.objects(DayItemTable.self).sorted(byKeyPath: "day").where {
             $0.day.contains(yearMonth)
@@ -132,6 +133,7 @@ class ChartDataRepository {
             // 어떤 노래인지 상관x. 그냥 장르 별 개수만 리턴하기
             var addGenreCounts: [String : Int] = [:]
             dayItem.musicItems.forEach { musicItem in
+                ansCnt += 1
                 musicItem.genres.forEach { genre in
                     
                     if addGenreCounts[genre] != nil {
@@ -151,7 +153,9 @@ class ChartDataRepository {
             
             ansArr.append(addItem)
         }
-        return ansArr
+        
+        
+        return (ansArr, ansCnt)
     }
 }
 

@@ -20,8 +20,8 @@ class ChartViewController: BaseViewController {
 
     // view
     let titleView = ChangeMonthView()
-    let circleGraphView = CustomPieChartView()
-    let barGraphView = CustomBarChartViewWithExplanation()
+    let pieGraphView = CustomPieChartView()
+    var barGraphView = CustomBarChartViewWithExplanation()
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -30,17 +30,23 @@ class ChartViewController: BaseViewController {
     // viewModel
     let repository = ChartDataRepository()
     
-    // date
+    // 공통 data
     var currentPageDate = Date()
+    var genres: [String] = []
+    var colors: [String] = []
+    
+    // title view
+    var musicTotalCnt = 0
+    var genreTotalCnt = 0
     
     // pie chart
-    var genres: [String] = []
     var counts: [Double] = []
-    var colors: [String] = []
     var percentArr: [Double] = []
     
     // bar chart
     var barData: [DayGenreCountForBarChart] = []
+    
+    
     
     @objc
     func prevButtonClicked() {
@@ -50,6 +56,15 @@ class ChartViewController: BaseViewController {
         currentPageDate = component!
         print(currentPageDate)
         
+        fetchDataForPieChart(currentPageDate)
+        fetchDataForBarChart()
+        
+        titleView.setView(day: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt)
+        settingPieGraphView(dataPoints: genres, values: percentArr)
+        settingBarGraphView()
+        barGraphView.barChartView.setNeedsDisplay()
+        pieGraphView.collectionView.reloadData()
+        barGraphView.collectionView.reloadData()
     }
     
     @objc
@@ -60,56 +75,55 @@ class ChartViewController: BaseViewController {
         currentPageDate = component!
         print(currentPageDate)
         
+        fetchDataForPieChart(currentPageDate)
+        fetchDataForBarChart()
+        
+        titleView.setView(day: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt)
+        settingPieGraphView(dataPoints: genres, values: percentArr)
+        settingBarGraphView()
+        barGraphView.barChartView.setNeedsDisplay()
+        pieGraphView.collectionView.reloadData()
+        barGraphView.collectionView.reloadData()
     }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
+        /* 데이터 로드 */
+        initCurrentPageDate()
         fetchDataForPieChart(currentPageDate)
-        fetchDataForBarChart(currentPageDate)
+        fetchDataForBarChart()
         
-        let calendar = Calendar(identifier: .gregorian)
-        print("ijjijijijij", currentPageDate)
-        var component = calendar.dateComponents([.year, .month], from: currentPageDate)
-        
-        
-        component.day = 2
-        
-        print(component)
-        currentPageDate = calendar.date(from: component) ?? Date()
-        print("ㅑㅓㅑㅓㅑㅓㅑㅓㅑㅓㅑㅑ", currentPageDate)
         
         /* titleView */
         titleView.monthLabel.text = currentPageDate.toString(of: .yearMonth)
+        titleView.songsCountlabel.text = "곡 수 : \(musicTotalCnt) 개"
+        titleView.genresCountLabel.text = "장르 수 : \(genreTotalCnt) 개"
         titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
         titleView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         
- 
-        
+
         /* circle Graph */
-        // titleLabel
-        circleGraphView.titleLabel.text = "과목별 비율"
+        pieGraphView.titleLabel.text = "과목별 비율"
         
-        // pieChart
-        settingCharts(dataPoints: genres, values: percentArr)
+        settingPieGraphView(dataPoints: genres, values: percentArr)
         
-        // collectionView
-        circleGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
-        circleGraphView.collectionView.dataSource = self
-        circleGraphView.collectionView.showsVerticalScrollIndicator = false
+        pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
+        pieGraphView.collectionView.dataSource = self
+        pieGraphView.collectionView.showsVerticalScrollIndicator = false
 
         
         /* bar Graph */
-        // titleLabel
         barGraphView.titleLabel.text = "과목별 비율"
         
-        // collectionView
+        settingBarGraphView()
+        
         barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
         barGraphView.collectionView.dataSource = self
         barGraphView.collectionView.showsHorizontalScrollIndicator = false
-        barGraphView.collectionView.backgroundColor = .clear
     }
     
     
@@ -124,7 +138,7 @@ class ChartViewController: BaseViewController {
         scrollView.addSubview(contentView)
 
         contentView.addSubview(titleView)
-        contentView.addSubview(circleGraphView)
+        contentView.addSubview(pieGraphView)
         contentView.addSubview(barGraphView)
         
         barGraphView.backgroundColor = .white
@@ -148,61 +162,94 @@ class ChartViewController: BaseViewController {
             make.top.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(100)
         }
-        circleGraphView.snp.makeConstraints { make in
+        pieGraphView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(300)
         }
         barGraphView.snp.makeConstraints { make in
-            make.top.equalTo(circleGraphView.snp.bottom).offset(20)
+            make.top.equalTo(pieGraphView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(400)
         }
     }
     
     
+    func initCurrentPageDate() {
+        let calendar = Calendar.current
+        var component = calendar.dateComponents([.year, .month], from: currentPageDate)
+        component.day = 2
+        currentPageDate = calendar.date(from: component) ?? Date()
+    }
+    
     func fetchDataForPieChart(_ date: Date) {
         
-        let tuple = repository.fetchMonthGenreDataForPieChart("202310")
+        let dateString = currentPageDate.toString(of: .yearMonth)
+        let tuple = repository.fetchMonthGenreDataForPieChart(dateString)
 
         genres = Array(tuple.0)
         counts = Array(tuple.1).map{ Double($0) }
         
-        let cnt = tuple.0.count
         
         var sum: Double = 0
+        percentArr.removeAll()
         counts.forEach { sum += $0 }
         counts.forEach { item in
             percentArr.append( (item/sum) * 100 )
         }
-        print(percentArr)
+        genreTotalCnt = Int(sum)
+
         let tmpColors = UIColor.GenreColor.allCases.shuffled()
         for colorString in tmpColors {
             colors.append(colorString.rawValue)
         }
-        print(tmpColors)
     }
     
-    func fetchDataForBarChart(_ date: Date) {
+    func settingPieGraphView(dataPoints: [String], values: [Double]) {
+        // dataPoints : genres, values: percentArr
         
-        print("fetchDataForBarChart")
-        barData = repository.fetchMonthGenreDataForBarChart("202310")
-        
-        barGraphView.barChartView.dataList = barData
-        barGraphView.barChartView.type = .month
-        barGraphView.barChartView.startDayString = "20231001"
-        
-        if true {
-            barGraphView.barChartView.dayCount = calculateDayCnt("20231001")
-        } else {
-            barGraphView.barChartView.dayCount = 7
+        var pieChartDataEntries: [ChartDataEntry] = []
+        for i in 0..<dataPoints.count {
+            let pieDataEntry = PieChartDataEntry(
+                value: values[i],   // 차트 비율을 위한 값
+                label: percentArr[i] < 8 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
+            )
+            pieChartDataEntries.append(pieDataEntry)
         }
+        
+        let pieChartDataSet = PieChartDataSet(entries: pieChartDataEntries)
+        pieChartDataSet.highlightEnabled = false
+        pieChartDataSet.drawValuesEnabled = false
+        pieChartDataSet.colors = colors.map{ UIColor(hexCode: $0) }
+        
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        pieGraphView.pieChartView.data = pieChartData
+
+        pieGraphView.pieChartView.legend.enabled = false
+    }
+    
+    func fetchDataForBarChart() {
+        let dateString = currentPageDate.toString(of: .yearMonth)
+
+        let data = repository.fetchMonthGenreDataForBarChart(dateString)
+        
+        barData = data.0
+        musicTotalCnt = data.1
+    }
+    
+    func settingBarGraphView() {
+        
+        let dateString = currentPageDate.toString(of: .full)
+        
+        // 값 전달(?)
+        barGraphView.barChartView.dataList = barData
+        barGraphView.barChartView.startDayString = dateString
+        barGraphView.barChartView.dayCount = calculateDayCnt(dateString)
         
         barGraphView.barChartView.genres = self.genres
         barGraphView.barChartView.colors = self.colors
     }
-    
-    
+
     func calculateDayCnt(_ starDayString: String) -> Int {
     
         let calendar = Calendar.current
@@ -214,32 +261,6 @@ class ChartViewController: BaseViewController {
         } else {
             return 30
         }
-    }
-    
-    
-    /* PieChartSideCollectionViewCell */
-    func settingCharts(dataPoints: [String], values: [Double]) {
-
-        var pieDataEntries: [ChartDataEntry] = []
-        
-        for i in 0..<dataPoints.count {
-            let pieDataEntry = PieChartDataEntry(
-                value: values[i],   // 차트 비율을 위한 값
-                label: percentArr[i] < 8 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
-            )
-            pieDataEntries.append(pieDataEntry)
-        }
-        
-        let pieChartDataSet = PieChartDataSet(entries: pieDataEntries)
-        
-        pieChartDataSet.highlightEnabled = false
-        pieChartDataSet.drawValuesEnabled = false
-        pieChartDataSet.colors = colors.map{ UIColor(hexCode: $0) }
-        
-        let pieData = PieChartData(dataSet: pieChartDataSet)
-        circleGraphView.pieChartView.data = pieData
-
-        circleGraphView.pieChartView.legend.enabled = false
     }
 }
 
@@ -255,11 +276,10 @@ extension ChartViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView {
-        case circleGraphView.collectionView:
+        case pieGraphView.collectionView:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PieChartSideCollectionViewCell.description(), for: indexPath) as? PieChartSideCollectionViewCell else { return UICollectionViewCell() }
             
             cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
-                
             cell.nameLabel.text = genres[indexPath.item]
             cell.countLabel.text = "\(Int(counts[indexPath.item]))"
             cell.percentLabel.text = "\(Int(percentArr[indexPath.item])) %"
@@ -270,9 +290,7 @@ extension ChartViewController: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BarChartSideCollectionViewCell.description(), for: indexPath) as? BarChartSideCollectionViewCell else { return UICollectionViewCell() }
             
             cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
-                
             cell.nameLabel.text = genres[indexPath.item]
-           
             
             return cell
          

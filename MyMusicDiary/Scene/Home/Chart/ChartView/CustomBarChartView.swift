@@ -22,12 +22,13 @@ class CustomBarChartView: UIView {
     
     
     var dataList: [DayGenreCountForBarChart] = []
-    var type: ChartType = .week
     var dayCount: Int = 7   // 7 / 29, 30, 31
     var startDayString: String = "20231001"     //20231001
     
     var genres: [String] = []
     var colors: [String] = []
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,7 +40,9 @@ class CustomBarChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+//    func hi() {
+//        draw(self.frame)
+//    }
     
     
     override func draw(_ rect: CGRect) {
@@ -115,9 +118,9 @@ class CustomBarChartView: UIView {
                                 CGPoint(x: x, y: currentY)
                 )
                 barPath.addLine(to:
-                                    CGPoint(x: x, y: currentY - 10 * CGFloat(value))
+                                    CGPoint(x: x, y: currentY - 15 * CGFloat(value))
                 )
-                currentY -= 10 * CGFloat(value)
+                currentY -= 15 * CGFloat(value)
                 barPath.stroke()
                 barPath.close()
             }

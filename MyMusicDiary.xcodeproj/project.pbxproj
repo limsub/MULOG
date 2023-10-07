@@ -363,8 +363,8 @@
 		483790A12ACFAB32003AC436 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				483790AA2AD0D850003AC436 /* ChartView */,
 				483790A22ACFAB43003AC436 /* ChartViewController.swift */,
+				483790AA2AD0D850003AC436 /* ChartView */,
 			);
 			path = Chart;
 			sourceTree = "<group>";

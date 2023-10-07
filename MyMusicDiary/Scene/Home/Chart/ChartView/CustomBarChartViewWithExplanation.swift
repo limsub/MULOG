@@ -11,9 +11,10 @@ import UIKit
 class CustomBarChartViewWithExplanation: BaseView {
     
     let titleLabel = UILabel()
-    let barChartView = CustomBarChartView()
+    var barChartView = CustomBarChartView()
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    
     
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
