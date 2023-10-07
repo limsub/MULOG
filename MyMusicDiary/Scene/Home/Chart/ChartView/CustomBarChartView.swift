@@ -18,8 +18,7 @@ class CustomBarChartView: UIView {
     // 월 -> 29, 30, 31
     // => Int 매개변수로 받기
     
-    
-    
+
     
     var dataList: [DayGenreCountForBarChart] = []
     var dayCount: Int = 7   // 7 / 29, 30, 31

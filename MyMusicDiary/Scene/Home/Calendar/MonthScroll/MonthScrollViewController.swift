@@ -13,15 +13,25 @@ class MonthScrollViewController: BaseViewController {
     
     let viewModel = MonthScrollViewModel()
 
-    
     let titleButton = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40))    // navigation Item에 들어가는 버튼
-
+    let titleLabel = UILabel()
+    let titleImage = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "chevron.right")!
+        view.tintColor = .white
+        return view
+    }()
+    
+    
+    
     override func loadView() {
         self.view = mainView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleButton.backgroundColor = .brown
         
         settingNavigaionItem()
         settingCollectionView()
@@ -51,11 +61,27 @@ class MonthScrollViewController: BaseViewController {
         // titleView
         let title = viewModel.currentPageDate.toString(of: .fullMonthYear)
         
-        titleButton.setTitle(title, for: .normal)
-        titleButton.setTitleColor(.black, for: .normal)
-        titleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
-//        titleButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        titleLabel.text = title
+        
+        titleButton.addSubview(titleLabel)
+        titleButton.addSubview(titleImage)
+        titleLabel.snp.makeConstraints { make in
+            make.center.equalTo(titleButton)
+        }
+        titleImage.snp.makeConstraints { make in
+            make.leading.equalTo(titleLabel.snp.trailing)
+            make.centerY.equalTo(titleButton)
+        }
+        titleButton.snp.makeConstraints { make in
+            make.width.equalTo(titleLabel).multipliedBy(1.4)
+        }
+        
+        
+//        titleButton.setTitle(title, for: .normal)
+//        titleButton.setTitleColor(.black, for: .normal)
+//        titleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         titleButton.addTarget(self, action: #selector(titleButtonClicked), for: .touchUpInside)
+        
         navigationItem.titleView = titleButton
         
         // navigation item
@@ -92,6 +118,10 @@ class MonthScrollViewController: BaseViewController {
             self?.mainView.pickerView.alpha = 0
             self?.titleButton.setTitleColor(.black, for: .normal)
             
+            self?.titleImage.transform = CGAffineTransform(rotationAngle: -.pi/2)
+            
+            self?.titleImage.tintColor = .black
+            
         } completion: { [weak self] _ in
             self?.mainView.pickerView.isHidden = true   // hidden 처리
             self?.viewModel.updateData()    // 선택한 날짜로 데이터 업데이트
@@ -109,6 +139,9 @@ class MonthScrollViewController: BaseViewController {
             self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
             self?.mainView.pickerView.frame = CGRect(x: 0, y: 80, width: UIScreen.main.bounds.size.width, height: 200)
             self?.titleButton.setTitleColor(.white, for: .normal)
+            
+            self?.titleImage.transform = CGAffineTransform(rotationAngle: .pi/2)
+            self?.titleImage.tintColor = .white
         } completion: { _ in
             print("unfold done")
         }
