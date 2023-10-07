@@ -10,7 +10,8 @@ import DGCharts
 
 
 // month
-class ChartViewController: BaseViewController {
+// 20231001
+class MonthChartViewController: BaseViewController {
     
     
     // pie chart랑 bar chart랑 다른 데이터 사용함 (애초에 repository 가져올 때부터)
@@ -19,7 +20,7 @@ class ChartViewController: BaseViewController {
     
 
     // view
-    let titleView = ChangeMonthView()
+    let titleView = CustmTitleView()
     let pieGraphView = CustomPieChartView()
     var barGraphView = CustomBarChartViewWithExplanation()
     
@@ -59,7 +60,7 @@ class ChartViewController: BaseViewController {
         fetchDataForPieChart(currentPageDate)
         fetchDataForBarChart()
         
-        titleView.setView(day: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt)
+        titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
         settingPieGraphView(dataPoints: genres, values: percentArr)
         settingBarGraphView()
         barGraphView.barChartView.setNeedsDisplay()
@@ -78,7 +79,7 @@ class ChartViewController: BaseViewController {
         fetchDataForPieChart(currentPageDate)
         fetchDataForBarChart()
         
-        titleView.setView(day: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt)
+        titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
         settingPieGraphView(dataPoints: genres, values: percentArr)
         settingBarGraphView()
         barGraphView.barChartView.setNeedsDisplay()
@@ -90,7 +91,9 @@ class ChartViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+//        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+        
+        view.backgroundColor = .clear
         
         /* 데이터 로드 */
         initCurrentPageDate()
@@ -99,7 +102,7 @@ class ChartViewController: BaseViewController {
         
         
         /* titleView */
-        titleView.monthLabel.text = currentPageDate.toString(of: .yearMonth)
+        titleView.dateLabel.text = currentPageDate.toString(of: .yearMonth)
         titleView.songsCountlabel.text = "곡 수 : \(musicTotalCnt) 개"
         titleView.genresCountLabel.text = "장르 수 : \(genreTotalCnt) 개"
         titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
@@ -268,7 +271,7 @@ class ChartViewController: BaseViewController {
 
 
 /* collectionView */
-extension ChartViewController: UICollectionViewDataSource {
+extension MonthChartViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return genres.count
     }

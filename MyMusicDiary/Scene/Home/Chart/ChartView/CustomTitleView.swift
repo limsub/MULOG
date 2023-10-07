@@ -8,9 +8,9 @@
 import UIKit
 
 
-class ChangeMonthView: BaseView {
+class CustmTitleView: BaseView {
     
-    let monthLabel = {
+    let dateLabel = {
         let view = UILabel()
         view.text = "2023년 10월"
         return view
@@ -42,7 +42,7 @@ class ChangeMonthView: BaseView {
         super.setConfigure()
         
         
-        addSubview(monthLabel)
+        addSubview(dateLabel)
         addSubview(prevButton)
         addSubview(nextButton)
         addSubview(songsCountlabel)
@@ -52,29 +52,28 @@ class ChangeMonthView: BaseView {
     override func setConstraints() {
         super.setConstraints()
         
-        monthLabel.snp.makeConstraints { make in
+        dateLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self)
             make.top.equalTo(self).inset(12)
             make.height.equalTo(20)
         }
         prevButton.snp.makeConstraints { make in
-            make.trailing.equalTo(monthLabel.snp.leading).inset(-8)
-            make.centerY.equalTo(monthLabel)
-            make.height.equalTo(20)
+            make.trailing.equalTo(dateLabel.snp.leading).inset(-8)
+            make.centerY.equalTo(dateLabel)
+            make.size.equalTo(50)
         }
         nextButton.snp.makeConstraints { make in
-            make.leading.equalTo(monthLabel.snp.trailing).offset(8)
-            make.centerY.equalTo(monthLabel)
-            make.height.equalTo(20)
-            make.width.equalTo(20)
+            make.leading.equalTo(dateLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(dateLabel)
+            make.size.equalTo(50)
         }
         
         songsCountlabel.snp.makeConstraints { make in
-            make.top.equalTo(monthLabel.snp.bottom).offset(12)
+            make.top.equalTo(dateLabel.snp.bottom).offset(12)
             make.centerX.equalTo(self).offset(-50)
         }
         genresCountLabel.snp.makeConstraints { make in
-            make.top.equalTo(monthLabel.snp.bottom).offset(12)
+            make.top.equalTo(dateLabel.snp.bottom).offset(12)
             make.centerX.equalTo(self).offset(50)
         }
     }
@@ -88,10 +87,17 @@ class ChangeMonthView: BaseView {
     }
     
     
-    func setView(day: Date, musicCnt: Int, genreCnt: Int) {
-        monthLabel.text = day.toString(of: .yearMonth)
+    func setView(startDay: Date, musicCnt: Int, genreCnt: Int, type: ChartType) {
+        if type == .month {
+            dateLabel.text = startDay.toString(of: .yearMonth)
+        } else {
+            let calendar = Calendar.current
+            guard let endDay = calendar.date(byAdding: .day, value: +6, to: startDay) else { return }
+            dateLabel.text = "\(startDay.toString(of: .full)) ~ \(endDay.toString(of: .full))"
+        }
         songsCountlabel.text = "곡 수 : \(musicCnt) 개"
         genresCountLabel.text = "장르 수 : \(genreCnt) 개"
     }
+    
     
 }

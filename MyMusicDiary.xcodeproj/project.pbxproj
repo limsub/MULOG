@@ -56,13 +56,15 @@
 		483790962ACEA58F003AC436 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790952ACEA58F003AC436 /* Extension+Date.swift */; };
 		483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */; };
 		483790A02ACFAAFE003AC436 /* ChartDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */; };
-		483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A22ACFAB43003AC436 /* ChartViewController.swift */; };
+		483790A32ACFAB43003AC436 /* MonthChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A22ACFAB43003AC436 /* MonthChartViewController.swift */; };
 		483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A42ACFDB32003AC436 /* CustomPieChartView.swift */; };
 		483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */; };
 		483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AB2AD0D862003AC436 /* CustomBarChartView.swift */; };
 		483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */; };
 		483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */; };
-		483790B22AD137AD003AC436 /* ChangeDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B12AD137AD003AC436 /* ChangeDateView.swift */; };
+		483790B22AD137AD003AC436 /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B12AD137AD003AC436 /* CustomTitleView.swift */; };
+		483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B32AD174BC003AC436 /* ChartTabViewController.swift */; };
+		483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B52AD174CA003AC436 /* WeekChartViewController.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -117,13 +119,15 @@
 		483790952ACEA58F003AC436 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		483790982ACEDDCB003AC436 /* MonthScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthScrollViewModel.swift; sourceTree = "<group>"; };
 		4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataRepository.swift; sourceTree = "<group>"; };
-		483790A22ACFAB43003AC436 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		483790A22ACFAB43003AC436 /* MonthChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartViewController.swift; sourceTree = "<group>"; };
 		483790A42ACFDB32003AC436 /* CustomPieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPieChartView.swift; sourceTree = "<group>"; };
 		483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
 		483790AB2AD0D862003AC436 /* CustomBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartView.swift; sourceTree = "<group>"; };
 		483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartViewWithExplanation.swift; sourceTree = "<group>"; };
 		483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
-		483790B12AD137AD003AC436 /* ChangeDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeDateView.swift; sourceTree = "<group>"; };
+		483790B12AD137AD003AC436 /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
+		483790B32AD174BC003AC436 /* ChartTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTabViewController.swift; sourceTree = "<group>"; };
+		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -363,7 +367,9 @@
 		483790A12ACFAB32003AC436 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				483790A22ACFAB43003AC436 /* ChartViewController.swift */,
+				483790B32AD174BC003AC436 /* ChartTabViewController.swift */,
+				483790A22ACFAB43003AC436 /* MonthChartViewController.swift */,
+				483790B52AD174CA003AC436 /* WeekChartViewController.swift */,
 				483790AA2AD0D850003AC436 /* ChartView */,
 			);
 			path = Chart;
@@ -375,7 +381,7 @@
 				483790A42ACFDB32003AC436 /* CustomPieChartView.swift */,
 				483790AB2AD0D862003AC436 /* CustomBarChartView.swift */,
 				483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */,
-				483790B12AD137AD003AC436 /* ChangeDateView.swift */,
+				483790B12AD137AD003AC436 /* CustomTitleView.swift */,
 			);
 			path = ChartView;
 			sourceTree = "<group>";
@@ -487,7 +493,7 @@
 				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
-				483790B22AD137AD003AC436 /* ChangeDateView.swift in Sources */,
+				483790B22AD137AD003AC436 /* CustomTitleView.swift in Sources */,
 				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
 				483790942ACEA51B003AC436 /* Extension+String.swift in Sources */,
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
@@ -495,7 +501,8 @@
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */,
-				483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */,
+				483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */,
+				483790A32ACFAB43003AC436 /* MonthChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
 				4837904B2ACBA208003AC436 /* Extension+UIView.swift in Sources */,
@@ -522,6 +529,7 @@
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
 				483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */,
+				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,

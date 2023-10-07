@@ -73,45 +73,50 @@ class ChartDataRepository {
     
     
     
-    // 해당 주에 등록한 음악들의 장르별 개수 -> 나중에는 직접 기간 입력할 수도 있게
-    // input example : "20230901, 20230910"
-//    func fetchWeekGenreData(startDate: String, endDate: String) -> Dictionary<String, Int> {
-//
-//        var ansDict: [String: Int] = [:]
-//
-//        // 주어진 날짜를 포함한, 사이에 있는 날짜들의 배열을 만든다
-//        guard let startDateInt = Int(startDate), let endDateInt = Int(endDate) else { return ansDict }
-//        if startDateInt > endDateInt { return ansDict }
-//
-//        let arrInt = Array(startDateInt...endDateInt)
-//        let arrString = arrInt.map{ String($0) }
-//
-//
-//        let data = realm.objects(DayItemTable.self).where {
-//            $0.day.in(arrString)
-//        }
-//
-//        for dayItem in data {
-//            let musicItems = dayItem.musicItems
-//
-//            for musicItem in musicItems {
-//                let genres = musicItem.genres
-//
-//                for genre in genres {
-//
-//                    if ansDict[genre] != nil {
-//                        ansDict[genre]? += 1
-//                    } else {
-//                        ansDict[genre] = 1
-//                    }
-//                }
-//            }
-//        }
-//
-//        ansDict["음악"] = nil
-//
-//        return ansDict
-//    }
+    func fetchWeekGenreDataForPieChart(startDate: String, endDate: String) -> ([String], [Int]) {
+        
+        var ansDict: [String: Int] = [:]
+        var sortedKeys: [String] = []
+        var sortedValues: [Int] = []
+        
+        guard let startDateInt = Int(startDate), let endDateInt = Int(endDate) else { return (sortedKeys, sortedValues) }
+        
+        if startDateInt > endDateInt { return (sortedKeys, sortedValues) }
+        
+        let arrInt = Array(startDateInt...endDateInt)
+        let arrString = arrInt.map { String($0) }
+        
+        let data = realm.objects(DayItemTable.self).where{
+            $0.day.in(arrString)
+        }
+        
+        for dayItem in data {
+            let musicItems = dayItem.musicItems
+            
+            for musicItem in musicItems {
+                let genres = musicItem.genres
+                
+                for genre in genres {
+                    
+                    if ansDict[genre] != nil {
+                        ansDict[genre]? += 1
+                    } else {
+                        ansDict[genre] = 1
+                    }
+                }
+            }
+        }
+        
+        // * 다국어 대응
+        ansDict["음악"] = nil
+        
+        let sortedDict = ansDict.sorted { $0.value > $1.value }
+        
+        sortedKeys = sortedDict.map { $0.key }
+        sortedValues = sortedDict.map { $0.value }
+        
+        return (sortedKeys, sortedValues)
+    }
     
     
     
@@ -154,6 +159,53 @@ class ChartDataRepository {
             ansArr.append(addItem)
         }
         
+        
+        return (ansArr, ansCnt)
+    }
+    
+    func fetchWeekGenreDataForBarChart(startDate: String, endDate: String) -> ([DayGenreCountForBarChart], Int) {
+        
+        var ansArr: [DayGenreCountForBarChart] = []
+        var ansCnt = 0
+        
+        guard let startDateInt = Int(startDate), let endDateInt = Int(endDate) else { return (ansArr, ansCnt) }
+        
+        if startDateInt > endDateInt { return (ansArr, ansCnt) }
+        
+        let arrInt = Array(startDateInt...endDateInt)
+        let arrString = arrInt.map { String($0) }
+        
+        let data = realm.objects(DayItemTable.self).where {
+            $0.day.in(arrString)
+        }
+        
+        for dayItem in data {
+            let addDay = dayItem.day
+            
+            var addGenreCounts: [String: Int] = [:]
+            dayItem.musicItems.forEach { musicItem in
+                ansCnt += 1
+                
+                musicItem.genres.forEach { genre in
+                    
+                    if addGenreCounts[genre] != nil {
+                        addGenreCounts[genre]? += 1
+                    } else {
+                        addGenreCounts[genre] = 1
+                    }
+                }
+            }
+            
+            // * 다국어 대응
+            addGenreCounts["음악"] = nil
+            
+            let addItem = DayGenreCountForBarChart(
+                day: addDay,
+                genreCounts: addGenreCounts
+            )
+            
+            ansArr.append(addItem)
+        }
         
         return (ansArr, ansCnt)
     }

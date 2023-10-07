@@ -12,7 +12,8 @@ import UIKit
 class HomeTabViewController: UITabBarController {
     
     let calendarVC = MonthCalendarViewController()
-    let chartVC = ChartViewController()
+    
+    let chartVC = ChartTabViewController()
     
     
     override func viewDidLoad() {
