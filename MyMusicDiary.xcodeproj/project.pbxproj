@@ -61,6 +61,7 @@
 		483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */; };
 		483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AB2AD0D862003AC436 /* CustomBarChartView.swift */; };
 		483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */; };
+		483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -120,6 +121,7 @@
 		483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
 		483790AB2AD0D862003AC436 /* CustomBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartView.swift; sourceTree = "<group>"; };
 		483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartViewWithExplanation.swift; sourceTree = "<group>"; };
+		483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -259,6 +261,7 @@
 				4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */,
 				4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */,
 				483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */,
+				483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
 				483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
+				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
 				483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,

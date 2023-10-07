@@ -18,10 +18,15 @@ class CustomBarChartViewWithExplanation: BaseView {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
-        let width = UIScreen.main.bounds.width/2
+        layout.scrollDirection = .horizontal
         
-        layout.itemSize = CGSize(width: width, height: 20)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 18, bottom: 5, right: 18)
+        let width = UIScreen.main.bounds.width * 0.28
+        let height: CGFloat = 30
+        
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.itemSize = CGSize(width: width, height: height)
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 12, bottom: 5, right: 12)
         
         return layout
     }
@@ -33,8 +38,11 @@ class CustomBarChartViewWithExplanation: BaseView {
         self.backgroundColor = .white
         self.layer.cornerRadius = 10
         
-        barChartView.backgroundColor = .lightGray
-        collectionView.backgroundColor = .black
+        
+        
+        
+//        barChartView.backgroundColor = .lightGray
+//        collectionView.backgroundColor = .lightGray
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +69,7 @@ class CustomBarChartViewWithExplanation: BaseView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(barChartView.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(self)
-            make.bottom.equalTo(self).inset(12)
+            make.bottom.equalTo(self).inset(30)
         }
     }
 }

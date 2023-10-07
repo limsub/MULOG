@@ -28,6 +28,7 @@ class PieChartSideCollectionViewCell: BaseCollectionViewCell {
         [nameLabel, countLabel, percentLabel].forEach { item in
             item.font = .systemFont(ofSize: 13)
         }
+        nameLabel.adjustsFontSizeToFitWidth = true
         countLabel.textAlignment = .right
         percentLabel.textAlignment = .right
         

@@ -54,7 +54,19 @@ class ChartViewController: BaseViewController {
 
         
         /* bar Graph */
+        // titleLabel
         barGraphView.titleLabel.text = "과목별 비율"
+        
+        //
+        
+        // collectionView
+        barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
+        barGraphView.collectionView.dataSource = self
+        barGraphView.collectionView.showsHorizontalScrollIndicator = false
+        barGraphView.collectionView.backgroundColor = .clear
+        
+        
+        
     }
     
     override func setConfigure() {
@@ -143,7 +155,7 @@ class ChartViewController: BaseViewController {
         for i in 0..<dataPoints.count {
             let pieDataEntry = PieChartDataEntry(
                 value: values[i],   // 차트 비율을 위한 값
-                label: percentArr[i] < 10 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
+                label: percentArr[i] < 8 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
             )
             pieDataEntries.append(pieDataEntry)
         }
@@ -171,14 +183,33 @@ extension ChartViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PieChartSideCollectionViewCell.description(), for: indexPath) as? PieChartSideCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
+        switch collectionView {
+        case circleGraphView.collectionView:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PieChartSideCollectionViewCell.description(), for: indexPath) as? PieChartSideCollectionViewCell else { return UICollectionViewCell() }
             
-        cell.nameLabel.text = genres[indexPath.item]
-        cell.countLabel.text = "\(Int(counts[indexPath.item]))"
-        cell.percentLabel.text = "\(Int(percentArr[indexPath.item])) %"
+            cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
+                
+            cell.nameLabel.text = genres[indexPath.item]
+            cell.countLabel.text = "\(Int(counts[indexPath.item]))"
+            cell.percentLabel.text = "\(Int(percentArr[indexPath.item])) %"
+            
+            return cell
+            
+        case barGraphView.collectionView:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BarChartSideCollectionViewCell.description(), for: indexPath) as? BarChartSideCollectionViewCell else { return UICollectionViewCell() }
+            
+            cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
+                
+            cell.nameLabel.text = genres[indexPath.item]
+           
+            
+            return cell
+         
+        default:
+            return UICollectionViewCell()
+        }
+
         
-        return cell
     }
 }
