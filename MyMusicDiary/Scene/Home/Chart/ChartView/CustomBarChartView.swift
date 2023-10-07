@@ -30,6 +30,10 @@ class CustomBarChartView: UIView {
         B(day: "20231010", genreCounts: ["pop": 50, "rock": 10], allCount: 30),
         B(day: "20231012", genreCounts: ["k-pop": 10, "rock": 80, "pop": 30], allCount: 40),
         B(day: "20231014", genreCounts: ["pop": 20, "ballad": 90], allCount: 60),
+        B(day: "20231014", genreCounts: ["pop": 20, "ballad": 90], allCount: 60),
+        B(day: "20231014", genreCounts: ["pop": 20, "ballad": 90], allCount: 60),
+        B(day: "20231014", genreCounts: ["pop": 20, "ballad": 90], allCount: 60),
+        B(day: "20231014", genreCounts: ["pop": 20, "ballad": 90], allCount: 60),
     ]
     
     override func draw(_ rect: CGRect) {

@@ -11,6 +11,9 @@ import DGCharts
 
 class ChartViewController: BaseViewController {
     
+    
+    // pie chart랑 bar chart랑 다른 데이터 사용함 (애초에 repository 가져올 때부터)
+    // 단, 장르랄 색상은 맞춰주기 위해, bar chart에서 genres, colors 배열 접근해서 해당 장르가 어떤 색상인지는 확인하기
 
     // view
     let circleGraphView = CustomPieChartView()
@@ -26,13 +29,12 @@ class ChartViewController: BaseViewController {
     var percentArr: [Double] = []
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
-        fetchData(Date())
+        fetchDataForPieChart(Date())
+        fetchDataForBarChart(Date())
         
         
         /* circle Graph */
@@ -74,9 +76,9 @@ class ChartViewController: BaseViewController {
     }
     
     
-    func fetchData(_ date: Date) {
+    func fetchDataForPieChart(_ date: Date) {
         
-        let tuple = repository.fetchMonthGenreData("202310")
+        let tuple = repository.fetchMonthGenreDataForPieChart("202310")
 
         genres = Array(tuple.0)
         counts = Array(tuple.1).map{ Double($0) }
@@ -94,6 +96,13 @@ class ChartViewController: BaseViewController {
             colors.append(colorString.rawValue)
         }
         print(tmpColors)
+    }
+    
+    func fetchDataForBarChart(_ date: Date) {
+        
+        print("fetchDataForBarChart")
+        dump(repository.fetchMonthGenreDataForBarChart("202310"))
+        
     }
     
     
