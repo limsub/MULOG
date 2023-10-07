@@ -14,6 +14,7 @@ class ChartViewController: BaseViewController {
 
     // view
     let circleGraphView = CustomPieChartView()
+    let barGraphView = CustomBarChartViewWithExplanation()
     
     
     // viewModel
@@ -34,13 +35,12 @@ class ChartViewController: BaseViewController {
         fetchData(Date())
         
         
+        /* circle Graph */
         // titleLabel
         circleGraphView.titleLabel.text = "과목별 비율"
         
         // pieChart
         settingCharts(dataPoints: genres, values: percentArr)
-        
-        
         
         // collectionView
         circleGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
@@ -48,12 +48,16 @@ class ChartViewController: BaseViewController {
         circleGraphView.collectionView.showsVerticalScrollIndicator = false
 
         
+        /* bar Graph */
+        barGraphView.titleLabel.text = "과목별 비율"
     }
     
     override func setConfigure() {
         super.setConfigure()
         
         view.addSubview(circleGraphView)
+        view.addSubview(barGraphView)
+        barGraphView.backgroundColor = .white
     }
     override func setConstraints() {
         super.setConstraints()
@@ -61,6 +65,11 @@ class ChartViewController: BaseViewController {
         circleGraphView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
             make.height.equalTo(300)
+        }
+        barGraphView.snp.makeConstraints { make in
+            make.top.equalTo(circleGraphView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(400)
         }
     }
     

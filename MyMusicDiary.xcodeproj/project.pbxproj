@@ -59,6 +59,8 @@
 		483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A22ACFAB43003AC436 /* ChartViewController.swift */; };
 		483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A42ACFDB32003AC436 /* CustomPieChartView.swift */; };
 		483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */; };
+		483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AB2AD0D862003AC436 /* CustomBarChartView.swift */; };
+		483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -116,6 +118,8 @@
 		483790A22ACFAB43003AC436 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		483790A42ACFDB32003AC436 /* CustomPieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPieChartView.swift; sourceTree = "<group>"; };
 		483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartSideCollectionViewCell.swift; sourceTree = "<group>"; };
+		483790AB2AD0D862003AC436 /* CustomBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartView.swift; sourceTree = "<group>"; };
+		483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChartViewWithExplanation.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -354,10 +358,20 @@
 		483790A12ACFAB32003AC436 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				483790AA2AD0D850003AC436 /* ChartView */,
 				483790A22ACFAB43003AC436 /* ChartViewController.swift */,
-				483790A42ACFDB32003AC436 /* CustomPieChartView.swift */,
 			);
 			path = Chart;
+			sourceTree = "<group>";
+		};
+		483790AA2AD0D850003AC436 /* ChartView */ = {
+			isa = PBXGroup;
+			children = (
+				483790A42ACFDB32003AC436 /* CustomPieChartView.swift */,
+				483790AB2AD0D862003AC436 /* CustomBarChartView.swift */,
+				483790AD2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift */,
+			);
+			path = ChartView;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -473,6 +487,7 @@
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
+				483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */,
 				483790A32ACFAB43003AC436 /* ChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
@@ -491,6 +506,7 @@
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
+				483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */,
 				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
 				483790962ACEA58F003AC436 /* Extension+Date.swift in Sources */,
 				483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */,
