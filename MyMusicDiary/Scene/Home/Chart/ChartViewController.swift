@@ -23,10 +23,14 @@ class ChartViewController: BaseViewController {
     // viewModel
     let repository = ChartDataRepository()
     
+    // pie chart
     var genres: [String] = []
     var counts: [Double] = []
     var colors: [String] = []
     var percentArr: [Double] = []
+    
+    // bar chart
+    var barData: [DayGenreCountForBarChart] = []
     
     
     override func viewDidLoad() {
@@ -35,7 +39,6 @@ class ChartViewController: BaseViewController {
         
         fetchDataForPieChart(Date())
         fetchDataForBarChart(Date())
-        
         
         /* circle Graph */
         // titleLabel
@@ -101,10 +104,35 @@ class ChartViewController: BaseViewController {
     func fetchDataForBarChart(_ date: Date) {
         
         print("fetchDataForBarChart")
-        dump(repository.fetchMonthGenreDataForBarChart("202310"))
+        barData = repository.fetchMonthGenreDataForBarChart("202310")
         
+        barGraphView.barChartView.dataList = barData
+        barGraphView.barChartView.type = .month
+        barGraphView.barChartView.startDayString = "20231001"
+        
+        if true {
+            barGraphView.barChartView.dayCount = calculateDayCnt("20231001")
+        } else {
+            barGraphView.barChartView.dayCount = 7
+        }
+        
+        barGraphView.barChartView.genres = self.genres
+        barGraphView.barChartView.colors = self.colors
     }
     
+    
+    func calculateDayCnt(_ starDayString: String) -> Int {
+    
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: starDayString.toDate(to: .full) ?? Date())
+        if let nextMonthDate = calendar.date(from: components),
+           let lastDay = calendar.date(byAdding: DateComponents(day: -1), to: calendar.date(byAdding: DateComponents(month: 1), to: nextMonthDate)!) {
+
+            return calendar.component(.day, from: lastDay)
+        } else {
+            return 30
+        }
+    }
     
     
     /* PieChartSideCollectionViewCell */

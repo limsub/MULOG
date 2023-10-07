@@ -13,6 +13,19 @@ class ChartDataRepository {
     
     let realm = try! Realm()
     
+    func delete() {
+        do {
+            let item = realm.objects(DayItemTable.self).where{
+                $0.day == "20231004"
+            }
+            
+            try realm.write {
+                realm.delete(item)
+            }
+        } catch {
+            print("우와아아아아아아아아아아아아아아아아아아")
+        }
+    }
     
     
     /* ========== Pie Chart Data (날짜 저장 x) ========== */
@@ -126,9 +139,10 @@ class ChartDataRepository {
                     } else {
                         addGenreCounts[genre] = 1
                     }
-                    
                 }
             }
+            // * 다국어 대응
+            addGenreCounts["음악"] = nil
             
             let addItem = DayGenreCountForBarChart(
                 day: addDay,
