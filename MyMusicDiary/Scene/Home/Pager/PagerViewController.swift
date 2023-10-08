@@ -72,6 +72,7 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
         }
         
         
+        
         cell.playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
 
         return cell
