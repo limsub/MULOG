@@ -21,8 +21,10 @@ class MonthScrollViewController: BaseViewController {
     }()
     let titleImage = {
         let view = UIImageView()
-        view.image = UIImage(systemName: "chevron.right")!
-    
+        let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold) // 이미지 두께 조절
+        view.image = UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration)!
+        
+
         view.tintColor = .black
         view.sizeToFit()
         return view
@@ -75,7 +77,7 @@ class MonthScrollViewController: BaseViewController {
             make.center.equalTo(titleButton)
         }
         titleImage.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(8)
             make.centerY.equalTo(titleButton)
         }
         titleButton.snp.makeConstraints { make in
@@ -227,7 +229,8 @@ extension MonthScrollViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         // 2. titleButton setTitle        -> 리턴값
         
         let newTitle = viewModel.didSelectRow(row: row, component: component)
-        titleButton.setTitle(newTitle, for: .normal)
+        titleLabel.text = newTitle
+//        titleButton.setTitle(newTitle, for: .normal)
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
