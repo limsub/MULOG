@@ -13,7 +13,9 @@ import Kingfisher
 
 class MainPagerViewCell: FSPagerViewCell {
     
-    var parentVC: PagerViewController?  // 버튼에 대한 액션 target 연결용
+    var previewURL: String?
+
+    var parentVC: PlayButtonActionProtocol?
     
     var isPlaying = false   // 현재 재생 여부를 일단 여기에 저장
     
@@ -42,6 +44,7 @@ class MainPagerViewCell: FSPagerViewCell {
     // 5. 재생 / 정지 이미지
     let playImageView = {
         let view = UIImageView()
+        view.tintColor = .lightGray
         view.alpha = 0  // 안보이게
         return view
     }()
@@ -129,6 +132,8 @@ class MainPagerViewCell: FSPagerViewCell {
         } completion: { _ in
             print("finish")
         }
+
+        parentVC?.play(previewURL, isPlaying: isPlaying)
         
         isPlaying.toggle()
     }
@@ -238,9 +243,7 @@ class MainPagerViewCell: FSPagerViewCell {
     }
     
     func designCell(_ sender: MusicItemTable) {
-        
 
-        
         if let str = sender.bigImageURL, let url = URL(string: str) {
             self.imageView?.kf.setImage(with: url)
         }
