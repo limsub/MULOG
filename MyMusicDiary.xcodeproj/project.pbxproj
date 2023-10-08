@@ -70,6 +70,7 @@
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
 		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
+		48C7E2F62AD295CA00879D36 /* CumstomPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */; };
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,7 @@
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
+		48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumstomPagerViewCell.swift; sourceTree = "<group>"; };
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				48CD19112AD282DE000BF7F3 /* PagerViewController.swift */,
+				48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */,
 			);
 			path = Pager;
 			sourceTree = "<group>";
@@ -421,7 +424,6 @@
 				F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */,
 				8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -494,8 +496,8 @@
 				4812D5102AC3AAF200E7C6A4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4812D5132AC3AB1000E7C6A4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4812D5162AC3AB2400E7C6A4 /* XCRemoteSwiftPackageReference "Charts" */,
-				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */,
-				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
+				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */,
+				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 4812D4F72AC3A9ED00E7C6A4 /* Products */;
 			projectDirPath = "";
@@ -608,6 +610,7 @@
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
 				483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
+				48C7E2F62AD295CA00879D36 /* CumstomPagerViewCell.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
 				483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */,
 				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
@@ -875,7 +878,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */ = {
+		4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uias/Tabman.git";
 			requirement = {
@@ -883,7 +886,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
+		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -916,17 +919,17 @@
 		};
 		4812D5342AC3D42200E7C6A4 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */;
+			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
 		};
 		48A0A0DF2AC54896008DC198 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
 		};
 		48A0A0E12AC54896008DC198 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

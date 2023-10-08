@@ -10,7 +10,7 @@ import Kingfisher
 
 class MonthCalendarCatalogCell: BaseCollectionViewCell {
     
-    let artworkImageView = {
+    var artworkImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
@@ -26,7 +26,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
         return view
     }()
     
-    let artistLabel = {
+    var artistLabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 12)
         view.text = "가수"
