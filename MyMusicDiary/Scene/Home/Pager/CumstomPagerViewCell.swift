@@ -20,34 +20,103 @@ class CustomPagerViewCell: FSPagerViewCell {
     // 2. 제목 레이블
     let titleLabel = {
         let view = UILabel()
+        view.textAlignment = .center
+        view.text = "좋은 날"
         return view
     }()
     // 3. 아티스트 레이블
     let artistLabel = {
         let view = UILabel()
+        view.textAlignment = .center
+        view.text = "아이유"
         return view
     }()
-    
-    // 두 개의 UIButton을 추가
-    let button1: UIButton = {
-        let button = UIButton()
-        button.setTitle("Button 1", for: .normal)
-        button.backgroundColor = UIColor.blue
-        button.setTitleColor(UIColor.white, for: .normal)
-        return button
+    // 4. 앨범 커버 위의 버튼 (투명)
+    lazy var playButton = {
+        let view = UIButton()
+        view.backgroundColor = .clear
+        view.addTarget(self.parentVC, action: #selector(playButtonClicked), for: .touchUpInside)
+        return view
     }()
-    
-    lazy var button2: UIButton = {
-        let button = UIButton()
-        button.setTitle("Button 2", for: .normal)
-        button.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self.parentVC, action: #selector(clicked), for: .touchUpInside)
-        return button
+    // 5. 재생 / 정지 이미지
+    let playImageView = {
+        let view = UIImageView()
+        view.alpha = 0  // 안보이게
+        return view
     }()
+    // 6. 기록 날짜 레이블
+    let recordLabel = {
+        let view = UILabel()
+        view.text = "6번 기록한 음악입니다"
+        return view
+    }()
+    // 7. 기록 날짜 레이블 위의 버튼 (투명)
+    lazy var recordButton = {
+        let view = UIButton()
+        view.backgroundColor = .blue.withAlphaComponent(0.1)
+        view.addTarget(self.parentVC, action: #selector(recordButtonClicked), for: .touchUpInside)
+        return view
+    }()
+    // 8. 장르 레이블 in 스택뷰
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        
+        return stackView
+    }()
+    // 8. 장르 레이블
+    let genre1Label = {
+        
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
     
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "락"
+        return view
+    }()
+    let genre2Label = {
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
+        
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "발라드"
+        return view
+    }()
+    let genre3Label = {
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8))
+        
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.4
+        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "K-POP"
+        return view
+    }()
+
     @objc
-    func clicked() {
+    func playButtonClicked() {
         // 이미지 관련 로직
         // 1. 뿅 나오게
         // 2. 2초 걸리면서 점점 흐려짐
@@ -63,64 +132,90 @@ class CustomPagerViewCell: FSPagerViewCell {
         isPlaying.toggle()
     }
     
-    let playImageView = {
-        let view = UIImageView()
-        
-        view.image = UIImage(systemName: "play.circle")
-        view.alpha = 0
-        
-        return view
-    }()
-    
+    @objc
+    func recordButtonClicked() {
+        print(#function)
+    }
     
     
     override func prepareForReuse() {
-//        super.prepareForReuse()
         
+        isPlaying = false
         
         self.imageView!.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self)
+            make.top.horizontalEdges.equalTo(self).inset(12)
             make.height.equalTo(imageView!.snp.width)
         }
+
     }
 
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .lightGray.withAlphaComponent(0.1)
         
-        backgroundColor = .lightGray
+        self.imageView!.clipsToBounds = true
+        self.imageView!.layer.cornerRadius = 10
         
-        
-        // UIButton을 셀에 추가
-        addSubview(button1)
-        
+        addSubview(titleLabel)
+        addSubview(artistLabel)
         addSubview(playImageView)
+        addSubview(playButton)      // 버튼을 제일 위에 (어차피 투명함)
+        addSubview(recordLabel)
+        addSubview(recordButton)
         
-        addSubview(button2) // 얜 어차피 투명으로 할거라 맨 위에 있어도 상관없음
+        addSubview(stackView)
         
+        stackView.addArrangedSubview(genre1Label)
+        stackView.addArrangedSubview(genre2Label)
+        stackView.addArrangedSubview(genre3Label)
+
+        // 얘는 뭔지 잘 모르겠네
+        playButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // UIButton 레이아웃 설정
-        button1.translatesAutoresizingMaskIntoConstraints = false
-        button2.translatesAutoresizingMaskIntoConstraints = false
-        
-        button1.snp.makeConstraints { make in
-            make.size.equalTo(100)
-            make.center.equalTo(self)
-        }
+        if self.imageView == nil { return }
         
         self.imageView!.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self)
+            make.top.horizontalEdges.equalTo(self).inset(12)
             make.height.equalTo(imageView!.snp.width)
         }
         
-        button2.snp.makeConstraints { make in
-            make.edges.equalTo(imageView!).inset(20)
-        }
         
         playImageView.snp.makeConstraints { make in
-            make.edges.equalTo(button2).inset(30)
+            make.edges.equalTo(self.imageView!).inset(80)
         }
         
+        playButton.snp.makeConstraints { make in
+            make.edges.equalTo(self.imageView!)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.top.equalTo(self.imageView!.snp.bottom).offset(18)
+        }
+        
+        artistLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(artistLabel.snp.bottom)
+            make.horizontalEdges.equalTo(self).inset(12)
+            make.height.equalTo(40)
+        }
+        
+        recordLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self)
+            make.top.equalTo(stackView.snp.bottom).offset(30)
+        }
+        recordButton.snp.makeConstraints { make in
+            make.edges.equalTo(recordLabel)
+        }
+        
+        
+        
+     
         
 //        NSLayoutConstraint.activate([
 //            button1.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),

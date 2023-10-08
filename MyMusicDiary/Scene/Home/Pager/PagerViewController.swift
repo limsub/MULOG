@@ -21,39 +21,34 @@ class PagerViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        navigationItem.title = "하이하이"
+        
+        
+        
         pagerView.dataSource = self
         pagerView.delegate = self
-        pagerView.register(CustomPagerViewCell.self, forCellWithReuseIdentifier: "cell")
+        pagerView.register(CustomPagerViewCell.self, forCellWithReuseIdentifier: CustomPagerViewCell.description())
         pagerView.isInfinite = true  // 무한 스크롤
-        
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         
-        pagerView.backgroundView?.backgroundColor = .cyan   // 안먹음
-        pagerView.itemSize = CGSize(width: 300, height: 500)
+        pagerView.itemSize = CGSize(width: UIScreen.main.bounds.width - 90, height: UIScreen.main.bounds.height - 300)
+        print(UIScreen.main.bounds.width)
+        pagerView.interitemSpacing = 20
+
         
-        
-        
-        
-        view.addSubview(pagerView)
-        
-        
-        
-        view.addSubview(pageControl)
-        
-        
-        pagerView.snp.makeConstraints { make in
-            make.height.equalTo(500)
-            make.horizontalEdges.equalTo(view)
-            make.centerY.equalTo(view)
-        }
     }
     
     override func setConfigure() {
         super.setConfigure()
         
+        view.addSubview(pagerView)
     }
     override func setConstraints() {
         super.setConstraints()
+        
+        pagerView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 }
 
@@ -63,7 +58,7 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! CustomPagerViewCell
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: CustomPagerViewCell.description(), at: index) as! CustomPagerViewCell
         
         cell.imageView?.backgroundColor = [.red, .blue, .black].randomElement()!
         cell.imageView?.layer.shadowColor = UIColor.red.cgColor
@@ -78,7 +73,7 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
         
         cell.parentVC = self
         
-        cell.button2.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        cell.playButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
 
         return cell
     }
