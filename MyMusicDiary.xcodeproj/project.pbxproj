@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36793F1473D5E9DF55347611 /* Pods_MyMusicDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F314FA86A76EFB2377A55 /* Pods_MyMusicDiary.framework */; };
 		4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D4F92AC3A9ED00E7C6A4 /* AppDelegate.swift */; };
 		4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D4FB2AC3A9ED00E7C6A4 /* SceneDelegate.swift */; };
 		4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D4FD2AC3A9ED00E7C6A4 /* ViewController.swift */; };
@@ -69,9 +70,11 @@
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
 		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
+		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		341F314FA86A76EFB2377A55 /* Pods_MyMusicDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMusicDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4812D4F62AC3A9ED00E7C6A4 /* MyMusicDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMusicDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4812D4F92AC3A9ED00E7C6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4812D4FB2AC3A9ED00E7C6A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +133,9 @@
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
+		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
+		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
+		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,7 @@
 				4812D50F2AC3AAE600E7C6A4 /* Kingfisher in Frameworks */,
 				4812D5152AC3AB1000E7C6A4 /* FSCalendar in Frameworks */,
 				4812D5122AC3AAF200E7C6A4 /* SnapKit in Frameworks */,
+				36793F1473D5E9DF55347611 /* Pods_MyMusicDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +162,8 @@
 			children = (
 				4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */,
 				4812D4F72AC3A9ED00E7C6A4 /* Products */,
+				99F964DB2FEB2A606827D0F7 /* Pods */,
+				D6CABB9C611E83054CBF627F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -294,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				483790532ACBDD45003AC436 /* HomeTabViewController.swift */,
+				48CD19102AD282B2000BF7F3 /* Pager */,
 				483790A12ACFAB32003AC436 /* Chart */,
 				483790522ACBDD39003AC436 /* Calendar */,
 			);
@@ -397,6 +407,32 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		48CD19102AD282B2000BF7F3 /* Pager */ = {
+			isa = PBXGroup;
+			children = (
+				48CD19112AD282DE000BF7F3 /* PagerViewController.swift */,
+			);
+			path = Pager;
+			sourceTree = "<group>";
+		};
+		99F964DB2FEB2A606827D0F7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */,
+				8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D6CABB9C611E83054CBF627F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				341F314FA86A76EFB2377A55 /* Pods_MyMusicDiary.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -404,9 +440,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4812D50A2AC3A9EE00E7C6A4 /* Build configuration list for PBXNativeTarget "MyMusicDiary" */;
 			buildPhases = (
+				540691EB3C3A048E2B4003FA /* [CP] Check Pods Manifest.lock */,
 				4812D4F22AC3A9ED00E7C6A4 /* Sources */,
 				4812D4F32AC3A9ED00E7C6A4 /* Frameworks */,
 				4812D4F42AC3A9ED00E7C6A4 /* Resources */,
+				4CF7B1A1CCC17F47FBDAB01E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -456,8 +494,8 @@
 				4812D5102AC3AAF200E7C6A4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4812D5132AC3AB1000E7C6A4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4812D5162AC3AB2400E7C6A4 /* XCRemoteSwiftPackageReference "Charts" */,
-				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */,
-				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */,
+				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
 			);
 			productRefGroup = 4812D4F72AC3A9ED00E7C6A4 /* Products */;
 			projectDirPath = "";
@@ -479,6 +517,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4CF7B1A1CCC17F47FBDAB01E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		540691EB3C3A048E2B4003FA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyMusicDiary-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4812D4F22AC3A9ED00E7C6A4 /* Sources */ = {
@@ -515,6 +595,7 @@
 				4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */,
 				4812D5412AC3D62B00E7C6A4 /* Genre5ViewController.swift in Sources */,
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
+				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
@@ -674,6 +755,7 @@
 		};
 		4812D50B2AC3A9EE00E7C6A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -706,6 +788,7 @@
 		};
 		4812D50C2AC3A9EE00E7C6A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -792,7 +875,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+		4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uias/Tabman.git";
 			requirement = {
@@ -800,7 +883,7 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -833,17 +916,17 @@
 		};
 		4812D5342AC3D42200E7C6A4 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */;
+			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman.git" */;
 			productName = Tabman;
 		};
 		48A0A0DF2AC54896008DC198 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = Realm;
 		};
 		48A0A0E12AC54896008DC198 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
