@@ -7,10 +7,11 @@
 
 import UIKit
 import FSPagerView
+import Kingfisher
 
 
 
-class CustomPagerViewCell: FSPagerViewCell {
+class MainPagerViewCell: FSPagerViewCell {
     
     var parentVC: PagerViewController?  // 버튼에 대한 액션 target 연결용
     
@@ -140,6 +141,8 @@ class CustomPagerViewCell: FSPagerViewCell {
     
     override func prepareForReuse() {
         
+        self.imageView?.contentMode = .scaleAspectFit
+        
         isPlaying = false
         
         self.imageView!.snp.makeConstraints { make in
@@ -232,5 +235,35 @@ class CustomPagerViewCell: FSPagerViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func designCell(_ sender: MusicItemTable) {
+        
+
+        
+        if let str = sender.bigImageURL, let url = URL(string: str) {
+            self.imageView?.kf.setImage(with: url)
+        }
+        
+        titleLabel.text = sender.name
+        artistLabel.text = sender.artist
+        recordLabel.text = "\(sender.count)번 기록한 음악입니다"
+        
+        // "음악" 제외
+        for (index, item) in [genre1Label, genre2Label, genre3Label].enumerated() {
+            item.isHidden = false
+            
+            var genreIdx = index
+            if index >= 1 {
+                genreIdx = index + 1
+            }
+            
+            if genreIdx <= sender.genres.count - 1 {
+                item.text = sender.genres[genreIdx]
+            } else {
+                item.isHidden = true
+            }
+        }
+
     }
 }

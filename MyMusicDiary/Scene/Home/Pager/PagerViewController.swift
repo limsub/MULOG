@@ -13,9 +13,11 @@ import FSPagerView
 
 class PagerViewController: BaseViewController {
     
+    var dataList: [Int] = [1, 2, 3, 4, 5, 6]
     
     let pagerView = FSPagerView()
-    let pageControl = FSPageControl()
+
+    let viewModel = PagerViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +26,9 @@ class PagerViewController: BaseViewController {
         navigationItem.title = "하이하이"
         
         
-        
         pagerView.dataSource = self
         pagerView.delegate = self
-        pagerView.register(CustomPagerViewCell.self, forCellWithReuseIdentifier: CustomPagerViewCell.description())
+        pagerView.register(MainPagerViewCell.self, forCellWithReuseIdentifier: MainPagerViewCell.description())
         pagerView.isInfinite = true  // 무한 스크롤
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         
@@ -36,6 +37,7 @@ class PagerViewController: BaseViewController {
         pagerView.interitemSpacing = 20
 
         
+        viewModel.fetchData()
     }
     
     override func setConfigure() {
@@ -54,50 +56,36 @@ class PagerViewController: BaseViewController {
 
 extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return 50
+        return viewModel.numberOfItems()
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: CustomPagerViewCell.description(), at: index) as! CustomPagerViewCell
+        print(index)
         
-        cell.imageView?.backgroundColor = [.red, .blue, .black].randomElement()!
-        cell.imageView?.layer.shadowColor = UIColor.red.cgColor
-        cell.imageView?.layer.shadowOffset = CGSize(width: 4, height: 4)
-        
-        
-        
-        cell.imageView?.image = UIImage(named: ["sample1", "sample2", "sample3"].randomElement()!)
-        cell.imageView?.contentMode = .scaleAspectFit
-        
-        cell.playImageView
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: MainPagerViewCell.description(), at: index) as! MainPagerViewCell
         
         cell.parentVC = self
         
-        cell.playButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        
+        viewModel.cellForItemAt(index) { item in
+            cell.designCell(item)
+        }
+        
+        
+        cell.playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
 
         return cell
     }
     
     @objc
-    func buttonClicked(_ sender: UIButton) {
+    func playButtonClicked(_ sender: UIButton) {
         print("HIHIHIHI")
  
-
+        
         
         // 1. 음악 재생 or 멈춤
         
         
         // 2. 셀의 재생/멈춤 이미지 animate
     }
-}
-
-extension PagerViewController: PlayButtonDelegate {
-    func playButtonClicked() {
-        print("hi")
-    }
-}
-
-
-protocol PlayButtonDelegate: AnyObject {
-    func playButtonClicked()
 }

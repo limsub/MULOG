@@ -70,8 +70,10 @@
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
 		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
-		48C7E2F62AD295CA00879D36 /* CumstomPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */; };
+		48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */; };
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
+		48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68D2AD2D22200932539 /* PagerViewModel.swift */; };
+		48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,8 +136,10 @@
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
-		48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CumstomPagerViewCell.swift; sourceTree = "<group>"; };
+		48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagerViewCell.swift; sourceTree = "<group>"; };
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
+		48DAF68D2AD2D22200932539 /* PagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewModel.swift; sourceTree = "<group>"; };
+		48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewDataRepository.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -279,6 +283,7 @@
 				4837908D2ACD6098003AC436 /* MonthScrollCatalogCell.swift */,
 				483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */,
 				483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */,
+				48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -405,6 +410,7 @@
 				48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */,
 				483790422ACA7AEE003AC436 /* DayItemTableRepository.swift */,
 				4837909F2ACFAAFE003AC436 /* ChartDataRepository.swift */,
+				48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -413,7 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				48CD19112AD282DE000BF7F3 /* PagerViewController.swift */,
-				48C7E2F52AD295CA00879D36 /* CumstomPagerViewCell.swift */,
+				48DAF68D2AD2D22200932539 /* PagerViewModel.swift */,
 			);
 			path = Pager;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,
 				4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */,
 				4812D5412AC3D62B00E7C6A4 /* Genre5ViewController.swift in Sources */,
+				48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */,
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
@@ -610,13 +617,14 @@
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
 				483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
-				48C7E2F62AD295CA00879D36 /* CumstomPagerViewCell.swift in Sources */,
+				48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
 				483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */,
 				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,
+				48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */,
 				483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */,
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
