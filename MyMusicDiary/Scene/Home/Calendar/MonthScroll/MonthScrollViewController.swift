@@ -14,11 +14,17 @@ class MonthScrollViewController: BaseViewController {
     let viewModel = MonthScrollViewModel()
 
     let titleButton = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40))    // navigation Item에 들어가는 버튼
-    let titleLabel = UILabel()
+    let titleLabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 20)
+        return view
+    }()
     let titleImage = {
         let view = UIImageView()
         view.image = UIImage(systemName: "chevron.right")!
-        view.tintColor = .white
+    
+        view.tintColor = .black
+        view.sizeToFit()
         return view
     }()
     
@@ -31,7 +37,7 @@ class MonthScrollViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleButton.backgroundColor = .brown
+//        titleButton.backgroundColor = .brown
         
         settingNavigaionItem()
         settingCollectionView()
@@ -69,7 +75,7 @@ class MonthScrollViewController: BaseViewController {
             make.center.equalTo(titleButton)
         }
         titleImage.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.trailing)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
             make.centerY.equalTo(titleButton)
         }
         titleButton.snp.makeConstraints { make in
@@ -116,9 +122,9 @@ class MonthScrollViewController: BaseViewController {
             self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0)
             self?.mainView.pickerView.frame = CGRect(x: 0, y: -50, width: UIScreen.main.bounds.size.width, height: 0)
             self?.mainView.pickerView.alpha = 0
-            self?.titleButton.setTitleColor(.black, for: .normal)
             
-            self?.titleImage.transform = CGAffineTransform(rotationAngle: -.pi/2)
+            self?.titleLabel.textColor = .black
+            self?.titleImage.transform = CGAffineTransform(rotationAngle: 0)
             
             self?.titleImage.tintColor = .black
             
@@ -138,8 +144,8 @@ class MonthScrollViewController: BaseViewController {
             // animation
             self?.mainView.backView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 300)
             self?.mainView.pickerView.frame = CGRect(x: 0, y: 80, width: UIScreen.main.bounds.size.width, height: 200)
-            self?.titleButton.setTitleColor(.white, for: .normal)
             
+            self?.titleLabel.textColor = .white
             self?.titleImage.transform = CGAffineTransform(rotationAngle: .pi/2)
             self?.titleImage.tintColor = .white
         } completion: { _ in

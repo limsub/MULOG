@@ -102,15 +102,13 @@ class MonthChartViewController: BaseViewController {
         
         
         /* titleView */
-        titleView.dateLabel.text = currentPageDate.toString(of: .yearMonth)
-        titleView.songsCountlabel.text = "곡 수 : \(musicTotalCnt) 개"
-        titleView.genresCountLabel.text = "장르 수 : \(genreTotalCnt) 개"
+        titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
         titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
         titleView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         
 
         /* circle Graph */
-        pieGraphView.titleLabel.text = "과목별 비율"
+        pieGraphView.titleLabel.text = "전체 장르 비율"
         
         settingPieGraphView(dataPoints: genres, values: percentArr)
         
@@ -120,7 +118,7 @@ class MonthChartViewController: BaseViewController {
 
         
         /* bar Graph */
-        barGraphView.titleLabel.text = "과목별 비율"
+        barGraphView.titleLabel.text = "날짜별 장르 비율"
         
         settingBarGraphView()
         
@@ -163,7 +161,7 @@ class MonthChartViewController: BaseViewController {
         
         titleView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView).inset(8)
-            make.height.equalTo(100)
+            make.height.equalTo(130)
         }
         pieGraphView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(12)

@@ -60,7 +60,8 @@ class CustomBarChartViewWithExplanation: BaseView {
         super.setConstraints()
         
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalTo(self).inset(12)
+            make.top.equalTo(self).inset(12)
+            make.leading.equalTo(self).inset(18)
         }
         barChartView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)

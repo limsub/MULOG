@@ -21,4 +21,6 @@ enum DateFormatType: String {
     
     case full = "yyyyMMdd"
     
+    case fullSlashWithSingelMonth = "yyyy/M/dd"
+    
 }

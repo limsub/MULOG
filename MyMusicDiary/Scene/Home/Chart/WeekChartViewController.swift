@@ -179,7 +179,7 @@ class WeekChartViewController: BaseViewController {
         
         titleView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView).inset(8)
-            make.height.equalTo(100)
+            make.height.equalTo(130)
         }
         pieGraphView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(12)

@@ -61,10 +61,14 @@ class CustomBarChartView: UIView {
         let width = rect.width
         
         var x: CGFloat = leftSpace // 시작 x좌표
+        print("시작 위치 : \(x)")
         let itemWidth = (width - x - rightSpace) / CGFloat(dayCount)
         let barWidth = itemWidth * 0.8
         
         x += itemWidth / 2  // 가운데에 그림 그린다
+        print("시작 위치 : \(x)")
+        
+        print("시작 위치 : \(x - barWidth / 2)")
         
 //        let colors: [UIColor] = [.red, .blue, .black, .green, .orange, .purple, .brown, .darkGray, .systemPink, .yellow]
         

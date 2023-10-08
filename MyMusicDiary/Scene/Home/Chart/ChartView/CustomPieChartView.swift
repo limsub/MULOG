@@ -10,7 +10,10 @@ import DGCharts
 
 class CustomPieChartView: BaseView {
     
-    let titleLabel = UILabel()
+    let titleLabel = {
+        let view = UILabel()
+        return view
+    }()
     let pieChartView = PieChartView()
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
 
@@ -20,7 +23,6 @@ class CustomPieChartView: BaseView {
         
         self.backgroundColor = .white
         self.layer.cornerRadius = 10
-        
     }
     
     required init?(coder: NSCoder) {
@@ -34,16 +36,13 @@ class CustomPieChartView: BaseView {
         self.addSubview(titleLabel)
         self.addSubview(pieChartView)
         self.addSubview(collectionView)
-        
-        
-//        pieChartView.backgroundColor = .brown
-//        collectionView.backgroundColor = .cyan
     }
     override func setConstraints() {
         super.setConstraints()
         
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalTo(self).inset(12)
+            make.top.equalTo(self).inset(12)
+            make.leading.equalTo(self).inset(12)
         }
         pieChartView.snp.makeConstraints { make in
 //            make.top.equalTo(titleLabel.snp.bottom).offset(12)
