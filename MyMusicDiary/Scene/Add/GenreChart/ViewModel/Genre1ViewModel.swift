@@ -33,7 +33,7 @@ class Genre1ViewModel {
                     id: $0.id.rawValue, name: $0.title, artist: $0.artistName,
                     bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
                     smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
-                    previewURL: $0.previewAssets?[0].url, genres: $0.genreNames,
+                    previewURL: $0.previewAssets?[0].url?.absoluteString, genres: $0.genreNames,
                     backgroundColor: $0.artwork?.backgroundColor
                 )
             }

@@ -12,7 +12,7 @@ class MusicItemTableRepository {
     
     let realm = try! Realm()
     
-    
+    // (저장 버튼 클릭 시). DayItemTable 인스턴스에 musicItem들을 다 추가하고, 최종적인 DayItemTable 램에 추가
     func createDayItem(_ item: DayItemTable) {
         do {
             try realm.write {
@@ -24,6 +24,7 @@ class MusicItemTableRepository {
         }
     }
     
+    // (저장 버튼 클릭 시) DayItemTable 인스턴스에 musicItem을 추가하는 과정. 이미 램에 있는 musicItem일 수도 있고, 새로 만든 musicItem일 수도 있다
     func appendMusicItem(_ dayItem: DayItemTable, musicItem: MusicItemTable) {
         do {
             try realm.write {
@@ -34,23 +35,8 @@ class MusicItemTableRepository {
         }
     }
     
+
     
-    
-    func createMusicItem(_ item: MusicItemTable) {
-        do {
-            try realm.write {
-                realm.add(item)
-            }
-        } catch {
-            print("Create Error : ", error)
-            // Alert : 데이터를 저장하는 과정에서 문제가 생겼습니다
-        }
-    }
-    
-    func fetchMusic() -> Results<MusicItemTable> {
-        let data = realm.objects(MusicItemTable.self)
-        return data
-    }
     func fetchMusic(_ id: String) -> MusicItemTable? {
         let data = realm.objects(MusicItemTable.self).where {
             $0.id == id
@@ -99,13 +85,14 @@ class MusicItemTableRepository {
     }
     
     
+    // 기존에 있었던 MusicItemTable인 경우, count를 1 올려준다
     func plusCnt(_ data: MusicItemTable) {
         do {
             try realm.write {
                 realm.create(
                     MusicItemTable.self,
                     value: ["id": data.id, "name": data.name,
-                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count + 1],
+                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count + 1, "backgroundColors": data.backgroundColors, "dateList": data.dateList],
                     update: .modified
                 )
             }
@@ -114,17 +101,30 @@ class MusicItemTableRepository {
         }
     }
     
-    func makeMusicItemTable(_ data: MusicItem) -> MusicItemTable {
-
-        let colorArr: [Float]
-        if let CGColorArr = data.backgroundColor?.components {
-            colorArr = CGColorArr.map{ Float($0) }
-        } else {
-            colorArr = [0.0, 0.0, 0.0, 0.0]
-        }
+    // 추가한 날짜(오늘)을 MusicItemTable의 dateList에 추가해준다
+    func plusDate(_ data: MusicItemTable, today: Date) {
         
-        return MusicItemTable(id: data.id, name: data.name, artist: data.artist, bigImageURL: data.bigImageURL, smallImageURL: data.smallImageURL, previewURL: data.previewURL?.absoluteString, genres: data.genres, colors: colorArr)
+        
+        
+        do {
+            try realm.write {
+                let todayString = today.toString(of: .full)
+                data.dateList.append(todayString)
+                
+                realm.create(
+                    MusicItemTable.self,
+                    value: ["id": data.id, "name": data.name,
+                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count, "backgroundColors": data.backgroundColors, "dateList": data.dateList],
+                    update: .modified
+                )
+            }
+        } catch {
+            print("업데이트 에러")
+        }
     }
+    
+    
+
     
     
     

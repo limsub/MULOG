@@ -17,12 +17,12 @@ class DayItemTable: Object {
     convenience init(day: Date) {
         self.init()
         
-        let dateString = Constant.DateFormat.realmDateFormatter.string(from: day)
-        
-
+        let dateString = day.toString(of: .full)
         self.day = dateString
     }
 }
+
+
 
 class MusicItemTable: Object {
     
@@ -39,6 +39,8 @@ class MusicItemTable: Object {
     
     @Persisted var backgroundColors: List<Float> = List<Float>()
     
+    @Persisted var dateList: List<String> = List<String>()  // [20221011, 20221123, 20221201, ...]
+    
     convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String], colors: [Float]) {
         self.init()
         
@@ -53,6 +55,31 @@ class MusicItemTable: Object {
             self.genres.append(item)
         }
         colors.forEach { item in
+            self.backgroundColors.append(item)
+        }
+    }
+    
+    convenience init(musicItem: MusicItem) {
+        self.init()
+        
+        let colorArr: [Float]
+        if let CGColorArr = musicItem.backgroundColor?.components {
+            colorArr = CGColorArr.map{ Float($0) }
+        } else {
+            colorArr = [0.0, 0.0, 0.0, 0.0]
+        }
+        
+        self.id = musicItem.id
+        self.name = musicItem.name
+        self.artist = musicItem.artist
+        self.bigImageURL = musicItem.bigImageURL
+        self.smallImageURL = musicItem.smallImageURL
+        self.previewURL = musicItem.previewURL
+        
+        musicItem.genres.forEach { item in
+            self.genres.append(item)
+        }
+        colorArr.forEach { item in
             self.backgroundColors.append(item)
         }
     }

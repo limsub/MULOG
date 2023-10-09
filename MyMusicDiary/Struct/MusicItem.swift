@@ -19,11 +19,9 @@ struct MusicItem: Identifiable, Hashable {
 //    let imageURL: Artwork?
     let bigImageURL: String?    // 700 x 700
     let smallImageURL: String?  // 150 x 150
-    let previewURL: URL?
+    let previewURL: String?
     
     let genres: [String]
     
     var backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
-    
-
 }

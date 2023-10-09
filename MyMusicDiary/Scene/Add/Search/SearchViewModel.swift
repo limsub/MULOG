@@ -47,7 +47,7 @@ class SearchViewModel {
                             artist: $0.artistName,
                             bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
                             smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
-                            previewURL: $0.previewAssets?[0].url,
+                            previewURL: $0.previewAssets?[0].url?.absoluteString,
                             genres: $0.genreNames,
                             backgroundColor: $0.artwork?.backgroundColor
                             

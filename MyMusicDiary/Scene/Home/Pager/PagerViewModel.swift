@@ -30,6 +30,7 @@ class PagerViewModel {
     }
     
     func currentPreviewURL(_ currentIndex: Int) -> String? {
+        if currentIndex >= dataList.count { return nil }
         return dataList[currentIndex].previewURL
     }
     

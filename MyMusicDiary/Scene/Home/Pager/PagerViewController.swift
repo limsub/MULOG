@@ -135,6 +135,7 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
 //        player.pause()
         player.seek(to: .zero)
         print("끝!!")
+        
     }
 }
 

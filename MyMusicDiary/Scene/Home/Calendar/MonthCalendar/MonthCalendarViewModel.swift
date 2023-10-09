@@ -23,7 +23,8 @@ class MonthCalendarViewModel {
     }
     
     func firstMusicUrl(_ date: Date) -> URL? {
-        if let data = repository.fetchDay(date), let smallURL = data.musicItems[0].smallImageURL, let url = URL(string: smallURL) {
+
+        if let data = repository.fetchDay(date), data.musicItems.count > 0, let smallURL = data.musicItems[0].smallImageURL, let url = URL(string: smallURL) {
             return url
         } else {
             return nil

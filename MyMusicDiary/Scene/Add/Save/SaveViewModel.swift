@@ -8,6 +8,8 @@
 import Foundation
 
 class SaveViewModel {
+
+    
     
     let repository = MusicItemTableRepository()
     
@@ -24,21 +26,28 @@ class SaveViewModel {
         let todayTable = DayItemTable(day: Date())
         
 
-//        let todayTable = DayItemTable(day: Calendar.current.date(byAdding: .day, value: -25, to: Date())!)
+//        let todayTable = DayItemTable(day: Calendar.current.date(byAdding: .day, value: -15, to: Date())!)
         
-    
+        
         
         // 저장할 음악들
         musicList.value.forEach {
             // 기존에 저장했던 음악
             if let alreadyMusic = repository.alreadySave($0.id) {
                 repository.plusCnt(alreadyMusic)
+                repository.plusDate(alreadyMusic, today: Date())
+//                repository.plusDate(alreadyMusic, today: Calendar.current.date(byAdding: .day, value: -2, to: Date())!)
                 repository.appendMusicItem(todayTable, musicItem: alreadyMusic)
             } else {    // 처음 저장하는 음악
-                let newMusic = repository.makeMusicItemTable($0)
+                let newMusic = MusicItemTable(musicItem: $0)    // 램에 아직 없는 아이템
+                newMusic.dateList.append(Date().toString(of: .full))
+//                newMusic.dateList.append(Calendar.current.date(byAdding: .day, value: -2, to: Date())!.toString(of: .full))
                 repository.appendMusicItem(todayTable, musicItem: newMusic) // MusicItemTable에 자동 추가
             }
         }
+        
+        print("DayItemTable이 램에 저장됩니다", todayTable)
+        
         repository.createDayItem(todayTable)
     }
     
@@ -68,4 +77,8 @@ class SaveViewModel {
     func musicListCount() -> Int {
         return musicList.value.count
     }
+    
+    
+    
+ 
 }

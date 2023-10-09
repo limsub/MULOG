@@ -29,20 +29,7 @@ class SaveViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
-        
-        
-        // 임시
-//        let music = repository.fetchMusic().first!
-//        var musicGenres: [String] = []
-//        music.genres.forEach { item in
-//            musicGenres.append(item)
-//        }
-//        let music2 = MusicItem(id: music.id, name: music.name, artist: music.artist, bigImageURL: music.bigImageURL, smallImageURL: music.smallImageURL, previewURL: nil, genres: musicGenres
-//        )
-//        viewModel.musicList.value.append(music2)
-        
-        
+
         setCollectionView()
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
@@ -56,34 +43,7 @@ class SaveViewController: BaseViewController {
         print(viewModel.musicList.value)
         
         viewModel.addNewData()
-        
-//        // 오늘 날짜로 추가
-//        let todayNew = DayItemTable(day: Date())
-//        repository.createDayItem(todayNew)
-//
-//        // 방금 추가한 데이터 가져옴
-//        guard let todayData = repository.fetchDay(Date()) else { return }
-//
-//        // 저장할 음악 데이터들 loop
-//        viewModel.musicList.value.forEach {
-//
-//            // 이미 저장된 음악 데이터인 경우
-//            if let alreadyData = repository.alreadySave($0.id) {
-//                // count를 1 증가시킨다
-//                repository.plusCnt(alreadyData)
-//
-//                // 오늘 날짜 데이터의 musicItem에 추가
-//                repository.appendMusicItem(todayData, musicItem: alreadyData)
-//            }
-//            // 기존에 없는 음악 데이터인 경우
-//            else {
-//                // 새로운 테이블 생성
-//                let task = repository.makeMusicItemTable($0)
-//
-//                // 오늘 날짜 데이터의 musicItem에 추가 -> 자동으로 musicItemTable에도 추가된다
-//                repository.appendMusicItem(todayData, musicItem: task)
-//            }
-//        }
+
     }
     
     @objc
