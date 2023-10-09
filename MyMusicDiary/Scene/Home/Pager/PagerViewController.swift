@@ -66,6 +66,18 @@ class PagerViewController: BaseViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print(#function)
+        
+        isPlaying = false
+        currentURL = ""
+        player.pause()
+        player.seek(to: .zero)
+        print("끝!!")
+    }
+    
     func replacePlayer() {
         guard let str = previewURL, let url = URL(string: str) else { return }
         playerItem = AVPlayerItem(url: url)
@@ -164,11 +176,28 @@ extension PagerViewController: PlayButtonActionProtocol {
             player.pause()
         }
     }
+    
+    func showBottomSheet() {
+        print("바텀시트 올리기")
+        
+        
+        let vc = RecordDateViewController()
+        
+        vc.item = viewModel.dataList[pagerView.currentIndex]
+        
+        vc.modalPresentationStyle = .pageSheet
+        let sheet = vc.sheetPresentationController
+        sheet?.detents = [.medium(), .large()]
+        present(vc, animated: true)
+    }
 }
+
 
 protocol PlayButtonActionProtocol: AnyObject {
     
     var isPlaying: Bool { get set }
     
     func play()
+    
+    func showBottomSheet()
 }

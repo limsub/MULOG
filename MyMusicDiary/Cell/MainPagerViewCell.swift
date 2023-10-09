@@ -147,7 +147,7 @@ class MainPagerViewCell: FSPagerViewCell {
     
     @objc
     func recordButtonClicked() {
-        print(#function)
+        parentVC?.showBottomSheet()
     }
     
     
@@ -166,7 +166,7 @@ class MainPagerViewCell: FSPagerViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray.withAlphaComponent(0.1)
+//        backgroundColor = .lightGray.withAlphaComponent(0.1)
   
         
         self.imageView!.clipsToBounds = true

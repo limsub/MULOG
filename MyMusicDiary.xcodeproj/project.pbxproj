@@ -70,6 +70,7 @@
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
 		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
+		48BA312B2AD3ED040048AD05 /* RecordDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */; };
 		48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */; };
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 		48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68D2AD2D22200932539 /* PagerViewModel.swift */; };
@@ -136,6 +137,7 @@
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
+		48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewController.swift; sourceTree = "<group>"; };
 		48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagerViewCell.swift; sourceTree = "<group>"; };
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		48DAF68D2AD2D22200932539 /* PagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewModel.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 			children = (
 				48CD19112AD282DE000BF7F3 /* PagerViewController.swift */,
 				48DAF68D2AD2D22200932539 /* PagerViewModel.swift */,
+				48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */,
 			);
 			path = Pager;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				483790922ACEA490003AC436 /* Enum+DateFormatType.swift in Sources */,
 				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
+				48BA312B2AD3ED040048AD05 /* RecordDateViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,
 				48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */,

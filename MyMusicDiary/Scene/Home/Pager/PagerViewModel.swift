@@ -34,4 +34,6 @@ class PagerViewModel {
         return dataList[currentIndex].previewURL
     }
     
+    
+    
 }
