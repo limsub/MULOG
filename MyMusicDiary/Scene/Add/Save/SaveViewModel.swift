@@ -23,10 +23,10 @@ class SaveViewModel {
     
     // 데이터 추가 (저장 버튼 클릭)
     func addNewData() {
-        let todayTable = DayItemTable(day: Date())
+//        let todayTable = DayItemTable(day: Date())
         
-
-//        let todayTable = DayItemTable(day: Calendar.current.date(byAdding: .day, value: -15, to: Date())!)
+        let a = Calendar.current.date(byAdding: .day, value: -22, to: Date())!
+        let todayTable = DayItemTable(day: a)
         
         
         
@@ -35,13 +35,17 @@ class SaveViewModel {
             // 기존에 저장했던 음악
             if let alreadyMusic = repository.alreadySave($0.id) {
                 repository.plusCnt(alreadyMusic)
-                repository.plusDate(alreadyMusic, today: Date())
-//                repository.plusDate(alreadyMusic, today: Calendar.current.date(byAdding: .day, value: -2, to: Date())!)
+                
+//                repository.plusDate(alreadyMusic, today: Date())
+                repository.plusDate(alreadyMusic, today: a)
+                
                 repository.appendMusicItem(todayTable, musicItem: alreadyMusic)
             } else {    // 처음 저장하는 음악
                 let newMusic = MusicItemTable(musicItem: $0)    // 램에 아직 없는 아이템
-                newMusic.dateList.append(Date().toString(of: .full))
-//                newMusic.dateList.append(Calendar.current.date(byAdding: .day, value: -2, to: Date())!.toString(of: .full))
+                
+//                newMusic.dateList.append(Date().toString(of: .full))
+                newMusic.dateList.append(a.toString(of: .full))
+                
                 repository.appendMusicItem(todayTable, musicItem: newMusic) // MusicItemTable에 자동 추가
             }
         }

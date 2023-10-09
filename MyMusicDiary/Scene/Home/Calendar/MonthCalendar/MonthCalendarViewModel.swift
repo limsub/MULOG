@@ -36,9 +36,10 @@ class MonthCalendarViewModel {
 //    }
     
     func updateMusicList(_ date: Date) {
+        currentMusicList.value.removeAll()
+        
         guard let data = repository.fetchDay(date) else { return }
         
-        currentMusicList.value.removeAll()
         data.musicItems.forEach { item in
             currentMusicList.value.append(item)
         }

@@ -13,8 +13,6 @@ import Kingfisher
 
 class MainPagerViewCell: FSPagerViewCell {
     
-//    var previewURL: String?
-
     var parentVC: PlayButtonActionProtocol?
     
 //    var isPlaying = false   // 현재 재생 여부를 일단 여기에 저장

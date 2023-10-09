@@ -14,6 +14,9 @@ class PagerViewModel {
     
     var dataList: [MusicItemTable] = []
     
+    var previewURL: String?     // 재생할 url
+    
+    
     func fetchData() {
         dataList = repository.fetchMusicForPagerView()
         
@@ -29,10 +32,17 @@ class PagerViewModel {
         completionHandler(dataList[index])
     }
     
-    func currentPreviewURL(_ currentIndex: Int) -> String? {
-        if currentIndex >= dataList.count { return nil }
-        return dataList[currentIndex].previewURL
+    func updatePreviewURL(_ currentIndex: Int) {
+        if currentIndex >= dataList.count { return }
+        previewURL = dataList[currentIndex].previewURL
     }
+    
+    func makeUrlByPreviewURL() -> URL? {
+        guard let str = previewURL, let url = URL(string: str) else { return nil }
+        return url
+    }
+    
+    
     
     
     

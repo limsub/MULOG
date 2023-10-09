@@ -11,59 +11,64 @@ import FSPagerView
 import AVFoundation
 
 
+// 데이터 받아오기 -> 맨 처음 (viewDidLoad)
+// 이미 있는 음악을 그날 또 추가했을 때
+// (일단 지금은)
+    // 맨 앞에 나타나 있는 셀은 업데이트 x
+    // 근데 스크롤하면서 뒤에 있는 셀 나오게 하면 그 때는 업데이트 o
+
 class PagerViewController: BaseViewController {
     
     let player = AVPlayer()
     var playerItem: AVPlayerItem?
-    var currentURL: String = ""
-    var isPlaying = false
     
-    var previewURL: String?
     
-    var dataList: [Int] = [1, 2, 3, 4, 5, 6]
+    var isPlaying = false   // cell에서도 쓰기 때문에 viewmodel로 굳이 옮기지 말자
     
     let pagerView = FSPagerView()
 
     let viewModel = PagerViewModel()
     
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        
-        
-        
+    func addObserverToPlayerStop() {
         NotificationCenter.default
             .addObserver(self,
             selector: #selector(playerDidFinishPlaying),
             name: .AVPlayerItemDidPlayToEndTime,
             object: player.currentItem
         )
+    }
+    
+    func settingPagerView() {
+        pagerView.dataSource = self
+        pagerView.delegate = self
+        pagerView.register(MainPagerViewCell.self, forCellWithReuseIdentifier: MainPagerViewCell.description())
+        pagerView.isInfinite = true
+        pagerView.transformer = FSPagerViewTransformer(type: .linear)
         
+        let bounds = UIScreen.main.bounds
+        pagerView.itemSize = CGSize(
+            width: bounds.width - 90,
+            height: bounds.height - 300
+        )
         
+        pagerView.interitemSpacing = 20
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
         
         navigationItem.title = "하이하이"
         
         
-        pagerView.dataSource = self
-        pagerView.delegate = self
-        pagerView.register(MainPagerViewCell.self, forCellWithReuseIdentifier: MainPagerViewCell.description())
-        pagerView.isInfinite = true  // 무한 스크롤
-        pagerView.transformer = FSPagerViewTransformer(type: .linear)
         
-        pagerView.itemSize = CGSize(width: UIScreen.main.bounds.width - 90, height: UIScreen.main.bounds.height - 300)
-        print(UIScreen.main.bounds.width)
-        pagerView.interitemSpacing = 20
+        addObserverToPlayerStop()
 
+        settingPagerView()
         
-        viewModel.fetchData()
+        viewModel.fetchData()   // dataList에 데이터 로드
         
-        previewURL = viewModel.currentPreviewURL(pagerView.currentIndex)
-        replacePlayer()
-        
-        
+        replacePlayer()     // previewURL을 업데이트하고, 미리 AVPlayerItem을 생성한다
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -72,14 +77,16 @@ class PagerViewController: BaseViewController {
         print(#function)
         
         isPlaying = false
-        currentURL = ""
         player.pause()
         player.seek(to: .zero)
         print("끝!!")
     }
     
     func replacePlayer() {
-        guard let str = previewURL, let url = URL(string: str) else { return }
+        viewModel.updatePreviewURL(pagerView.currentIndex)  // 가운데 있는 셀의 url을 미리 받아둔다
+        
+        guard let url = viewModel.makeUrlByPreviewURL() else { return }
+        
         playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
     }
@@ -103,12 +110,8 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
         return viewModel.numberOfItems()
     }
     
+    
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        print("cellForItemAt : ", index)
-        
-        print("current Index : ", pagerView.currentIndex)
-        
-        
         
         guard let cell = pagerView.dequeueReusableCell(withReuseIdentifier: MainPagerViewCell.description(), at: index) as? MainPagerViewCell else { return FSPagerViewCell() }
         
@@ -129,49 +132,32 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func pagerViewDidEndDecelerating(_ pagerView: FSPagerView) {
         print(#function)
         
-        print("current Index : ", pagerView.currentIndex)
-        
-        previewURL = viewModel.currentPreviewURL(pagerView.currentIndex)
-        replacePlayer()
-        
-        isPlaying = false
-        currentURL = ""
         player.pause()
+        isPlaying = false
+        replacePlayer() // 미리 url 업데이트하고, PlayerItem도 미리 만들어둔다 (바로 재생할 준비)
     }
+    
     
     @objc
     func playerDidFinishPlaying() {
-        
         isPlaying = false
-        currentURL = ""
 //        player.pause()
         player.seek(to: .zero)
-        print("끝!!")
-        
     }
 }
 
 
 
 extension PagerViewController: PlayButtonActionProtocol {
+
+    
     func play() {
-        
-        guard let str = previewURL, let url = URL(string: str) else { return }
-        
         if !isPlaying {
             // 음악 정지 or 기본 상태일 때
-            if currentURL == str {
-                // 같은 음악인 경우 -> 이어서 재생 (이미 생성된 item 사용)
-            } else {
-                // 다른 음악인 경우 -> item 새로 생성
-                
-                currentURL = str
-            }
             print("재생")
             player.play()
         } else {
             // 음악 재생 중일 때
-            
             print("정지")
             player.pause()
         }
@@ -180,11 +166,9 @@ extension PagerViewController: PlayButtonActionProtocol {
     func showBottomSheet() {
         print("바텀시트 올리기")
         
-        
         let vc = RecordDateViewController()
         
-        vc.item = viewModel.dataList[pagerView.currentIndex]
-        
+        vc.item = viewModel.dataList[pagerView.currentIndex]    // 음악 정보를 넘겨준다
         vc.modalPresentationStyle = .pageSheet
         let sheet = vc.sheetPresentationController
         sheet?.detents = [.medium(), .large()]

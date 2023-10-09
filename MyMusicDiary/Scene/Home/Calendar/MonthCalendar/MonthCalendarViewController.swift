@@ -124,7 +124,6 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         }
         if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
             currentCell.backImageView.alpha = 1
-            
         }
         
         // collectionView
