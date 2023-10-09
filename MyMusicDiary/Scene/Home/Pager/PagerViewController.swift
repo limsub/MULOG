@@ -16,6 +16,9 @@ class PagerViewController: BaseViewController {
     let player = AVPlayer()
     var playerItem: AVPlayerItem?
     var currentURL: String = ""
+    var isPlaying = false
+    
+    var previewURL: String?
     
     var dataList: [Int] = [1, 2, 3, 4, 5, 6]
     
@@ -23,9 +26,23 @@ class PagerViewController: BaseViewController {
 
     let viewModel = PagerViewModel()
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        
+        
+        
+        NotificationCenter.default
+            .addObserver(self,
+            selector: #selector(playerDidFinishPlaying),
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem
+        )
+        
+        
         
         navigationItem.title = "하이하이"
         
@@ -42,6 +59,17 @@ class PagerViewController: BaseViewController {
 
         
         viewModel.fetchData()
+        
+        previewURL = viewModel.currentPreviewURL(pagerView.currentIndex)
+        replacePlayer()
+        
+        
+    }
+    
+    func replacePlayer() {
+        guard let str = previewURL, let url = URL(string: str) else { return }
+        playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
     }
     
     override func setConfigure() {
@@ -64,76 +92,82 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        print(index)
+        print("cellForItemAt : ", index)
         
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: MainPagerViewCell.description(), at: index) as! MainPagerViewCell
+        print("current Index : ", pagerView.currentIndex)
         
         
         
+        guard let cell = pagerView.dequeueReusableCell(withReuseIdentifier: MainPagerViewCell.description(), at: index) as? MainPagerViewCell else { return FSPagerViewCell() }
         
         viewModel.cellForItemAt(index) { item in
-            cell.previewURL = item.previewURL
             cell.designCell(item)
         }
-        
         cell.parentVC = self
         
-        
-        cell.playButton.addTarget(self, action: #selector(playButtonClicked), for: .touchUpInside)
-
         return cell
     }
     
+    // 선택 막기
+    func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
+        return false
+    }
+    
+    // 다음으로 넘김
+    func pagerViewDidEndDecelerating(_ pagerView: FSPagerView) {
+        print(#function)
+        
+        print("current Index : ", pagerView.currentIndex)
+        
+        previewURL = viewModel.currentPreviewURL(pagerView.currentIndex)
+        replacePlayer()
+        
+        isPlaying = false
+        currentURL = ""
+        player.pause()
+    }
+    
     @objc
-    func playButtonClicked(_ sender: UIButton) {
-        print("HIHIHIHI")
- 
+    func playerDidFinishPlaying() {
         
-        
-        // 1. 음악 재생 or 멈춤
-        
-        
-        // 2. 셀의 재생/멈춤 이미지 animate -> cell 파일 내에서 addTarget 하나 더 만들어서 처리
-        
+        isPlaying = false
+        currentURL = ""
+//        player.pause()
+        player.seek(to: .zero)
+        print("끝!!")
     }
 }
 
+
+
 extension PagerViewController: PlayButtonActionProtocol {
-    func play(_ previewURL: String?, isPlaying: Bool) {
-        
+    func play() {
         
         guard let str = previewURL, let url = URL(string: str) else { return }
         
-        
-        if currentURL == str {
-            // 같은 음악인 경우
-            if isPlaying {
-                // 재생중인 경우
-                player.pause()
+        if !isPlaying {
+            // 음악 정지 or 기본 상태일 때
+            if currentURL == str {
+                // 같은 음악인 경우 -> 이어서 재생 (이미 생성된 item 사용)
             } else {
-                // 안재생중인 경우
-                player.play()
+                // 다른 음악인 경우 -> item 새로 생성
+                
+                currentURL = str
             }
-            
-        } else {
-            // 다른 음악인 경우 -> 바로 재생
-            playerItem = AVPlayerItem(url: url)
-            player.replaceCurrentItem(with: playerItem)
-            currentURL = str
-            
+            print("재생")
             player.play()
+        } else {
+            // 음악 재생 중일 때
+            
+            print("정지")
+            player.pause()
         }
-        
     }
-    
-//    NotificationCenter.default
-//        .addObserver(self,
-//        selector: #selector(playerDidFinishPlaying),
-//        name: .AVPlayerItemDidPlayToEndTime,
-//        object: videoPlayer.currentItem
-//    )
 }
 
 protocol PlayButtonActionProtocol: AnyObject {
-    func play(_ previewURL: String?, isPlaying: Bool)
+    
+    var isPlaying: Bool { get set }
+    
+    func play()
 }

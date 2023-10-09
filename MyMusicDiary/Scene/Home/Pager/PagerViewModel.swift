@@ -17,7 +17,7 @@ class PagerViewModel {
     func fetchData() {
         dataList = repository.fetchMusicForPagerView()
         
-        print(dataList)
+//        print(dataList)
     }
     
     func numberOfItems() -> Int {
@@ -27,6 +27,10 @@ class PagerViewModel {
     func cellForItemAt(_ index: Int, completionHandler: @escaping (MusicItemTable) -> Void) {
         
         completionHandler(dataList[index])
+    }
+    
+    func currentPreviewURL(_ currentIndex: Int) -> String? {
+        return dataList[currentIndex].previewURL
     }
     
 }

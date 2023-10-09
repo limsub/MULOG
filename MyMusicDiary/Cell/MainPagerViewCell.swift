@@ -13,11 +13,11 @@ import Kingfisher
 
 class MainPagerViewCell: FSPagerViewCell {
     
-    var previewURL: String?
+//    var previewURL: String?
 
     var parentVC: PlayButtonActionProtocol?
     
-    var isPlaying = false   // 현재 재생 여부를 일단 여기에 저장
+//    var isPlaying = false   // 현재 재생 여부를 일단 여기에 저장
     
     // 1. 앨범 커버 이미지 -> 기본 imageView 사용
     // 2. 제목 레이블
@@ -124,8 +124,17 @@ class MainPagerViewCell: FSPagerViewCell {
         // 이미지 관련 로직
         // 1. 뿅 나오게
         // 2. 2초 걸리면서 점점 흐려짐
+        
+        // parentVC.isPlaying을 사용하면 어떨까
+        
+        
+        if parentVC == nil { return }
+                
+        print("현재 상태 : \(parentVC?.isPlaying)")
+        
+        parentVC?.play()
 
-        self.playImageView.image = UIImage(systemName: isPlaying ? "play.circle" : "pause.circle")
+        self.playImageView.image = UIImage(systemName: (parentVC?.isPlaying ?? false) ? "play.circle" : "pause.circle")
         self.playImageView.alpha = 1
         UIView.animate(withDuration: 1.5) {
             self.playImageView.alpha = 0
@@ -133,9 +142,7 @@ class MainPagerViewCell: FSPagerViewCell {
             print("finish")
         }
 
-        parentVC?.play(previewURL, isPlaying: isPlaying)
-        
-        isPlaying.toggle()
+        parentVC?.isPlaying.toggle()
     }
     
     @objc
@@ -148,7 +155,6 @@ class MainPagerViewCell: FSPagerViewCell {
         
         self.imageView?.contentMode = .scaleAspectFit
         
-        isPlaying = false
         
         self.imageView!.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(self).inset(12)
@@ -161,6 +167,7 @@ class MainPagerViewCell: FSPagerViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .lightGray.withAlphaComponent(0.1)
+  
         
         self.imageView!.clipsToBounds = true
         self.imageView!.layer.cornerRadius = 10
