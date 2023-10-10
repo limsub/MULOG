@@ -73,6 +73,8 @@
 		48BA312B2AD3ED040048AD05 /* RecordDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */; };
 		48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312D2AD4D2A60048AD05 /* RecordDateViewModel.swift */; };
 		48BA31302AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312F2AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift */; };
+		48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA31322AD515E40048AD05 /* MainSettingViewController.swift */; };
+		48BA31382AD518E30048AD05 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA31372AD518E30048AD05 /* NotificationSettingViewController.swift */; };
 		48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */; };
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 		48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68D2AD2D22200932539 /* PagerViewModel.swift */; };
@@ -142,6 +144,8 @@
 		48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewController.swift; sourceTree = "<group>"; };
 		48BA312D2AD4D2A60048AD05 /* RecordDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewModel.swift; sourceTree = "<group>"; };
 		48BA312F2AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		48BA31322AD515E40048AD05 /* MainSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSettingViewController.swift; sourceTree = "<group>"; };
+		48BA31372AD518E30048AD05 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagerViewCell.swift; sourceTree = "<group>"; };
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		48DAF68D2AD2D22200932539 /* PagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewModel.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 		4812D5192AC3ABE100E7C6A4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				48BA31312AD515AD0048AD05 /* Setting */,
 				4837903B2ACA4C04003AC436 /* Home */,
 				4812D51B2AC3AC0D00E7C6A4 /* Add */,
 			);
@@ -431,6 +436,23 @@
 			path = RecordDate;
 			sourceTree = "<group>";
 		};
+		48BA31312AD515AD0048AD05 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				48BA31322AD515E40048AD05 /* MainSettingViewController.swift */,
+				48BA31342AD518C70048AD05 /* Notification */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		48BA31342AD518C70048AD05 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				48BA31372AD518E30048AD05 /* NotificationSettingViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		48CD19102AD282B2000BF7F3 /* Pager */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +630,7 @@
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */,
 				483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */,
+				48BA31382AD518E30048AD05 /* NotificationSettingViewController.swift in Sources */,
 				483790A32ACFAB43003AC436 /* MonthChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
 				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
@@ -624,6 +647,7 @@
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
+				48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,

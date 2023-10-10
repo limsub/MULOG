@@ -26,4 +26,9 @@ enum DateFormatType: String {
     
     case fullKorean = "yyyy년 M월 dd일"
     
+    
+    case hour = "HH"
+    case minute = "mm"
+    case hourMinute = "HHmm"
+    
 }
