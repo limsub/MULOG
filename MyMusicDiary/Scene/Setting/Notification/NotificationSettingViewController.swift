@@ -8,6 +8,62 @@
 import UIKit
 import UserNotifications
 
+class NotificationUpdate {
+    
+    static let shared = NotificationUpdate()
+    
+    let content = UNMutableNotificationContent()
+    
+    func updateNotifications() {
+        
+        // content 세팅
+        content.title = "오늘의 음악을 기록해주세요!"
+        content.body = "아직 오늘 음악을 기록하지 않았습니다"
+        
+        // UserDefault에 저장된 값을 가져온다
+        let time = UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key)!
+        
+        guard let hour = Int(time.substring(from: 0, to: 1)) else { return }
+        guard let minute =  Int(time.substring(from: 2, to: 3)) else { return }
+        
+        
+        // 기존 request 제거
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        // 새로운 request 등록
+        for i in 0...59 {
+            guard let notiDay = Calendar.current.date(byAdding: .day, value: i, to: Date()) else { continue }
+            let notiDayComponent = Calendar.current.dateComponents([.day, .month, .year], from: notiDay)
+            
+            var component = DateComponents()
+            component.hour = hour
+            component.minute = minute
+            component.year = notiDayComponent.year
+            component.month = notiDayComponent.month
+            component.day = notiDayComponent.day
+            
+            let trigger = UNCalendarNotificationTrigger(
+                dateMatching: component,
+                repeats: false
+            )
+            
+            let identifier = notiDay.toString(of: .full)
+            
+            let request = UNNotificationRequest(
+                identifier: identifier,
+                content: content,
+                trigger: trigger
+            )
+            
+            UNUserNotificationCenter.current().add(request) { error in
+//                print(error)
+            }
+            
+        }
+        
+    }
+}
+
 
 class NotificationSettingListView: BaseView {
     
@@ -96,52 +152,10 @@ class NotificationSettingViewController: BaseViewController {
     let settingView = NotificationSettingListView()
     let timeView = NotificationTimeView()
     
-    let content = UNMutableNotificationContent()
+    
 
     
-    func updateNewNotifications() {  // 15, 40 ("오늘"에 알림 설정 변경, 매일 15시 40분에 알림 전송)
-        
-        // timePicker에 저장된 값을 가져온다
-        guard let hour = Int(timeView.timePicker.date.toString(of: .hour)) else { return }
-        guard let minute = Int(timeView.timePicker.date.toString(of: .minute)) else { return }
-        
-        
-        
-        // 기존 request 제거
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
-        // 새로운 request 등록
-        for i in 0...59 {
-            guard let notiDay = Calendar.current.date(byAdding: .day, value: i, to: Date()) else { continue }
-            let notiDayComponent = Calendar.current.dateComponents([.day, .month, .year], from: notiDay)
-            
-            var component = DateComponents()
-            component.hour = hour
-            component.minute = minute
-            component.year = notiDayComponent.year
-            component.month = notiDayComponent.month
-            component.day = notiDayComponent.day
-            
-            let trigger = UNCalendarNotificationTrigger(
-                dateMatching: component,
-                repeats: false
-            )
-            
-            let identifier = notiDay.toString(of: .full)
-            
-            let request = UNNotificationRequest(
-                identifier: identifier,
-                content: content,
-                trigger: trigger
-            )
-            
-            UNUserNotificationCenter.current().add(request) { error in
-//                print(error)
-            }
-            
-        }
-        
-    }
+
     
     @objc
     func timeChanged(_ sender: UIDatePicker) {
@@ -149,7 +163,7 @@ class NotificationSettingViewController: BaseViewController {
         let time = sender.date.toString(of: .hourMinute)
         UserDefaults.standard.set(time, forKey: NotificationUserDefaults.time.key)
         
-        updateNewNotifications()
+        NotificationUpdate.shared.updateNotifications()
     }
     
     override func viewDidLoad() {
@@ -179,10 +193,7 @@ class NotificationSettingViewController: BaseViewController {
         
         timeView.timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
-        // content 세팅
-        content.title = "오늘의 음악을 기록해주세요!"
-        content.body = "아직 오늘 음악을 기록하지 않았습니다"
-        
+    
  
         // userdefault 확인해서 스위치 켜주거나 꺼주거나
         
@@ -217,13 +228,14 @@ class NotificationSettingViewController: BaseViewController {
     @objc
     func switchClicked(_ sender: UISwitch) {
         
+        
 
         if sender.isOn {
             print("켜집니다아아아")
             timeView.isHidden = false
             
             // 새로운 알림 업데이트
-            updateNewNotifications()
+            NotificationUpdate.shared.updateNotifications()
             
             UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
         } else {
