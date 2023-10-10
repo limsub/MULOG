@@ -29,6 +29,32 @@ class PagerViewController: BaseViewController {
 
     let viewModel = PagerViewModel()
     
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        navigationItem.title = "하이하이"
+        
+        addObserverToPlayerStop()
+        settingPagerView()
+        viewModel.fetchData()   // dataList에 데이터 로드
+        replacePlayer()     // previewURL을 업데이트하고, 미리 AVPlayerItem을 생성한다
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print(#function)
+        
+        isPlaying = false
+        player.pause()
+        player.seek(to: .zero)
+        print("끝!!")
+    }
+    
+    
     func addObserverToPlayerStop() {
         NotificationCenter.default
             .addObserver(self,
@@ -52,34 +78,6 @@ class PagerViewController: BaseViewController {
         )
         
         pagerView.interitemSpacing = 20
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        navigationItem.title = "하이하이"
-        
-        
-        
-        addObserverToPlayerStop()
-
-        settingPagerView()
-        
-        viewModel.fetchData()   // dataList에 데이터 로드
-        
-        replacePlayer()     // previewURL을 업데이트하고, 미리 AVPlayerItem을 생성한다
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        print(#function)
-        
-        isPlaying = false
-        player.pause()
-        player.seek(to: .zero)
-        print("끝!!")
     }
     
     func replacePlayer() {
@@ -137,6 +135,13 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
         replacePlayer() // 미리 url 업데이트하고, PlayerItem도 미리 만들어둔다 (바로 재생할 준비)
     }
     
+
+}
+
+
+
+extension PagerViewController: PlayButtonActionProtocol {
+    
     
     @objc
     func playerDidFinishPlaying() {
@@ -144,11 +149,6 @@ extension PagerViewController: FSPagerViewDelegate, FSPagerViewDataSource {
 //        player.pause()
         player.seek(to: .zero)
     }
-}
-
-
-
-extension PagerViewController: PlayButtonActionProtocol {
 
     
     func play() {
@@ -168,7 +168,8 @@ extension PagerViewController: PlayButtonActionProtocol {
         
         let vc = RecordDateViewController()
         
-        vc.item = viewModel.dataList[pagerView.currentIndex]    // 음악 정보를 넘겨준다
+        vc.viewModel.item = viewModel.dataList[pagerView.currentIndex]    // 음악 정보를 넘겨준다
+        
         vc.modalPresentationStyle = .pageSheet
         let sheet = vc.sheetPresentationController
         sheet?.detents = [.medium(), .large()]

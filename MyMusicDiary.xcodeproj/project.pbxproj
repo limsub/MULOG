@@ -71,6 +71,8 @@
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
 		48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */; };
 		48BA312B2AD3ED040048AD05 /* RecordDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */; };
+		48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312D2AD4D2A60048AD05 /* RecordDateViewModel.swift */; };
+		48BA31302AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA312F2AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift */; };
 		48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */; };
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 		48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68D2AD2D22200932539 /* PagerViewModel.swift */; };
@@ -138,6 +140,8 @@
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 		48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewController.swift; sourceTree = "<group>"; };
+		48BA312D2AD4D2A60048AD05 /* RecordDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewModel.swift; sourceTree = "<group>"; };
+		48BA312F2AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPagerViewCell.swift; sourceTree = "<group>"; };
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		48DAF68D2AD2D22200932539 /* PagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewModel.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				483790A62ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift */,
 				483790AF2AD117B2003AC436 /* BarChartSideCollectionViewCell.swift */,
 				48C7E2F52AD295CA00879D36 /* MainPagerViewCell.swift */,
+				48BA312F2AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -417,12 +422,21 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		48BA312C2AD4D2870048AD05 /* RecordDate */ = {
+			isa = PBXGroup;
+			children = (
+				48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */,
+				48BA312D2AD4D2A60048AD05 /* RecordDateViewModel.swift */,
+			);
+			path = RecordDate;
+			sourceTree = "<group>";
+		};
 		48CD19102AD282B2000BF7F3 /* Pager */ = {
 			isa = PBXGroup;
 			children = (
 				48CD19112AD282DE000BF7F3 /* PagerViewController.swift */,
 				48DAF68D2AD2D22200932539 /* PagerViewModel.swift */,
-				48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */,
+				48BA312C2AD4D2870048AD05 /* RecordDate */,
 			);
 			path = Pager;
 			sourceTree = "<group>";
@@ -577,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				483790A02ACFAAFE003AC436 /* ChartDataRepository.swift in Sources */,
+				48BA31302AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift in Sources */,
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* Extension+UIColor.swift in Sources */,
 				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
@@ -633,6 +648,7 @@
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
 				483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */,
+				48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
