@@ -18,10 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
             
-            print("성공 : ", success)
-            print("실패 : ", error)
-            
-            print(success, error)
+            print("시스템 알림 설정 여부 : ", success)
         }
         
         return true

@@ -8,61 +8,7 @@
 import UIKit
 import UserNotifications
 
-class NotificationUpdate {
-    
-    static let shared = NotificationUpdate()
-    
-    let content = UNMutableNotificationContent()
-    
-    func updateNotifications() {
-        
-        // content 세팅
-        content.title = "오늘의 음악을 기록해주세요!"
-        content.body = "아직 오늘 음악을 기록하지 않았습니다"
-        
-        // UserDefault에 저장된 값을 가져온다
-        let time = UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key)!
-        
-        guard let hour = Int(time.substring(from: 0, to: 1)) else { return }
-        guard let minute =  Int(time.substring(from: 2, to: 3)) else { return }
-        
-        
-        // 기존 request 제거
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
-        // 새로운 request 등록
-        for i in 0...59 {
-            guard let notiDay = Calendar.current.date(byAdding: .day, value: i, to: Date()) else { continue }
-            let notiDayComponent = Calendar.current.dateComponents([.day, .month, .year], from: notiDay)
-            
-            var component = DateComponents()
-            component.hour = hour
-            component.minute = minute
-            component.year = notiDayComponent.year
-            component.month = notiDayComponent.month
-            component.day = notiDayComponent.day
-            
-            let trigger = UNCalendarNotificationTrigger(
-                dateMatching: component,
-                repeats: false
-            )
-            
-            let identifier = notiDay.toString(of: .full)
-            
-            let request = UNNotificationRequest(
-                identifier: identifier,
-                content: content,
-                trigger: trigger
-            )
-            
-            UNUserNotificationCenter.current().add(request) { error in
-//                print(error)
-            }
-            
-        }
-        
-    }
-}
+
 
 
 class NotificationSettingListView: BaseView {
@@ -160,10 +106,11 @@ class NotificationSettingViewController: BaseViewController {
     @objc
     func timeChanged(_ sender: UIDatePicker) {
         
+        print("원하는 시간을 바꿨습니다. 새로운 알림을 등록할 예정입니다")
         let time = sender.date.toString(of: .hourMinute)
         UserDefaults.standard.set(time, forKey: NotificationUserDefaults.time.key)
         
-        NotificationUpdate.shared.updateNotifications()
+        NotificationRepository.shared.updateNotifications()
     }
     
     override func viewDidLoad() {
@@ -179,7 +126,6 @@ class NotificationSettingViewController: BaseViewController {
         
         guard let initialTime = time.toDate(to: .hourMinute) else { return }
         
-
         timeView.timePicker.setDate(initialTime, animated: true)
         
         
@@ -190,12 +136,24 @@ class NotificationSettingViewController: BaseViewController {
         timeView.isHidden = !isSwitchOn
         
         
+        // 시스템 알림이 꺼져있으면, 스위치를 off해준다
+        NotificationRepository.shared.checkSystemSetting {
+            
+        } failureCompletionHandler: {
+            DispatchQueue.main.async {
+                self.settingView.controlSwitch.isOn = false
+                self.timeView.isHidden = true
+            }
+        
+        }
+
+        
         
         timeView.timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
     
  
-        // userdefault 확인해서 스위치 켜주거나 꺼주거나
+        
         
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
@@ -228,28 +186,42 @@ class NotificationSettingViewController: BaseViewController {
     @objc
     func switchClicked(_ sender: UISwitch) {
         
-        
+        NotificationRepository.shared.checkSystemSetting {
+            DispatchQueue.main.async {
+                if sender.isOn {
+                    print("켜집니다아아아")
+                    self.timeView.isHidden = false
+                    
+                    // 새로운 알림 업데이트
+                    print("알림 설정 스위치를 작동했습니다. 새로운 알림을 등록할 예정입니다")
+                    NotificationRepository.shared.updateNotifications()
+                    
+                    UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
+                } else {
+                    print("꺼집니다")
+                    self.timeView.isHidden = true
+                    
+                    // 기존 알림 모두 제거
+                    print("알림 설정 스위치를 해제했습니다. 기존의 알림들의 모두 제거됩니다")
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    
+                    UserDefaults.standard.set(false, forKey: NotificationUserDefaults.isAllowed.key)
+                }
+            }
+        } failureCompletionHandler: {
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 
-        if sender.isOn {
-            print("켜집니다아아아")
-            timeView.isHidden = false
-            
-            // 새로운 알림 업데이트
-            NotificationUpdate.shared.updateNotifications()
-            
-            UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
-        } else {
-            print("꺼집니다")
-            timeView.isHidden = true
-            
-            // 기존 알림 모두 제거
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            
-            UserDefaults.standard.set(false, forKey: NotificationUserDefaults.isAllowed.key)
+            DispatchQueue.main.async {
+                self.showAlert("시스템 알림 설정이 해제되어 있습니다", message: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요", okTitle: "설정으로 이동") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+        
+                sender.setOn(false, animated: true)
+            }
             
         }
-        
-        print("hi")
     }
     
 }

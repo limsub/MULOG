@@ -29,13 +29,19 @@ class PagerViewController: BaseViewController {
 
     let viewModel = PagerViewModel()
     
-    
+    @objc
+    func settingButtonClicked() {
+        let vc = MainSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         navigationItem.title = "하이하이"
+        let settingButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(settingButtonClicked))
+        navigationItem.rightBarButtonItem = settingButton
         
         addObserverToPlayerStop()
         settingPagerView()

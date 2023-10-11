@@ -16,30 +16,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 혹시 알림 시간이 설정되어 있지 않으면, 디폴트 21:00으로 넣어준다.
         if UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key) == nil {
+            print("기본 알림 시간이 설정되어 있지 않습니다. 21시 00분으로 설정합니다")
             UserDefaults.standard.set("2100", forKey: NotificationUserDefaults.time.key)
         }
+        
         // 혹시 알림은 켜져 있는데, 남은 알림 리스트가 15개 미만이면, 알림 리스트를 업데이트 시켜준다
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
+        // 시스템 알림이 꺼져 있으면 어차피 알림이 가지 않기 때문에, 시스템 알림 여부는 고려하지 않는다
+        if UserDefaults.standard.bool(forKey: NotificationUserDefaults.isAllowed.key) {
             
-            if success && UserDefaults.standard.bool(forKey: NotificationUserDefaults.isAllowed.key) {
-                UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-                    
-                    if requests.count < 15 {
-                        NotificationUpdate.shared.updateNotifications()
-                        print("알림 리스트가 15 미만이기 때문에 새롭게 리스트를 업데이트합니다.")
-                    }
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                
+                if requests.count < 15 {
+                    print("등록된 알림 리스트가 15개 미만이기 때문에 새롭게 리스트를 등록합니다")
+                    NotificationRepository.shared.updateNotifications()
                 }
             }
-            
         }
         
-        
-        
+  
         
         
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let vc = MainSettingViewController()
+        let vc = HomeTabViewController()
         window?.rootViewController = UINavigationController(rootViewController: vc)
         window?.makeKeyAndVisible()
     }
@@ -55,39 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        UIApplication.shared.applicationIconBadgeNumber = 9
-        
-        print(#function)
-        
-        
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
-            
-            print("성공 : ", success)
-            print("실패 : ", error)
-            
-            print(success, error)
-        }
-        
-
-//        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
-        
-        
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-//                for request in requests {
-//                    print("Identifier: \(request.identifier)")
-//                    print("Title: \(request.content.title)")
-//                    print("Body: \(request.content.body)")
-//                    print("Trigger: \(String(describing: request.trigger))")
-//                    print("---")
-//                }
-//            }
-        
-        
-
+//        UIApplication.shared.applicationIconBadgeNumber = 9
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
