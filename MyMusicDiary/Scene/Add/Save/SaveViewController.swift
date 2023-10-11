@@ -102,21 +102,14 @@ class SaveViewController: BaseViewController {
     
     
     
-    
-    let nextButton = {
-        let view = UIButton()
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 20
-        view.setTitle("음악 검색하러 가기", for: .normal)
-        return view
-    }()
-    
-    
-    
-    
     @objc
     func searchBarClicked() {
         // 만약 이미 3개를 등록했으면 alert
+        if viewModel.numberOfItems() >= 3 {
+            showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
+            return
+        }
+        
         
         // 아니면
         let vc = SearchViewController()
@@ -144,7 +137,7 @@ class SaveViewController: BaseViewController {
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = saveButton
         
-        nextButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        
     }
     
     @objc
@@ -183,8 +176,6 @@ class SaveViewController: BaseViewController {
         contentView.addSubview(helpButton)
         contentView.addSubview(collectionView)
         
-//        view.addSubview(collectionView)
-        contentView.addSubview(nextButton)
     }
     
     override func setConstraints() {
@@ -243,13 +234,7 @@ class SaveViewController: BaseViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 
-        
-        
-        nextButton.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(60)
-        }
-        
+
         
     }
 
@@ -308,7 +293,15 @@ extension SaveViewController: UICollectionViewDelegate {
     // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        
+        
         if collectionView == genreCollectionView {
+            
+            if viewModel.numberOfItems() >= 3 {
+                showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
+                return
+            }
+            
             
             let selectedGenre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
             
@@ -325,7 +318,7 @@ extension SaveViewController: UICollectionViewDelegate {
             collectionView.performBatchUpdates {
                 viewModel.removeMusic(indexPath)
                 collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
-                nextButton.isHidden = false
+                
             } completion: { [weak self] _ in
                 self?.collectionView.reloadData()
             }
@@ -418,8 +411,6 @@ extension SaveViewController: UpdateDataDelegate {
         print("data : ", viewModel.musicList.value)
         
         viewModel.appendMusic(item)
-        
-        nextButton.isHidden = (viewModel.musicListCount() == 3) ? true : false
         
         collectionView.reloadData()
     }
