@@ -223,6 +223,8 @@ class SaveViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(60)
         }
+        
+        
     }
 
 }
@@ -274,12 +276,24 @@ extension SaveViewController: UICollectionViewDataSource {
 }
 
 
+
 // delegate
 extension SaveViewController: UICollectionViewDelegate {
     // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == genreCollectionView {
+            
+            let selectedGenre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
+            
+            let vc = GenreViewController()
+            vc.delegate = self
+            vc.viewModel.genre = selectedGenre
+            vc.viewModel.fetchMusic()
+            let nav = UINavigationController(rootViewController: vc)
+            present(nav, animated: true)
+            
+            
             print("장르 컬렉션뷰 선택됨")
         } else {
             collectionView.performBatchUpdates {

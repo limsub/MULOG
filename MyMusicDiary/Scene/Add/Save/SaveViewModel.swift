@@ -15,7 +15,7 @@ class SaveViewModel {
     
     var musicList: Observable<[MusicItem]> = Observable([])
     
-    let genreList: [GenreColor] = [.kpop, .pop, .ost, .hiphop, .rb]
+    let genreList: [GenreType] = [.kpop, .pop, .ost, .hiphop, .rb]
     
     func numberOfItems() -> Int {
         return musicList.value.count

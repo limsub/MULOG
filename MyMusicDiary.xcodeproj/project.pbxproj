@@ -65,6 +65,8 @@
 		483790B22AD137AD003AC436 /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B12AD137AD003AC436 /* CustomTitleView.swift */; };
 		483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B32AD174BC003AC436 /* ChartTabViewController.swift */; };
 		483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B52AD174CA003AC436 /* WeekChartViewController.swift */; };
+		4841038D2AD6BE3D002D56C7 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */; };
+		4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */; };
 		488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935552AD666E000E4B0B0 /* NotificationRepository.swift */; };
 		488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */; };
 		4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */; };
@@ -141,6 +143,8 @@
 		483790B12AD137AD003AC436 /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
 		483790B32AD174BC003AC436 /* ChartTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTabViewController.swift; sourceTree = "<group>"; };
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
+		4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
+		4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
 		488935552AD666E000E4B0B0 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCatalogCell.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 		4812D51B2AC3AC0D00E7C6A4 /* Add */ = {
 			isa = PBXGroup;
 			children = (
+				4841038B2AD6BE34002D56C7 /* Genre */,
 				4812D51C2AC3AC6F00E7C6A4 /* Save */,
 				4812D51D2AC3AC7500E7C6A4 /* Search */,
 				4812D51E2AC3AC7A00E7C6A4 /* GenreChart */,
@@ -421,6 +426,15 @@
 				483790B12AD137AD003AC436 /* CustomTitleView.swift */,
 			);
 			path = ChartView;
+			sourceTree = "<group>";
+		};
+		4841038B2AD6BE34002D56C7 /* Genre */ = {
+			isa = PBXGroup;
+			children = (
+				4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */,
+				4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */,
+			);
+			path = Genre;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -637,6 +651,7 @@
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
+				4841038D2AD6BE3D002D56C7 /* GenreViewController.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */,
 				483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */,
@@ -684,6 +699,7 @@
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */,
 				483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */,
+				4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */,
 				48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);

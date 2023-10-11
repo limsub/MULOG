@@ -1,28 +1,18 @@
 //
-//  SearchViewController.swift
+//  GenreViewController.swift
 //  MyMusicDiary
 //
-//  Created by 임승섭 on 2023/09/27.
+//  Created by 임승섭 on 2023/10/11.
 //
 
 import UIKit
 
-// 1. collectionView
-    // custom Cell
-// 2. searchBar
-
-
-class SearchViewController: BaseViewController {
+class GenreViewController: BaseViewController {
     
-    // 값전달 (delegate)
     weak var delegate: UpdateDataDelegate?
     
-    // ViewModel
-    let viewModel = SearchViewModel()
+    let viewModel = GenreViewModel()
     
-    let searchBar = UISearchBar()
-    
-    let searchController = UISearchController()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
@@ -31,19 +21,22 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = viewModel.title()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         view.backgroundColor = .systemBackground
         
-        settingCollectionView()
-        settingNavigationItem()
-
+        collectionView.prefetchDataSource = self
+        collectionView.delegate = self
+        
         configureDataSource()
         bindModelData()
-//        viewModel.fetchMusic("블랙핑크")
+        
     }
     
     
-    
-    // set
+    // setting
     override func setConfigure() {
         super.setConfigure()
         
@@ -56,18 +49,6 @@ class SearchViewController: BaseViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    private func settingCollectionView() {
-        collectionView.keyboardDismissMode = .onDrag
-        collectionView.prefetchDataSource = self
-        collectionView.delegate = self
-    }
-    private func settingNavigationItem() {
-        
-        navigationItem.titleView = searchBar
-        searchBar.delegate = self
-        searchBar.placeholder = "오늘 들었던 음악을 검색하세요"
-        searchBar.becomeFirstResponder()
-    }
     
     
     // bind
@@ -78,24 +59,12 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    @objc
-    private func chartButtonClicked() {
-        if !GenreDataModel.shared.genres.isEmpty {  // 장르 데이터를 정상적으로 받아왔을 때 전환 가능
-            let vc = GenreTabViewController()
-            vc.delegate = delegate
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            // 에러 발생 alert
-        }
-    }
-    
-    
-    
     // datasource
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<SearchCatalogCell, MusicItem> { cell, indexPath, itemIdentifier in
             
             cell.designCell(itemIdentifier)
+            
         }
         
         dataSource = UICollectionViewDiffableDataSource(
@@ -117,31 +86,35 @@ class SearchViewController: BaseViewController {
         snapshot.appendItems(viewModel.musicList.value)
         dataSource?.apply(snapshot)
     }
+    
 }
 
-// searchBar
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text else { return }
-        viewModel.fetchMusic(text)
-    }
-}
 
 // prefetch
-extension SearchViewController: UICollectionViewDataSourcePrefetching {
+extension GenreViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("prefetch. 추후 pagination 필요")
+        
     }
+    
+    
 }
 
+
+
 // delegate
-extension SearchViewController: UICollectionViewDelegate {
+extension GenreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.item])
+        delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.row])
         
         dismiss(animated: true)
         
-        
+//        guard let viewControllerStack = self.navigationController?.viewControllers else { return }
+//        // 뷰 스택에서 RedViewController를 찾아서 거기까지 pop
+//        for viewController in viewControllerStack {
+//            if let saveVC = viewController as? SaveViewController {
+//                self.navigationController?.popToViewController(saveVC, animated: true)
+//            }
+//        }
     }
 }

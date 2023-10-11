@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GenreColor {
+enum GenreType {
     case kpop
     case pop
     case ost
@@ -18,6 +18,31 @@ enum GenreColor {
     case rock
     case alternative
     case singASongWriter
+    
+    var id: String {
+        switch self {
+        case .kpop:
+            return "51"
+        case .pop:
+            return "14"
+        case .ost:
+            return "16"
+        case .hiphop:
+            return "18"
+        case .rb:
+            return "15"
+        case .dance:
+            return "17"
+        case .electronic:
+            return "7"
+        case .rock:
+            return "21"
+        case .alternative:
+            return "20"
+        case .singASongWriter:
+            return "10"
+        }
+    }
     
     var colorKoreanName: String {
         switch self {

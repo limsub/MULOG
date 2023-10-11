@@ -19,6 +19,23 @@ class GenreDataModel {
     
     var genres: [Genre] = []
     
+    func findGenre(_ type: GenreType) -> Genre? {
+        
+        if genres.isEmpty {
+            return nil
+        }
+        
+        for (_, item) in genres.enumerated() {
+            if item.id.description == type.id {
+                return item
+            }
+        }
+            
+        return nil
+    }
+    
+    
+    
     
     func fetchGenreChart() {
         Task {
