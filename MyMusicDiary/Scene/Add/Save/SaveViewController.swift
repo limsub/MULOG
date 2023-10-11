@@ -10,22 +10,13 @@ import UIKit
 // collectionView index 기반으로 구현
 
 
-class A: BaseCollectionViewCell {
-    
-    override func setConfigure() {
-        super.setConfigure()
-        
-        backgroundColor = .black
-    }
-    
-    
-}
+
 
 class SaveViewController: BaseViewController {
     
     let viewModel = SaveViewModel()
     
-  
+    
     
     
     
@@ -64,12 +55,13 @@ class SaveViewController: BaseViewController {
     lazy var genreCollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
         
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.showsHorizontalScrollIndicator = false
         
         view.delegate = self
         view.dataSource = self
         
-        view.register(A.self, forCellWithReuseIdentifier: A.description())
+        view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
         
         return view
     }()
@@ -246,7 +238,7 @@ extension SaveViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == genreCollectionView {
-            return 5
+            return viewModel.genreListCount()
         } else {
             return viewModel.musicListCount()
         }
@@ -257,7 +249,10 @@ extension SaveViewController: UICollectionViewDataSource {
         
         
         if collectionView == genreCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: A.description(), for: indexPath) as? A else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCatalogCell.description(), for: indexPath) as? GenreCatalogCell else { return UICollectionViewCell() }
+            
+            cell.nameLabel.text = viewModel.genreName(indexPath: indexPath)
+            cell.backView.backgroundColor = UIColor(hexCode: viewModel.genreColorName(indexPath: indexPath))
             
             return cell
         } else {

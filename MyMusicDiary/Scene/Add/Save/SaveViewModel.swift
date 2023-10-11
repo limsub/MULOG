@@ -15,6 +15,8 @@ class SaveViewModel {
     
     var musicList: Observable<[MusicItem]> = Observable([])
     
+    let genreList: [GenreColor] = [.kpop, .pop, .ost, .hiphop, .rb]
+    
     func numberOfItems() -> Int {
         return musicList.value.count
     }
@@ -84,5 +86,16 @@ class SaveViewModel {
     
     
     
+    
+    // 장르 컬렉션뷰
+    func genreListCount() -> Int {
+        return genreList.count
+    }
+    func genreName(indexPath: IndexPath) -> String {
+        return genreList[indexPath.item].colorKoreanName
+    }
+    func genreColorName(indexPath: IndexPath) -> String {
+        return genreList[indexPath.item].colorHexCode
+    }
  
 }
