@@ -33,14 +33,5 @@ class BaseViewController: UIViewController {
         return layout
     }
     
-    static func createSaveLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        
-        let width = UIScreen.main.bounds.width - 32
-        
-        layout.itemSize = CGSize(width: width, height: 120)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 18, bottom: 5, right: 18)
-        
-        return layout
-    }
+
 }

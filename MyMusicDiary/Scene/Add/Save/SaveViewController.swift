@@ -10,13 +10,93 @@ import UIKit
 // collectionView index 기반으로 구현
 
 
-class SaveViewController: BaseViewController {
+class A: BaseCollectionViewCell {
     
-//    let repository = MusicItemTableRepository()
+    override func setConfigure() {
+        super.setConfigure()
+        
+        backgroundColor = .black
+    }
+    
+    
+}
+
+class SaveViewController: BaseViewController {
     
     let viewModel = SaveViewModel()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createSaveLayout() )
+  
+    
+    
+    
+    // 10/11 UI 수정
+    let searchMusicLabel = {
+        let view = UILabel()
+        view.text = "음악 검색"
+        view.font = .boldSystemFont(ofSize: 18)
+        return view
+    }()
+    let searchBar = {
+        let view = UISearchBar()
+        view.isUserInteractionEnabled = false
+        view.placeholder = "오늘 들었던 음악을 검색하세요"
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 2
+        view.backgroundColor = .clear
+        return view
+    }()
+    lazy var fakeButton = {
+        let view = UIButton()
+        view.backgroundColor = .clear
+        view.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
+        return view
+    }()
+    
+    let genreChartLabel = {
+        let view = UILabel()
+        view.text = "장르별 음악"
+        view.font = .boldSystemFont(ofSize: 18)
+        return view
+    }()
+    lazy var genreCollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
+        
+        view.showsHorizontalScrollIndicator = false
+        
+        view.delegate = self
+        view.dataSource = self
+        
+        view.register(A.self, forCellWithReuseIdentifier: A.description())
+        
+        return view
+    }()
+    
+    let todayMusicLabel = {
+        let view = UILabel()
+        view.text = "오늘의 음악"
+        view.font = .boldSystemFont(ofSize: 18)
+        return view
+    }()
+    lazy var collectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
+        
+        view.showsVerticalScrollIndicator = false
+
+        view.delegate = self
+        view.dataSource = self
+        view.dragDelegate = self
+        view.dropDelegate = self
+        view.dragInteractionEnabled = true
+        
+        view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
+        return view
+    }()
+    
+    
+    
+    
+    
+    
     
     let nextButton = {
         let view = UIButton()
@@ -26,14 +106,28 @@ class SaveViewController: BaseViewController {
         return view
     }()
     
+    
+    
+    
+    @objc
+    func searchBarClicked() {
+        // 만약 이미 3개를 등록했으면 alert
+        
+        // 아니면
+        let vc = SearchViewController()
+        present(vc, animated: true)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        setCollectionView()
+        
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = saveButton
+        
         nextButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
     }
     
@@ -59,49 +153,102 @@ class SaveViewController: BaseViewController {
     override func setConfigure() {
         super.setConfigure()
         
+        view.addSubview(searchMusicLabel)
+        view.addSubview(searchBar)
+        view.addSubview(fakeButton)
+        view.addSubview(genreChartLabel)
+        view.addSubview(genreCollectionView)
+        view.addSubview(todayMusicLabel)
         view.addSubview(collectionView)
+        
+//        view.addSubview(collectionView)
         view.addSubview(nextButton)
     }
     
     override func setConstraints() {
         super.setConstraints()
         
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+        // 음악 검색
+        searchMusicLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.horizontalEdges.equalTo(view).inset(18)
         }
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(searchMusicLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(view).inset(8)
+            make.height.equalTo(40)
+        }
+        fakeButton.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(searchBar)
+            make.horizontalEdges.equalTo(view)
+        }
+        
+        // 장르별 음악
+        genreChartLabel.snp.makeConstraints { make in
+            make.top.equalTo(fakeButton.snp.bottom).offset(30)
+            make.horizontalEdges.equalTo(view).inset(18)
+        }
+        genreCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(genreChartLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(view)
+            make.height.equalTo(80)
+        }
+        
+        // 오늘의 음악
+        todayMusicLabel.snp.makeConstraints { make in
+            make.top.equalTo(genreCollectionView.snp.bottom).offset(30)
+            make.horizontalEdges.equalTo(view).inset(18)
+        }
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(todayMusicLabel.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(view).inset(18)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+
         nextButton.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(60)
         }
     }
-    
-    func setCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.dragDelegate = self
-        collectionView.dropDelegate = self
-        collectionView.dragInteractionEnabled = true
-        
-        collectionView.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
-    }
+
 }
+
+
+
+
+
 
 // datasource
 extension SaveViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.musicListCount()
+        
+        if collectionView == genreCollectionView {
+            return 5
+        } else {
+            return viewModel.musicListCount()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt")
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
         
-        let music = viewModel.music(indexPath)
-        let recordCnt = viewModel.musicRecordCount(indexPath)
         
-        cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
+        if collectionView == genreCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: A.description(), for: indexPath) as? A else { return UICollectionViewCell() }
+            
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
+            
+            let music = viewModel.music(indexPath)
+            let recordCnt = viewModel.musicRecordCount(indexPath)
+            
+            cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
 
-        return cell
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
@@ -115,15 +262,23 @@ extension SaveViewController: UICollectionViewDelegate {
     // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        collectionView.performBatchUpdates {
-            viewModel.removeMusic(indexPath)
-            collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
-            nextButton.isHidden = false
-        } completion: { [weak self] _ in
-            self?.collectionView.reloadData()
+        if collectionView == genreCollectionView {
+            print("장르 컬렉션뷰 선택됨")
+        } else {
+            collectionView.performBatchUpdates {
+                viewModel.removeMusic(indexPath)
+                collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
+                nextButton.isHidden = false
+            } completion: { [weak self] _ in
+                self?.collectionView.reloadData()
+            }
         }
+        
     }
 }
+
+
+
 
 // drag and drop
 extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
