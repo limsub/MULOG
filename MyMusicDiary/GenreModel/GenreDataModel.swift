@@ -32,7 +32,7 @@ class GenreDataModel {
                 let decoder = JSONDecoder()
                 let genreResponse = try decoder.decode(MyGenresResponse.self, from: dataResponse.data)
                 
-                for i in 1...5 {
+                for i in 1...10 {
                     genres.append(genreResponse.data[i])
                 }
                 

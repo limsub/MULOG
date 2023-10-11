@@ -19,7 +19,6 @@
 		4812D5182AC3AB2400E7C6A4 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 4812D5172AC3AB2400E7C6A4 /* DGCharts */; };
 		4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D51F2AC3AC9B00E7C6A4 /* SearchViewController.swift */; };
 		4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5212AC3ACA000E7C6A4 /* SearchViewModel.swift */; };
-		4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5232AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift */; };
 		4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5262AC3AE8600E7C6A4 /* MusicItem.swift */; };
 		4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5292AC3AF3900E7C6A4 /* Observable.swift */; };
 		4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */; };
@@ -94,7 +93,6 @@
 		4812D5072AC3A9EE00E7C6A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4812D51F2AC3AC9B00E7C6A4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4812D5212AC3ACA000E7C6A4 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		4812D5232AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogAPIManager.swift; sourceTree = "<group>"; };
 		4812D5262AC3AE8600E7C6A4 /* MusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItem.swift; sourceTree = "<group>"; };
 		4812D5292AC3AF3900E7C6A4 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogCell.swift; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 			children = (
 				4812D51F2AC3AC9B00E7C6A4 /* SearchViewController.swift */,
 				4812D5212AC3ACA000E7C6A4 /* SearchViewModel.swift */,
-				4812D5232AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -678,7 +675,6 @@
 				483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */,
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */,
-				4812D5242AC3ACED00E7C6A4 /* SearchCatalogAPIManager.swift in Sources */,
 				483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */,
 				48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,

@@ -20,9 +20,10 @@ class SearchViewController: BaseViewController {
     // ViewModel
     let viewModel = SearchViewModel()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    let searchBar = UISearchBar()
     
     let searchController = UISearchController()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
     
@@ -37,7 +38,7 @@ class SearchViewController: BaseViewController {
 
         configureDataSource()
         bindModelData()
-        viewModel.fetchMusic("블랙핑크")
+//        viewModel.fetchMusic("블랙핑크")
     }
     
     
@@ -61,11 +62,11 @@ class SearchViewController: BaseViewController {
         collectionView.delegate = self
     }
     private func settingNavigationItem() {
-        navigationItem.searchController = searchController
-        searchController.searchBar.delegate = self
         
-        let tmpButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(chartButtonClicked))
-        navigationItem.rightBarButtonItem = tmpButton
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
+        searchBar.placeholder = "오늘 들었던 음악을 검색하세요"
+        searchBar.becomeFirstResponder()
     }
     
     
@@ -139,6 +140,8 @@ extension SearchViewController: UICollectionViewDelegate {
         
         delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.item])
         
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+        
+        
     }
 }

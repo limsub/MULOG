@@ -30,6 +30,9 @@ class SaveViewController: BaseViewController {
     
     
     // 10/11 UI 수정
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    
     let searchMusicLabel = {
         let view = UILabel()
         view.text = "음악 검색"
@@ -80,7 +83,7 @@ class SaveViewController: BaseViewController {
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
         
-        view.showsVerticalScrollIndicator = false
+        view.isScrollEnabled = false
 
         view.delegate = self
         view.dataSource = self
@@ -115,7 +118,9 @@ class SaveViewController: BaseViewController {
         
         // 아니면
         let vc = SearchViewController()
-        present(vc, animated: true)
+        vc.delegate = self
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
     
@@ -123,7 +128,7 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        
+        scrollView.showsVerticalScrollIndicator = false
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = saveButton
@@ -142,9 +147,8 @@ class SaveViewController: BaseViewController {
     
     @objc
     func buttonClicked() {
-        
         print("디비에 저장된 데이터입니다")
-        
+
         let vc = SearchViewController()
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
@@ -153,44 +157,60 @@ class SaveViewController: BaseViewController {
     override func setConfigure() {
         super.setConfigure()
         
-        view.addSubview(searchMusicLabel)
-        view.addSubview(searchBar)
-        view.addSubview(fakeButton)
-        view.addSubview(genreChartLabel)
-        view.addSubview(genreCollectionView)
-        view.addSubview(todayMusicLabel)
-        view.addSubview(collectionView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(searchMusicLabel)
+        contentView.addSubview(searchBar)
+        contentView.addSubview(fakeButton)
+        contentView.addSubview(genreChartLabel)
+        contentView.addSubview(genreCollectionView)
+        contentView.addSubview(todayMusicLabel)
+        contentView.addSubview(collectionView)
         
 //        view.addSubview(collectionView)
-        view.addSubview(nextButton)
+        contentView.addSubview(nextButton)
     }
     
     override func setConstraints() {
         super.setConstraints()
         
+        // 스크롤 뷰
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.height.greaterThanOrEqualTo(view.snp.height).priority(.low)
+            make.width.equalTo(scrollView.snp.width)
+        }
+        
         // 음악 검색
         searchMusicLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
-            make.horizontalEdges.equalTo(view).inset(18)
+            make.top.equalTo(contentView.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(contentView).inset(18)
         }
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(searchMusicLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view).inset(8)
+            make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(40)
         }
         fakeButton.snp.makeConstraints { make in
             make.verticalEdges.equalTo(searchBar)
-            make.horizontalEdges.equalTo(view)
+            make.horizontalEdges.equalTo(contentView)
         }
         
         // 장르별 음악
         genreChartLabel.snp.makeConstraints { make in
             make.top.equalTo(fakeButton.snp.bottom).offset(30)
-            make.horizontalEdges.equalTo(view).inset(18)
+            make.horizontalEdges.equalTo(contentView).inset(18)
         }
         genreCollectionView.snp.makeConstraints { make in
             make.top.equalTo(genreChartLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view)
+            make.horizontalEdges.equalTo(contentView)
             make.height.equalTo(80)
         }
         
@@ -205,8 +225,10 @@ class SaveViewController: BaseViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
 
+        
+        
         nextButton.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(60)
         }
     }
@@ -349,6 +371,8 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         collectionView.reloadData()
     }
 }
+
+
 
 // delegate function
 extension SaveViewController: UpdateDataDelegate {
