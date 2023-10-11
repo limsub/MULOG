@@ -67,6 +67,8 @@
 		483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790B52AD174CA003AC436 /* WeekChartViewController.swift */; };
 		4841038D2AD6BE3D002D56C7 /* GenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */; };
 		4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */; };
+		484103922AD6CE21002D56C7 /* HelpPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103912AD6CE21002D56C7 /* HelpPageViewController.swift */; };
+		484103942AD6CE9B002D56C7 /* HelpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */; };
 		488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935552AD666E000E4B0B0 /* NotificationRepository.swift */; };
 		488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */; };
 		4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */; };
@@ -145,6 +147,8 @@
 		483790B52AD174CA003AC436 /* WeekChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewController.swift; sourceTree = "<group>"; };
 		4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewController.swift; sourceTree = "<group>"; };
 		4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
+		484103912AD6CE21002D56C7 /* HelpPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPageViewController.swift; sourceTree = "<group>"; };
+		484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertViewController.swift; sourceTree = "<group>"; };
 		488935552AD666E000E4B0B0 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCatalogCell.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 				4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */,
 				4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */,
 				483790502ACBA595003AC436 /* Protocol_UpdateData.swift */,
+				484103902AD6CE09002D56C7 /* Help */,
 			);
 			path = Save;
 			sourceTree = "<group>";
@@ -435,6 +440,15 @@
 				4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */,
 			);
 			path = Genre;
+			sourceTree = "<group>";
+		};
+		484103902AD6CE09002D56C7 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				484103912AD6CE21002D56C7 /* HelpPageViewController.swift */,
+				484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */,
+			);
+			path = Help;
 			sourceTree = "<group>";
 		};
 		48A0A0E32AC548C3008DC198 /* Realm */ = {
@@ -679,7 +693,9 @@
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
 				483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */,
+				484103922AD6CE21002D56C7 /* HelpPageViewController.swift in Sources */,
 				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
+				484103942AD6CE9B002D56C7 /* HelpAlertViewController.swift in Sources */,
 				483790962ACEA58F003AC436 /* Date+Extension.swift in Sources */,
 				483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */,
 				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,

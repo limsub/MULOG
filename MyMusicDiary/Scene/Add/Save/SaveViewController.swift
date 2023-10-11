@@ -68,8 +68,18 @@ class SaveViewController: BaseViewController {
     
     let todayMusicLabel = {
         let view = UILabel()
-        view.text = "오늘의 음악"
+        view.text = "오늘의 음악 기록"
         view.font = .boldSystemFont(ofSize: 18)
+        return view
+    }()
+    lazy var helpButton = {
+        let view = UIButton()
+        
+        view.imageEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+         
+        
+        view.setImage(UIImage(named: "question"), for: .normal)
+        view.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
         return view
     }()
     lazy var collectionView = {
@@ -113,6 +123,15 @@ class SaveViewController: BaseViewController {
         vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
+    }
+    
+    @objc
+    func helpButtonClicked() {
+        
+        let vc = HelpPageViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true)
+        
     }
     
     
@@ -161,6 +180,7 @@ class SaveViewController: BaseViewController {
         contentView.addSubview(genreChartLabel)
         contentView.addSubview(genreCollectionView)
         contentView.addSubview(todayMusicLabel)
+        contentView.addSubview(helpButton)
         contentView.addSubview(collectionView)
         
 //        view.addSubview(collectionView)
@@ -209,7 +229,13 @@ class SaveViewController: BaseViewController {
         // 오늘의 음악
         todayMusicLabel.snp.makeConstraints { make in
             make.top.equalTo(genreCollectionView.snp.bottom).offset(30)
-            make.horizontalEdges.equalTo(view).inset(18)
+            make.leading.equalTo(view).inset(18)
+        }
+        helpButton.snp.makeConstraints { make in
+            make.leading.equalTo(todayMusicLabel.snp.trailing).offset(-8)
+            make.height.equalTo(todayMusicLabel)
+            make.width.equalTo(helpButton.snp.height)
+            make.centerY.equalTo(todayMusicLabel)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(todayMusicLabel.snp.bottom).offset(8)

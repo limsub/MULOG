@@ -199,7 +199,7 @@ class SaveCatalogCell: BaseCollectionViewCell {
         super.setConstraints()
         
         backView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.edges.equalTo(contentView).inset(5)
         }
         artworkImageView.snp.makeConstraints { make in
             make.top.leading.equalTo(backView).inset(8)
