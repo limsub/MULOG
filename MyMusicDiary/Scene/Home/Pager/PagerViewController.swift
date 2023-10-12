@@ -39,7 +39,9 @@ class PagerViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        navigationItem.title = "하이하이"
+//        navigationItem.title = "기록"
+//        navigationController?.navigationBar.prefersLargeTitles = true
+        
         let settingButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(settingButtonClicked))
         navigationItem.rightBarButtonItem = settingButton
         
