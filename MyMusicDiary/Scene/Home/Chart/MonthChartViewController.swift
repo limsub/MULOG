@@ -13,6 +13,8 @@ import DGCharts
 // 20231001
 class MonthChartViewController: BaseViewController {
     
+    var delegate: LargeTitleDelegate?
+    
     
     // pie chart랑 bar chart랑 다른 데이터 사용함 (애초에 repository 가져올 때부터)
     // 단, 장르랄 색상은 맞춰주기 위해, bar chart에서 genres, colors 배열 접근해서 해당 장르가 어떤 색상인지는 확인하기
@@ -91,6 +93,8 @@ class MonthChartViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
         
         view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
@@ -301,6 +305,23 @@ extension MonthChartViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
+        
+    }
+    
+
+}
+
+extension MonthChartViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        print(scrollView.contentOffset.y)
+        
+        if scrollView.contentOffset.y > 0 {
+//            delegate?.setSmallTitle()
+        } else {
+//            delegate?.setLargeTitle()
+        }
+        
         
     }
 }

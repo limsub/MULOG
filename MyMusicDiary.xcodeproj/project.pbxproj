@@ -73,6 +73,8 @@
 		488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */; };
 		4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */; };
 		4889355C2AD6939000E4B0B0 /* Genre+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4889355B2AD6939000E4B0B0 /* Genre+Enum.swift */; };
+		489970422AD8258500A06A5C /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489970412AD8258400A06A5C /* UIImage+Extension.swift */; };
+		489970442AD8310E00A06A5C /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489970432AD8310E00A06A5C /* CALayer+Extension.swift */; };
 		48A0A0E02AC54896008DC198 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0DF2AC54896008DC198 /* Realm */; };
 		48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48A0A0E12AC54896008DC198 /* RealmSwift */; };
 		48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A0A0E42AC548CB008DC198 /* RealmModel.swift */; };
@@ -153,6 +155,8 @@
 		488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCatalogCell.swift; sourceTree = "<group>"; };
 		4889355B2AD6939000E4B0B0 /* Genre+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Genre+Enum.swift"; sourceTree = "<group>"; };
+		489970412AD8258400A06A5C /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		489970432AD8310E00A06A5C /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		48A0A0E42AC548CB008DC198 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		48A0A0E62AC548E1008DC198 /* MusicItemTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicItemTableRepository.swift; sourceTree = "<group>"; };
 		48BA312A2AD3ED040048AD05 /* RecordDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDateViewController.swift; sourceTree = "<group>"; };
@@ -353,6 +357,8 @@
 				483790932ACEA51B003AC436 /* String+Extension.swift */,
 				483790952ACEA58F003AC436 /* Date+Extension.swift */,
 				488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */,
+				489970412AD8258400A06A5C /* UIImage+Extension.swift */,
+				489970432AD8310E00A06A5C /* CALayer+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,
+				489970442AD8310E00A06A5C /* CALayer+Extension.swift in Sources */,
 				483790AC2AD0D862003AC436 /* CustomBarChartView.swift in Sources */,
 				484103922AD6CE21002D56C7 /* HelpPageViewController.swift in Sources */,
 				4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */,
@@ -706,6 +713,7 @@
 				483790922ACEA490003AC436 /* DateFormatType+Enum.swift in Sources */,
 				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,
+				489970422AD8258500A06A5C /* UIImage+Extension.swift in Sources */,
 				48BA312B2AD3ED040048AD05 /* RecordDateViewController.swift in Sources */,
 				4812D5202AC3AC9B00E7C6A4 /* SearchViewController.swift in Sources */,
 				4812D52D2AC3B96000E7C6A4 /* SearchCatalogCell.swift in Sources */,

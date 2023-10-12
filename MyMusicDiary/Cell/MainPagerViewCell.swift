@@ -46,8 +46,10 @@ class MainPagerViewCell: FSPagerViewCell {
     // 5. 재생 / 정지 이미지
     let playImageView = {
         let view = UIImageView()
+        
         view.tintColor = .white
-        view.alpha = 0  // 안보이게
+        view.alpha = 0
+    
         return view
     }()
     // 6. 기록 날짜 레이블
@@ -143,7 +145,8 @@ class MainPagerViewCell: FSPagerViewCell {
         
         parentVC?.play()
 
-        self.playImageView.image = UIImage(systemName: (parentVC?.isPlaying ?? false) ? "play.circle" : "pause.circle")
+        self.playImageView.image = UIImage(systemName: (parentVC?.isPlaying ?? false) ? "play.circle" : "pause.circle")/*?.tintedWithLinearGradientColors(colorsArr: [Constant.Color.main2.cgColor, Constant.Color.main3.cgColor, Constant.Color.main4.cgColor])*/
+        
         self.playImageView.alpha = 1
         UIView.animate(withDuration: 1.5) {
             self.playImageView.alpha = 0

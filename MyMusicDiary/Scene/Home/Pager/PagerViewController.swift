@@ -19,6 +19,7 @@ import AVFoundation
 
 class PagerViewController: BaseViewController {
     
+    
     let player = AVPlayer()
     var playerItem: AVPlayerItem?
     
@@ -46,7 +47,7 @@ class PagerViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+  
        
         navigationItem.titleView?.backgroundColor = .clear
         
@@ -123,7 +124,7 @@ class PagerViewController: BaseViewController {
 //            make.centerX.equalTo(view)
 ////            make.leading.equalTo(view).inset(18)
 //            make.top.equalTo(view).inset(80)
-//            
+//
 //            make.height.equalTo(80)
 //            make.width.equalTo(150)
 //        }
