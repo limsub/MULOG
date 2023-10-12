@@ -151,7 +151,7 @@ class MonthCalendarView: BaseView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(backView.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(self).inset(14)
-            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(4)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(12)
         }
     }
     

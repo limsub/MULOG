@@ -8,6 +8,33 @@
 import UIKit
 import SnapKit
 
+
+class CustomCollectionHeaderView: UICollectionReusableView {
+    
+    let label = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 20)
+        return view
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(label)
+        label.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(self).inset(16)
+            make.verticalEdges.equalTo(self)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+}
+
+
 class RecordDateViewController: BaseViewController {
 
     let viewModel = RecordDateViewModel()
@@ -17,6 +44,13 @@ class RecordDateViewController: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createDateLayout())
         
         view.register(RecordDateCollectionViewCell.self, forCellWithReuseIdentifier: RecordDateCollectionViewCell.description())
+        
+        view.register(
+            CustomCollectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CustomCollectionHeaderView.description()
+        )
+        
         view.delegate = self
         view.dataSource = self
         
@@ -36,81 +70,102 @@ class RecordDateViewController: BaseViewController {
         return layout
     }
     
-    let countLabel = {
-        let view = UILabel()
-        return view
-    }()
-    
-    let dateLabel = {
-        let view = UILabel()
-        view.numberOfLines = 0
-        return view
-    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.backgroundColor = .lightGray
+        viewModel.setDataList()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
+        collectionView.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
+   
         title = viewModel.countText()
         navigationController?.navigationBar.prefersLargeTitles = true
         
         viewModel.sortDateList()
-        fillLabel()
+        
     }
     
     override func setConfigure() {
         super.setConfigure()
             
-        view.addSubview(countLabel)
-        view.addSubview(dateLabel)
+   
         view.addSubview(collectionView)
     }
     
     override func setConstraints() {
         super.setConstraints()
         
-//        countLabel.snp.makeConstraints { make in
-//            make.top.equalTo(view).inset(24)
-//            make.horizontalEdges.equalTo(18)
-//        }
-//        
-//        dateLabel.snp.makeConstraints { make in
-//            make.top.equalTo(countLabel.snp.bottom).offset(20)
-//            make.horizontalEdges.equalTo(view).inset(18)
-//        }
-        
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(8)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
     }
     
-    func fillLabel() {
-        countLabel.text = viewModel.countText()
-        dateLabel.text = "언제 기록했냐면"
-    }
+
 }
 
-extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.sectionList.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return viewModel.dateList[section].count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordDateCollectionViewCell.description(), for: indexPath) as? RecordDateCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.dateLabel.text = viewModel.cellForItem(indexPath)
+//        cell.dateLabel.text = viewModel.cellForItem(indexPath)
+        
+        cell.dateLabel.text = viewModel.dateList[indexPath.section][indexPath.row]
         
 //        cell.backgroundColor = .lightGray
         
         return cell
     }
     
+    
+    
+    
+    
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        print("HIHIHI")
+        
+        print(kind == UICollectionView.elementKindSectionHeader)
+        
+        
+        guard kind == UICollectionView.elementKindSectionHeader, // 헤더일때
+          let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: CustomCollectionHeaderView.description(),
+            for: indexPath
+          ) as? CustomCollectionHeaderView else { return UICollectionReusableView()}
+    
+            print("hiHIhihih'")
+        
+    
+        
+        let title = "\(viewModel.sectionList[indexPath.section]?.substring(from: 0, to: 3))년 \(viewModel.sectionList[indexPath.section]?.substring(from: 4, to: 5))월"
+        
+        header.label.text = title
+
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        return CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
     
 }

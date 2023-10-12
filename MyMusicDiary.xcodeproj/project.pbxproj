@@ -339,8 +339,8 @@
 			children = (
 				483790532ACBDD45003AC436 /* HomeTabViewController.swift */,
 				48CD19102AD282B2000BF7F3 /* Pager */,
-				483790A12ACFAB32003AC436 /* Chart */,
 				483790522ACBDD39003AC436 /* Calendar */,
+				483790A12ACFAB32003AC436 /* Chart */,
 			);
 			path = Home;
 			sourceTree = "<group>";

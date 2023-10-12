@@ -13,6 +13,43 @@ class RecordDateViewModel {
     var item: MusicItemTable?
     
     var dateList: [[String]] = []
+    var sectionList: [String?] = []
+    
+    func setDataList() {
+        
+        var month = item?.dateList[0].substring(from: 0, to: 5)
+        sectionList.append(month)
+        var dayList: [String] = []
+        var index = 0
+        
+        print("초기값 :", month, dayList, index)
+        
+        item?.dateList.forEach({ str in
+            
+            // 앞이랑 같은 month면 고대로 배열에 추가
+            if str.substring(from: 0, to: 5) == month {
+                dayList.append(str)
+            }
+            
+            // 다른 month가 나왔으면 여태까지 저장한 리스트 dateList에 추가하고, 처음부터 다시 시작
+            else {
+                dateList.append(dayList)
+                dayList.removeAll()
+                
+                month = str.substring(from: 0, to: 5)
+                sectionList.append(month)
+                dayList = [str]
+                index += 1
+            }
+            
+        })
+        
+        dateList.append(dayList)
+        
+        
+        print(dateList)
+        print(sectionList)
+    }
     
     // data sort
     func sortDateList() {

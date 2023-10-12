@@ -39,6 +39,8 @@ class MonthScrollViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
 //        titleButton.backgroundColor = .brown
         
         settingNavigaionItem()

@@ -177,7 +177,9 @@ class SaveCatalogCell: BaseCollectionViewCell {
     override func setConfigure() {
         super.setConfigure()
         
+        
         contentView.addSubview(backView)
+        
         backView.addSubview(artworkImageView)
         backView.addSubview(titleLabel)
         backView.addSubview(artistLabel)

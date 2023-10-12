@@ -54,7 +54,7 @@ class MainPagerViewCell: FSPagerViewCell {
     let recordLabel = {
         let view = BasePaddingLabel(padding: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         view.font = .boldSystemFont(ofSize: 20)
-        view.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        view.backgroundColor = .black
         view.textColor = .white
         view.textAlignment = .center
         view.numberOfLines = 2

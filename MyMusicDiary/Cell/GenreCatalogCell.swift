@@ -12,7 +12,7 @@ class GenreCatalogCell: BaseCollectionViewCell {
     let backView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         view.backgroundColor = .black
         return view
     }()

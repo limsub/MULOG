@@ -111,7 +111,7 @@ class WeekChartViewController: BaseViewController {
         super.viewDidLoad()
 //        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
         /* 데이터 로드 */
         initCurrentPageDate()
@@ -190,6 +190,7 @@ class WeekChartViewController: BaseViewController {
             make.top.equalTo(pieGraphView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(400)
+            make.bottom.equalTo(contentView).inset(12)
         }
     }
     

@@ -106,7 +106,9 @@ class PagerViewController: BaseViewController {
         super.setConstraints()
         
         pagerView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
+            
         }
     }
 }

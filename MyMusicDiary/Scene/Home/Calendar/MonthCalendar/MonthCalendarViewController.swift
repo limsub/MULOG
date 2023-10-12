@@ -27,6 +27,7 @@ class MonthCalendarViewController: BaseViewController {
     
     @objc
     private func menuButtonClicked() {
+        
         let vc = MonthScrollViewController()
         vc.viewModel.currentPageDate = currentPageDate
         
@@ -52,7 +53,7 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
-        title = "Calendar"
+        navigationItem.title = "Calendar"
         navigationController?.navigationBar.prefersLargeTitles = true
         
 //        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))

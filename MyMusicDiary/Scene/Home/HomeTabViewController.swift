@@ -7,6 +7,27 @@
 
 import UIKit
 
+extension CALayer {
+    // Sketch 스타일의 그림자를 생성한다
+    func applyShadow(color: UIColor = .black, alpha: Float = 0.5, x: CGFloat = 0, y: CGFloat = 2, blur: CGFloat = 4) {
+        
+        shadowColor = color.cgColor
+        shadowOpacity = alpha
+        shadowOffset = CGSize(width: x, height: y)
+        shadowRadius = blur / 2.0
+    }
+}
+
+extension UITabBar {
+    // 기본 그림자 스타일을 초기화해서, 커스텀 스타일을 적용할 준비를 한다
+    static func clearShadow() {
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = UIColor.white
+        
+    }
+}
+
 
 
 class HomeTabViewController: UITabBarController {
@@ -17,20 +38,25 @@ class HomeTabViewController: UITabBarController {
     
     let chartVC = ChartTabViewController()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .clear
+        
         GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
+     
+        UITabBar.clearShadow()
+        tabBar.layer.applyShadow()
         
-        pagerVC.tabBarItem.title = "페이지"
-        calendarVC.tabBarItem.title = "기록"
-        chartVC.tabBarItem.title = "차트"
+        tabBar.tintColor = Constant.Color.main2
         
-        pagerVC.tabBarItem.image = UIImage(systemName: "pencil")
-        calendarVC.tabBarItem.image = UIImage(systemName: "pencil")
-        chartVC.tabBarItem.image = UIImage(systemName: "pencil")
+    
+        tabBar.layer.cornerRadius = 30
+        
+        
+        pagerVC.tabBarItem.image = UIImage(systemName: "music.note.house")
+        calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
+        chartVC.tabBarItem.image = UIImage(systemName: "chart.pie")
         
         let navPager = UINavigationController(rootViewController: pagerVC)
         let navCalendar = UINavigationController(rootViewController: calendarVC)

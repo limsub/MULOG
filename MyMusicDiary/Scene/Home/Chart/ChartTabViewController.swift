@@ -19,9 +19,12 @@ class ChartTabViewController: TabmanViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
-        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
+//        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
+        tabBarController?.tabBar.backgroundColor = .white
+        
+        navigationItem.title = "Chart"
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         
         self.dataSource = self
@@ -33,7 +36,7 @@ class ChartTabViewController: TabmanViewController {
         bar.layout.interButtonSpacing = 20
         bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         bar.backgroundView.style = .clear
-        
+
         addBar(bar, dataSource: self, at: .top)
     }
 }

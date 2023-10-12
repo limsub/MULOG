@@ -75,7 +75,7 @@ class SaveViewController: BaseViewController {
     lazy var helpButton = {
         let view = UIButton()
         
-        view.imageEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        view.imageEdgeInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
          
         
         view.setImage(UIImage(named: "question"), for: .normal)
@@ -131,6 +131,8 @@ class SaveViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
+        navigationItem.largeTitleDisplayMode = .never
 
         scrollView.showsVerticalScrollIndicator = false
         

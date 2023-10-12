@@ -63,6 +63,8 @@ class SearchViewController: BaseViewController {
     }
     private func settingNavigationItem() {
         
+        
+        
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "오늘 들었던 음악을 검색하세요"
