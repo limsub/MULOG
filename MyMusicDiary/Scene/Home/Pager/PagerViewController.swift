@@ -35,9 +35,20 @@ class PagerViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    let logoView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "mainLogo")
+        view.contentMode = .scaleAspectFit
+//        view.backgroundColor = .black
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+       
+        navigationItem.titleView?.backgroundColor = .clear
         
 //        navigationItem.title = "기록"
 //        navigationController?.navigationBar.prefersLargeTitles = true
@@ -100,10 +111,22 @@ class PagerViewController: BaseViewController {
     override func setConfigure() {
         super.setConfigure()
         
+        view.addSubview(logoView)
         view.addSubview(pagerView)
     }
     override func setConstraints() {
         super.setConstraints()
+        
+        
+        
+//        logoView.snp.makeConstraints { make in
+//            make.centerX.equalTo(view)
+////            make.leading.equalTo(view).inset(18)
+//            make.top.equalTo(view).inset(80)
+//            
+//            make.height.equalTo(80)
+//            make.width.equalTo(150)
+//        }
         
         pagerView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
