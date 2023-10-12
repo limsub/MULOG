@@ -51,7 +51,12 @@ class RecordDateViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
+//        view.backgroundColor = .lightGray
+        
+        view.backgroundColor = .white
+        
+        title = viewModel.countText()
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         viewModel.sortDateList()
         fillLabel()
@@ -68,15 +73,15 @@ class RecordDateViewController: BaseViewController {
     override func setConstraints() {
         super.setConstraints()
         
-        countLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).inset(24)
-            make.horizontalEdges.equalTo(18)
-        }
-        
-        dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(countLabel.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(view).inset(18)
-        }
+//        countLabel.snp.makeConstraints { make in
+//            make.top.equalTo(view).inset(24)
+//            make.horizontalEdges.equalTo(18)
+//        }
+//        
+//        dateLabel.snp.makeConstraints { make in
+//            make.top.equalTo(countLabel.snp.bottom).offset(20)
+//            make.horizontalEdges.equalTo(view).inset(18)
+//        }
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(8)
@@ -102,7 +107,7 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
         
         cell.dateLabel.text = viewModel.cellForItem(indexPath)
         
-        cell.backgroundColor = .lightGray
+//        cell.backgroundColor = .lightGray
         
         return cell
     }

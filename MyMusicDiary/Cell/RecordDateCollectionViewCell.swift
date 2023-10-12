@@ -10,7 +10,15 @@ import UIKit
 
 class RecordDateCollectionViewCell: BaseCollectionViewCell {
     
-    let dateLabel = UILabel()
+    let dateLabel = {
+        let view = UILabel()
+        view.textAlignment = .center
+        view.clipsToBounds = true
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 10
+        return view
+    }()
     
     
     

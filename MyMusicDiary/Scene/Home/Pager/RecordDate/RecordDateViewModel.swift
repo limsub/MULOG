@@ -12,6 +12,8 @@ class RecordDateViewModel {
     
     var item: MusicItemTable?
     
+    var dateList: [[String]] = []
+    
     // data sort
     func sortDateList() {
         
@@ -20,11 +22,14 @@ class RecordDateViewModel {
     // label
     func countText() -> String {
         guard let item else { return ""  }
-        return "\(item.count)번 기록한 음악이네요"
+        return "\(item.count)번 기록한 음악이에요"
     }
     
     func dateListText() -> String {
         guard let item else { return "기록 결과가 없습니다" }
+        
+        
+        
         
         var ansTxt = "언제 기록했냐면"
         item.dateList.forEach { date in

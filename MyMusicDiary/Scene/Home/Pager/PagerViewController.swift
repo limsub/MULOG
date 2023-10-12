@@ -179,9 +179,10 @@ extension PagerViewController: PlayButtonActionProtocol {
         vc.viewModel.item = viewModel.dataList[pagerView.currentIndex]    // 음악 정보를 넘겨준다
         
         vc.modalPresentationStyle = .pageSheet
-        let sheet = vc.sheetPresentationController
+        let nav = UINavigationController(rootViewController: vc)
+        let sheet = nav.sheetPresentationController
         sheet?.detents = [.medium(), .large()]
-        present(vc, animated: true)
+        present(nav, animated: true)
     }
 }
 
