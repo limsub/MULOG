@@ -20,6 +20,7 @@ class ChartTabViewController: TabmanViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
 
         

@@ -13,7 +13,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     var artworkImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         view.contentMode = .scaleAspectFit
         return view
     }()

@@ -11,6 +11,15 @@ import FSCalendar
 class MonthCalendarView: BaseView {
     
     /* calendar */
+    let backView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        view.layer.cornerRadius = 20
+        
+        return view
+    }()
+    
     var calendar = FSCalendar()
 
     let headerLabel = {
@@ -42,32 +51,46 @@ class MonthCalendarView: BaseView {
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionLayout())
         view.isScrollEnabled = false
+        
+        view.layer.cornerRadius = 20
         return view
     }()
     
     func configureCollectionLayout() -> UICollectionViewLayout {
         // item
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//        // group
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(1.0))
+//        let group = NSCollectionLayoutGroup.horizontal(
+//            layoutSize: groupSize,
+//            repeatingSubitem: item,
+//            count: 3
+//        )
+//        group.interItemSpacing = .fixed(10)
+//
+//        // section
+//        let section = NSCollectionLayoutSection(group: group)
+//
+//        // configuration -> 일단 사용x
+////        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+//
+//        // layout
+//        let layout = UICollectionViewCompositionalLayout(section: section)
+////        layout.configuration = configuration
+        ///
         
-        // group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            repeatingSubitem: item,
-            count: 3
-        )
-        group.interItemSpacing = .fixed(10)
+        let layout = UICollectionViewFlowLayout()
         
-        // section
-        let section = NSCollectionLayoutSection(group: group)
+        let spacing: CGFloat = 10
         
-        // configuration -> 일단 사용x
-//        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        let width = UIScreen.main.bounds.width - 28 - spacing * 4
         
-        // layout
-        let layout = UICollectionViewCompositionalLayout(section: section)
-//        layout.configuration = configuration
+//        let width = UIScreen.main.bounds.width - 50
+        
+        layout.itemSize = CGSize(width: width/3, height: 100)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         
         return layout
     }
@@ -76,6 +99,9 @@ class MonthCalendarView: BaseView {
     /* set */
     override func setConfigure() {
         super.setConfigure()
+
+        
+        addSubview(backView)
         
         addSubview(calendar)
         addSubview(headerLabel)
@@ -116,10 +142,16 @@ class MonthCalendarView: BaseView {
             make.height.equalTo(25)
         }
         
+        backView.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.top).offset(-16)
+            make.horizontalEdges.equalTo(self).inset(14)
+            make.bottom.equalTo(calendar).offset(8)
+        }
+        
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(calendar.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(self).inset(18)
-            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.top.equalTo(backView.snp.bottom).offset(12)
+            make.horizontalEdges.equalTo(self).inset(14)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(4)
         }
     }
     

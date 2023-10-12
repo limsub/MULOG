@@ -50,7 +50,10 @@ class MonthCalendarViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
+        
+        title = "Calendar"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
 //        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
 //        navigationItem.rightBarButtonItem = barbutton
