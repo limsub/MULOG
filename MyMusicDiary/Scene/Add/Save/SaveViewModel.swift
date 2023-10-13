@@ -27,7 +27,7 @@ class SaveViewModel {
     func addNewData() {
 //        let todayTable = DayItemTable(day: Date())
         
-        let a = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let a = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
         let todayTable = DayItemTable(day: a)
         
         

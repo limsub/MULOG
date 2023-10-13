@@ -38,7 +38,7 @@ class SearchViewModel {
 //                        })
 //                    )
                     
-                    print(result.songs[0].title,  result.songs[0].artwork?.backgroundColor)
+//                    print(result.songs[0].title,  result.songs[0].artwork?.backgroundColor)
                     
                     self.musicList.value = result.songs.map({
                         return .init(

@@ -63,6 +63,12 @@ class MonthCalendarViewController: BaseViewController {
         updateSnapshot()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        monthView.calendar.reloadData()
+    }
+    
     
     
 //    @objc
