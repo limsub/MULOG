@@ -29,6 +29,8 @@ enum Constant {
     
     
     enum Color {
+        static let background = UIColor(hexCode: "#F6F6F6")
+        
         static let main = UIColor(hexCode: "#C8A2C8")
         
         static let main1 = UIColor(hexCode: "#FCFCFC")

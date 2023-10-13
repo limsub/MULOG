@@ -68,38 +68,12 @@ class MonthCalendarView: BaseView {
 
     
     func configureCollectionLayout() -> UICollectionViewLayout {
-        // item
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//        // group
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(1.0))
-//        let group = NSCollectionLayoutGroup.horizontal(
-//            layoutSize: groupSize,
-//            repeatingSubitem: item,
-//            count: 3
-//        )
-//        group.interItemSpacing = .fixed(10)
-//
-//        // section
-//        let section = NSCollectionLayoutSection(group: group)
-//
-//        // configuration -> 일단 사용x
-////        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-//
-//        // layout
-//        let layout = UICollectionViewCompositionalLayout(section: section)
-////        layout.configuration = configuration
-        ///
-        
         let layout = UICollectionViewFlowLayout()
         
         let spacing: CGFloat = 10
         
         let width = UIScreen.main.bounds.width - 28 - spacing * 4
-        
-//        let width = UIScreen.main.bounds.width - 50
-        
+
         layout.itemSize = CGSize(width: width/3, height: 100)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         
@@ -110,7 +84,6 @@ class MonthCalendarView: BaseView {
     /* set */
     override func setConfigure() {
         super.setConfigure()
-
         
         addSubview(backView)
         
@@ -181,10 +154,14 @@ class MonthCalendarView: BaseView {
         settingCalendar()
     }
     
+    
     func settingCalendar() {
         
-        
         calendar.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.description())
+        
+        // 오늘 날짜 선택
+       calendar.setCurrentPage(Date(), animated: true)
+       calendar.select(Date())
        
         
         // 기존의 헤더 가림

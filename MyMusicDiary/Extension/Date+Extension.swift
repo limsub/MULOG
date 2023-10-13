@@ -18,7 +18,7 @@ extension Date {
 
 
 extension Date {
-    var convertedDate:Date {
+    var convertedDate: Date {
         let dateFormatter = DateFormatter()
         let dateFormat = "yyyy.MM.dd HH:mm"
         dateFormatter.dateFormat = dateFormat

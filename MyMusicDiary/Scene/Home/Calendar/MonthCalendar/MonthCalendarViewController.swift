@@ -24,54 +24,44 @@ class MonthCalendarViewController: BaseViewController {
     /* dataSource */
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItemTable>?
     
-    var currentPageDate = Date()
     
+    var currentPageDate = Date() // 캘린더 넘길 때, 타이틀 텍스트 바뀌게 하기 위함
+    
+    
+    /* calendar 상단 버튼 + 수정 버튼 */
     @objc
-    private func menuButtonClicked() {
-        
+    private func menuButtonClicked() {  // 화면 전환
         let vc = MonthScrollViewController()
         vc.viewModel.currentPageDate = currentPageDate
-        
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc
-    private func reloadButtonClicked() {
+    private func reloadButtonClicked() {    // 오늘 날짜 선택
+        // 0. UI
         monthView.calendar.setCurrentPage(Date(), animated: true)
+        monthView.calendar.select(Date())
+        
+        
+        // 1. selected date를 오늘 날짜로 업데이트한다
+        viewModel.updateSelectedDate(Date())
+        
+        // 2 - 1. 캘린더 reload -> currentSelectedDate 기준으로 배경 alpha값 변경
+        monthView.calendar.reloadData()
+        
+        // 2 - 2. 컬렉션뷰 reload -> currentSelectedDated 기준으로 data 다시 부르고, collectionView reload (update snapshot)
+        viewModel.updateMusicList()
+        updateSnapshot()
     }
     @objc
     private func plusButtonClicked() {
         let vc = SaveViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
-    override func loadView() {
-        self.view = monthView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
-        
-        navigationItem.title = "Calendar"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-//        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-//        navigationItem.rightBarButtonItem = barbutton
-
-        settingMonthCalendarAndCollectionView()
-        updateSnapshot()
-        
-        
-        
-        monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
-    }
-
     @objc
     func modifyButtonClicked() {
         let vc = SaveViewController()
         
+        // 수정할 musicitem들 전달. 타입 변환해서 전달 (MusicItemTable -> MusicItem)
         viewModel.currentMusicList.value.forEach { item in
             vc.viewModel.preMusicList.value.append(MusicItem(item))
         }
@@ -81,49 +71,54 @@ class MonthCalendarViewController: BaseViewController {
     
     
     
+    override func loadView() {
+        self.view = monthView
+    }
     
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Constant.Color.background
+        
+        navigationItem.title = "Calendar"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        
+        configureDataSource()
+        settingMonthView()
+        updateSnapshot()
+        
+    }
+
+    
+    // 데이터 수정한 후 바로 반영될 수 있도록 설정
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print(#function)
-        
-        
+
         monthView.calendar.reloadData()
-        viewModel.updateMusicList(currentPageDate)
+        viewModel.updateMusicList()
         updateSnapshot()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print(#function)
-    }
-    
-    
-//    @objc
-//    func buttonClicked() {
-//        let vc = MonthScrollViewController()
-//        vc.currentPageDate = currentPageDate
-//        let nav = UINavigationController(rootViewController: vc)
-//        nav.modalTransitionStyle = .crossDissolve
-//        nav.modalPresentationStyle = .fullScreen
-//        present(nav, animated: true)
-//    }
 
-    func settingMonthCalendarAndCollectionView() {
+    // monthView 안에 있는 캘린더 프로토콜 연결 및 addtarget 연겨
+    func settingMonthView() {
+        
         monthView.calendar.delegate = self
         monthView.calendar.dataSource = self
         
         monthView.menuButton.addTarget(self, action: #selector(menuButtonClicked), for: .touchUpInside)
         monthView.reloadButton.addTarget(self, action: #selector(reloadButtonClicked), for: .touchUpInside)
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
-        
+        monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
     }
     
     // set
     override func setConfigure() {
         super.setConfigure()
     }
+    
 
     override func setConstraints() {
         super.setConstraints()
@@ -139,15 +134,14 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
 
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
         
-        cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
-        
-        if let thumb = viewModel.firstMusicUrl(date) {
-            cell.backImageView.kf.setImage(with: thumb)
-        } else {
-            
+        viewModel.fetchArtwork(date) { url in
+            cell.backImageView.kf.setImage(with: url)
         }
+        
+        cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
         
         return cell
     }
@@ -157,17 +151,16 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         // currentSelectedDate 업데이트
         viewModel.updateSelectedDate(date)
         
+        // calendar 업데이트 (reloadData 쓰는 것보다 나을 듯)
         if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
             previousCell.backImageView.alpha = 0.5
-            
         }
         if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
             currentCell.backImageView.alpha = 1
         }
         
         // collectionView
-        configureDataSource()
-        viewModel.updateMusicList(date)
+        viewModel.updateMusicList()
         updateSnapshot()
     }
     
@@ -189,6 +182,8 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     // 10/3
     // 이전/다음 달 날짜는 아예 안나오게 설정해서 복잡하게 로직 짤 필요가 없어졌다
     
+    
+    // 캘린더 넘길 때, 타이틀 텍스트 바뀌게 하기 위함
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         currentPageDate = calendar.currentPage
         monthView.headerLabel.text = Constant.DateFormat.headerDateFormatter.string(from: currentPageDate)
@@ -198,16 +193,16 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
 }
 
 
-// * Month - CollectionView
+
+
+// * CollectionView
 extension MonthCalendarViewController {
     
     func configureDataSource() {
         // cellRegistration
          let cellRegistration = UICollectionView.CellRegistration<MonthCalendarCatalogCell, MusicItemTable> { cell, indexPath, itemIdentifier in
-            
-             print(indexPath)
+
              cell.designCell(itemIdentifier)
-             
         }
         
         // dataSource
@@ -225,10 +220,7 @@ extension MonthCalendarViewController {
         
     }
     
-    
     func updateSnapshot() {
-        print("update snapshot")
-        
         var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItemTable>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.currentMusicList.value)

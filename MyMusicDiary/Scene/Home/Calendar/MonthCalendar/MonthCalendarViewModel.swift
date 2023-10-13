@@ -16,37 +16,36 @@ class MonthCalendarViewModel {
     
     var currentMusicList: Observable<[MusicItemTable]> = Observable([])
     
-//    var musicList: Observable<DayItemTable>?
     
-    func isCurrentSelected(_ date: Date) -> Bool {
-        return (currentSelectedDate.value == date) ? true : false
-    }
-    
-    func firstMusicUrl(_ date: Date) -> URL? {
+    // 캘린더 셀에 앨범아트 띄워주기 위함
+    func fetchArtwork(_ date: Date, completionHandler: @escaping (URL?) -> Void) {
 
         if let data = repository.fetchDay(date), data.musicItems.count > 0, let smallURL = data.musicItems[0].smallImageURL, let url = URL(string: smallURL) {
-            return url
-        } else {
-            return nil
+            completionHandler(url)
         }
     }
     
-//    func musicsForDate(_ date: Date) -> DayItemTable? {
-//        return repository.fetchDay(date)
-//    }
+
+
+    /* selected Date */
+    func updateSelectedDate(_ newDate: Date) {  // 새로운 날짜로 업데이트
+        previousSelectedDate.value = currentSelectedDate.value
+        currentSelectedDate.value = newDate
+    }
     
-    func updateMusicList(_ date: Date) {
+    func isCurrentSelected(_ date: Date) -> Bool {  // selected Date인지 체크
+        // 전체 date로 비교하면 시간까지 비교하기 때문에, 필요한 연월일만 비교한다
+        return currentSelectedDate.value.toString(of: .full) == date.toString(of: .full) ? true : false
+    }
+    
+    
+    /* music list */
+    func updateMusicList() {
         currentMusicList.value.removeAll()
-        
-        guard let data = repository.fetchDay(date) else { return }
+        guard let data = repository.fetchDay(currentSelectedDate.value) else { return }
         
         data.musicItems.forEach { item in
             currentMusicList.value.append(item)
         }
-    }
-    
-    func updateSelectedDate(_ newDate: Date) {
-        previousSelectedDate.value = currentSelectedDate.value
-        currentSelectedDate.value = newDate
     }
 }
