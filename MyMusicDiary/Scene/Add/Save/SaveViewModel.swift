@@ -15,6 +15,8 @@ class SaveViewModel {
     
     var musicList: Observable<[MusicItem]> = Observable([])
     
+    var preMusicList: Observable<[MusicItem]> = Observable([])
+    
     let genreList: [GenreType] = [.kpop, .pop, .ost, .hiphop, .rb]
     
     func numberOfItems() -> Int {
@@ -25,10 +27,34 @@ class SaveViewModel {
     
     // 데이터 추가 (저장 버튼 클릭)
     func addNewData() {
-//        let todayTable = DayItemTable(day: Date())
         
-        let a = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
-        let todayTable = DayItemTable(day: a)
+        // 만약 오늘 날짜의 데이터가 있다면 -> 수정하러 들어온 것
+        // 1. 오늘 데이터 삭제하고, 1.5. musicitemtable의 datelist에서 오늘 날짜 빼주고,  2. 새로운 데이터 넣어준다
+        
+        // 1.
+        if let alreadyTodayItem = repository.fetchDay(Date()) {
+            
+            
+            // musicItemTable들의 count를 1 줄여준다
+            alreadyTodayItem.musicItems.forEach { item in
+                repository.minusCnt(item)
+                repository.minusDate(item, today: Date())
+            }
+            
+            
+            
+            
+            // dayItemTable 자체를 없앤다
+            repository.deleteItem(alreadyTodayItem)
+        }
+      
+        
+        
+        // 2.
+        let todayTable = DayItemTable(day: Date())
+        
+//        let a = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
+//        let todayTable = DayItemTable(day: a)
         
         
         
@@ -38,15 +64,15 @@ class SaveViewModel {
             if let alreadyMusic = repository.alreadySave($0.id) {
                 repository.plusCnt(alreadyMusic)
                 
-//                repository.plusDate(alreadyMusic, today: Date())
-                repository.plusDate(alreadyMusic, today: a)
+                repository.plusDate(alreadyMusic, today: Date())
+//                repository.plusDate(alreadyMusic, today: a)
                 
                 repository.appendMusicItem(todayTable, musicItem: alreadyMusic)
             } else {    // 처음 저장하는 음악
                 let newMusic = MusicItemTable(musicItem: $0)    // 램에 아직 없는 아이템
                 
-//                newMusic.dateList.append(Date().toString(of: .full))
-                newMusic.dateList.append(a.toString(of: .full))
+                newMusic.dateList.append(Date().toString(of: .full))
+//                newMusic.dateList.append(a.toString(of: .full))
                 
                 repository.appendMusicItem(todayTable, musicItem: newMusic) // MusicItemTable에 자동 추가
             }

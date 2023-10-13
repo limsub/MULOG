@@ -21,6 +21,10 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
     
     private lazy var viewControllers = [monthChartVC, weekChartVC]
     
+    
+    
+  
+    
     func setLargeTitle() {
         print(#function)
 //        navigationItem.largeTitleDisplayMode = .always

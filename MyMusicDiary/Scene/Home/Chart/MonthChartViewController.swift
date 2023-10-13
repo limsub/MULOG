@@ -317,9 +317,9 @@ extension MonthChartViewController: UIScrollViewDelegate {
         print(scrollView.contentOffset.y)
         
         if scrollView.contentOffset.y > 0 {
-//            delegate?.setSmallTitle()
+            delegate?.setSmallTitle()
         } else {
-//            delegate?.setLargeTitle()
+            delegate?.setLargeTitle()
         }
         
         

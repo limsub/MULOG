@@ -11,9 +11,10 @@ import UIKit
 
 
 
-
 class SaveViewController: BaseViewController {
     
+    
+
     let viewModel = SaveViewModel()
     
     
@@ -132,6 +133,7 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        navigationItem.title = "음악 기록"
         navigationItem.largeTitleDisplayMode = .never
 
         scrollView.showsVerticalScrollIndicator = false
@@ -140,7 +142,26 @@ class SaveViewController: BaseViewController {
         navigationItem.rightBarButtonItem = saveButton
         
         
+        
+        
+        
+        
+        
+        viewModel.musicList.value = viewModel.preMusicList.value
+        
+        print("1111111", viewModel.musicList.value)
+        print("2222222", viewModel.preMusicList.value)
+        collectionView.reloadData()
+        
+//        navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(funcName))
+////        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
+    
+//    @objc func funcName(_ recognizer: UIGestureRecognizer) {
+//        print("state: \(recognizer.state.rawValue)")
+//    }
+    
+
     
     @objc
     func saveButtonClicked() {

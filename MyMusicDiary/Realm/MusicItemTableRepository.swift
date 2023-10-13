@@ -12,6 +12,19 @@ class MusicItemTableRepository {
     
     let realm = try! Realm()
     
+    
+    // (수정 - 저장 버튼 클릭 시) 기존에 있던 DayItemTable (오늘 날짜) 지워준다
+    func deleteItem(_ item: DayItemTable) {
+        do {
+            try realm.write {
+                realm.delete(item)
+            }
+        } catch {
+            print(error)
+        }
+    }
+ 
+    
     // (저장 버튼 클릭 시). DayItemTable 인스턴스에 musicItem들을 다 추가하고, 최종적인 DayItemTable 램에 추가
     func createDayItem(_ item: DayItemTable) {
         do {
@@ -101,11 +114,23 @@ class MusicItemTableRepository {
         }
     }
     
+    func minusCnt(_ data: MusicItemTable) {
+        do {
+            try realm.write {
+                realm.create(
+                    MusicItemTable.self,
+                    value: ["id": data.id, "name": data.name,
+                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count - 1, "backgroundColors": data.backgroundColors, "dateList": data.dateList],
+                    update: .modified
+                )
+            }
+        } catch {
+            
+        }
+    }
+    
     // 추가한 날짜(오늘)을 MusicItemTable의 dateList에 추가해준다
     func plusDate(_ data: MusicItemTable, today: Date) {
-        
-        
-        
         do {
             try realm.write {
                 let todayString = today.toString(of: .full)
@@ -120,6 +145,28 @@ class MusicItemTableRepository {
             }
         } catch {
             print("업데이트 에러")
+        }
+    }
+    
+    
+    func minusDate(_ data: MusicItemTable, today: Date) {
+        do {
+            try realm.write {
+                let todayString = today.toString(of: .full)
+            
+                guard let index = data.dateList.firstIndex(where: { $0 == todayString}) else { return }
+                data.dateList.remove(at: index)
+                
+                
+                realm.create(
+                    MusicItemTable.self,
+                    value: ["id": data.id, "name": data.name,
+                            "artist": data.artist, "bigImageURL": data.bigImageURL, "smallImageURL": data.smallImageURL, "previewURL": data.previewURL, "genres": data.genres, "count": data.count, "backgroundColors": data.backgroundColors, "dateList": data.dateList],
+                    update: .modified
+                )
+            }
+        } catch {
+            
         }
     }
     

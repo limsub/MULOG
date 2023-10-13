@@ -12,6 +12,7 @@ import Kingfisher
 // view - viewCont 구분
 // 1. addTarget은 VC에서 (self 들어가는건 VC에서)
 
+
 class MonthCalendarViewController: BaseViewController {
     
     /* viewModel */
@@ -61,14 +62,42 @@ class MonthCalendarViewController: BaseViewController {
 
         settingMonthCalendarAndCollectionView()
         updateSnapshot()
+        
+        
+        
+        monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
     }
+
+    @objc
+    func modifyButtonClicked() {
+        let vc = SaveViewController()
+        
+        viewModel.currentMusicList.value.forEach { item in
+            vc.viewModel.preMusicList.value.append(MusicItem(item))
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print(#function)
+        
+        
         monthView.calendar.reloadData()
+        viewModel.updateMusicList(currentPageDate)
+        updateSnapshot()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print(#function)
+    }
     
     
 //    @objc

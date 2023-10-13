@@ -56,6 +56,17 @@ class MonthCalendarView: BaseView {
         return view
     }()
     
+    lazy var modifyButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "pencil"), for: .normal)
+        view.backgroundColor = .red
+//        view.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
+        // addTarget은 뷰컨에서
+        return view
+    }()
+    
+
+    
     func configureCollectionLayout() -> UICollectionViewLayout {
         // item
 //        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
@@ -110,6 +121,8 @@ class MonthCalendarView: BaseView {
         addSubview(plusButton)
         
         addSubview(collectionView)
+        addSubview(modifyButton)
+        
     }
     override func setConstraints() {
         super.setConstraints()
@@ -152,6 +165,13 @@ class MonthCalendarView: BaseView {
             make.top.equalTo(backView.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(self).inset(14)
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(12)
+        }
+        
+        modifyButton.snp.makeConstraints { make in
+//            make.center.equalTo(self)
+            make.trailing.equalTo(collectionView)
+            make.bottom.equalTo(collectionView)
+            make.size.equalTo(50)
         }
     }
     
