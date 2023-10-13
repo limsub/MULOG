@@ -61,7 +61,7 @@ class MusicItemTableRepository {
         return data
     }
     func fetchDay(_ day: Date) -> DayItemTable? {
-        let dateString = Constant.DateFormat.realmDateFormatter.string(from: day)
+        let dateString = day.toString(of: .full) 
         
         let data = realm.objects(DayItemTable.self).where {
             $0.day == dateString

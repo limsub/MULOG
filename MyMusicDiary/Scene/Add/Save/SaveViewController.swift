@@ -136,6 +136,10 @@ class SaveViewController: BaseViewController {
         navigationItem.title = "음악 기록"
         navigationItem.largeTitleDisplayMode = .never
 
+        
+        
+        
+        
         scrollView.showsVerticalScrollIndicator = false
         
         let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))

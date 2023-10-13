@@ -81,12 +81,18 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = Constant.Color.background
         
-        navigationItem.title = "Calendar"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        monthView.calendar.setCurrentPage(Date(), animated: true)
+//        monthView.calendar.select(Date())
+//
+//        viewModel.updateSelectedDate(Date())
         
-        
-        configureDataSource()
         settingMonthView()
+        
+        settingNavigation()
+        configureDataSource()
+        
+        monthView.calendar.reloadData()
+        viewModel.updateMusicList()
         updateSnapshot()
         
     }
@@ -96,11 +102,32 @@ class MonthCalendarViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        monthView.calendar.reloadData()
-        viewModel.updateMusicList()
-        updateSnapshot()
+//        monthView.calendar.reloadData()
+//        viewModel.updateMusicList()
+//        updateSnapshot()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print(#function)
+
+//        monthView.calendar.reloadData()
+//        viewModel.updateMusicList()
+//        updateSnapshot()
+    }
+    
+    func settingNavigation() {
+        // prefersLargeTitles 가 true인 상태에서,
+        // largeTitleDisplayMode 로 현재 뷰컨의 nav 상태를 결정할 수 있다
+        
+        
+        navigationItem.title = "Calendar"
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        
+//        navigationItem.largeTitleDisplayMode = .always
+    }
 
     // monthView 안에 있는 캘린더 프로토콜 연결 및 addtarget 연겨
     func settingMonthView() {
@@ -129,16 +156,22 @@ class MonthCalendarViewController: BaseViewController {
 extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func maximumDate(for calendar: FSCalendar) -> Date {
+        print(#function)
         return Date()
     }
 
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         
+        print(#function, date)
+        
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
+        
+        cell.backImageView.image = nil
         
         viewModel.fetchArtwork(date) { url in
             cell.backImageView.kf.setImage(with: url)
+            print(date)
         }
         
         cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
@@ -147,6 +180,8 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        print(#function, date)
         
         // currentSelectedDate 업데이트
         viewModel.updateSelectedDate(date)

@@ -10,6 +10,7 @@ import Kingfisher
 
 class MonthCalendarCatalogCell: BaseCollectionViewCell {
     
+    
     var artworkImageView = {
         let view = UIImageView()
         view.clipsToBounds = true

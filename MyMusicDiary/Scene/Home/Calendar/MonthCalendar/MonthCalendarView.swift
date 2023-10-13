@@ -101,7 +101,7 @@ class MonthCalendarView: BaseView {
         super.setConstraints()
         
         calendar.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.top.equalTo(self.safeAreaLayoutGuide).inset(20)
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(18)
             make.height.equalTo(self.safeAreaLayoutGuide).multipliedBy(0.6)
         }

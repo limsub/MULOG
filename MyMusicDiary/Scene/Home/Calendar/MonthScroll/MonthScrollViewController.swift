@@ -54,10 +54,16 @@ class MonthScrollViewController: BaseViewController {
         setMonthYearForPickerView()
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        navigationItem.largeTitleDisplayMode = .never
+//    }
     
     func settingNavigaionItem() {
         
         navigationItem.largeTitleDisplayMode = .never
+        
+//        navigationController?.navigationBar.prefersLargeTitles = false
  
         // titleView
         titleLabel.text = viewModel.currentMonthYearTitle()
