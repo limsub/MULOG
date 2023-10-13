@@ -9,7 +9,11 @@ import UIKit
 
 class MonthScrollView: BaseView {
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    lazy var collectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createMonthScrollLayout())
+        view.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
+        return view
+    }()
     
     let pickerView = {
         // pickerView 레이아웃은 frame으로 잡는다
@@ -51,11 +55,11 @@ class MonthScrollView: BaseView {
         backgroundColor = .systemBackground
         
         pickerView.isHidden = true
-        collectionView.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
     }
     
+    
     // collectionView Layout
-    func createLayout() -> UICollectionViewLayout {
+    func createMonthScrollLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
         let width = UIScreen.main.bounds.width - 32
@@ -64,9 +68,7 @@ class MonthScrollView: BaseView {
         layout.sectionInset = UIEdgeInsets(top: 10, left: 18, bottom: 10, right: 18)
         
         layout.minimumLineSpacing = 10
-        
-//        layout.collectionView?.backgroundColor = .red
-        
+
         return layout
     }
 

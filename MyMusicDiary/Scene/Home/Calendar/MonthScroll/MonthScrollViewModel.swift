@@ -21,10 +21,16 @@ class MonthScrollViewModel {
     
     var isPickerViewHidden = true
     
+    /* isPickerViewHidden */
     func pickerViewHiddenState() -> Bool {
         return isPickerViewHidden
     }
+
+    func togglePickerViewHidden() { // pickerView 접혔다 펼쳤다
+        isPickerViewHidden.toggle()
+    }
     
+    /* pickerView + title */
     // currentPageData로 pickerView에 선택되어있어야 할 인덱스 리턴
     func currentMonthIdx() -> Int {
         guard let month = Int(currentPageDate.toString(of: .singleMonth)) else { return 0}
@@ -39,7 +45,16 @@ class MonthScrollViewModel {
     }
     
     
-    // currentPageData로 해당 연월에 맞는 새로운 데이터 로드
+    // 타이틀에 적혀있어야 하는 월/연
+    func currentMonthYearTitle() -> String {
+        return currentPageDate.toString(of: .fullMonthYear)
+    }
+    
+    
+    
+    
+    
+    // currentPageDate로 해당 연월에 맞는 새로운 데이터 로드
     func updateData() {
         let yearMonth = currentPageDate.toString(of: .yearMonth)
         
@@ -51,10 +66,7 @@ class MonthScrollViewModel {
     }
     
     
-    // pickerView가 fold / unfold 될 때, 값을 토글한다
-    func togglePickerViewHidden() {
-        isPickerViewHidden.toggle()
-    }
+ 
     
     
     /* collectionView DataSource */

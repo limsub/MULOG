@@ -9,11 +9,17 @@ import UIKit
 
 class MonthScrollViewController: BaseViewController {
     
+    /* view */
     let mainView = MonthScrollView()
     
+    /* viewModel */
     let viewModel = MonthScrollViewModel()
 
-    let titleButton = UIButton(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40))    // navigation Item에 들어가는 버튼
+    
+    /* navigationItem 내부 */
+    let titleButton = UIButton(
+        frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width/2, height: 40)
+    )    // navigation Item에 들어가는 버튼
     let titleLabel = {
         let view = UILabel()
         view.font = .boldSystemFont(ofSize: 20)
@@ -23,8 +29,6 @@ class MonthScrollViewController: BaseViewController {
         let view = UIImageView()
         let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold) // 이미지 두께 조절
         view.image = UIImage(systemName: "chevron.right", withConfiguration: symbolConfiguration)!
-        
-
         view.tintColor = .black
         view.sizeToFit()
         return view
@@ -36,46 +40,32 @@ class MonthScrollViewController: BaseViewController {
         self.view = mainView
     }
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.largeTitleDisplayMode = .never
-        
-//        titleButton.backgroundColor = .brown
         
         settingNavigaionItem()
         settingCollectionView()
         settingPickerView()
         
         viewModel.updateData()
-        setMonthYear()
+        setMonthYearForPickerView()
     }
     
-    @objc
-    func didTapView(_ sender: UITapGestureRecognizer) {
-        if !viewModel.pickerViewHiddenState() {
-            foldPickerView()
-            viewModel.togglePickerViewHidden()
-        }
-        print("taptap")
-    }
-    
-    
-
     
     func settingNavigaionItem() {
-        // right Button
-        let barbutton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(buttonClicked))
-        navigationItem.rightBarButtonItem = barbutton
         
+        navigationItem.largeTitleDisplayMode = .never
+ 
         // titleView
-        let title = viewModel.currentPageDate.toString(of: .fullMonthYear)
-        
-        titleLabel.text = title
+        titleLabel.text = viewModel.currentMonthYearTitle()
         
         titleButton.addSubview(titleLabel)
         titleButton.addSubview(titleImage)
-        titleLabel.snp.makeConstraints { make in
+        
+        titleLabel.snp.makeConstraints { make in    // snapkit 레이아웃 잡은게 특이하긴 한데.. 돌아가긴 한다
             make.center.equalTo(titleButton)
         }
         titleImage.snp.makeConstraints { make in
@@ -85,21 +75,15 @@ class MonthScrollViewController: BaseViewController {
         titleButton.snp.makeConstraints { make in
             make.width.equalTo(titleLabel).multipliedBy(1.4)
         }
-        
-        
-//        titleButton.setTitle(title, for: .normal)
-//        titleButton.setTitleColor(.black, for: .normal)
-//        titleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         titleButton.addTarget(self, action: #selector(titleButtonClicked), for: .touchUpInside)
-        
         navigationItem.titleView = titleButton
+
         
         // navigation item
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.backgroundColor = .clear
         navigationBarAppearance.shadowColor = .clear
-        
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
         UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
@@ -119,6 +103,29 @@ class MonthScrollViewController: BaseViewController {
     }
     
     
+    
+    @objc   // pickerView 접어준다
+    func didTapView(_ sender: UITapGestureRecognizer) {
+        if !viewModel.pickerViewHiddenState() {
+            foldPickerView()
+            viewModel.togglePickerViewHidden()
+        }
+        print("taptap")
+    }
+    
+    @objc   // pickerView 상태에 따라 접거나 펴준다
+    func titleButtonClicked() {
+        if !viewModel.pickerViewHiddenState() {
+            // 펼쳐져 있는 상태 -> 접어줘야 함
+            foldPickerView()
+        } else {
+            // 접혀 있는 상태 -> 펼쳐줘야 함
+            unfoldPickerView()
+        }
+        viewModel.togglePickerViewHidden()  // pickerViewHidden 변수 토글
+    }
+    
+    
     func foldPickerView() {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
             [weak self] in
@@ -131,12 +138,11 @@ class MonthScrollViewController: BaseViewController {
             self?.titleImage.transform = CGAffineTransform(rotationAngle: 0)
             
             self?.titleImage.tintColor = .black
-            
         } completion: { [weak self] _ in
             self?.mainView.pickerView.isHidden = true   // hidden 처리
             self?.viewModel.updateData()    // 선택한 날짜로 데이터 업데이트
             self?.mainView.collectionView.reloadData() // collectionView reload
-            self?.setMonthYear()    // pickerView 초기값 지정
+            self?.setMonthYearForPickerView()    // pickerView 초기값 지정
             self?.mainView.pickerView.alpha = 1
         }
     }
@@ -158,26 +164,10 @@ class MonthScrollViewController: BaseViewController {
     }
   
     
-    @objc
-    func titleButtonClicked() {
-        if !viewModel.pickerViewHiddenState() {
-            // 펼쳐져 있는 상태 -> 접어줘야 함
-            foldPickerView()
-        } else {
-            // 접혀 있는 상태 -> 펼쳐줘야 함
-            unfoldPickerView()
-        }
-        viewModel.togglePickerViewHidden()
-//        isPickerViewHidden.toggle()
-    }
-    
-    @objc
-    func buttonClicked() {
-        dismiss(animated: true)
-    }
+
     
     
-    func setMonthYear() {
+    func setMonthYearForPickerView() {
         mainView.pickerView.selectRow(viewModel.currentMonthIdx(), inComponent: 0, animated: false)
         mainView.pickerView.selectRow(viewModel.currentYearIdx(), inComponent: 1, animated: false)
     }

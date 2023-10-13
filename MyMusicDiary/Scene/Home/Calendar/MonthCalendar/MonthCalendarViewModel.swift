@@ -17,6 +17,7 @@ class MonthCalendarViewModel {
     var currentMusicList: Observable<[MusicItemTable]> = Observable([])
     
     
+    // 해당 날짜의 artwork url 받아옴
     // 캘린더 셀에 앨범아트 띄워주기 위함
     func fetchArtwork(_ date: Date, completionHandler: @escaping (URL?) -> Void) {
 
