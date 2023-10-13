@@ -59,7 +59,7 @@ class RecordDateViewModel {
     // label
     func countText() -> String {
         guard let item else { return ""  }
-        return "\(item.count)번 기록한 음악이에요"
+        return "\(item.count)번 기록한 음악이에요 🎉"
     }
     
     func dateListText() -> String {

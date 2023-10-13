@@ -31,4 +31,9 @@ enum DateFormatType: String {
     case minute = "mm"
     case hourMinute = "HHmm"
     
+    
+    case yoil = "EEE"
+    
+    case day = "dd"
+    
 }

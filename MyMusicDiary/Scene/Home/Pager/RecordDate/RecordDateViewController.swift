@@ -54,19 +54,25 @@ class RecordDateViewController: BaseViewController {
         view.delegate = self
         view.dataSource = self
         
+        view.backgroundColor = UIColor(hexCode: "F6F6F6")
+        
         return view
     }()
     
     func createDateLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         
-        let width = UIScreen.main.bounds.width - 40
+        let width = UIScreen.main.bounds.width - 60
         
-        layout.itemSize = CGSize(width: width/2, height: 40)
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
-        layout.minimumLineSpacing = 16
+        layout.itemSize = CGSize(width: width/4, height: 100)
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 16, bottom: 24, right: 16)
+        layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
         
+    
+        
+        
+    
         return layout
     }
     
@@ -124,7 +130,9 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
         
 //        cell.dateLabel.text = viewModel.cellForItem(indexPath)
         
-        cell.dateLabel.text = viewModel.dateList[indexPath.section][indexPath.row]
+        cell.designCell(viewModel.dateList[indexPath.section][indexPath.row])
+        
+//        cell.dateLabel.text = viewModel.dateList[indexPath.section][indexPath.row]
         
 //        cell.backgroundColor = .lightGray
         
@@ -154,10 +162,11 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
     
             print("hiHIhihih'")
         
-    
         
-        let title = "\(viewModel.sectionList[indexPath.section]?.substring(from: 0, to: 3))년 \(viewModel.sectionList[indexPath.section]?.substring(from: 4, to: 5))월"
+        guard let year = viewModel.sectionList[indexPath.section]?.substring(from: 0, to: 3) else { return header }
+        guard let month = viewModel.sectionList[indexPath.section]?.substring(from: 4, to: 5) else { return header }
         
+        let title = "\(year)년 \(month)월"
         header.label.text = title
 
         return header
