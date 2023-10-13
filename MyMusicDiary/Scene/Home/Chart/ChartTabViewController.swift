@@ -22,20 +22,62 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
     private lazy var viewControllers = [monthChartVC, weekChartVC]
     
     
-    
+   
   
     
     func setLargeTitle() {
         print(#function)
 //        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .automatic
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .automatic
+        
+//        navigationController?.setNavigationBarHidden(false, animated: true)
+//
+//        let v = viewControllers[0] as! MonthChartViewController
+//        v.reloadInputViews()
+        
+//        navigationController?.navigationBar.isHidden = false
+        
+//        viewControllers.forEach { vc in
+//            vc.view.contentInset = UIEdgeInsetsMake(self.navigationController!.navigationBar.bounds.size.height, 0, 0, 0);
+//
+//            view.safeAreaInsets
+//
+//
+//            print(view.safeAreaInsetsDidChange())
+//        }
+        
+//        let v = viewControllers[0] as! MonthChartViewController
+//        v.scrollView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bounds.size.height, left: 0, bottom: 0, right: 0);
+        
+        
+        
+        
+//        self.view.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.bounds.size.height, 0, 0, 0);
+        
     }
     func setSmallTitle() {
         print(#function)
 //        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.largeTitleDisplayMode = .automatic
+//        navigationController?.navigationBar.prefersLargeTitles = false
+//        navigationItem.largeTitleDisplayMode = .automatic
+        
+//        navigationController?.setNavigationBarHidden(true, animated: true)
+        
+//        let v = viewControllers[0] as! MonthChartViewController
+//        v.scrollView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bounds.size.height, left: 0, bottom: 0, right: 0);
+//
+        
+//        self.view.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+//        navigationController?.navigationBar.isHidden = false
+        
+        
+        
+//        let v = viewControllers[0] as! MonthChartViewController
+//
+//        v.scrollView.automaticallyAdjustsScrollIndicatorInsets = true
+//        v.scrollView.scrollsToTop = true
     }
     
     
@@ -55,6 +97,9 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     
+        
         
         monthChartVC.delegate = self
         weekChartVC.delegate = self
@@ -76,7 +121,8 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         
-
+        
+        
         
         self.dataSource = self
         

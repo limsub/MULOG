@@ -321,7 +321,5 @@ extension MonthChartViewController: UIScrollViewDelegate {
         } else {
             delegate?.setLargeTitle()
         }
-        
-        
     }
 }

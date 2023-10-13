@@ -113,6 +113,11 @@ class WeekChartViewController: BaseViewController {
         super.viewDidLoad()
 //        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
+        print("ijijjij", tabmanParent?.automaticallyAdjustsChildInsets)
+        print("ijijijij", tabmanParent)
+        
+        scrollView.delegate = self
+        
         view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
         /* 데이터 로드 */
@@ -146,7 +151,6 @@ class WeekChartViewController: BaseViewController {
         barGraphView.collectionView.dataSource = self
         barGraphView.collectionView.showsHorizontalScrollIndicator = false
     }
-    
     
     
     override func setConfigure() {
@@ -315,3 +319,15 @@ extension WeekChartViewController: UICollectionViewDataSource {
 }
 
 
+extension WeekChartViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        print(scrollView.contentOffset.y)
+        
+        if scrollView.contentOffset.y > 0 {
+            delegate?.setSmallTitle()
+        } else {
+            delegate?.setLargeTitle()
+        }
+    }
+}
