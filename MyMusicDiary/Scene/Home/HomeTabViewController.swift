@@ -37,6 +37,8 @@ class HomeTabViewController: UITabBarController {
     
     let chartVC = ChartTabViewController()
     
+    let settingVC = MainSettingViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,14 +60,15 @@ class HomeTabViewController: UITabBarController {
         pagerVC.tabBarItem.image = UIImage(systemName: "music.note.house")
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         chartVC.tabBarItem.image = UIImage(systemName: "chart.pie")
+        settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
         
         let navPager = UINavigationController(rootViewController: pagerVC)
         let navCalendar = UINavigationController(rootViewController: calendarVC)
         let navChart = UINavigationController(rootViewController: chartVC)
+        let navSetting = UINavigationController(rootViewController: settingVC)
         
         
-        
-        let tabItem = [navPager, navCalendar, navChart]
+        let tabItem = [navPager, navCalendar, navChart, navSetting]
         self.viewControllers = tabItem
         
         setViewControllers(tabItem, animated: true)

@@ -88,6 +88,8 @@
 		48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CD19112AD282DE000BF7F3 /* PagerViewController.swift */; };
 		48DAF68E2AD2D22200932539 /* PagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68D2AD2D22200932539 /* PagerViewModel.swift */; };
 		48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */; };
+		48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F32ADA812100705D4F /* NotificationTimeView.swift */; };
+		48DC50F62ADA812B00705D4F /* NotificationSettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +170,8 @@
 		48CD19112AD282DE000BF7F3 /* PagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
 		48DAF68D2AD2D22200932539 /* PagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewModel.swift; sourceTree = "<group>"; };
 		48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewDataRepository.swift; sourceTree = "<group>"; };
+		48DC50F32ADA812100705D4F /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
+		48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingListView.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,7 +239,6 @@
 		4812D5192AC3ABE100E7C6A4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				48BA31312AD515AD0048AD05 /* Setting */,
 				4837903B2ACA4C04003AC436 /* Home */,
 				4812D51B2AC3AC0D00E7C6A4 /* Add */,
 			);
@@ -345,6 +348,7 @@
 				48CD19102AD282B2000BF7F3 /* Pager */,
 				483790522ACBDD39003AC436 /* Calendar */,
 				483790A12ACFAB32003AC436 /* Chart */,
+				48BA31312AD515AD0048AD05 /* Setting */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -490,6 +494,7 @@
 		48BA31342AD518C70048AD05 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				48DC50F22ADA811200705D4F /* View */,
 				48BA31372AD518E30048AD05 /* NotificationSettingViewController.swift */,
 				488935552AD666E000E4B0B0 /* NotificationRepository.swift */,
 			);
@@ -504,6 +509,15 @@
 				48BA312C2AD4D2870048AD05 /* RecordDate */,
 			);
 			path = Pager;
+			sourceTree = "<group>";
+		};
+		48DC50F22ADA811200705D4F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				48DC50F32ADA812100705D4F /* NotificationTimeView.swift */,
+				48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		99F964DB2FEB2A606827D0F7 /* Pods */ = {
@@ -693,6 +707,7 @@
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
+				48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */,
 				48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
@@ -723,6 +738,7 @@
 				4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */,
 				488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */,
 				483790992ACEDDCB003AC436 /* MonthScrollViewModel.swift in Sources */,
+				48DC50F62ADA812B00705D4F /* NotificationSettingListView.swift in Sources */,
 				4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */,
 				48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,

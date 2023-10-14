@@ -281,11 +281,11 @@ extension MonthCalendarViewController {
             if value {
                 self.monthView.modifyButton.isHidden = false
                 
-                UIView.animate(withDuration: 0.6) { [weak self] in
+                UIView.animate(withDuration: 0.2) { [weak self] in
                     self?.monthView.modifyButton.alpha = 1
                 }
             } else {
-                UIView.animate(withDuration: 0.6) { [weak self] in
+                UIView.animate(withDuration: 0.2) { [weak self] in
                     self?.monthView.modifyButton.alpha = 0
                 } completion: { [weak self] _ in
                     self?.monthView.modifyButton.isHidden = true

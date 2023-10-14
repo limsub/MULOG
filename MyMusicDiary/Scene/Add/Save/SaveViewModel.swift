@@ -26,7 +26,13 @@ class SaveViewModel {
 
     
     // 데이터 추가 (저장 버튼 클릭)
-    func addNewData() {
+    func addNewData(completionHandler: @escaping () -> Void) {
+        
+        // 진짜 만약에 음악 하나도 없는데 저장 버튼 눌렀다 -> 음악 추가하라고 얼럿
+        if musicList.value.count == 0 {
+            completionHandler()
+            return
+        }
         
         // 만약 오늘 날짜의 데이터가 있다면 -> 수정하러 들어온 것
         // 1. 오늘 데이터 삭제하고, 1.5. musicitemtable의 datelist에서 오늘 날짜 빼주고,  2. 새로운 데이터 넣어준다

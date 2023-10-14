@@ -62,6 +62,16 @@ class GenreViewModel {
             }
             
             currentOffset += 25
+            
+            print("========================================================================================================")
+            
+            
+            result.songCharts[0].items.forEach { song in
+                if song.artwork != nil {
+                    print(song.title, song.albums)
+                }
+            }
+        
         }
     }
     

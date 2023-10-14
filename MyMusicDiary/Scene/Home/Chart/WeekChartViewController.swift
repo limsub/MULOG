@@ -133,7 +133,7 @@ class WeekChartViewController: BaseViewController {
         
 
         /* circle Graph */
-        pieGraphView.titleLabel.text = "과목별 비율"
+        pieGraphView.titleLabel.text = "전체 장르 비율"
         
         settingPieGraphView(dataPoints: genres, values: percentArr)
         
@@ -143,7 +143,7 @@ class WeekChartViewController: BaseViewController {
 
         
         /* bar Graph */
-        barGraphView.titleLabel.text = "과목별 비율"
+        barGraphView.titleLabel.text = "날짜별 장르 비율"
         
         settingBarGraphView()
         

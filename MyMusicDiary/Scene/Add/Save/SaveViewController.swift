@@ -175,7 +175,9 @@ class SaveViewController: BaseViewController {
         print("데이터가 저장됩니다")
         print(viewModel.musicList.value)
         
-        viewModel.addNewData()
+        viewModel.addNewData {
+            self.showSingleAlert("한 개 이상의 곡을 선택해야 저장이 가능합니다", message: "곡을 선택해주세요")
+        }
         
         delegate?.update()
         

@@ -10,98 +10,10 @@ import UserNotifications
 
 
 
-
-class NotificationSettingListView: BaseView {
-    
-    let nameLabel = UILabel()
-    let controlSwitch = UISwitch()
-    
-    override func setConfigure() {
-        super.setConfigure()
-        
-        addSubview(nameLabel)
-        addSubview(controlSwitch)
-    }
-    
-    override func setConstraints() {
-        super.setConstraints()
-        
-        
-        nameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.leading.equalTo(self).inset(12)
-        }
-        controlSwitch.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.trailing.equalTo(self).inset(12)
-        }
-    }
-    
-    override func setting() {
-        super.setting()
-        
-        backgroundColor = .white
-        
-        nameLabel.text = "알림 허용"
-        controlSwitch.isOn = false  // UserDefault
-    }
-}
-
-
-class NotificationTimeView: BaseView {
-    let explainLabel = UILabel()
-    let timePicker = UIDatePicker()
-    
-    override func setConfigure() {
-        super.setConfigure()
-        
-        addSubview(explainLabel)
-        addSubview(timePicker)
-    }
-    
-    override func setConstraints() {
-        super.setConstraints()
-        
-        timePicker.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.trailing.equalTo(self).inset(12)
-            
-        }
-        explainLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self)
-            make.leading.equalTo(self).inset(12)
-            make.trailing.equalTo(timePicker.snp.leading).offset(-8)
-        }
-        
-    }
-    
-    override func setting() {
-        super.setting()
-        
-//        backgroundColor = .white
-        
-        explainLabel.numberOfLines = 0
-        explainLabel.font = .systemFont(ofSize: 12)
-        
-        explainLabel.text = "원하시는 시간을 선택해주세요. 그 날 음악이 기록되지 않은 경우, 알림을 보내드립니다"
-        
-        timePicker.preferredDatePickerStyle = .compact
-        timePicker.datePickerMode = .time
-        
-        timePicker.locale = Locale(identifier: "ko") // 다국어 대응
-    }
-}
-
-
 class NotificationSettingViewController: BaseViewController {
     
     let settingView = NotificationSettingListView()
     let timeView = NotificationTimeView()
-    
-    
-
-    
-
     
     @objc
     func timeChanged(_ sender: UIDatePicker) {
@@ -115,6 +27,10 @@ class NotificationSettingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Constant.Color.background
+        
+        navigationItem.largeTitleDisplayMode = .never
         
         // SceneDelegate에서 넣어주기 때문에 없을 리가 없지만, 혹시 모르니까
         if UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key) == nil {
@@ -151,12 +67,6 @@ class NotificationSettingViewController: BaseViewController {
         
         timeView.timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
-    
- 
-        
-        
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
-        
         settingView.layer.cornerRadius = 10
         settingView.controlSwitch.addTarget(self, action: #selector(switchClicked), for: .valueChanged)
     }
@@ -172,7 +82,7 @@ class NotificationSettingViewController: BaseViewController {
         super.setConstraints()
         
         settingView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(12)
             make.horizontalEdges.equalTo(view).inset(18)
             make.height.equalTo(44)
         }
