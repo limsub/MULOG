@@ -14,6 +14,7 @@ class MusicItemTableRepository {
     
     
     // (수정 - 저장 버튼 클릭 시) 기존에 있던 DayItemTable (오늘 날짜) 지워준다
+    // 이거 쓸 때 musicItem의 count랑 dateList도 지워줬는지 확인해야 해
     func deleteItem(_ item: DayItemTable) {
         do {
             try realm.write {

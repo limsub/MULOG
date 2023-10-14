@@ -111,7 +111,6 @@ class MonthCalendarViewController: BaseViewController {
         monthView.plusButton.isHidden = (viewModel.isTodayWritten()) ? true : false
         
         
-        
 //        monthView.calendar.reloadData()
 //        viewModel.updateMusicList()
 //        updateSnapshot()
@@ -207,7 +206,12 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         // collectionView
         viewModel.updateMusicList()
         updateSnapshot()
+        
+
+        
     }
+    
+    
     
 
     // 방법 1
@@ -270,6 +274,24 @@ extension MonthCalendarViewController {
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.currentMusicList.value)
         dataSource?.apply(snapshot, animatingDifferences: true)
+        
+        // 수정하기 버튼 띄워줄지 말지
+        viewModel.showModifyButton { value in
+            
+            if value {
+                self.monthView.modifyButton.isHidden = false
+                
+                UIView.animate(withDuration: 0.6) { [weak self] in
+                    self?.monthView.modifyButton.alpha = 1
+                }
+            } else {
+                UIView.animate(withDuration: 0.6) { [weak self] in
+                    self?.monthView.modifyButton.alpha = 0
+                } completion: { [weak self] _ in
+                    self?.monthView.modifyButton.isHidden = true
+                }
+            }
+        }
     }
     
 }

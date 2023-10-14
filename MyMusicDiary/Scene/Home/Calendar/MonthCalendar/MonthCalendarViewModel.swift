@@ -60,4 +60,10 @@ class MonthCalendarViewModel {
             return false
         }
     }
+    
+    // currentedSelectedDate이 오늘인지
+    func showModifyButton(completionHandler: @escaping (Bool) -> Void) {
+        var isToday = currentSelectedDate.value.toString(of: .full) == Date().toString(of: .full)
+        completionHandler(isToday)
+    }
 }

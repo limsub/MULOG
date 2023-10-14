@@ -58,10 +58,19 @@ class MonthCalendarView: BaseView {
     
     lazy var modifyButton = {
         let view = UIButton()
-        view.setImage(UIImage(named: "pencil"), for: .normal)
-        view.backgroundColor = .red
-//        view.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
-        // addTarget은 뷰컨에서
+        
+        view.setTitle("수정하기", for: .normal)
+        view.setTitleColor(Constant.Color.main2.withAlphaComponent(0.8), for: .normal)
+        
+        view.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        
+        view.layer.borderColor = Constant.Color.main2.withAlphaComponent(0.8).cgColor
+        view.layer.borderWidth = 1
+        view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.2)
+        
+        view.layer.cornerRadius = 20
+        
         return view
     }()
     
@@ -101,9 +110,14 @@ class MonthCalendarView: BaseView {
         super.setConstraints()
         
         calendar.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).inset(20)
+            make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(18)
             make.height.equalTo(self.safeAreaLayoutGuide).multipliedBy(0.58)
+        }
+        backView.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.top).offset(-16)
+            make.horizontalEdges.equalTo(self).inset(14)
+            make.bottom.equalTo(calendar).offset(8)
         }
         headerLabel.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
@@ -128,11 +142,7 @@ class MonthCalendarView: BaseView {
             make.height.equalTo(25)
         }
         
-        backView.snp.makeConstraints { make in
-            make.top.equalTo(headerLabel.snp.top).offset(-16)
-            make.horizontalEdges.equalTo(self).inset(14)
-            make.bottom.equalTo(calendar).offset(8)
-        }
+        
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(backView.snp.bottom).offset(12)
@@ -142,9 +152,16 @@ class MonthCalendarView: BaseView {
         
         modifyButton.snp.makeConstraints { make in
 //            make.center.equalTo(self)
-            make.trailing.equalTo(collectionView)
-            make.bottom.equalTo(collectionView)
-            make.size.equalTo(50)
+//            make.trailing.equalTo(collectionView).inset(8)
+            
+            
+            make.centerX.equalTo(self)
+            make.bottom.equalTo(collectionView).inset(8)
+            
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+            
+//            make.size.equalTo(40)
         }
     }
     

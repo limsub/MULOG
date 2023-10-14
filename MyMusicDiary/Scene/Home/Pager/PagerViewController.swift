@@ -47,8 +47,8 @@ class PagerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.fetchData()
-        pagerView.reloadData()
+//        viewModel.fetchData()
+//        pagerView.reloadData()
     }
     
     override func viewDidLoad() {

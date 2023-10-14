@@ -20,7 +20,9 @@ class PagerViewDataRepository {
     // 일단 가져와서 돌리자. 모든 데이터 다 가져와서 랜덤 돌리고, 최대 30개까지만 가져올 수 있도록 함
     
     func fetchMusicForPagerView() -> [MusicItemTable] {    // nil이면 "없다" 화면 보여주기
-        let data = realm.objects(MusicItemTable.self)
+        let data = realm.objects(MusicItemTable.self).where {
+            $0.count > 0
+        }
         
         let dataArray = Array(data).shuffled()
         

@@ -228,7 +228,7 @@ class WeekChartViewController: BaseViewController {
         }
         genreTotalCnt = Int(sum)
 
-        let tmpColors = UIColor.GenreColor.allCases.shuffled()
+        let tmpColors = UIColor.GenreColor.allCases
         for colorString in tmpColors {
             colors.append(colorString.rawValue)
         }
