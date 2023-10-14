@@ -95,23 +95,27 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
 //    }
 //    var a = false
     
+    
+    let customContainer = UIView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.addSubview(customContainer)
+        customContainer.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(50)
+        }
+        customContainer.backgroundColor = .clear
         
-     
-        
+        customContainer.layer.applyShadow(color: Constant.Color.main2, alpha: 0.8, x: 0, y: 0.2, blur: 0.5)
+
         
         monthChartVC.delegate = self
         weekChartVC.delegate = self
         
-        
-//        view.addSubview(button)
-//        button.snp.makeConstraints { make in
-//            make.center.equalTo(view)
-//            make.size.equalTo(200)
-//        }
-//        button.backgroundColor = .red
-//        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
 
         view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
@@ -121,20 +125,17 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         
-        
-        
-        
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .centerDistributed
-        bar.layout.contentMode = .fit
-//        bar.layout.interButtonSpacing = 20
+        bar.layout.contentMode = .intrinsic
+        bar.layout.interButtonSpacing = UIScreen.main.bounds.width/2
 //        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         bar.backgroundView.style = .clear
         
-        bar.indicator.overscrollBehavior = .compress
+        bar.indicator.overscrollBehavior = .bounce
         
         bar.indicator.tintColor = Constant.Color.main2
         bar.indicator.weight = .custom(value: 3)
@@ -147,29 +148,21 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         }
         
         bar.backgroundColor = .white
-        bar.layer.cornerRadius = 20
-        bar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        bar.layer.backgroundColor = UIColor.red.cgColor
+        bar.layer.cornerRadius = 10
+        bar.layer.maskedCorners = [
+            .layerMaxXMaxYCorner,
+            .layerMinXMaxYCorner,
+            .layerMaxXMinYCorner,
+            .layerMinXMinYCorner
+        ]
         
-
+        addBar(bar, dataSource: self, at: .custom(view: customContainer, layout: nil))
         
-//        bar.layer.borderColor = UIColor.black.cgColor
-//        bar.layer.borderWidth = 2
-        print("aaa", bar.frame.width)
-        
-
-        addBar(bar, dataSource: self, at: .top)
-        
-        
-        print("aaa", bar.frame.width)
-        
-            
-        bar.layer.addBorder([.bottom], color: Constant.Color.main2, width: 1)  // addBar 이후에 적어야 width가 잡힌다!!
-        
-        
-        
-        
-        view.layer.borderColor = UIColor.red.cgColor
     }
+    
+    
+
 }
 
 extension ChartTabViewController: PageboyViewControllerDataSource, TMBarDataSource {

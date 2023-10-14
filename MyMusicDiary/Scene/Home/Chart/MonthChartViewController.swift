@@ -155,8 +155,8 @@ class MonthChartViewController: BaseViewController {
         super.setConstraints()
         
         scrollView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(46)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
@@ -165,7 +165,8 @@ class MonthChartViewController: BaseViewController {
         }
         
         titleView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(contentView).inset(8)
+            make.top.equalTo(contentView).inset(8) // tabman의 bar를 custom으로 잡았다
+            make.horizontalEdges.equalTo(contentView).inset(8)
             make.height.equalTo(130)
         }
         pieGraphView.snp.makeConstraints { make in
