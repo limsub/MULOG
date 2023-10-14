@@ -40,6 +40,12 @@ class MonthCalendarView: BaseView {
         view.setImage(UIImage(named: "reload"), for: .normal)
         return view
     }()
+    let hideButton = {
+        let view = UIButton()
+        view.setImage(UIImage(named: "hide"), for: .normal)
+        view.setImage(UIImage(named: "show"), for: .selected)
+        return view
+    }()
     let plusButton = {
         let view = UIButton(frame: .zero)
         view.setImage(UIImage(named: "add"), for: .normal)
@@ -101,6 +107,7 @@ class MonthCalendarView: BaseView {
         addSubview(headerLabel)
         addSubview(menuButton)
         addSubview(reloadButton)
+        addSubview(hideButton)
         addSubview(plusButton)
         
         addSubview(collectionView)
@@ -136,9 +143,15 @@ class MonthCalendarView: BaseView {
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
-        plusButton.snp.makeConstraints { make in
+        hideButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
             make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
+            make.width.equalTo(25)
+            make.height.equalTo(25)
+        }
+        plusButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            make.trailing.equalTo(hideButton.snp.leading).offset(-26)
             make.width.equalTo(25)
             make.height.equalTo(25)
         }

@@ -15,6 +15,8 @@ import Kingfisher
 
 class MonthCalendarViewController: BaseViewController {
     
+    var allShow = false
+    
     /* viewModel */
     let viewModel = MonthCalendarViewModel()
     
@@ -69,6 +71,12 @@ class MonthCalendarViewController: BaseViewController {
         }
         
         navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc
+    func hideButtonClicked() {
+        allShow.toggle()
+        monthView.hideButton.isSelected = allShow
+        monthView.calendar.reloadData()
     }
     
     
@@ -134,9 +142,10 @@ class MonthCalendarViewController: BaseViewController {
         navigationItem.title = "Calendar"
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        
 //        navigationItem.largeTitleDisplayMode = .always
     }
+    
+    
 
     // monthView 안에 있는 캘린더 프로토콜 연결 및 addtarget 연겨
     func settingMonthView() {
@@ -146,6 +155,7 @@ class MonthCalendarViewController: BaseViewController {
         
         monthView.menuButton.addTarget(self, action: #selector(menuButtonClicked), for: .touchUpInside)
         monthView.reloadButton.addTarget(self, action: #selector(reloadButtonClicked), for: .touchUpInside)
+        monthView.hideButton.addTarget(self, action: #selector(hideButtonClicked), for: .touchUpInside)
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
     }
@@ -176,6 +186,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
         
+        cell.titleLabel.isHidden = false
         cell.backImageView.image = nil
         
         viewModel.fetchArtwork(date) { url in
@@ -184,6 +195,12 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         }
         
         cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
+        
+        
+        if allShow {
+            cell.titleLabel.isHidden = true
+            cell.backImageView.alpha = 1
+        }
         
         return cell
     }
