@@ -27,11 +27,7 @@ class GenreViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        viewModel.fetchMusic(offset: 1)
-//        viewModel.fetchMusic(offset: 41)
-//        viewModel.fetchMusic(offset: 81)
-        
+        view.backgroundColor = .systemBackground
         
         
         view.addSubview(loadingView)
@@ -39,25 +35,19 @@ class GenreViewController: BaseViewController {
             make.center.equalTo(view)
             make.size.equalTo(50)
         }
-        
         // 처음엔 무조건 로딩뷰 작동
         viewModel.isLoading.value = true
-//        loadingView.isHidden = false
         
         
-        
-        
-        navigationItem.title = viewModel.title
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        view.backgroundColor = .systemBackground
-        
-        collectionView.prefetchDataSource = self
-        collectionView.delegate = self
+        settingNavigation()
+        settingCollectionView()
         
         configureDataSource()
         bindModelData()
         
+        
+        // 전체 데이터를 로드한다 -> pagination에서 이용한다
+        viewModel.fetchWholeMusic()
     }
     
     
@@ -73,6 +63,14 @@ class GenreViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    func settingNavigation() {
+        navigationItem.title = viewModel.title
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    func settingCollectionView() {
+        collectionView.prefetchDataSource = self
+        collectionView.delegate = self
     }
     
     
@@ -107,7 +105,6 @@ class GenreViewController: BaseViewController {
         let cellRegistration = UICollectionView.CellRegistration<SearchCatalogCell, MusicItem> { cell, indexPath, itemIdentifier in
             
             cell.designCell(itemIdentifier)
-            
         }
         
         dataSource = UICollectionViewDiffableDataSource(
@@ -129,6 +126,7 @@ class GenreViewController: BaseViewController {
         snapshot.appendItems(viewModel.musicList.value)
         dataSource?.apply(snapshot)
         
+        // 컬렉션뷰 로드가 완료되면 false로 바꿔준다 -> bind에 의해 로딩뷰가 없어진다
         viewModel.isLoading.value = false
     }
     
@@ -138,46 +136,16 @@ class GenreViewController: BaseViewController {
 // prefetch
 extension GenreViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-
-        print("prefetch, ", indexPaths)
-
-
-        // 1 ~ 25
-        // 26 ~ 45
-        // 46 ~ 65
-        // ...
-
+        
         for indexPath in indexPaths {
-            if indexPath.row == viewModel.musicList.value.count - 1 {
-                
-                guard viewModel.currentPage + 25 < viewModel.wholeData.count else { return }
-                
-                viewModel.musicList.value.append(contentsOf:
-                    viewModel.wholeData[viewModel.currentPage..<viewModel.currentPage+25]
-                )
-                viewModel.currentPage += 25
+            if viewModel.isPossiblePagination(indexPath) {
+                viewModel.updateMusicListFromWholeList()
             }
         }
+        
     }
-
-
 }
-    
-    //extension GenreViewController: UIScrollViewDelegate {
-    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //        print("====================")
-    //        print(scrollView.contentOffset.y, scrollView.contentSize.height)
-    //
-    //        if !viewModel.paginationDone && scrollView.contentSize.height - scrollView.contentOffset.y < 900 {
-    //            viewModel.paginationDone = true
-    //            viewModel.fetchMusic(offset: viewModel.currentPage * 25 + 1)
-    //            viewModel.currentPage += 1
-    //        }
-    //
-    //    }
-    //}
-    
-    
+
     
 // delegate
 extension GenreViewController: UICollectionViewDelegate {
@@ -186,7 +154,6 @@ extension GenreViewController: UICollectionViewDelegate {
         delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.row])
         
         dismiss(animated: true)
-        
     }
 }
 

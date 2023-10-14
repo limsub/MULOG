@@ -342,7 +342,7 @@ extension SaveViewController: UICollectionViewDelegate {
                 print("다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능")
 
                 vc.viewModel.genre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
-                vc.viewModel.fetchMusic()
+                vc.viewModel.fetchInitialMusic()
                 
                 let nav = UINavigationController(rootViewController: vc)
                 present(nav, animated: true)
@@ -362,24 +362,13 @@ extension SaveViewController: UICollectionViewDelegate {
                     guard let genre = self?.viewModel.genreList[indexPath.item] else { return }
                     
                     vc.viewModel.genre = GenreDataModel.shared.findGenre(genre)
-                    vc.viewModel.fetchMusic()
+                    vc.viewModel.fetchInitialMusic()
                     
                     
                 }
             }
             
-//            let selectedGenre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
-//
-//
-//            let vc = GenreViewController()
-//            vc.delegate = self
-//            vc.viewModel.genre = selectedGenre
-//            vc.viewModel.fetchMusic()
-//
-//
-//            let nav = UINavigationController(rootViewController: vc)
-//            present(nav, animated: true)
-//
+
             
             print("장르 컬렉션뷰 선택됨")
         } else {
