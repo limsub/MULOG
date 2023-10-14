@@ -330,15 +330,56 @@ extension SaveViewController: UICollectionViewDelegate {
             }
             
             
-            let selectedGenre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
+            
             
             let vc = GenreViewController()
             vc.delegate = self
-            vc.viewModel.genre = selectedGenre
-            vc.viewModel.fetchMusic()
-            let nav = UINavigationController(rootViewController: vc)
-            present(nav, animated: true)
+            vc.viewModel.title = viewModel.genreList[indexPath.item].koreanName
             
+            // GenreData가 다 로드되었는지 확인
+            if !GenreDataModel.shared.isEmpty() {
+                // 다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능
+                print("다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능")
+
+                vc.viewModel.genre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
+                vc.viewModel.fetchMusic()
+                
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+                
+            } else {
+                // 아직 로드되지 않았다면 일단 present하고 로딩바 재생 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결
+                print("아직 로드되지 않았다면 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결")
+                
+                // vc 생성 (isLoading = false) -> viewDidLoad (true) -> updateSnapshot (false)
+                // 데이터 로드 끝나면 updateSnapshot
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+                
+                GenreDataModel.shared.fetchGenreChart { [weak self] in
+                    print("다시 실행시킨 fetchGenre done")
+                    
+                    guard let genre = self?.viewModel.genreList[indexPath.item] else { return }
+                    
+                    vc.viewModel.genre = GenreDataModel.shared.findGenre(genre)
+                    vc.viewModel.fetchMusic()
+                    
+                    
+                }
+            }
+            
+//            let selectedGenre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
+//
+//
+//            let vc = GenreViewController()
+//            vc.delegate = self
+//            vc.viewModel.genre = selectedGenre
+//            vc.viewModel.fetchMusic()
+//
+//
+//            let nav = UINavigationController(rootViewController: vc)
+//            present(nav, animated: true)
+//
             
             print("장르 컬렉션뷰 선택됨")
         } else {

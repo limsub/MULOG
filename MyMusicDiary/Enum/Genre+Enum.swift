@@ -44,7 +44,7 @@ enum GenreType {
         }
     }
     
-    var colorKoreanName: String {
+    var koreanName: String {
         switch self {
         case .kpop:
             return "K-Pop"

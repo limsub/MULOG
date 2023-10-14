@@ -43,8 +43,10 @@ class HomeTabViewController: UITabBarController {
         
         view.backgroundColor = .clear
         
-        GenreDataModel.shared.fetchGenreChart() // 앱의 맨 처음에 실행
-     
+        GenreDataModel.shared.fetchGenreChart {
+            print("앱의 맨 처음에 실행")
+        } // 앱의 맨 처음에 실행
+        
         UITabBar.clearShadow()
         tabBar.layer.applyShadow()
         

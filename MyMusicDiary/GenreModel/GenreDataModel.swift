@@ -19,25 +19,32 @@ class GenreDataModel {
     
     var genres: [Genre] = []
     
+    func isEmpty() -> Bool {
+        return genres.isEmpty
+    }
+    
     func findGenre(_ type: GenreType) -> Genre? {
         
         if genres.isEmpty {
+            print("findGenre fail. genre array is empty")
             return nil
         }
         
         for (_, item) in genres.enumerated() {
             if item.id.description == type.id {
+                print("findGenre done")
                 return item
             }
         }
-            
+        
+        print("findGenre fail")
         return nil
     }
     
     
     
     
-    func fetchGenreChart() {
+    func fetchGenreChart(_ completionHandler: @escaping () -> Void) {
         Task {
             let status = await MusicAuthorization.request()
             
@@ -49,12 +56,14 @@ class GenreDataModel {
                 let decoder = JSONDecoder()
                 let genreResponse = try decoder.decode(MyGenresResponse.self, from: dataResponse.data)
                 
-                for i in 1...10 {
+                for i in 1...13 {
                     genres.append(genreResponse.data[i])
                 }
                 
-                print(genres)
                 
+                print("fetchGenreChart done")
+//                print(genres)
+                completionHandler()
             } catch {
                 print("에러에러")
             }

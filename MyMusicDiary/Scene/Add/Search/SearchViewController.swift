@@ -33,6 +33,8 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        
+        
         settingCollectionView()
         settingNavigationItem()
 

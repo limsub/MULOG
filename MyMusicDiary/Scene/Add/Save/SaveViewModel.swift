@@ -118,7 +118,7 @@ class SaveViewModel {
         return genreList.count
     }
     func genreName(indexPath: IndexPath) -> String {
-        return genreList[indexPath.item].colorKoreanName
+        return genreList[indexPath.item].koreanName
     }
     func genreColorName(indexPath: IndexPath) -> String {
         return genreList[indexPath.item].colorHexCode
