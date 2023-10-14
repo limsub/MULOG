@@ -127,14 +127,14 @@ class PagerViewController: BaseViewController {
         
         
         
-//        logoView.snp.makeConstraints { make in
-//            make.centerX.equalTo(view)
-////            make.leading.equalTo(view).inset(18)
-//            make.top.equalTo(view).inset(80)
-//
-//            make.height.equalTo(80)
-//            make.width.equalTo(150)
-//        }
+        logoView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+//            make.leading.equalTo(view).inset(18)
+            make.top.equalTo(view).inset(70)
+
+            make.height.equalTo(80)
+            make.width.equalTo(150)
+        }
         
         pagerView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)

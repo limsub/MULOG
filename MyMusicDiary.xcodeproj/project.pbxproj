@@ -887,6 +887,7 @@
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MULOG;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "권한을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -920,6 +921,7 @@
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MULOG;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "권한을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
