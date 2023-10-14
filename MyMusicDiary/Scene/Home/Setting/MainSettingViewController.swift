@@ -9,13 +9,14 @@ import UIKit
 
 class MainSettingViewController: BaseViewController {
     
-    let settingData = [["알림 설정"], ["버그, 오류 제보", "문의", "앱 공유"], ["라이선스", "개인정보 처리방침"] ]
+    let settingData = [["알림"], ["버그, 오류 제보", "문의", "앱 공유"], ["라이선스", "개인정보 처리방침"] ]
     
     lazy var tableView = {
         let view = UITableView(frame: .zero, style: .insetGrouped)
         view.dataSource = self
         view.delegate = self
         
+        view.backgroundColor = Constant.Color.background
         view.isScrollEnabled = false // 우선 스크롤할 일은 없다
         
         return view
@@ -25,7 +26,7 @@ class MainSettingViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = Constant.Color.background
         
-        navigationItem.title = "setting"
+        navigationItem.title = "Setting"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

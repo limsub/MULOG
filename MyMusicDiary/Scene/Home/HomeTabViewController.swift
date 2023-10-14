@@ -57,19 +57,33 @@ class HomeTabViewController: UITabBarController {
         tabBar.layer.cornerRadius = 30
         
         
+        
+        
         pagerVC.tabBarItem.image = UIImage(systemName: "music.note.house")
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         chartVC.tabBarItem.image = UIImage(systemName: "chart.pie")
         settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
         
-        let navPager = UINavigationController(rootViewController: pagerVC)
+        [pagerVC, calendarVC, chartVC, settingVC].forEach { vc in
+            vc.tabBarItem.imageInsets = UIEdgeInsets(
+                top: -30,
+                left: 0,
+                bottom: 10,
+                right: 0
+            )
+            vc.title = nil
+        }
+        
+//        let navPager = UINavigationController(rootViewController: pagerVC)
         let navCalendar = UINavigationController(rootViewController: calendarVC)
         let navChart = UINavigationController(rootViewController: chartVC)
         let navSetting = UINavigationController(rootViewController: settingVC)
         
         
-        let tabItem = [navPager, navCalendar, navChart, navSetting]
+        let tabItem = [pagerVC, navCalendar, navChart, navSetting]
         self.viewControllers = tabItem
+        
+    
         
         setViewControllers(tabItem, animated: true)
     }
