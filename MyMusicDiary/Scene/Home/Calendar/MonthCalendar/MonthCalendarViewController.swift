@@ -55,11 +55,13 @@ class MonthCalendarViewController: BaseViewController {
     @objc
     private func plusButtonClicked() {
         let vc = SaveViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc
     func modifyButtonClicked() {
         let vc = SaveViewController()
+        vc.delegate = self
         
         // 수정할 musicitem들 전달. 타입 변환해서 전달 (MusicItemTable -> MusicItem)
         viewModel.currentMusicList.value.forEach { item in
@@ -101,7 +103,15 @@ class MonthCalendarViewController: BaseViewController {
     // 데이터 수정한 후 바로 반영될 수 있도록 설정
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        
+        
+        // 디비에 오늘 날짜 일기 있으면 플러스 버튼 히든처리
+        print("오늘 날짜 데이터가 있냐아아아ㅏ아", viewModel.isTodayWritten())
+        monthView.plusButton.isHidden = (viewModel.isTodayWritten()) ? true : false
+        
+        
+        
 //        monthView.calendar.reloadData()
 //        viewModel.updateMusicList()
 //        updateSnapshot()
@@ -163,7 +173,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         
-        print(#function, date)
+//        print(#function, date)
         
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
         
@@ -181,7 +191,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        print(#function, date)
+//        print(#function, date)
         
         // currentSelectedDate 업데이트
         viewModel.updateSelectedDate(date)
@@ -262,4 +272,13 @@ extension MonthCalendarViewController {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
+}
+
+
+extension MonthCalendarViewController: ReloadProtocol {
+    func update() {
+        monthView.calendar.reloadData()
+        viewModel.updateMusicList()
+        updateSnapshot()
+    }
 }

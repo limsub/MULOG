@@ -103,7 +103,7 @@ class MonthCalendarView: BaseView {
         calendar.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).inset(20)
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(18)
-            make.height.equalTo(self.safeAreaLayoutGuide).multipliedBy(0.6)
+            make.height.equalTo(self.safeAreaLayoutGuide).multipliedBy(0.58)
         }
         headerLabel.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)

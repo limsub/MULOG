@@ -9,11 +9,14 @@ import UIKit
 
 // collectionView index 기반으로 구현
 
-
+// 저장 버튼 눌렀을 때 이전화면 캘린더, 컬렉션뷰 리로드시켜주기 위함
+protocol ReloadProtocol: AnyObject {
+    func update()
+}
 
 class SaveViewController: BaseViewController {
     
-    
+    weak var delegate: ReloadProtocol?
 
     let viewModel = SaveViewModel()
     
@@ -173,6 +176,10 @@ class SaveViewController: BaseViewController {
         print(viewModel.musicList.value)
         
         viewModel.addNewData()
+        
+        delegate?.update()
+        
+        navigationController?.popViewController(animated: true)
 
     }
     
