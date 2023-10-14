@@ -70,8 +70,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.4
+//        view.layer.borderColor = UIColor.lightGray.cgColor
+//        view.layer.borderWidth = 0.4
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
@@ -86,8 +86,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.4
+//        view.layer.borderColor = UIColor.lightGray.cgColor
+//        view.layer.borderWidth = 0.4
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
@@ -102,8 +102,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.layer.borderWidth = 0.4
+//        view.layer.borderColor = UIColor.lightGray.cgColor
+//        view.layer.borderWidth = 0.4
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
