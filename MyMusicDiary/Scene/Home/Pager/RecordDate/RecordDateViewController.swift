@@ -90,6 +90,12 @@ class RecordDateViewController: BaseViewController {
         title = viewModel.countText()
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        let titleAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 26, weight: .heavy)]
+        
+//        UIFont.boldSystemFont(ofSize: 26)
+        navigationController?.navigationBar.largeTitleTextAttributes = titleAttributes
+        
+        
         viewModel.sortDateList()
         
     }
