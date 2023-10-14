@@ -63,6 +63,7 @@ class MonthCalendarView: BaseView {
         view.setTitleColor(Constant.Color.main2.withAlphaComponent(0.8), for: .normal)
         
         view.titleLabel?.adjustsFontSizeToFitWidth = true
+        view.titleLabel?.font = .boldSystemFont(ofSize: 16)
         
         
         view.layer.borderColor = Constant.Color.main2.withAlphaComponent(0.8).cgColor

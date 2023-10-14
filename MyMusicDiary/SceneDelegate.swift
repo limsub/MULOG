@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        
+//        NotificationRepository.shared.delete(Date())
+        
+        
         // 혹시 알림 시간이 설정되어 있지 않으면, 디폴트 21:00으로 넣어준다.
         if UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key) == nil {
             print("기본 알림 시간이 설정되어 있지 않습니다. 21시 00분으로 설정합니다")

@@ -13,8 +13,12 @@ class NotificationRepository {
     static let shared = NotificationRepository()
     
     let content = UNMutableNotificationContent()
-    
 
+    func delete(_ date: Date) {
+        
+        print("알림을 제거합니다 : \(date.toString(of: .full))")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [date.toString(of: .full)])
+    }
     
     func updateNotifications() {
         
@@ -58,6 +62,8 @@ class NotificationRepository {
                 content: content,
                 trigger: trigger
             )
+//            
+            print(component.month, component.day, identifier)
             
             UNUserNotificationCenter.current().add(request) { error in
 //                print(error)

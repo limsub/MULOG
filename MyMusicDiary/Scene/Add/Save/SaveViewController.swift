@@ -179,7 +179,9 @@ class SaveViewController: BaseViewController {
             self.showSingleAlert("한 개 이상의 곡을 선택해야 저장이 가능합니다", message: "곡을 선택해주세요")
         }
         
-        delegate?.update()
+        NotificationRepository.shared.delete(Date())
+        
+        delegate?.update()  // 캘린더뷰 + 컬렉션뷰 리로드
         
         navigationController?.popViewController(animated: true)
 
