@@ -20,8 +20,15 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     let yoilLabel = {
         let view = UILabel()
         view.text = "요일"
-        view.font = .systemFont(ofSize: 16)
+        view.font = .boldSystemFont(ofSize: 16)
         view.textAlignment = .center
+        return view
+    }()
+    let dateBackView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
         return view
     }()
     
@@ -58,33 +65,125 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     }()
     
     
+    let genre1Label = {
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+    
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.4
+//        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.backgroundColor = .clear
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "락"
+        return view
+    }()
+    let genre2Label = {
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+    
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.4
+//        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.backgroundColor = .clear
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "발라드"
+        return view
+    }()
+    let genre3Label = {
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+    
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 8
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.4
+//        view.backgroundColor = .white.withAlphaComponent(0.8)
+        view.backgroundColor = .clear
+        view.textColor = .lightGray
+        view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .center
+        
+        view.text = "K-POP"
+        return view
+    }()
+    
+    
+    let countBackView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    let countImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "star")
+        view.tintColor = .lightGray
+        return view
+    }()
+    let countLabel = {
+        let view = UILabel()
+        view.text = "3"
+        view.textAlignment = .center
+        view.textColor = .lightGray
+        view.font = .boldSystemFont(ofSize: 18)
+        return view
+    }()
+    
+    
     override func setConfigure() {
         super.setConfigure()
         
 //        contentView.backgroundColor = .systemRed
         
+        contentView.addSubview(dateBackView)
         contentView.addSubview(dateLabel)
         contentView.addSubview(yoilLabel)
         contentView.addSubview(backView)
         backView.addSubview(artworkImageView)
         backView.addSubview(titleLabel)
         backView.addSubview(artistLabel)
+        backView.addSubview(genre1Label)
+        backView.addSubview(genre2Label)
+        backView.addSubview(genre3Label)
+        
+        backView.addSubview(countBackView)
+        countBackView.addSubview(countImageView)
+        countBackView.addSubview(countLabel)
     }
     override func setConstraints() {
         super.setConstraints()
         
+//        dateLabel.snp.makeConstraints { make in
+//            make.top.equalTo(contentView).inset(4)
+//            make.leading.equalTo(contentView).inset(8)
+//            make.width.equalTo(contentView).multipliedBy(0.15)
+//        }
+//        yoilLabel.snp.makeConstraints { make in
+//            make.top.equalTo(dateLabel.snp.bottom).offset(4)
+//            make.centerX.equalTo(dateLabel)
+//        }
+        dateBackView.snp.makeConstraints { make in
+            make.verticalEdges.leading.equalTo(contentView)
+            make.width.equalTo(contentView).multipliedBy(0.2)
+        }
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView)
-            make.leading.equalTo(contentView).inset(12)
-            make.width.equalTo(contentView).multipliedBy(0.15)
+            make.top.equalTo(dateBackView).inset(8)
+            make.centerX.equalTo(dateBackView)
         }
         yoilLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(4)
-            make.centerX.equalTo(dateLabel)
+            make.centerX.equalTo(dateBackView)
         }
+        
         backView.snp.makeConstraints { make in
             make.verticalEdges.trailing.equalTo(contentView)
-            make.leading.equalTo(dateLabel.snp.trailing).offset(8)
+            make.leading.equalTo(dateBackView.snp.trailing)
         }
         artworkImageView.snp.makeConstraints { make in
             make.verticalEdges.leading.equalTo(backView).inset(5)
@@ -92,7 +191,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         }
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
-            make.trailing.equalTo(backView).inset(12)
+            make.trailing.equalTo(backView).inset(50)
             make.top.equalTo(backView).inset(5)
         }
         artistLabel.snp.makeConstraints { make in
@@ -100,6 +199,39 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
             make.trailing.equalTo(backView).inset(12)
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
         }
+        
+        genre1Label.snp.makeConstraints { make in
+            make.leading.equalTo(artworkImageView.snp.trailing).offset(8)
+            make.bottom.equalTo(backView).inset(5)
+        }
+        genre2Label.snp.makeConstraints { make in
+            make.leading.equalTo(genre1Label.snp.trailing).offset(8)
+            make.bottom.equalTo(backView).inset(5)
+        }
+        genre3Label.snp.makeConstraints { make in
+            make.leading.equalTo(genre2Label.snp.trailing).offset(8)
+            make.bottom.equalTo(backView).inset(5)
+        }
+        
+//        countBackView.backgroundColor = .lightGray
+//        countImageView.backgroundColor = .red
+//        countLabel.backgroundColor = .blue
+        
+        countBackView.snp.makeConstraints { make in
+            make.verticalEdges.trailing.equalTo(backView)
+            make.width.equalTo(contentView).multipliedBy(0.2)
+        }
+        countImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(countBackView).offset(-12)
+            make.centerX.equalTo(countBackView).offset(8)
+            make.width.equalTo(countBackView).multipliedBy(0.35)
+            make.height.equalTo(countImageView.snp.width)
+        }
+        countLabel.snp.makeConstraints { make in
+            make.top.equalTo(countImageView.snp.bottom)
+            make.centerX.equalTo(countBackView).offset(8)
+        }
+        
     }
     
     
@@ -125,11 +257,32 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         if indexPath.item != 0 {
             dateLabel.isHidden = true
             yoilLabel.isHidden = true
+            dateBackView.isHidden = true
         }
         
         
+        contentView.backgroundColor = .clear
+        backView.backgroundColor = .white
         
-        backView.backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(sender.backgroundColors[0]), green: CGFloat(sender.backgroundColors[1]), blue: CGFloat(sender.backgroundColors[2]), alpha: CGFloat(sender.backgroundColors[3]))).withAlphaComponent(0.2)
+        for (index, item) in [genre1Label, genre2Label, genre3Label].enumerated() {
+            item.isHidden = false
+            
+            var genreIdx = index
+            if index >= 1 {
+                genreIdx = index + 1
+            }
+            
+            if genreIdx <= sender.genres.count - 1 {
+                item.text = sender.genres[genreIdx]
+            } else {
+                item.isHidden = true
+            }
+        }
+        
+        
+        countLabel.text = "\(sender.count)"
+        
+//        backView.backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(sender.backgroundColors[0]), green: CGFloat(sender.backgroundColors[1]), blue: CGFloat(sender.backgroundColors[2]), alpha: CGFloat(sender.backgroundColors[3]))).withAlphaComponent(0.2)
         
     }
     

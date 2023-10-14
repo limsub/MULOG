@@ -12,6 +12,7 @@ class MonthScrollView: BaseView {
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createMonthScrollLayout())
         view.register(MonthScrollCatalogCell.self, forCellWithReuseIdentifier: MonthScrollCatalogCell.description())
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -52,7 +53,7 @@ class MonthScrollView: BaseView {
     }
     override func setting() {
         super.setting()
-        backgroundColor = .systemBackground
+        backgroundColor = Constant.Color.background
         
         pickerView.isHidden = true
     }
