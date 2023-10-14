@@ -92,6 +92,10 @@ class WeekChartViewController: BaseViewController {
         let startComponent = calendar.date(byAdding: .day, value: +7, to: currentPageDate)
         let endComponent = calendar.date(byAdding: .day, value: +7, to: endDate)
         
+        if startComponent! > Date() {    // 미래 날짜로는 넘어가지 못하게 한다
+            return
+        }
+        
         currentPageDate = startComponent!
         endDate = endComponent!
         print(currentPageDate)
@@ -197,7 +201,7 @@ class WeekChartViewController: BaseViewController {
         barGraphView.snp.makeConstraints { make in
             make.top.equalTo(pieGraphView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(contentView).inset(8)
-            make.height.equalTo(400)
+//            make.height.equalTo(400)
             make.bottom.equalTo(contentView).inset(12)
         }
     }

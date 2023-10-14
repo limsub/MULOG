@@ -42,6 +42,7 @@ class HomeTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
 //        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
 //        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
@@ -73,6 +74,7 @@ class HomeTabViewController: UITabBarController {
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         chartVC.tabBarItem.image = UIImage(systemName: "chart.pie")
         settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
+        
         
         [pagerVC, calendarVC, chartVC, settingVC].forEach { vc in
             vc.tabBarItem.imageInsets = UIEdgeInsets(

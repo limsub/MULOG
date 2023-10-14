@@ -14,6 +14,13 @@ extension Date {
         dateFormatter.dateFormat = type.rawValue
         return dateFormatter.string(from: self)
     }
+    
+    func toStringKorean(of type: DateFormatType) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko")
+        dateFormatter.dateFormat = type.rawValue
+        return dateFormatter.string(from: self)
+    }
 }
 
 

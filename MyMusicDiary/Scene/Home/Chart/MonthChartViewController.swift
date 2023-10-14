@@ -75,6 +75,11 @@ class MonthChartViewController: BaseViewController {
         let calendar = Calendar.current
         let component = calendar.date(byAdding: .month, value: +1, to: currentPageDate)
         
+        
+        if component! > Date() {    // 미래 날짜로는 넘어가지 못하게 한다
+            return
+        }
+        
         currentPageDate = component!
         print(currentPageDate)
         
@@ -177,7 +182,7 @@ class MonthChartViewController: BaseViewController {
         barGraphView.snp.makeConstraints { make in
             make.top.equalTo(pieGraphView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(contentView).inset(8)
-            make.height.equalTo(400)
+//            make.height.equalTo(400)
             make.bottom.equalTo(contentView).inset(12)
         }
     }

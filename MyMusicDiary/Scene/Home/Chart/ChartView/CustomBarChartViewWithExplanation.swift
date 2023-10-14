@@ -13,16 +13,16 @@ class CustomBarChartViewWithExplanation: BaseView {
     let titleLabel = UILabel()
     var barChartView = CustomBarChartView()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createBarCollectionLayout())
     
     
-    private func createLayout() -> UICollectionViewLayout {
+    private func createBarCollectionLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .horizontal
         
         let width = UIScreen.main.bounds.width * 0.28
-        let height: CGFloat = 30
+        let height: CGFloat = 20
         
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8

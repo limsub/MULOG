@@ -21,28 +21,47 @@ class CustmTitleView: BaseView {
         let view = UIButton()
 //        view.setImage(UIImage(named: "left-chevron"), for: .normal)
         view.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        view.tintColor = .black
         return view
     }()
     let nextButton = {
         let view = UIButton()
 //        view.setImage(UIImage(named: "right-chevron"), for: .normal)
         view.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        view.tintColor = .black
         return view
     }()
     
+    let songLabel = {
+        let view = UILabel()
+        view.text = "곡 수"
+        view.font = .boldSystemFont(ofSize: 16)
+        view.textColor = Constant.Color.main2
+        view.textAlignment = .center
+        return view
+    }()
     let songsCountlabel = {
         let view = UILabel()
-        let labelText = "곡 수\n9개"
-        view.numberOfLines = 2
+        view.text = "9개"
+        view.font = .boldSystemFont(ofSize: 22)
+        view.numberOfLines = 1
         view.textAlignment = .center
         return view
     }()
     
+    let genresLabel = {
+        let view = UILabel()
+        view.text = "장르 수"
+        view.font = .boldSystemFont(ofSize: 16)
+        view.textColor = Constant.Color.main2
+        view.textAlignment = .center
+        return view
+    }()
     let genresCountLabel = {
         let view = UILabel()
-        view.text = "장르 수\n12개"
-        view.numberOfLines = 2
-        
+        view.text = "12개"
+        view.font = .boldSystemFont(ofSize: 22)
+        view.numberOfLines = 1
         view.textAlignment = .center
         return view
     }()
@@ -54,8 +73,12 @@ class CustmTitleView: BaseView {
         addSubview(dateLabel)
         addSubview(prevButton)
         addSubview(nextButton)
+        addSubview(songLabel)
         addSubview(songsCountlabel)
+        addSubview(genresLabel)
         addSubview(genresCountLabel)
+        
+        
     }
     
     override func setConstraints() {
@@ -64,7 +87,7 @@ class CustmTitleView: BaseView {
         dateLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self)
             make.top.equalTo(self).inset(12)
-            make.width.equalTo(100)
+//            make.width.equalTo(100)
             make.height.equalTo(30)
         }
         prevButton.snp.makeConstraints { make in
@@ -80,16 +103,23 @@ class CustmTitleView: BaseView {
             make.width.equalTo(50)
         }
         
-        songsCountlabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(18)
+        songLabel.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(12)
             make.leading.equalTo(self)
             make.trailing.equalTo(self.snp.centerX)
-            
+        }
+        songsCountlabel.snp.makeConstraints { make in
+            make.top.equalTo(songLabel.snp.bottom).offset(4)
+            make.centerX.equalTo(songLabel)
+        }
+        genresLabel.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(12)
+            make.leading.equalTo(songLabel.snp.trailing)
+            make.trailing.equalTo(self)
         }
         genresCountLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(18)
-            make.leading.equalTo(self.snp.centerX)
-            make.trailing.equalTo(self)
+            make.top.equalTo(genresLabel.snp.bottom).offset(4)
+            make.centerX.equalTo(genresLabel)
         }
     }
     
@@ -113,14 +143,14 @@ class CustmTitleView: BaseView {
             let calendar = Calendar.current
             guard let endDay = calendar.date(byAdding: .day, value: +6, to: startDay) else { return }
             
-            let start = startDay.toString(of: .fullSlashWithSingelMonth)
-            let end = endDay.toString(of: .fullSlashWithSingelMonth)
+            let start = startDay.toStringKorean(of: .fullSlashWithSingleMonthAndYoil)
+            let end = endDay.toStringKorean(of: .fullSlashWithSingleMonthAndYoil)
             
             dateLabel.text = "\(start) ~ \(end)"
             
         }
-        songsCountlabel.text = "곡 수\n\(musicCnt) 개"
-        genresCountLabel.text = "장르 수\n\(genreCnt) 개"
+        songsCountlabel.text = "\(musicCnt) 개"
+        genresCountLabel.text = "\(genreCnt) 개"
     }
     
     
