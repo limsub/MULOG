@@ -63,11 +63,19 @@ class MonthChartViewController: BaseViewController {
         fetchDataForBarChart()
         
         titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        settingBarGraphView()
-        barGraphView.barChartView.setNeedsDisplay()
-        pieGraphView.collectionView.reloadData()
-        barGraphView.collectionView.reloadData()
+        
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            settingBarGraphView()
+            barGraphView.barChartView.setNeedsDisplay()
+            pieGraphView.collectionView.reloadData()
+            barGraphView.collectionView.reloadData()
+        }
     }
     
     @objc
@@ -87,19 +95,54 @@ class MonthChartViewController: BaseViewController {
         fetchDataForBarChart()
         
         titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        settingBarGraphView()
-        barGraphView.barChartView.setNeedsDisplay()
-        pieGraphView.collectionView.reloadData()
-        barGraphView.collectionView.reloadData()
+        
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            settingBarGraphView()
+            barGraphView.barChartView.setNeedsDisplay()
+            pieGraphView.collectionView.reloadData()
+            barGraphView.collectionView.reloadData()
+        }
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("=====", barGraphView.frame.height)
+        // 만약 데이터가 바뀌었다면, 모든 뷰를 다시 로드해준다
+        // 데이터가 바뀌었다는 점은, 데이터를 새로 로드해서 기존 데이터와 다른지 조건문을 활용한다
+        // 기존 데이터 : fetchDataForPieChart에서 genres와 counts를 업데이트 해두었다
+        let dateString = currentPageDate.toString(of: .yearMonth)
+        let maybeNewTuple = repository.fetchMonthGenreDataForPieChart(dateString)
         
+        // 비교 시작 -> true이면 다 리로드해주기
+        if genres != Array(maybeNewTuple.0) || counts != Array(maybeNewTuple.1).map { Double($0) } {
+            print("===== 값이 바뀌었다 =====")
+            
+            fetchDataForPieChart(currentPageDate)
+            fetchDataForBarChart()
+            
+            titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
+            
+            if musicTotalCnt == 0 && genreTotalCnt == 0 {
+                barGraphView.isHidden = true
+                pieGraphView.isHidden = true
+            } else {
+                barGraphView.isHidden = false
+                pieGraphView.isHidden = false
+                settingPieGraphView(dataPoints: genres, values: percentArr)
+                settingBarGraphView()
+                barGraphView.barChartView.setNeedsDisplay()
+                pieGraphView.collectionView.reloadData()
+                barGraphView.collectionView.reloadData()
+            }
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,25 +163,32 @@ class MonthChartViewController: BaseViewController {
         titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
         titleView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else  {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            
+            /* circle Graph */
+            pieGraphView.titleLabel.text = "전체 장르 비율"
+            
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            
+            pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
+            pieGraphView.collectionView.dataSource = self
+            pieGraphView.collectionView.showsVerticalScrollIndicator = false
 
-        /* circle Graph */
-        pieGraphView.titleLabel.text = "전체 장르 비율"
-        
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        
-        pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
-        pieGraphView.collectionView.dataSource = self
-        pieGraphView.collectionView.showsVerticalScrollIndicator = false
-
-        
-        /* bar Graph */
-        barGraphView.titleLabel.text = "날짜별 장르 비율"
-        
-        settingBarGraphView()
-        
-        barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
-        barGraphView.collectionView.dataSource = self
-        barGraphView.collectionView.showsHorizontalScrollIndicator = false
+            
+            /* bar Graph */
+            barGraphView.titleLabel.text = "날짜별 장르 비율"
+            
+            settingBarGraphView()
+            
+            barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
+            barGraphView.collectionView.dataSource = self
+            barGraphView.collectionView.showsHorizontalScrollIndicator = false
+        }
     }
     
     
@@ -324,13 +374,13 @@ extension MonthChartViewController: UICollectionViewDataSource {
 
 extension MonthChartViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print(scrollView.contentOffset.y)
-        
-        if scrollView.contentOffset.y > 0 {
-            delegate?.setSmallTitle()
-        } else {
-            delegate?.setLargeTitle()
-        }
+//        
+//        print(scrollView.contentOffset.y)
+//        
+//        if scrollView.contentOffset.y > 0 {
+//            delegate?.setSmallTitle()
+//        } else {
+//            delegate?.setLargeTitle()
+//        }
     }
 }

@@ -79,11 +79,19 @@ class WeekChartViewController: BaseViewController {
         fetchDataForBarChart()
         
         titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .week)
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        settingBarGraphView()
-        barGraphView.barChartView.setNeedsDisplay()
-        pieGraphView.collectionView.reloadData()
-        barGraphView.collectionView.reloadData()
+        
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            settingBarGraphView()
+            barGraphView.barChartView.setNeedsDisplay()
+            pieGraphView.collectionView.reloadData()
+            barGraphView.collectionView.reloadData()
+        }
     }
     
     @objc
@@ -104,21 +112,60 @@ class WeekChartViewController: BaseViewController {
         fetchDataForBarChart()
         
         titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .week)
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        settingBarGraphView()
-        barGraphView.barChartView.setNeedsDisplay()
-        pieGraphView.collectionView.reloadData()
-        barGraphView.collectionView.reloadData()
+        
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            settingBarGraphView()
+            barGraphView.barChartView.setNeedsDisplay()
+            pieGraphView.collectionView.reloadData()
+            barGraphView.collectionView.reloadData()
+        }
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let startDateString = currentPageDate.toString(of: .full)
+        let endDateString = endDate.toString(of: .full)
+        
+        let tuple = repository.fetchWeekGenreDataForPieChart(startDate:startDateString, endDate: endDateString)
+        
+        if genres != Array(tuple.0) || counts != Array(tuple.1).map { Double($0) } {
+            
+            fetchDataForPieChart()
+            fetchDataForBarChart()
+            
+            titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .week)
+            
+            if musicTotalCnt == 0 && genreTotalCnt == 0 {
+                barGraphView.isHidden = true
+                pieGraphView.isHidden = true
+            } else {
+                barGraphView.isHidden = false
+                pieGraphView.isHidden = false
+                settingPieGraphView(dataPoints: genres, values: percentArr)
+                settingBarGraphView()
+                barGraphView.barChartView.setNeedsDisplay()
+                pieGraphView.collectionView.reloadData()
+                barGraphView.collectionView.reloadData()
+            }
+            
+        }
+        
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         
-        print("ijijjij", tabmanParent?.automaticallyAdjustsChildInsets)
-        print("ijijijij", tabmanParent)
+
         
         scrollView.delegate = self
         
@@ -135,25 +182,34 @@ class WeekChartViewController: BaseViewController {
         titleView.prevButton.addTarget(self, action: #selector(prevButtonClicked), for: .touchUpInside)
         titleView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
         
+        
+        if musicTotalCnt == 0 && genreTotalCnt == 0 {
+            barGraphView.isHidden = true
+            pieGraphView.isHidden = true
+        } else {
+            barGraphView.isHidden = false
+            pieGraphView.isHidden = false
+            
+            /* circle Graph */
+            pieGraphView.titleLabel.text = "전체 장르 비율"
+            
+            settingPieGraphView(dataPoints: genres, values: percentArr)
+            
+            pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
+            pieGraphView.collectionView.dataSource = self
+            pieGraphView.collectionView.showsVerticalScrollIndicator = false
 
-        /* circle Graph */
-        pieGraphView.titleLabel.text = "전체 장르 비율"
-        
-        settingPieGraphView(dataPoints: genres, values: percentArr)
-        
-        pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
-        pieGraphView.collectionView.dataSource = self
-        pieGraphView.collectionView.showsVerticalScrollIndicator = false
+            
+            /* bar Graph */
+            barGraphView.titleLabel.text = "날짜별 장르 비율"
+            
+            settingBarGraphView()
+            
+            barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
+            barGraphView.collectionView.dataSource = self
+            barGraphView.collectionView.showsHorizontalScrollIndicator = false
+        }
 
-        
-        /* bar Graph */
-        barGraphView.titleLabel.text = "날짜별 장르 비율"
-        
-        settingBarGraphView()
-        
-        barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
-        barGraphView.collectionView.dataSource = self
-        barGraphView.collectionView.showsHorizontalScrollIndicator = false
     }
     
     
@@ -327,13 +383,13 @@ extension WeekChartViewController: UICollectionViewDataSource {
 
 extension WeekChartViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print(scrollView.contentOffset.y)
-        
-        if scrollView.contentOffset.y > 0 {
-            delegate?.setSmallTitle()
-        } else {
-            delegate?.setLargeTitle()
-        }
+//
+//        print(scrollView.contentOffset.y)
+//
+//        if scrollView.contentOffset.y > 0 {
+//            delegate?.setSmallTitle()
+//        } else {
+//            delegate?.setLargeTitle()
+//        }
     }
 }

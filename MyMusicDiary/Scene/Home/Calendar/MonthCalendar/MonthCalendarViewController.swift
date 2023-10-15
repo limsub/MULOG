@@ -109,8 +109,14 @@ class MonthCalendarViewController: BaseViewController {
         
         
         // 여기선 애니메이션 안보이게
-        viewModel.showModifyButton { [weak self] value in
-            self?.monthView.modifyButton.isHidden = value
+        // 오늘이 선택되어 있고, 오늘 일기가 쓰여있을 때 -> 수정 버튼 떠있어야함
+        // else -> false
+        viewModel.showModifyButton { value in
+            if value && self.viewModel.isTodayWritten() {
+                self.monthView.modifyButton.isHidden = false
+            } else {
+                self.monthView.modifyButton.isHidden = true
+            }
         }
         checkShowNoDataView()
         
