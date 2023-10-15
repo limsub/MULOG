@@ -203,7 +203,8 @@ class MainPagerViewCell: FSPagerViewCell {
         if self.imageView == nil { return }
         
         self.imageView!.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self).inset(12)
+            make.top.equalTo(self).inset(14)
+            make.horizontalEdges.equalTo(self).inset(12)
             make.height.equalTo(imageView!.snp.width)
         }
         

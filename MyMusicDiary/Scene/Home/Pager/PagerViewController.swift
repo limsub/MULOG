@@ -100,8 +100,8 @@ class PagerViewController: BaseViewController {
         
         let bounds = UIScreen.main.bounds
         pagerView.itemSize = CGSize(
-            width: bounds.width - 90,
-            height: bounds.height - 300
+            width: bounds.height * 0.35,
+            height: bounds.height * 0.65
         )
         
         pagerView.interitemSpacing = 20
