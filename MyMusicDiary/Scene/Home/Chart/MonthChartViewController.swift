@@ -95,7 +95,12 @@ class MonthChartViewController: BaseViewController {
     }
     
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("=====", barGraphView.frame.height)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -171,18 +176,18 @@ class MonthChartViewController: BaseViewController {
         
         titleView.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(8) // tabman의 bar를 custom으로 잡았다
-            make.horizontalEdges.equalTo(contentView).inset(8)
+            make.horizontalEdges.equalTo(contentView).inset(14)
             make.height.equalTo(130)
         }
         pieGraphView.snp.makeConstraints { make in
             make.top.equalTo(titleView.snp.bottom).offset(12)
-            make.horizontalEdges.equalTo(contentView).inset(8)
+            make.horizontalEdges.equalTo(contentView).inset(14)
             make.height.equalTo(300)
         }
         barGraphView.snp.makeConstraints { make in
             make.top.equalTo(pieGraphView.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(contentView).inset(8)
-//            make.height.equalTo(400)
+            make.horizontalEdges.equalTo(contentView).inset(14)
+            make.height.equalTo(370)
             make.bottom.equalTo(contentView).inset(12)
         }
     }

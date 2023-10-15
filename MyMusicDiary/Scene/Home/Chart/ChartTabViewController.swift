@@ -105,12 +105,13 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         view.addSubview(customContainer)
         customContainer.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(14)
             make.height.equalTo(50)
         }
         customContainer.backgroundColor = .clear
         
         customContainer.layer.applyShadow(color: Constant.Color.main2, alpha: 0.8, x: 0, y: 0.2, blur: 0.5)
+//        customContainer.layer.cornerRadius = 20
 
         
         monthChartVC.delegate = self

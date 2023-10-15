@@ -10,7 +10,7 @@ import Foundation
 class Sample {
     static let shared = Sample()
     
-    var a = -80
+    var a = -65
 }
 
 class SaveViewModel {
@@ -64,6 +64,7 @@ class SaveViewModel {
 //        let todayTable = DayItemTable(day: Date())
         
         let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
+        print("데이터 추가===============\(a)")
         let todayTable = DayItemTable(day: a)
         Sample.shared.a += 1
         

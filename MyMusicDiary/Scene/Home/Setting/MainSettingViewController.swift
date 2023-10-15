@@ -19,6 +19,9 @@ class MainSettingViewController: BaseViewController {
         view.backgroundColor = Constant.Color.background
         view.isScrollEnabled = false // 우선 스크롤할 일은 없다
         
+        view.contentInset.left = 0
+        view.contentInset.right = 0
+        
         return view
     }()
     

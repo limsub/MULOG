@@ -892,7 +892,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MULOG;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "권한을 허용해주세요";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -926,7 +926,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MULOG;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "권한을 허용해주세요";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
