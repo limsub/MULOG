@@ -292,16 +292,17 @@ extension MonthCalendarViewController {
         snapshot.appendItems(viewModel.currentMusicList.value)
         dataSource?.apply(snapshot, animatingDifferences: true)
         
+        
         // 수정하기 버튼 띄워줄지 말지
         viewModel.showModifyButton { value in
             
-            if value {
+            if value && self.viewModel.isTodayWritten() {  // 띄워주기
                 self.monthView.modifyButton.isHidden = false
                 
                 UIView.animate(withDuration: 0.2) { [weak self] in
                     self?.monthView.modifyButton.alpha = 1
                 }
-            } else {
+            } else {    // 가려주기
                 UIView.animate(withDuration: 0.2) { [weak self] in
                     self?.monthView.modifyButton.alpha = 0
                 } completion: { [weak self] _ in

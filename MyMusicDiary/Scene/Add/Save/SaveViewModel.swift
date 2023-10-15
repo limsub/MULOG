@@ -7,9 +7,13 @@
 
 import Foundation
 
-class SaveViewModel {
-
+class Sample {
+    static let shared = Sample()
     
+    var a = -80
+}
+
+class SaveViewModel {
     
     let repository = MusicItemTableRepository()
     
@@ -57,11 +61,11 @@ class SaveViewModel {
         
         
         // 2.
-        let todayTable = DayItemTable(day: Date())
+//        let todayTable = DayItemTable(day: Date())
         
-//        let a = Calendar.current.date(byAdding: .day, value: -5, to: Date())!
-//        let todayTable = DayItemTable(day: a)
-        
+        let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
+        let todayTable = DayItemTable(day: a)
+        Sample.shared.a += 1
         
         
         // 저장할 음악들
@@ -70,15 +74,15 @@ class SaveViewModel {
             if let alreadyMusic = repository.alreadySave($0.id) {
                 repository.plusCnt(alreadyMusic)
                 
-                repository.plusDate(alreadyMusic, today: Date())
-//                repository.plusDate(alreadyMusic, today: a)
+//                repository.plusDate(alreadyMusic, today: Date())
+                repository.plusDate(alreadyMusic, today: a)
                 
                 repository.appendMusicItem(todayTable, musicItem: alreadyMusic)
             } else {    // 처음 저장하는 음악
                 let newMusic = MusicItemTable(musicItem: $0)    // 램에 아직 없는 아이템
                 
-                newMusic.dateList.append(Date().toString(of: .full))
-//                newMusic.dateList.append(a.toString(of: .full))
+//                newMusic.dateList.append(Date().toString(of: .full))
+                newMusic.dateList.append(a.toString(of: .full))
                 
                 repository.appendMusicItem(todayTable, musicItem: newMusic) // MusicItemTable에 자동 추가
             }
