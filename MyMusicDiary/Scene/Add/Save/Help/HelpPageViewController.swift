@@ -8,13 +8,26 @@
 import UIKit
 import SnapKit
 
+// 몇 번째 페이지인지 구분하기 위함
+enum HelpType {
+    case drag
+    case representative
+    case delete
+}
+
+// 버튼에 대한 액션을 pageViewController에서 해주기 위함. (화면전환, dismiss)
+protocol NextPageProtocol: AnyObject {
+    func goNext(_ current: HelpType)
+    func dismiss()
+}
+
 class HelpPageViewController: UIViewController {
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     var list = [HelpAlertViewController(), HelpAlertViewController(), HelpAlertViewController()]
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,8 +86,3 @@ extension HelpPageViewController: NextPageProtocol {
     }
 }
 
-protocol NextPageProtocol: AnyObject {
-    func goNext(_ current: HelpType)
-    
-    func dismiss()
-}

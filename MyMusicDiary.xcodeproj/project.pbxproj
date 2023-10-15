@@ -90,6 +90,7 @@
 		48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */; };
 		48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F32ADA812100705D4F /* NotificationTimeView.swift */; };
 		48DC50F62ADA812B00705D4F /* NotificationSettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */; };
+		48DC50F82ADB6AF500705D4F /* HelpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +173,7 @@
 		48DAF68F2AD2D25600932539 /* PagerViewDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewDataRepository.swift; sourceTree = "<group>"; };
 		48DC50F32ADA812100705D4F /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
 		48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingListView.swift; sourceTree = "<group>"; };
+		48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertView.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -457,6 +459,7 @@
 			children = (
 				484103912AD6CE21002D56C7 /* HelpPageViewController.swift */,
 				484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */,
+				48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
 				48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
+				48DC50F82ADB6AF500705D4F /* HelpAlertView.swift in Sources */,
 				483790922ACEA490003AC436 /* DateFormatType+Enum.swift in Sources */,
 				483790B42AD174BC003AC436 /* ChartTabViewController.swift in Sources */,
 				4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */,

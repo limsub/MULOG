@@ -137,9 +137,11 @@ class SaveCatalogCell: BaseCollectionViewCell {
         let view = BasePaddingLabel(padding: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12))
         
         view.clipsToBounds = true
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = 14
         
-        view.backgroundColor = Constant.Color.main.withAlphaComponent(0.4)
+        view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.3)
+        
+//        view.backgroundColor = Constant.Color.main.withAlphaComponent(0.4)
 //        view.backgroundColor = UIColor(hexCode: "#FF9E85", alpha: 0.4)
 //        view.layer.borderColor = UIColor(hexCode: "#FF9E85", alpha: 0.8).cgColor
 //        view.layer.borderWidth = 1
