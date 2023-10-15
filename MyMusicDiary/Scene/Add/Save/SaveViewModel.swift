@@ -114,6 +114,9 @@ class SaveViewModel {
         print("DayItemTable이 램에 저장됩니다", todayTable)
         
         repository.createDayItem(todayTable)
+        
+        // 데이터가 변화되었으므로, RealmDataModified 싱글톤 패턴의 변수에 알려준다
+        RealmDataModified.shared.modifyProperty.value.toggle()  // -> 메인 페이저뷰의 pagerView reload
     }
     
     func music(_ indexPath: IndexPath) -> MusicItem {

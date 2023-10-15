@@ -94,6 +94,7 @@
 		48DC50FA2ADBBAE900705D4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */; };
 		48DC50FD2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */; };
+		48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC51022ADBF3F400705D4F /* RealmDataModified.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +179,7 @@
 		48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingListView.swift; sourceTree = "<group>"; };
 		48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertView.swift; sourceTree = "<group>"; };
 		48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		48DC51022ADBF3F400705D4F /* RealmDataModified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataModified.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -224,6 +226,7 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
+				48DC51012ADBF3AB00705D4F /* SingleTon */,
 				48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */,
 				483790902ACEA484003AC436 /* Enum */,
 				483790472ACA9089003AC436 /* Constant */,
@@ -530,6 +533,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		48DC51012ADBF3AB00705D4F /* SingleTon */ = {
+			isa = PBXGroup;
+			children = (
+				48DC51022ADBF3F400705D4F /* RealmDataModified.swift */,
+			);
+			path = SingleTon;
+			sourceTree = "<group>";
+		};
 		99F964DB2FEB2A606827D0F7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -721,6 +732,7 @@
 				483790942ACEA51B003AC436 /* String+Extension.swift in Sources */,
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
+				48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
 				4841038D2AD6BE3D002D56C7 /* GenreViewController.swift in Sources */,
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,

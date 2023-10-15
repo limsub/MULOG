@@ -68,6 +68,7 @@ class PagerViewController: BaseViewController {
         settingPagerView()
         viewModel.fetchData()   // dataList에 데이터 로드
         replacePlayer()     // previewURL을 업데이트하고, 미리 AVPlayerItem을 생성한다
+        bindForRealmDataModified()  // 디비 데이터가 변할 때, reload되도록 한다
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -79,6 +80,14 @@ class PagerViewController: BaseViewController {
         player.pause()
         player.seek(to: .zero)
         print("끝!!")
+    }
+    
+    // RealmDataModified 싱글톤 패턴 활용
+    func bindForRealmDataModified() {
+        RealmDataModified.shared.modifyProperty.bind { [weak self] value in
+            self?.viewModel.fetchData()
+            self?.pagerView.reloadData()
+        }
     }
     
     
