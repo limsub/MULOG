@@ -8,6 +8,7 @@
 import UIKit
 import FSCalendar
 import Kingfisher
+import MusicKit
 
 // view - viewCont 구분
 // 1. addTarget은 VC에서 (self 들어가는건 VC에서)
@@ -56,21 +57,53 @@ class MonthCalendarViewController: BaseViewController {
     }
     @objc
     private func plusButtonClicked() {
-        let vc = SaveViewController()
-        vc.delegate = self
-        navigationController?.pushViewController(vc, animated: true)
+        Task {
+            let status = await MusicAuthorization.request()
+            
+            switch status {
+            case .notDetermined, .denied, .restricted:
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                self.showAlert("미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다", message: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요", okTitle: "설정으로 이동") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            case .authorized:
+                let vc = SaveViewController()
+                vc.delegate = self
+                navigationController?.pushViewController(vc, animated: true)
+            @unknown default:
+                break
+            }
+        }        
     }
     @objc
     func modifyButtonClicked() {
-        let vc = SaveViewController()
-        vc.delegate = self
-        
-        // 수정할 musicitem들 전달. 타입 변환해서 전달 (MusicItemTable -> MusicItem)
-        viewModel.currentMusicList.value.forEach { item in
-            vc.viewModel.preMusicList.value.append(MusicItem(item))
+        Task {
+            let status = await MusicAuthorization.request()
+            
+            switch status {
+            case .notDetermined, .denied, .restricted:
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                self.showAlert("미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다", message: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요", okTitle: "설정으로 이동") {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            case .authorized:
+                let vc = SaveViewController()
+                vc.delegate = self
+                
+                // 수정할 musicitem들 전달. 타입 변환해서 전달 (MusicItemTable -> MusicItem)
+                viewModel.currentMusicList.value.forEach { item in
+                    vc.viewModel.preMusicList.value.append(MusicItem(item))
+                }
+                
+                navigationController?.pushViewController(vc, animated: true)
+            @unknown default:
+                break
+            }
         }
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     @objc
     func hideButtonClicked() {
