@@ -153,9 +153,9 @@ class MonthChartViewController: BaseViewController {
         
         
         /* 데이터 로드 */
-        initCurrentPageDate()
-        fetchDataForPieChart(currentPageDate)
-        fetchDataForBarChart()
+        initCurrentPageDate()   // currentPageDate (초기값: 오늘 날짜)를 이번 달 2일로 초기화한다
+        fetchDataForPieChart(currentPageDate)   // 디비에 저장된 값을 통해 genres, counts, genresTotalCnt 로드
+        fetchDataForBarChart()  // 디비에 저장된 값을 통해 barData, musicTotalCnt 로드
         
         
         /* titleView */
@@ -169,26 +169,29 @@ class MonthChartViewController: BaseViewController {
         } else  {
             barGraphView.isHidden = false
             pieGraphView.isHidden = false
-            
-            /* circle Graph */
-            pieGraphView.titleLabel.text = "전체 장르 비율"
-            
-            settingPieGraphView(dataPoints: genres, values: percentArr)
-            
-            pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
-            pieGraphView.collectionView.dataSource = self
-            pieGraphView.collectionView.showsVerticalScrollIndicator = false
-
-            
-            /* bar Graph */
-            barGraphView.titleLabel.text = "날짜별 장르 비율"
-            
-            settingBarGraphView()
-            
-            barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
-            barGraphView.collectionView.dataSource = self
-            barGraphView.collectionView.showsHorizontalScrollIndicator = false
         }
+        
+        // 얘는 그래도 viewDidLoad에서 최소한 해줘야 할 코드
+        /* circle Graph */
+        pieGraphView.titleLabel.text = "전체 장르 비율"
+        
+        settingPieGraphView(dataPoints: genres, values: percentArr)
+        
+        pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
+        pieGraphView.collectionView.dataSource = self
+        pieGraphView.collectionView.showsVerticalScrollIndicator = false
+        pieGraphView.collectionView.reloadData()
+
+        
+        /* bar Graph */
+        barGraphView.titleLabel.text = "날짜별 장르 비율"
+        
+        settingBarGraphView()
+        
+        barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
+        barGraphView.collectionView.dataSource = self
+        barGraphView.collectionView.showsHorizontalScrollIndicator = false
+        barGraphView.collectionView.reloadData()
     }
     
     
@@ -345,6 +348,7 @@ extension MonthChartViewController: UICollectionViewDataSource {
         
         switch collectionView {
         case pieGraphView.collectionView:
+            print("pie==========")
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PieChartSideCollectionViewCell.description(), for: indexPath) as? PieChartSideCollectionViewCell else { return UICollectionViewCell() }
             
             cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
@@ -355,6 +359,7 @@ extension MonthChartViewController: UICollectionViewDataSource {
             return cell
             
         case barGraphView.collectionView:
+            print("bar==========")
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BarChartSideCollectionViewCell.description(), for: indexPath) as? BarChartSideCollectionViewCell else { return UICollectionViewCell() }
             
             cell.colorImageView.backgroundColor = colors.map{ UIColor(hexCode: $0) }[indexPath.item]
@@ -363,6 +368,8 @@ extension MonthChartViewController: UICollectionViewDataSource {
             return cell
          
         default:
+            
+            print("default==========")
             return UICollectionViewCell()
         }
 
