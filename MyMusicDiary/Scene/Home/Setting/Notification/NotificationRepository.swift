@@ -12,6 +12,8 @@ class NotificationRepository {
     
     static let shared = NotificationRepository()
     
+    let repository = MusicItemTableRepository()
+    
     let content = UNMutableNotificationContent()
 
     func delete(_ date: Date) {
@@ -40,9 +42,17 @@ class NotificationRepository {
         print("기존 알림 리스트들을 모두 제거합니다")
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
+
+
         // 새로운 request 등록
         print("새로운 알림 리스트를 등록합니다. 시간은 \(hour)시 \(minute)분 입니다")
         for i in 0...59 {
+            
+            if i == 0 && repository.fetchDay(Date()) != nil {
+                // 여기서! 오늘 일기는 이미 작성했을 때, 오늘 알림은 빼줘야 한다!!!
+                continue
+            }
+            
             guard let notiDay = Calendar.current.date(byAdding: .day, value: i, to: Date()) else { continue }
             let notiDayComponent = Calendar.current.dateComponents([.day, .month, .year], from: notiDay)
             
