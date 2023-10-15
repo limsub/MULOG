@@ -52,6 +52,7 @@ class MonthScrollViewController: BaseViewController {
         
         viewModel.updateData()
         setMonthYearForPickerView()
+        
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +156,7 @@ class MonthScrollViewController: BaseViewController {
     
     func unfoldPickerView() {
         mainView.pickerView.isHidden = false
+        setMonthYearForPickerView()
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
             [weak self] in
             // animation
@@ -174,6 +176,8 @@ class MonthScrollViewController: BaseViewController {
     
     
     func setMonthYearForPickerView() {
+        
+        
         mainView.pickerView.selectRow(viewModel.currentMonthIdx(), inComponent: 0, animated: false)
         mainView.pickerView.selectRow(viewModel.currentYearIdx(), inComponent: 1, animated: false)
     }
