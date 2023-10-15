@@ -10,7 +10,7 @@ import Foundation
 class Sample {
     static let shared = Sample()
     
-    var a = -65
+    var a = -7
 }
 
 class SaveViewModel {
@@ -30,13 +30,35 @@ class SaveViewModel {
 
     
     // 데이터 추가 (저장 버튼 클릭)
-    func addNewData(completionHandler: @escaping () -> Void) {
+    func addNewData(completionHandler: @escaping () -> Void, duplicationCompletionHandler: () -> Void) {
         
         // 진짜 만약에 음악 하나도 없는데 저장 버튼 눌렀다 -> 음악 추가하라고 얼럿
         if musicList.value.count == 0 {
             completionHandler()
             return
         }
+        
+        // 또 만약에, 서로 겹치는 음악을 저장하려고 한다 -> 안된다고 얼럿
+        let list = musicList.value
+        switch list.count {
+        case 1:
+            break
+        case 2:
+            if list[0].id == list[1].id {
+                duplicationCompletionHandler()
+                return
+            }
+        case 3:
+            if list[0].id == list[1].id || list[1].id == list[2].id || list[0].id == list[2].id {
+                duplicationCompletionHandler()
+                return
+            }
+        default:
+            break
+        }
+        
+        
+        
         
         // 만약 오늘 날짜의 데이터가 있다면 -> 수정하러 들어온 것
         // 1. 오늘 데이터 삭제하고, 1.5. musicitemtable의 datelist에서 오늘 날짜 빼주고,  2. 새로운 데이터 넣어준다
@@ -61,12 +83,12 @@ class SaveViewModel {
         
         
         // 2.
-//        let todayTable = DayItemTable(day: Date())
+        let todayTable = DayItemTable(day: Date())
         
-        let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
-        print("데이터 추가===============\(a)")
-        let todayTable = DayItemTable(day: a)
-        Sample.shared.a += 1
+//        let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
+//        print("데이터 추가===============\(a)")
+//        let todayTable = DayItemTable(day: a)
+//        Sample.shared.a += 1
         
         
         // 저장할 음악들
@@ -75,15 +97,15 @@ class SaveViewModel {
             if let alreadyMusic = repository.alreadySave($0.id) {
                 repository.plusCnt(alreadyMusic)
                 
-//                repository.plusDate(alreadyMusic, today: Date())
-                repository.plusDate(alreadyMusic, today: a)
+                repository.plusDate(alreadyMusic, today: Date())
+//                repository.plusDate(alreadyMusic, today: a)
                 
                 repository.appendMusicItem(todayTable, musicItem: alreadyMusic)
             } else {    // 처음 저장하는 음악
                 let newMusic = MusicItemTable(musicItem: $0)    // 램에 아직 없는 아이템
                 
-//                newMusic.dateList.append(Date().toString(of: .full))
-                newMusic.dateList.append(a.toString(of: .full))
+                newMusic.dateList.append(Date().toString(of: .full))
+//                newMusic.dateList.append(a.toString(of: .full))
                 
                 repository.appendMusicItem(todayTable, musicItem: newMusic) // MusicItemTable에 자동 추가
             }

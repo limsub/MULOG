@@ -91,6 +91,9 @@
 		48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F32ADA812100705D4F /* NotificationTimeView.swift */; };
 		48DC50F62ADA812B00705D4F /* NotificationSettingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */; };
 		48DC50F82ADB6AF500705D4F /* HelpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */; };
+		48DC50FA2ADBBAE900705D4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */; };
+		48DC50FD2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +177,7 @@
 		48DC50F32ADA812100705D4F /* NotificationTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimeView.swift; sourceTree = "<group>"; };
 		48DC50F52ADA812B00705D4F /* NotificationSettingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingListView.swift; sourceTree = "<group>"; };
 		48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertView.swift; sourceTree = "<group>"; };
+		48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +194,8 @@
 				4812D50F2AC3AAE600E7C6A4 /* Kingfisher in Frameworks */,
 				4812D5152AC3AB1000E7C6A4 /* FSCalendar in Frameworks */,
 				4812D5122AC3AAF200E7C6A4 /* SnapKit in Frameworks */,
+				48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */,
+				48DC50FD2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				36793F1473D5E9DF55347611 /* Pods_MyMusicDiary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +224,7 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
+				48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */,
 				483790902ACEA484003AC436 /* Enum */,
 				483790472ACA9089003AC436 /* Constant */,
 				483790442ACA903E003AC436 /* Extension */,
@@ -552,6 +559,7 @@
 				4812D4F32AC3A9ED00E7C6A4 /* Frameworks */,
 				4812D4F42AC3A9ED00E7C6A4 /* Resources */,
 				4CF7B1A1CCC17F47FBDAB01E /* [CP] Embed Pods Frameworks */,
+				48DC51002ADBBCE800705D4F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -566,6 +574,8 @@
 				4812D5342AC3D42200E7C6A4 /* Tabman */,
 				48A0A0DF2AC54896008DC198 /* Realm */,
 				48A0A0E12AC54896008DC198 /* RealmSwift */,
+				48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */,
+				48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */,
 			);
 			productName = MyMusicDiary;
 			productReference = 4812D4F62AC3A9ED00E7C6A4 /* MyMusicDiary.app */;
@@ -603,6 +613,7 @@
 				4812D5162AC3AB2400E7C6A4 /* XCRemoteSwiftPackageReference "Charts" */,
 				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */,
 				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				48DC50FB2ADBBC3300705D4F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4812D4F72AC3A9ED00E7C6A4 /* Products */;
 			projectDirPath = "";
@@ -620,12 +631,35 @@
 			files = (
 				4812D5062AC3A9EE00E7C6A4 /* LaunchScreen.storyboard in Resources */,
 				4812D5032AC3A9EE00E7C6A4 /* Assets.xcassets in Resources */,
+				48DC50FA2ADBBAE900705D4F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		48DC51002ADBBCE800705D4F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 		4CF7B1A1CCC17F47FBDAB01E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,7 +832,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -903,7 +937,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MyMusicDiary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -937,7 +971,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MyMusicDiary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1020,6 +1054,14 @@
 				kind = branch;
 			};
 		};
+		48DC50FB2ADBBC3300705D4F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1057,6 +1099,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48DC50FB2ADBBC3300705D4F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48DC50FB2ADBBC3300705D4F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

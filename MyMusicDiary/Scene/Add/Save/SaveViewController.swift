@@ -177,7 +177,10 @@ class SaveViewController: BaseViewController {
         
         viewModel.addNewData {
             self.showSingleAlert("한 개 이상의 곡을 선택해야 저장이 가능합니다", message: "곡을 선택해주세요")
+        } duplicationCompletionHandler: {
+            self.showSingleAlert("같은 곡을 두 개 이상 저장할 수 없습니다", message: "중복되는 곡을 삭제해주세요")
         }
+
         
         NotificationRepository.shared.delete(Date())
         
