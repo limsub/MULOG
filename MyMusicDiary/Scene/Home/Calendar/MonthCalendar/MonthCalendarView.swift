@@ -227,6 +227,9 @@ class MonthCalendarView: BaseView {
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.headerHeight = 66
         
+        // 선택 날짜 색상
+        calendar.appearance.titleSelectionColor = .lightGray
+        
         // 각종 설정
         calendar.today = nil
         calendar.scrollDirection = .horizontal
@@ -240,5 +243,7 @@ class MonthCalendarView: BaseView {
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 12)
         calendar.weekdayHeight = 10
         calendar.placeholderType = .none
+        
+        
     }
 }

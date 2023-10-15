@@ -75,7 +75,7 @@ class MonthCalendarViewController: BaseViewController {
             @unknown default:
                 break
             }
-        }        
+        }
     }
     @objc
     func modifyButtonClicked() {
@@ -194,6 +194,7 @@ class MonthCalendarViewController: BaseViewController {
         monthView.hideButton.addTarget(self, action: #selector(hideButtonClicked), for: .touchUpInside)
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
+        
     }
     
     // set
