@@ -98,6 +98,7 @@ class PagerViewController: BaseViewController {
             self?.noDataView.isHidden = true
             self?.viewModel.fetchData { _ in print("good") }
             self?.pagerView.reloadData()
+            self?.replacePlayer()
         }
     }
     
@@ -128,9 +129,13 @@ class PagerViewController: BaseViewController {
     }
     
     func replacePlayer() {
+        
         viewModel.updatePreviewURL(pagerView.currentIndex)  // 가운데 있는 셀의 url을 미리 받아둔다
         
         guard let url = viewModel.makeUrlByPreviewURL() else { return }
+        
+        print("현재 인덱스 :", pagerView.currentIndex)
+        print("player를 업데이트합니다 :", url)
         
         playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
