@@ -18,7 +18,7 @@ class GenreViewModel {
     
     var title: String?
     
-    var isLoading: Observable<Bool> = Observable(false)
+//    var isLoading: Observable<Bool> = Observable(false)
     
     var currentOffset: Int = 0
     
@@ -38,6 +38,8 @@ class GenreViewModel {
             request.offset = 1
             
             let result = try await request.response()
+            
+            
             self.musicList.value = result.songCharts[0].items.map {
                 return .init(id: $0.id.rawValue, name: $0.title, artist: $0.artistName, bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString, smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString, previewURL: $0.previewAssets?[0].url?.absoluteString, genres: $0.genreNames, backgroundColor: $0.artwork?.backgroundColor)
             }

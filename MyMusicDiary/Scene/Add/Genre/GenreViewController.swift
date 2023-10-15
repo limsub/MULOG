@@ -9,9 +9,12 @@ import UIKit
 
 class GenreViewController: BaseViewController {
     
-    let loadingView = {
-        let view = UIView()
-        view.backgroundColor = .red
+    lazy var activityIndicator = {
+        let view = UIActivityIndicatorView()
+        view.center = self.view.center
+        view.hidesWhenStopped = true
+        view.style = .medium
+        view.stopAnimating()
         return view
     }()
     
@@ -29,14 +32,13 @@ class GenreViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        
-        view.addSubview(loadingView)
-        loadingView.snp.makeConstraints { make in
+     
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
             make.center.equalTo(view)
-            make.size.equalTo(50)
         }
         // 처음엔 무조건 로딩뷰 작동
-        viewModel.isLoading.value = true
+        activityIndicator.startAnimating()
         
         
         settingNavigation()
@@ -78,26 +80,31 @@ class GenreViewController: BaseViewController {
     private func bindModelData() {
         print("musicList에 바인드 : updateSnapshot")
         viewModel.musicList.bind { _ in
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
             self.updateSnapshot()
         }
         
-        viewModel.isLoading.bind { value in
-            if value {
-                // 로딩바 작동
-                DispatchQueue.main.async {
-                    self.loadingView.isHidden = false
-                }
-                
-                print("로딩바 작동")
-            } else {
-                // 로딩바 해제
-                DispatchQueue.main.async {
-                    self.loadingView.isHidden = true
-                }
-                
-                print("로딩바 해제")
-            }
-        }
+//        viewModel.isLoading.bind { value in
+//            if value {
+//                // 로딩바 작동
+//                DispatchQueue.main.async {
+//                    self.activityIndicator.startAnimating()
+////                    self.loadingView.isHidden = false
+//                }
+//
+//                print("로딩바 작동")
+//            } else {
+//                // 로딩바 해제
+//                DispatchQueue.main.async {
+//                    self.activityIndicator.stopAnimating()
+////                    self.loadingView.isHidden = true
+//                }
+//
+//                print("로딩바 해제")
+//            }
+//        }
     }
     
     // datasource
@@ -127,7 +134,7 @@ class GenreViewController: BaseViewController {
         dataSource?.apply(snapshot)
         
         // 컬렉션뷰 로드가 완료되면 false로 바꿔준다 -> bind에 의해 로딩뷰가 없어진다
-        viewModel.isLoading.value = false
+//        viewModel.isLoading.value = false
     }
     
 }
