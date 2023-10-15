@@ -13,6 +13,63 @@ class SearchViewModel {
     
     var musicList: Observable<[MusicItem]> = Observable([])
     
+    var page = 1
+    var searchTerm: String?
+    
+    func fetchSearchMusic(completionHandler: @escaping () -> Void) {
+        guard let searchTerm else { return }
+        Task {
+            let status = await MusicAuthorization.request()
+            
+            switch status {
+            case .notDetermined:
+                break
+            case .denied:
+                break
+            case .restricted:
+                break
+            case .authorized:
+                do {
+                    var request = MusicCatalogSearchRequest(
+                        term: searchTerm,
+                        types: [Song.self]
+                    )
+                    request.limit = 25
+                    request.offset = (page-1)*25 + 1
+                    
+                    let result = try await request.response()
+                    
+                    completionHandler()
+                    
+                    
+                    self.musicList.value.append(contentsOf:
+                        result.songs.map {
+                            return .init(
+                                id: $0.id.rawValue,
+                                name: $0.title,
+                                artist: $0.artistName,
+                                bigImageURL: $0.artwork?.url(width: 700, height: 700)?.absoluteString,
+                                smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
+                                previewURL: $0.previewAssets?[0].url?.absoluteString,
+                                genres: $0.genreNames,
+                                backgroundColor: $0.artwork?.backgroundColor
+                                
+                            )
+                            
+                        }
+                    )
+                    
+                    
+                    
+                }
+            @unknown default:
+                fatalError()
+            }
+            
+            
+        }
+    }
+    
     
     func fetchMusic(_ term: String) {
         

@@ -28,6 +28,16 @@ class SearchViewController: BaseViewController {
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
     
     
+    // view
+    lazy var activityIndicator = {
+        let view = UIActivityIndicatorView()
+        view.center = self.view.center
+        view.hidesWhenStopped = true
+        view.style = .medium
+        view.stopAnimating()
+        return view
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +50,6 @@ class SearchViewController: BaseViewController {
 
         configureDataSource()
         bindModelData()
-//        viewModel.fetchMusic("블랙핑크")
     }
     
     
@@ -50,12 +59,16 @@ class SearchViewController: BaseViewController {
         super.setConfigure()
         
         view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
     }
     override func setConstraints() {
         super.setConstraints()
         
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(view)
         }
     }
     private func settingCollectionView() {
@@ -126,8 +139,16 @@ class SearchViewController: BaseViewController {
 // searchBar
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        activityIndicator.startAnimating()
         guard let text = searchBar.text else { return }
-        viewModel.fetchMusic(text)
+        viewModel.searchTerm = text
+        viewModel.page = 1
+        viewModel.musicList.value.removeAll()
+        viewModel.fetchSearchMusic {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
 }
 
@@ -135,6 +156,19 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         print("prefetch. 추후 pagination 필요")
+        
+        
+        
+        for indexPath in indexPaths {
+            if indexPath.row == viewModel.musicList.value.count - 1 {
+//                activityIndicator.startAnimating()    // 여긴 있는게 더 어색하다
+                viewModel.page += 1
+                viewModel.fetchSearchMusic {
+                    
+                }
+            }
+        }
+        
     }
 }
 

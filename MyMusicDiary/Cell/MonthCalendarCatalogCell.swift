@@ -46,6 +46,10 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     override func setConstraints() {
         super.setConstraints()
         
+//        contentView.layer.borderColor = UIColor.black.cgColor
+//        contentView.layer.borderWidth = 1
+        
+        
         artworkImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView)
             make.height.equalTo(artworkImageView.snp.width)

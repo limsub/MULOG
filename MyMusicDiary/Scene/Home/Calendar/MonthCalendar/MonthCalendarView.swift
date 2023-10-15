@@ -55,7 +55,7 @@ class MonthCalendarView: BaseView {
     
     /* CollectionView */
     lazy var collectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionLayout())
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createMonthBottomLayout())
         view.isScrollEnabled = false
         
         view.layer.cornerRadius = 20
@@ -83,15 +83,17 @@ class MonthCalendarView: BaseView {
     
 
     
-    func configureCollectionLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        
+    func createMonthBottomLayout() -> UICollectionViewLayout {
         let spacing: CGFloat = 10
         
-        let width = UIScreen.main.bounds.width - 28 - spacing * 4
+        let layout = UICollectionViewFlowLayout()
+
+        let width = UIScreen.main.bounds.width - 32 - spacing * 4
 
         layout.itemSize = CGSize(width: width/3, height: 100)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
         
         return layout
     }
