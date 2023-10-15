@@ -17,10 +17,12 @@ class PagerViewModel {
     var previewURL: String?     // 재생할 url
     
     
-    func fetchData() {
+    func fetchData(noDataCompletionHandler: @escaping (Bool) -> Void) {
         dataList = repository.fetchMusicForPagerView()
         
-//        print(dataList)
+        // 데이터가 하나도 없으면 true
+        let noData = dataList.isEmpty
+        noDataCompletionHandler(noData)
     }
     
     func numberOfItems() -> Int {

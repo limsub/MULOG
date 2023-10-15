@@ -91,6 +91,8 @@ class MonthCalendarViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = Constant.Color.background
         
+
+        
 //        monthView.calendar.setCurrentPage(Date(), animated: true)
 //        monthView.calendar.select(Date())
 //
@@ -105,6 +107,13 @@ class MonthCalendarViewController: BaseViewController {
         viewModel.updateMusicList()
         updateSnapshot()
         
+        
+        // 여기선 애니메이션 안보이게
+        viewModel.showModifyButton { [weak self] value in
+            self?.monthView.modifyButton.isHidden = value
+        }
+        checkShowNoDataView()
+        
     }
 
     
@@ -118,21 +127,9 @@ class MonthCalendarViewController: BaseViewController {
         print("오늘 날짜 데이터가 있냐아아아ㅏ아", viewModel.isTodayWritten())
         monthView.plusButton.isHidden = (viewModel.isTodayWritten()) ? true : false
         
-        
-//        monthView.calendar.reloadData()
-//        viewModel.updateMusicList()
-//        updateSnapshot()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print(#function)
 
-//        monthView.calendar.reloadData()
-//        viewModel.updateMusicList()
-//        updateSnapshot()
-    }
     
     func settingNavigation() {
         // prefersLargeTitles 가 true인 상태에서,
@@ -226,7 +223,8 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         // collectionView
         viewModel.updateMusicList()
         updateSnapshot()
-        
+        checkShowModifyButton()
+        checkShowNoDataView()
 
         
     }
@@ -294,8 +292,9 @@ extension MonthCalendarViewController {
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.currentMusicList.value)
         dataSource?.apply(snapshot, animatingDifferences: true)
-        
-        
+    }
+    
+    func checkShowModifyButton() {
         // 수정하기 버튼 띄워줄지 말지
         viewModel.showModifyButton { value in
             
@@ -314,6 +313,22 @@ extension MonthCalendarViewController {
             }
         }
     }
+    func checkShowNoDataView() {
+        // noDataView 띄워줄지 말지
+        if viewModel.currentMusicList.value.isEmpty {
+            // (함수 가져다 쓴다) 선택된 날짜가 오늘이면 true, 오늘이 아니면 false
+            viewModel.showModifyButton { [weak self] value in
+                self?.monthView.noDataViewToday.isHidden = !value
+                self?.monthView.noDataViewPastDay.isHidden = value
+            }
+        } else {
+            monthView.noDataViewToday.isHidden = true
+            monthView.noDataViewPastDay.isHidden = true
+        }
+    }
+    
+    
+    
     
 }
 
@@ -323,5 +338,7 @@ extension MonthCalendarViewController: ReloadProtocol {
         monthView.calendar.reloadData()
         viewModel.updateMusicList()
         updateSnapshot()
+        checkShowModifyButton()
+        checkShowNoDataView()
     }
 }

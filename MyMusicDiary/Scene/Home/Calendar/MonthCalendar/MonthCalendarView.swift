@@ -8,7 +8,21 @@
 import UIKit
 import FSCalendar
 
+
+
 class MonthCalendarView: BaseView {
+    
+    /* no data */
+    let noDataViewToday = NoDataView(
+        imageName: "nodata_headphone",
+        labelStatement: "아직 오늘의 음악을 기록하지 않았습니다\n플러스 버튼을 눌러서 음악을 기록해주세요",
+        imageSize: 100
+    )
+    let noDataViewPastDay = NoDataView(
+        imageName: "nodata_headphone",
+        labelStatement: "해당 날짜에 기록한 음악이 없습니다",
+        imageSize: 100
+    )
     
     /* calendar */
     let backView = {
@@ -115,6 +129,8 @@ class MonthCalendarView: BaseView {
         addSubview(collectionView)
         addSubview(modifyButton)
         
+        collectionView.addSubview(noDataViewToday)
+        collectionView.addSubview(noDataViewPastDay)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -178,6 +194,15 @@ class MonthCalendarView: BaseView {
             make.height.equalTo(40)
             
 //            make.size.equalTo(40)
+        }
+        
+        noDataViewToday.snp.makeConstraints { make in
+            make.center.equalTo(collectionView)
+            make.height.equalTo(collectionView.snp.height).multipliedBy(0.8)
+        }
+        noDataViewPastDay.snp.makeConstraints { make in
+            make.center.equalTo(collectionView)
+            make.height.equalTo(collectionView.snp.height).multipliedBy(0.8)
         }
     }
     

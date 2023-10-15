@@ -44,6 +44,12 @@ class PagerViewController: BaseViewController {
         return view
     }()
     
+    let noDataView = NoDataView(
+        imageName: "nodata_headphone",
+        labelStatement: "기록한 음악이 없습니다\n캘린더 화면에서\n오늘의 음악을 기록해주세요",
+        imageSize: 150
+    )
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -66,7 +72,9 @@ class PagerViewController: BaseViewController {
         
         addObserverToPlayerStop()
         settingPagerView()
-        viewModel.fetchData()   // dataList에 데이터 로드
+        viewModel.fetchData { [weak self] value in  // dataList에 데이터 로드 -> 데이터의 유무에 따라 noDataView 히든 처리
+            self?.noDataView.isHidden = !value
+        }
         replacePlayer()     // previewURL을 업데이트하고, 미리 AVPlayerItem을 생성한다
         bindForRealmDataModified()  // 디비 데이터가 변할 때, reload되도록 한다
     }
@@ -82,10 +90,13 @@ class PagerViewController: BaseViewController {
         print("끝!!")
     }
     
+    
     // RealmDataModified 싱글톤 패턴 활용
     func bindForRealmDataModified() {
         RealmDataModified.shared.modifyProperty.bind { [weak self] value in
-            self?.viewModel.fetchData()
+            print("============값이 바뀌었습니다!!++++++++++++++")
+            self?.noDataView.isHidden = true
+            self?.viewModel.fetchData { _ in print("good") }
             self?.pagerView.reloadData()
         }
     }
@@ -130,6 +141,7 @@ class PagerViewController: BaseViewController {
         
         view.addSubview(logoView)
         view.addSubview(pagerView)
+        view.addSubview(noDataView)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -149,6 +161,14 @@ class PagerViewController: BaseViewController {
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view)
             
+        }
+        
+        noDataView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+//            make.top.equalTo(logoView.snp.bottom).offset(30)
+            make.centerY.equalTo(view).offset(60)
+            make.width.equalTo(200)
+            make.height.equalTo(400)
         }
     }
 }

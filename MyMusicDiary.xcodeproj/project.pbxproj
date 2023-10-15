@@ -95,6 +95,7 @@
 		48DC50FD2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */; };
 		48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC51022ADBF3F400705D4F /* RealmDataModified.swift */; };
+		48DC51062ADBF62C00705D4F /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC51052ADBF62C00705D4F /* NoDataView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -180,6 +181,7 @@
 		48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertView.swift; sourceTree = "<group>"; };
 		48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48DC51022ADBF3F400705D4F /* RealmDataModified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataModified.swift; sourceTree = "<group>"; };
+		48DC51052ADBF62C00705D4F /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,8 +228,9 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
-				48DC51012ADBF3AB00705D4F /* SingleTon */,
 				48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */,
+				48DC51042ADBF62100705D4F /* CustomView */,
+				48DC51012ADBF3AB00705D4F /* SingleTon */,
 				483790902ACEA484003AC436 /* Enum */,
 				483790472ACA9089003AC436 /* Constant */,
 				483790442ACA903E003AC436 /* Extension */,
@@ -541,6 +544,14 @@
 			path = SingleTon;
 			sourceTree = "<group>";
 		};
+		48DC51042ADBF62100705D4F /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				48DC51052ADBF62C00705D4F /* NoDataView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		99F964DB2FEB2A606827D0F7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +757,7 @@
 				483790492ACA9090003AC436 /* Constant.swift in Sources */,
 				4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */,
 				483790842ACD3B7E003AC436 /* BaseView.swift in Sources */,
+				48DC51062ADBF62C00705D4F /* NoDataView.swift in Sources */,
 				4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */,

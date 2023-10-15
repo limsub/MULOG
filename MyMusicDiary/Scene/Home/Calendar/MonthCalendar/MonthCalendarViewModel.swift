@@ -50,9 +50,8 @@ class MonthCalendarViewModel {
         }
     }
     
+    // 오늘 날짜의 일기가 있는지 체크
     func isTodayWritten() -> Bool {
-        // 오늘 날짜의 일기가 있는지 체크
-        
         if let todayDate = repository.fetchDay(Date()) {
 //            repository.deleteItem(todayDate)
             return true
