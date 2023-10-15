@@ -212,12 +212,15 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         // currentSelectedDate 업데이트
         viewModel.updateSelectedDate(date)
         
-        // calendar 업데이트 (reloadData 쓰는 것보다 나을 듯)
-        if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
-            previousCell.backImageView.alpha = 0.5
-        }
-        if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
-            currentCell.backImageView.alpha = 1
+        if !allShow {
+            
+            // calendar 업데이트 (reloadData 쓰는 것보다 나을 듯)
+            if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
+                previousCell.backImageView.alpha = 0.5
+            }
+            if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
+                currentCell.backImageView.alpha = 1
+            }
         }
         
         // collectionView
