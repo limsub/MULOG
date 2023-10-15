@@ -25,6 +25,9 @@ class NotificationRepository {
         // content 세팅
         content.title = "오늘의 음악을 기록해주세요!"
         content.body = "아직 오늘 음악을 기록하지 않았습니다"
+        content.badge = 1
+        content.sound = .default
+        
         
         // UserDefault에 저장된 시간을 가져온다
         let time = UserDefaults.standard.string(forKey: NotificationUserDefaults.time.key)!
