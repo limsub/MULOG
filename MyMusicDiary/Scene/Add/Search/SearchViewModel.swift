@@ -35,7 +35,7 @@ class SearchViewModel {
                         types: [Song.self]
                     )
                     request.limit = 25
-                    request.offset = (page-1)*25 + 1
+                    request.offset = (page-1)*25
                     
                     let result = try await request.response()
                     

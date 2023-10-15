@@ -35,7 +35,7 @@ class GenreViewModel {
                 types: [Song.self]
             )
             request.limit = 25
-            request.offset = 1
+            request.offset = 0
             
             let result = try await request.response()
             
@@ -56,7 +56,7 @@ class GenreViewModel {
                 types: [Song.self]
             )
             request.limit = 150
-            request.offset = 1
+            request.offset = 0
             
             let result = try await request.response()
             self.wholeData = result.songCharts[0].items.map {
@@ -68,11 +68,11 @@ class GenreViewModel {
             print("========================================================================================================")
             
             
-            result.songCharts[0].items.forEach { song in
-                if song.artwork != nil {
-                    print(song.title, song.albums)
-                }
-            }
+//            result.songCharts[0].items.forEach { song in
+//                if song.artwork != nil {
+//                    print(song.title, song.albums)
+//                }
+//            }
         
         }
     }
