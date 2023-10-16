@@ -116,6 +116,7 @@ class MonthCalendarViewController: BaseViewController {
     func bindData() {
         viewModel.currentSelectedDate.bind { [weak self] _ in
             self?.checkPlusModifyButton()
+            self?.checkShowNoDataView()
         }
     }
     
@@ -130,13 +131,7 @@ class MonthCalendarViewController: BaseViewController {
         view.backgroundColor = Constant.Color.background
         
         bindData()
-        
 
-        
-//        monthView.calendar.setCurrentPage(Date(), animated: true)
-//        monthView.calendar.select(Date())
-//
-//        viewModel.updateSelectedDate(Date())
         
         settingMonthView()
         
@@ -173,6 +168,7 @@ class MonthCalendarViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         checkPlusModifyButton()
+        checkShowNoDataView()
     }
     
 
@@ -362,28 +358,25 @@ extension MonthCalendarViewController {
         }
     }
     
-    
-    
-    // 로직 수정 필요. 새로 만든 함수 사용하기
+    // 기록한 음악이 없습니다 기본 뷰
     func checkShowNoDataView() {
-//        // noDataView 띄워줄지 말지
-//        if viewModel.currentMusicList.value.isEmpty {
-//            // (함수 가져다 쓴다) 선택된 날짜가 오늘이면 true, 오늘이 아니면 false
-//            if viewModel.isCurrentSelectedDateToday() {
-//
-//            }
-//
-//            monthView.noDataViewToday.isHidden
-//            monthView.noDataViewPastDay.isHidden
-//
-//            viewModel.showModifyButton { [weak self] value in
-//                self?.monthView.noDataViewToday.isHidden = !value
-//                self?.monthView.noDataViewPastDay.isHidden = value
-//            }
-//        } else {
-//            monthView.noDataViewToday.isHidden = true
-//            monthView.noDataViewPastDay.isHidden = true
-//        }
+        // 1. 선택한 날짜에 데이터가 없는지
+        // 2. 선택한 날짜가 오늘 날짜인지
+        
+        // 위 함수(plus, modify button)과 동일한 시점에 실행시켜주기
+        
+        if !viewModel.isCurrentSelectedDateHaveData() {
+            if viewModel.isCurrentSelectedDateToday() {
+                monthView.noDataViewToday.isHidden = false
+                monthView.noDataViewPastDay.isHidden = true
+            } else {
+                monthView.noDataViewToday.isHidden = true
+                monthView.noDataViewPastDay.isHidden = false
+            }
+        } else {
+            monthView.noDataViewToday.isHidden = true
+            monthView.noDataViewPastDay.isHidden = true
+        }
     }
 }
 
