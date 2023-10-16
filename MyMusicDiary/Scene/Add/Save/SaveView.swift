@@ -47,6 +47,8 @@ class SaveView: BaseView {
         let view = UILabel()
         view.text = "장르별 음악"
         view.font = .boldSystemFont(ofSize: 18)
+        
+//        view.backgroundColor = .blue
         return view
     }()
     lazy var genreCollectionView = {
@@ -57,6 +59,8 @@ class SaveView: BaseView {
 
         view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
         
+        
+//        view.backgroundColor = .black
         return view
     }()
     
@@ -64,6 +68,8 @@ class SaveView: BaseView {
         let view = UILabel()
         view.text = "몇월 며칠의 음악 기록"
         view.font = .boldSystemFont(ofSize: 18)
+        
+//        view.backgroundColor = .blue
         return view
     }()
     lazy var helpButton = {
@@ -74,8 +80,11 @@ class SaveView: BaseView {
     }()
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.isScrollEnabled = false
         view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
+        
+//        view.backgroundColor = .black
         return view
     }()
     
@@ -137,24 +146,24 @@ class SaveView: BaseView {
         genreCollectionView.snp.makeConstraints { make in
             make.top.equalTo(genreChartLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(contentView)
-            make.height.equalTo(80)
+            make.height.equalTo(50)
         }
         
-        // 오늘의 음악
+        // 몇월 며칠의 음악
         todayMusicLabel.snp.makeConstraints { make in
             make.top.equalTo(genreCollectionView.snp.bottom).offset(30)
             make.leading.equalTo(self).inset(18)
         }
         helpButton.snp.makeConstraints { make in
             make.leading.equalTo(todayMusicLabel.snp.trailing).offset(-8)
-            make.height.equalTo(todayMusicLabel)
-            make.width.equalTo(helpButton.snp.height)
+            make.height.equalTo(65)
+            make.width.equalTo(65)
             make.centerY.equalTo(todayMusicLabel)
         }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(todayMusicLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(self).inset(18)
-            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.bottom.equalTo(contentView).inset(12)
         }
         
         
@@ -173,7 +182,7 @@ extension SaveView {
        let width = UIScreen.main.bounds.width - 32
        
        layout.itemSize = CGSize(width: width, height: 120)
-       layout.sectionInset = UIEdgeInsets(top: 5, left: 18, bottom: 5, right: 18)
+       layout.sectionInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
        
        return layout
    }
