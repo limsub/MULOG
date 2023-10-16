@@ -13,18 +13,38 @@ class Sample {
     var a = -7
 }
 
+enum SaveType {
+    case modifyData
+    case addData
+}
+
 class SaveViewModel {
+    
+    // 전달받을 데이터 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
+    var saveType: SaveType? // 1.
+    var preMusicList: Observable<[MusicItem]> = Observable([]) // 2.
+    var currentDate: Date?  // 3.
+    
+    
     
     let repository = MusicItemTableRepository()
     
     var musicList: Observable<[MusicItem]> = Observable([])
     
-    var preMusicList: Observable<[MusicItem]> = Observable([])
+    
     
     let genreList: [GenreType] = [.kpop, .pop, .ost, .hiphop, .rb]
     
     func numberOfItems() -> Int {
         return musicList.value.count
+    }
+    
+    
+    
+    
+    // 값전달로 받은 preMusicList를 그대로 musicList에 저장
+    func updateMusicList() {
+        musicList.value = preMusicList.value
     }
     
 

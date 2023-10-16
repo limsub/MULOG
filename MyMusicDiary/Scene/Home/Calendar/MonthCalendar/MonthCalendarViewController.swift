@@ -70,6 +70,12 @@ class MonthCalendarViewController: BaseViewController {
                 }
             case .authorized:
                 let vc = SaveViewController()
+                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
+                vc.viewModel.saveType = .addData        // 1
+                vc.viewModel.preMusicList.value = []    // 2
+                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
+                
+                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
                 vc.delegate = self
                 navigationController?.pushViewController(vc, animated: true)
             @unknown default:
@@ -92,13 +98,13 @@ class MonthCalendarViewController: BaseViewController {
                 }
             case .authorized:
                 let vc = SaveViewController()
+                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
+                vc.viewModel.saveType = .modifyData        // 1
+                vc.viewModel.preMusicList.value = viewModel.currentMusicList.value.map { MusicItem($0) }    // 2
+                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
+                
+                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
                 vc.delegate = self
-                
-                // 수정할 musicitem들 전달. 타입 변환해서 전달 (MusicItemTable -> MusicItem)
-                viewModel.currentMusicList.value.forEach { item in
-                    vc.viewModel.preMusicList.value.append(MusicItem(item))
-                }
-                
                 navigationController?.pushViewController(vc, animated: true)
             @unknown default:
                 break
@@ -259,7 +265,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     
     
     
-
+    /* 셀을 선택할 때 배경색 변화시켜주는 로직 */
     // 방법 1
     // selectedDate 변수를 하나 만들고, 셀을 클릭하면 그 날로 값을 업데이트함
     // cellFor에서 selectedDate인 셀만 alpha를 1로 주고, 나머지는 0.5로 줌

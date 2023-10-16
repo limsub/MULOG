@@ -128,7 +128,27 @@ class SaveViewController: BaseViewController {
         let vc = HelpPageViewController()
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
+    }
+    
+    
+    func settingNavigation() {
+        switch viewModel.saveType {
+        case .addData:
+            navigationItem.title = "음악 기록하기"
+        case .modifyData:
+            navigationItem.title = "음악 수정하기"
+        default:
+            navigationItem.title = "음악 기록"
+        }
         
+        navigationItem.largeTitleDisplayMode = .never
+        
+        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    func settingScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
     }
     
     
@@ -136,38 +156,16 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        navigationItem.title = "음악 기록"
-        navigationItem.largeTitleDisplayMode = .never
-
+        settingNavigation()
+        settingScrollView()
         
         
+        viewModel.updateMusicList()
         
-        
-        scrollView.showsVerticalScrollIndicator = false
-        
-        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
-        navigationItem.rightBarButtonItem = saveButton
-        
-        
-        
-        
-        
-        
-        
-        viewModel.musicList.value = viewModel.preMusicList.value
-        
-        print("1111111", viewModel.musicList.value)
-        print("2222222", viewModel.preMusicList.value)
-        collectionView.reloadData()
-        
-//        navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(funcName))
-////        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        collectionView.reloadData() // 이건 왜 하고 있는거냐
     }
     
-//    @objc func funcName(_ recognizer: UIGestureRecognizer) {
-//        print("state: \(recognizer.state.rawValue)")
-//    }
-    
+
 
     
     @objc
