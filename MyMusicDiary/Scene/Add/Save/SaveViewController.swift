@@ -81,6 +81,10 @@ class SaveViewController: BaseViewController {
             return
         }
         
+        // 만약 이전 날짜의 데이터를 수정하려고 들어왔으면 alert
+        if viewModel.impossibleAddMusic() {
+            showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
+        }
         
         // 아니면
         let vc = SearchViewController()
@@ -206,6 +210,10 @@ extension SaveViewController: UICollectionViewDelegate {
             if viewModel.numberOfItems() >= 3 {
                 showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
                 return
+            }
+            
+            if viewModel.impossibleAddMusic() {
+                showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
             }
             
             

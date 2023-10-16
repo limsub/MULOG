@@ -10,7 +10,7 @@ import Foundation
 class Sample {
     static let shared = Sample()
     
-    var a = -7
+    var a = -20
 }
 
 enum SaveType {
@@ -39,6 +39,15 @@ class SaveViewModel {
         return musicList.value.count
     }
     
+    // '이전 날짜'의 데이터를 '수정'하러 들어온 상태인지 확인 -> 곡 추가 불가
+    func impossibleAddMusic() -> Bool {
+        if currentDate?.toString(of: .full) != Date().toString(of: .full)
+            && saveType == .modifyData {
+            return true
+        }
+        
+        return false
+    }
     
     
     
@@ -63,7 +72,6 @@ class SaveViewModel {
         duplicationCompletionHandler: () -> Void
     ) {
         print("===== 저장 버튼이 클릭되었습니다 =====")
-        
     
         // 1. musicList가 빈 배열인지 확인
         if musicList.value.isEmpty {
@@ -95,6 +103,7 @@ class SaveViewModel {
                     
                     print("===== 함수 종료 =====")
                     //다 지웠으면 더 추가할 곡이 없기 때문에 나가자
+                    RealmDataModified.shared.modifyProperty.value.toggle()
                     popViewCompletionHandler()
                     return
                 },
@@ -147,6 +156,11 @@ class SaveViewModel {
             print("데이터를 추가합니다")
             let newTable = DayItemTable(day: date)
             
+//            let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
+//            print("데이터 추가===============\(a)")
+//            let newTable = DayItemTable(day: a)
+//            Sample.shared.a += 2
+            
             musicList.value.forEach {
                 
                 
@@ -154,11 +168,13 @@ class SaveViewModel {
                     // 기존에 저장했던 음악
                     repository.plusCnt(alreadyMusic)
                     repository.plusDate(alreadyMusic, today: date)
+//                repository.plusDate(alreadyMusic, today: a)
                     repository.appendMusicItem(newTable, musicItem: alreadyMusic)
                 } else {
                     // 새롭게 저장하는 음악
                     let newMusic = MusicItemTable(musicItem: $0)
                     newMusic.dateList.append(date.toString(of: .full))
+//                newMusic.dateList.append(a.toString(of: .full))
                     repository.appendMusicItem(newTable, musicItem: newMusic)
                     
                 }
@@ -171,6 +187,7 @@ class SaveViewModel {
             }
             repository.createDayItem(newTable)
     
+            // 데이터가 변했으므로, PagerView에 알려주기 위해 토글한다
             RealmDataModified.shared.modifyProperty.value.toggle()
             
             popViewCompletionHandler()
