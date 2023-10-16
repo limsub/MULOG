@@ -12,9 +12,19 @@ class NotificationRepository {
     
     static let shared = NotificationRepository()
     
-    let repository = MusicItemTableRepository()
-    
     let content = UNMutableNotificationContent()
+    
+    func printCurrentNotificationList() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                for request in requests {
+                    print("Identifier: \(request.identifier)")
+                    print("Title: \(request.content.title)")
+                    print("Body: \(request.content.body)")
+                    print("Trigger: \(String(describing: request.trigger))")
+                    print("---")
+                }
+            }
+    }
 
     func delete(_ date: Date) {
         
@@ -48,11 +58,6 @@ class NotificationRepository {
         print("새로운 알림 리스트를 등록합니다. 시간은 \(hour)시 \(minute)분 입니다")
         for i in 0...59 {
             
-            if i == 0 && repository.fetchDay(Date()) != nil {
-                // 여기서! 오늘 일기는 이미 작성했을 때, 오늘 알림은 빼줘야 한다!!!
-                continue
-            }
-            
             guard let notiDay = Calendar.current.date(byAdding: .day, value: i, to: Date()) else { continue }
             let notiDayComponent = Calendar.current.dateComponents([.day, .month, .year], from: notiDay)
             
@@ -76,19 +81,29 @@ class NotificationRepository {
                 trigger: trigger
             )
 //            
-            print(component.month, component.day, identifier)
+//            print(component.month, component.day, identifier)
             
             UNUserNotificationCenter.current().add(request) { error in
-//                print(error)
+//                print("알림 추가 에러: ", error)
             }
-            
         }
-        
+        print("알림 추가 done")
     }
     
+    func checkSystemSetting() -> Bool {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
+            print(success)
+        }
+        
+        return true
+    }
     
+    // 이걸 굳이 shared 안에 넣기가 좀 그렇다. 요 안에서 shared.updateNotification을 실행시켜야 함..
+    // failure 용으로 쓰는 곳 하나 있어서 일단 둔다
     func checkSystemSetting(_ successCompletionHandler: @escaping () -> Void, failureCompletionHandler: @escaping () -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
+            
+            print("현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
             
             if success {
                 successCompletionHandler()

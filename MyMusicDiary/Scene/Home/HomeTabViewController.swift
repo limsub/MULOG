@@ -43,16 +43,6 @@ class HomeTabViewController: UITabBarController {
         super.viewDidLoad()
         
         
-//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-//
-//            print(requests)
-//        }
-        
-//        NotificationRepository.shared.updateNotifications()
-        
-        
         view.backgroundColor = .clear
         
         GenreDataModel.shared.fetchGenreChart {

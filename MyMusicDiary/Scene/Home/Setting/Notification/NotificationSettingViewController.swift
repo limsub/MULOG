@@ -12,17 +12,27 @@ import UserNotifications
 
 class NotificationSettingViewController: BaseViewController {
     
+    let repository = MusicItemTableRepository()
+    
     let settingView = NotificationSettingListView()
     let timeView = NotificationTimeView()
     
     @objc
     func timeChanged(_ sender: UIDatePicker) {
         
-        print("원하는 시간을 바꿨습니다. 새로운 알림을 등록할 예정입니다")
+        print("원하는 시간을 바꿨습니다. 새로운 알림을 등록합니다")
         let time = sender.date.toString(of: .hourMinute)
         UserDefaults.standard.set(time, forKey: NotificationUserDefaults.time.key)
         
         NotificationRepository.shared.updateNotifications()
+        
+        print("알림 추가가 끝나고, 오늘 데이터가 있는지 확인합니다")
+        if repository.fetchDay(Date()) != nil {
+            print("오늘은 이미 기록한 데이터가 있습니다. 알림을 삭제합니다")
+            NotificationRepository.shared.delete(Date())
+        } else {
+            print("오늘 기록한 데이터가 없기 때문에, 따로 삭제하지 않습니다")
+        }
     }
     
     override func viewDidLoad() {
@@ -96,42 +106,91 @@ class NotificationSettingViewController: BaseViewController {
     @objc
     func switchClicked(_ sender: UISwitch) {
         
-        NotificationRepository.shared.checkSystemSetting {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
+            
             DispatchQueue.main.async {
-                if sender.isOn {
-                    print("켜집니다아아아")
-                    self.timeView.isHidden = false
+                if success {
+                    print("권한이 허용되어 있습니다")
                     
-                    // 새로운 알림 업데이트
-                    print("알림 설정 스위치를 작동했습니다. 새로운 알림을 등록할 예정입니다")
-                    NotificationRepository.shared.updateNotifications()
-                    
-                    UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
-                } else {
-                    print("꺼집니다")
-                    self.timeView.isHidden = true
-                    
-                    // 기존 알림 모두 제거
-                    print("알림 설정 스위치를 해제했습니다. 기존의 알림들의 모두 제거됩니다")
-                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                    
-                    UserDefaults.standard.set(false, forKey: NotificationUserDefaults.isAllowed.key)
-                }
-            }
-        } failureCompletionHandler: {
-            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-
-            DispatchQueue.main.async {
-                self.showAlert("시스템 알림 설정이 해제되어 있습니다", message: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요", okTitle: "설정으로 이동") {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
+                    if sender.isOn {
+                        print("스위치가 켜집니다")
+                        self.timeView.isHidden = false
+                        
+                        print("새로운 알림을 등록하는 updateNotification 함수 실행")
+                        NotificationRepository.shared.updateNotifications()
+                        UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
+                        
+                        print("알림 추가가 끝나고, 오늘 데이터가 있는지 확인합니다")
+                        if self.repository.fetchDay(Date()) != nil {
+                            print("오늘은 이미 기록한 데이터가 있습니다. 알림을 삭제합니다")
+                            NotificationRepository.shared.delete(Date())
+                        } else {
+                            print("오늘 기록한 데이터가 없기 때문에, 따로 삭제하지 않습니다")
+                        }
+                        
+                    } else {
+                        print("스위치가 꺼집니다")
+                        self.timeView.isHidden = true
+                        print("기존의 알림들을 모두 제거합니다. 새로운 알림은 추가되지 않습니다")
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        UserDefaults.standard.set(false, forKey: NotificationUserDefaults.isAllowed.key)
                     }
+                    
+                    
+                } else {
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    print("권한이 허용되어 있지 않습니다. 시스템 설정으로 갈 수 있는 얼럿을 띄우겠습니다")
+                    self.showAlert("시스템 알림 설정이 해제되어 있습니다", message: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요", okTitle: "설정으로 이동") {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    
+                    sender.setOn(false, animated: true)
+                    
                 }
-        
-                sender.setOn(false, animated: true)
             }
             
+            
         }
+        
+//        NotificationRepository.shared.checkSystemSetting {
+//            DispatchQueue.main.async {
+//                if sender.isOn {
+//                    print("현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
+//                    print("켜집니다아아아")
+//                    self.timeView.isHidden = false
+//
+//                    // 새로운 알림 업데이트
+//                    print("알림 설정 스위치를 작동했습니다. 새로운 알림을 등록할 예정입니다")
+//                    NotificationRepository.shared.updateNotifications()
+//
+//                    UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
+//                } else {
+//                    print("꺼집니다")
+//                    self.timeView.isHidden = true
+//
+//                    // 기존 알림 모두 제거
+//                    print("알림 설정 스위치를 해제했습니다. 기존의 알림들의 모두 제거됩니다")
+//                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//
+//                    UserDefaults.standard.set(false, forKey: NotificationUserDefaults.isAllowed.key)
+//                }
+//            }
+//        } failureCompletionHandler: {
+//            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+//
+//            DispatchQueue.main.async {
+//                self.showAlert("시스템 알림 설정이 해제되어 있습니다", message: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요", okTitle: "설정으로 이동") {
+//                    if UIApplication.shared.canOpenURL(url) {
+//                        UIApplication.shared.open(url)
+//                    }
+//                }
+//
+//                sender.setOn(false, animated: true)
+//            }
+//
+//        }
     }
     
 }
