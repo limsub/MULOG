@@ -20,6 +20,10 @@ protocol UpdateDataDelegate: AnyObject {
 }
 
 
+enum helpView: String {
+    case showHelpView
+}
+
 class SaveViewController: BaseViewController {
     
     weak var delegate: ReloadProtocol?
@@ -97,6 +101,7 @@ class SaveViewController: BaseViewController {
     func helpButtonClicked() {
         
         let vc = HelpPageViewController()
+        vc.helpShowType = .selectButton
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
@@ -145,6 +150,16 @@ class SaveViewController: BaseViewController {
         viewModel.updateMusicList()
         
         saveView.collectionView.reloadData() // 이건 왜 하고 있는거냐
+        
+        
+        // userdefaults 확인해서 helpView 처음에 띄워주고, 다시 보지 않기 체크하면 UserDefaults값 바꿔준다
+        
+        if !UserDefaults.standard.bool(forKey: helpView.showHelpView.rawValue) {
+            let vc = HelpPageViewController()
+            vc.helpShowType = .firstTime
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true)
+        }
     }
     
 

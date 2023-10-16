@@ -15,6 +15,13 @@ enum HelpType {
     case delete
 }
 
+// 도움말 화면이 나오게 된 이유 -> 다시 보지 않기 버튼 히든처리해주기 위함
+enum HelpShowType {
+    case firstTime  // 첫 화면에 뜸
+    case selectButton   // 도움말 버튼 눌러서 뜸
+}
+
+
 // 버튼에 대한 액션을 pageViewController에서 해주기 위함. (화면전환, dismiss)
 protocol NextPageProtocol: AnyObject {
     func goNext(_ current: HelpType)
@@ -27,11 +34,11 @@ class HelpPageViewController: UIViewController {
     
     var list = [HelpAlertViewController(), HelpAlertViewController(), HelpAlertViewController()]
     
+    var helpShowType: HelpShowType = .firstTime
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .clear
+        view.backgroundColor = .black.withAlphaComponent(0.5)
         
         list[0].type = .drag
         list[1].type = .representative
@@ -39,6 +46,15 @@ class HelpPageViewController: UIViewController {
         
         list.forEach { item in
             item.nextPageDelegate = self
+            
+            switch helpShowType {
+            case .firstTime:
+                item.neverSeeButton.isHidden = false
+                item.lineView.isHidden = false
+            case .selectButton:
+                item.neverSeeButton.isHidden = true
+                item.lineView.isHidden = true
+            }
         }
         
         guard let first = list.first else { return }

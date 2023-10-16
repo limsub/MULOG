@@ -66,6 +66,7 @@ class HelpAlertView: BaseView {
         return view
     }()
     
+
     
     convenience init(type: HelpType?) {
         self.init()

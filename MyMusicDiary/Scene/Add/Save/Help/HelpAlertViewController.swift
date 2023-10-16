@@ -9,9 +9,9 @@ import UIKit
 
 
 
-
 class HelpAlertViewController: BaseViewController {
     
+
     var nextPageDelegate: NextPageProtocol?
     
     var type: HelpType?
@@ -19,29 +19,53 @@ class HelpAlertViewController: BaseViewController {
     lazy var alertView = HelpAlertView(type: type!)
     
     
+    lazy var neverSeeButton = {
+        let view = UIButton()
+        view.setTitle("다시 보지 않기", for: .normal)
+        view.setTitleColor(.lightGray, for: .normal)
+        view.addTarget(self, action: #selector(neverSeeButtonClicked), for: .touchUpInside)
+        return view
+    }()
+    let lineView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelected))
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelected))
+        
         
         view.addSubview(alertView)
+        view.addSubview(neverSeeButton)
+        view.addSubview(lineView)
         alertView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.horizontalEdges.equalTo(view).inset(40)
             make.top.equalTo(view).inset(150)
             make.height.equalTo(view).multipliedBy(0.65)
         }
+        neverSeeButton.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.top.equalTo(alertView.snp.bottom).offset(4)
+        }
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(neverSeeButton.snp.bottom).offset(0)
+            make.centerX.equalTo(view)
+            make.width.equalTo(neverSeeButton)
+            make.height.equalTo(1)
+        }
         
         alertView.layer.cornerRadius = 20
         
         alertView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+
+//        view.addGestureRecognizer(tapGestureRecognizer)
         
-        view.backgroundColor = .black.withAlphaComponent(0.5)
-        
-        view.addGestureRecognizer(tapGestureRecognizer)
-        
-        
+
         switch type {
         case .drag:
             alertView.representLabel.isHidden = true
@@ -82,6 +106,12 @@ class HelpAlertViewController: BaseViewController {
     @objc
     func nextButtonClicked() {
         nextPageDelegate?.goNext(type!)
+    }
+    
+    @objc
+    func neverSeeButtonClicked() {
+        UserDefaults.standard.set(true, forKey: helpView.showHelpView.rawValue)
+        nextPageDelegate?.dismiss()
     }
     
 }
