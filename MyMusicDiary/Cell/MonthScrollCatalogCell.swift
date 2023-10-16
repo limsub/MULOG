@@ -134,6 +134,14 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         view.font = .boldSystemFont(ofSize: 18)
         return view
     }()
+    let countRecordLabel = {
+        let view = UILabel()
+        view.text = "record"
+        view.textColor = .lightGray
+        view.font = .boldSystemFont(ofSize: 12)
+        view.textAlignment = .center
+        return view
+    }()
     
     
     override func setConfigure() {
@@ -153,8 +161,9 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         backView.addSubview(genre3Label)
         
         backView.addSubview(countBackView)
-        countBackView.addSubview(countImageView)
+//        countBackView.addSubview(countImageView)
         countBackView.addSubview(countLabel)
+        countBackView.addSubview(countRecordLabel)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -221,15 +230,19 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
             make.verticalEdges.trailing.equalTo(backView)
             make.width.equalTo(contentView).multipliedBy(0.2)
         }
-        countImageView.snp.makeConstraints { make in
+//        countImageView.snp.makeConstraints { make in
+//            make.centerY.equalTo(countBackView).offset(-12)
+//            make.centerX.equalTo(countBackView).offset(8)
+//            make.width.equalTo(countBackView).multipliedBy(0.35)
+//            make.height.equalTo(countImageView.snp.width)
+//        }
+        countLabel.snp.makeConstraints { make in
             make.centerY.equalTo(countBackView).offset(-12)
             make.centerX.equalTo(countBackView).offset(8)
-            make.width.equalTo(countBackView).multipliedBy(0.35)
-            make.height.equalTo(countImageView.snp.width)
         }
-        countLabel.snp.makeConstraints { make in
-            make.top.equalTo(countImageView.snp.bottom)
-            make.centerX.equalTo(countBackView).offset(8)
+        countRecordLabel.snp.makeConstraints { make in
+            make.top.equalTo(countLabel.snp.bottom).offset(4)
+            make.centerX.equalTo(countLabel)
         }
         
     }
@@ -279,11 +292,12 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
             }
         }
         
-        
         countLabel.text = "\(sender.count)"
-        
-//        backView.backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(sender.backgroundColors[0]), green: CGFloat(sender.backgroundColors[1]), blue: CGFloat(sender.backgroundColors[2]), alpha: CGFloat(sender.backgroundColors[3]))).withAlphaComponent(0.2)
-        
+        if sender.count > 2 {
+            countRecordLabel.text = "records"
+        } else {
+            countRecordLabel.text = "record"
+        }
     }
     
     override func prepareForReuse() {
