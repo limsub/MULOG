@@ -17,6 +17,8 @@ extension UIViewController {
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
+        
+        
         alert.addAction(cancel)
         alert.addAction(ok)
         
@@ -33,6 +35,24 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
+    
+    func showAlertTwoCases(_ title: String, message: String, okCompletionHandler: @escaping () -> Void, cancelCompletionHandler: @escaping () -> Void) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+            okCompletionHandler()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
+            cancelCompletionHandler()
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        
+        present(alert, animated: true)
+        
+    }
     
     
  

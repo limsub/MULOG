@@ -24,98 +24,10 @@ class SaveViewController: BaseViewController {
     
     weak var delegate: ReloadProtocol?
 
+    /* 뷰모델 */
     let viewModel = SaveViewModel()
     
-    
-    // 10/11 UI 수정
-//    let scrollView = UIScrollView()
-//    let contentView = UIView()
-//
-//    let searchMusicLabel = {
-//        let view = UILabel()
-//        view.text = "음악 검색"
-//        view.font = .boldSystemFont(ofSize: 18)
-//        return view
-//    }()
-//    let searchBar = {
-//        let view = UISearchBar()
-//        view.isUserInteractionEnabled = false
-//        view.placeholder = "오늘 들었던 음악을 검색하세요"
-//        view.layer.borderColor = UIColor.white.cgColor
-//        view.layer.borderWidth = 2
-//        view.backgroundColor = .clear
-//        return view
-//    }()
-//    lazy var fakeButton = {
-//        let view = UIButton()
-//        view.backgroundColor = .clear
-//        view.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
-//        return view
-//    }()
-//
-//    let genreChartLabel = {
-//        let view = UILabel()
-//        view.text = "장르별 음악"
-//        view.font = .boldSystemFont(ofSize: 18)
-//        return view
-//    }()
-//    lazy var genreCollectionView = {
-//        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
-//
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.showsHorizontalScrollIndicator = false
-//
-//        view.delegate = self
-//        view.dataSource = self
-//
-//        view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
-//
-//        return view
-//    }()
-//
-//    let todayMusicLabel = {
-//        let view = UILabel()
-//        view.text = "오늘의 음악 기록"
-//        view.font = .boldSystemFont(ofSize: 18)
-//        return view
-//    }()
-//    lazy var helpButton = {
-//        let view = UIButton()
-//
-//        view.imageEdgeInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
-//
-//
-//        view.setImage(UIImage(named: "question"), for: .normal)
-//        view.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
-//        return view
-//    }()
-//    lazy var collectionView = {
-//        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
-//
-//        view.isScrollEnabled = false
-//
-//        view.delegate = self
-//        view.dataSource = self
-//        view.dragDelegate = self
-//        view.dropDelegate = self
-//        view.dragInteractionEnabled = true
-//
-//        view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
-//        return view
-//    }()
-//
-//
-//
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    /* 뷰 */
     let saveView = SaveView()
     
     /* setting */
@@ -152,8 +64,11 @@ class SaveViewController: BaseViewController {
     }
     
     func settingScrollView() {
-        
+        saveView.todayMusicLabel.text = viewModel.makeDateLabelString()
     }
+    
+    /* bind */
+    
     
     
     
@@ -182,25 +97,32 @@ class SaveViewController: BaseViewController {
         present(vc, animated: true)
     }
     
-    
     @objc
     func saveButtonClicked() {
-        print("데이터가 저장됩니다")
-        print(viewModel.musicList.value)
         
-        viewModel.addNewData {
-            self.showSingleAlert("한 개 이상의 곡을 선택해야 저장이 가능합니다", message: "곡을 선택해주세요")
-        } duplicationCompletionHandler: {
-            self.showSingleAlert("같은 곡을 두 개 이상 저장할 수 없습니다", message: "중복되는 곡을 삭제해주세요")
+        // ===== 새로 짠 로직 =====
+        viewModel.saveButtonClicked { [weak self] okClosure, cancelClosure in
+            
+            self?.showAlertTwoCases("선택한 곡이 없습니다", message: "이대로 저장하시겠습니까?") {
+                okClosure()
+            } cancelCompletionHandler: {
+                cancelClosure()
+            }
+        } popViewCompletionHandler: { [weak self] in
+            self?.delegate?.update()  // 캘린더뷰 + 컬렉션뷰 리로드
+            self?.navigationController?.popViewController(animated: true)
+        } duplicationCompletionHandler: { [weak self] in
+            self?.showSingleAlert("같은 곡을 두 개 이상 저장할 수 없습니다", message: "중복되는 곡을 삭제해주세요")
         }
-
+        // =====================
         
-        NotificationRepository.shared.delete(Date())
+        // 오늘 날짜이고, 데이터가 비어있지 않을 때, 오늘 날짜에 대한 알림을 제거한다
         
-        delegate?.update()  // 캘린더뷰 + 컬렉션뷰 리로드
         
-        navigationController?.popViewController(animated: true)
-
+        
+        // 기존 로직에서 알림 제거, navigation pop을 아예 다 뷰모델 안에서 처리한다
+//        NotificationRepository.shared.delete(Date())
+//        navigationController?.popViewController(animated: true)
     }
  
     
@@ -215,7 +137,6 @@ class SaveViewController: BaseViewController {
         settingSaveView()
         settingNavigation()
         settingScrollView()
-        
         
         viewModel.updateMusicList()
         

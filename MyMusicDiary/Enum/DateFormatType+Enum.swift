@@ -26,6 +26,7 @@ enum DateFormatType: String {
     case fullSlashWithSingleMonthAndYoil = "yyyy/M/dd (EEE)"
     
     case fullKorean = "yyyy년 M월 dd일"
+    case monthYearKorean = "M월 dd일"
     
     
     case hour = "HH"
