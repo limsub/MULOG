@@ -25,12 +25,6 @@
 		4812D5302AC3BBB200E7C6A4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */; };
 		4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */; };
 		4812D5352AC3D42200E7C6A4 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = 4812D5342AC3D42200E7C6A4 /* Tabman */; };
-		4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */; };
-		4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */; };
-		4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */; };
-		4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */; };
-		4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D53E2AC3D62500E7C6A4 /* Genre4ViewController.swift */; };
-		4812D5412AC3D62B00E7C6A4 /* Genre5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5402AC3D62B00E7C6A4 /* Genre5ViewController.swift */; };
 		4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */; };
 		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
 		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
@@ -42,8 +36,6 @@
 		483790462ACA9046003AC436 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790452ACA9046003AC436 /* UIColor+Extension.swift */; };
 		483790492ACA9090003AC436 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790482ACA9090003AC436 /* Constant.swift */; };
 		4837904B2ACBA208003AC436 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904A2ACBA208003AC436 /* UIView+Extension.swift */; };
-		4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */; };
-		483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790502ACBA595003AC436 /* Protocol_UpdateData.swift */; };
 		483790542ACBDD45003AC436 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790532ACBDD45003AC436 /* HomeTabViewController.swift */; };
 		4837907E2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */; };
 		483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790812ACD3B40003AC436 /* MonthCalendarView.swift */; };
@@ -69,6 +61,7 @@
 		4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */; };
 		484103922AD6CE21002D56C7 /* HelpPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103912AD6CE21002D56C7 /* HelpPageViewController.swift */; };
 		484103942AD6CE9B002D56C7 /* HelpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */; };
+		485311412ADD1A88008146A9 /* SaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485311402ADD1A88008146A9 /* SaveView.swift */; };
 		488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935552AD666E000E4B0B0 /* NotificationRepository.swift */; };
 		488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */; };
 		4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */; };
@@ -114,12 +107,6 @@
 		4812D52C2AC3B96000E7C6A4 /* SearchCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCatalogCell.swift; sourceTree = "<group>"; };
 		4812D52F2AC3BBB200E7C6A4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4812D5312AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreTabViewController.swift; sourceTree = "<group>"; };
-		4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewController.swift; sourceTree = "<group>"; };
-		4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre2ViewController.swift; sourceTree = "<group>"; };
-		4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre3ViewController.swift; sourceTree = "<group>"; };
-		4812D53E2AC3D62500E7C6A4 /* Genre4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre4ViewController.swift; sourceTree = "<group>"; };
-		4812D5402AC3D62B00E7C6A4 /* Genre5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre5ViewController.swift; sourceTree = "<group>"; };
 		4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDataModel.swift; sourceTree = "<group>"; };
 		4812D5452AC4055E00E7C6A4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
@@ -132,8 +119,6 @@
 		483790452ACA9046003AC436 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		483790482ACA9090003AC436 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		4837904A2ACBA208003AC436 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre1ViewModel.swift; sourceTree = "<group>"; };
-		483790502ACBA595003AC436 /* Protocol_UpdateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_UpdateData.swift; sourceTree = "<group>"; };
 		483790532ACBDD45003AC436 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		4837907D2ACD27FC003AC436 /* MonthCalendarCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarCatalogCell.swift; sourceTree = "<group>"; };
 		483790812ACD3B40003AC436 /* MonthCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarView.swift; sourceTree = "<group>"; };
@@ -159,6 +144,7 @@
 		4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
 		484103912AD6CE21002D56C7 /* HelpPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPageViewController.swift; sourceTree = "<group>"; };
 		484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertViewController.swift; sourceTree = "<group>"; };
+		485311402ADD1A88008146A9 /* SaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveView.swift; sourceTree = "<group>"; };
 		488935552AD666E000E4B0B0 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCatalogCell.swift; sourceTree = "<group>"; };
@@ -266,7 +252,6 @@
 				4841038B2AD6BE34002D56C7 /* Genre */,
 				4812D51C2AC3AC6F00E7C6A4 /* Save */,
 				4812D51D2AC3AC7500E7C6A4 /* Search */,
-				4812D51E2AC3AC7A00E7C6A4 /* GenreChart */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -276,7 +261,7 @@
 			children = (
 				4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */,
 				4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */,
-				483790502ACBA595003AC436 /* Protocol_UpdateData.swift */,
+				485311402ADD1A88008146A9 /* SaveView.swift */,
 				484103902AD6CE09002D56C7 /* Help */,
 			);
 			path = Save;
@@ -289,20 +274,6 @@
 				4812D5212AC3ACA000E7C6A4 /* SearchViewModel.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		4812D51E2AC3AC7A00E7C6A4 /* GenreChart */ = {
-			isa = PBXGroup;
-			children = (
-				4837904C2ACBA3B3003AC436 /* ViewModel */,
-				4812D5362AC3D43A00E7C6A4 /* GenreTabViewController.swift */,
-				4812D5382AC3D61200E7C6A4 /* Genre1ViewController.swift */,
-				4812D53A2AC3D61800E7C6A4 /* Genre2ViewController.swift */,
-				4812D53C2AC3D61F00E7C6A4 /* Genre3ViewController.swift */,
-				4812D53E2AC3D62500E7C6A4 /* Genre4ViewController.swift */,
-				4812D5402AC3D62B00E7C6A4 /* Genre5ViewController.swift */,
-			);
-			path = GenreChart;
 			sourceTree = "<group>";
 		};
 		4812D5252AC3AE7D00E7C6A4 /* Struct */ = {
@@ -388,14 +359,6 @@
 				483790482ACA9090003AC436 /* Constant.swift */,
 			);
 			path = Constant;
-			sourceTree = "<group>";
-		};
-		4837904C2ACBA3B3003AC436 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				4837904D2ACBA3BC003AC436 /* Genre1ViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		483790522ACBDD39003AC436 /* Calendar */ = {
@@ -733,11 +696,8 @@
 				48BA31302AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift in Sources */,
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* UIColor+Extension.swift in Sources */,
-				483790512ACBA595003AC436 /* Protocol_UpdateData.swift in Sources */,
 				483790822ACD3B40003AC436 /* MonthCalendarView.swift in Sources */,
-				4812D5372AC3D43A00E7C6A4 /* GenreTabViewController.swift in Sources */,
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
-				4812D53B2AC3D61800E7C6A4 /* Genre2ViewController.swift in Sources */,
 				483790B22AD137AD003AC436 /* CustomTitleView.swift in Sources */,
 				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
 				483790942ACEA51B003AC436 /* String+Extension.swift in Sources */,
@@ -752,18 +712,14 @@
 				48BA31382AD518E30048AD05 /* NotificationSettingViewController.swift in Sources */,
 				483790A32ACFAB43003AC436 /* MonthChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,
-				4812D53D2AC3D61F00E7C6A4 /* Genre3ViewController.swift in Sources */,
 				4837904B2ACBA208003AC436 /* UIView+Extension.swift in Sources */,
 				483790492ACA9090003AC436 /* Constant.swift in Sources */,
-				4812D5392AC3D61200E7C6A4 /* Genre1ViewController.swift in Sources */,
 				483790842ACD3B7E003AC436 /* BaseView.swift in Sources */,
 				48DC51062ADBF62C00705D4F /* NoDataView.swift in Sources */,
-				4837904E2ACBA3BC003AC436 /* Genre1ViewModel.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */,
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,
 				4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */,
-				4812D5412AC3D62B00E7C6A4 /* Genre5ViewController.swift in Sources */,
 				48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */,
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
@@ -781,8 +737,8 @@
 				484103942AD6CE9B002D56C7 /* HelpAlertViewController.swift in Sources */,
 				483790962ACEA58F003AC436 /* Date+Extension.swift in Sources */,
 				483790A72ACFEFAC003AC436 /* PieChartSideCollectionViewCell.swift in Sources */,
-				4812D53F2AC3D62500E7C6A4 /* Genre4ViewController.swift in Sources */,
 				483790A52ACFDB32003AC436 /* CustomPieChartView.swift in Sources */,
+				485311412ADD1A88008146A9 /* SaveView.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
 				48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,

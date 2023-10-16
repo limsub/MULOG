@@ -95,18 +95,6 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    @objc
-    private func chartButtonClicked() {
-        if !GenreDataModel.shared.genres.isEmpty {  // 장르 데이터를 정상적으로 받아왔을 때 전환 가능
-            let vc = GenreTabViewController()
-            vc.delegate = delegate
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            // 에러 발생 alert
-        }
-    }
-    
-    
     
     // datasource
     private func configureDataSource() {

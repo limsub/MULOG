@@ -14,6 +14,12 @@ protocol ReloadProtocol: AnyObject {
     func update()
 }
 
+// Save 화면의 데이터를 업데이트
+protocol UpdateDataDelegate: AnyObject {
+    func updateMusicList(item: MusicItem)
+}
+
+
 class SaveViewController: BaseViewController {
     
     weak var delegate: ReloadProtocol?
@@ -21,91 +27,137 @@ class SaveViewController: BaseViewController {
     let viewModel = SaveViewModel()
     
     
-    
-    
-    
     // 10/11 UI 수정
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+//    let scrollView = UIScrollView()
+//    let contentView = UIView()
+//
+//    let searchMusicLabel = {
+//        let view = UILabel()
+//        view.text = "음악 검색"
+//        view.font = .boldSystemFont(ofSize: 18)
+//        return view
+//    }()
+//    let searchBar = {
+//        let view = UISearchBar()
+//        view.isUserInteractionEnabled = false
+//        view.placeholder = "오늘 들었던 음악을 검색하세요"
+//        view.layer.borderColor = UIColor.white.cgColor
+//        view.layer.borderWidth = 2
+//        view.backgroundColor = .clear
+//        return view
+//    }()
+//    lazy var fakeButton = {
+//        let view = UIButton()
+//        view.backgroundColor = .clear
+//        view.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
+//        return view
+//    }()
+//
+//    let genreChartLabel = {
+//        let view = UILabel()
+//        view.text = "장르별 음악"
+//        view.font = .boldSystemFont(ofSize: 18)
+//        return view
+//    }()
+//    lazy var genreCollectionView = {
+//        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
+//
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.showsHorizontalScrollIndicator = false
+//
+//        view.delegate = self
+//        view.dataSource = self
+//
+//        view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
+//
+//        return view
+//    }()
+//
+//    let todayMusicLabel = {
+//        let view = UILabel()
+//        view.text = "오늘의 음악 기록"
+//        view.font = .boldSystemFont(ofSize: 18)
+//        return view
+//    }()
+//    lazy var helpButton = {
+//        let view = UIButton()
+//
+//        view.imageEdgeInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
+//
+//
+//        view.setImage(UIImage(named: "question"), for: .normal)
+//        view.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
+//        return view
+//    }()
+//    lazy var collectionView = {
+//        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
+//
+//        view.isScrollEnabled = false
+//
+//        view.delegate = self
+//        view.dataSource = self
+//        view.dragDelegate = self
+//        view.dropDelegate = self
+//        view.dragInteractionEnabled = true
+//
+//        view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
+//        return view
+//    }()
+//
+//
+//
     
-    let searchMusicLabel = {
-        let view = UILabel()
-        view.text = "음악 검색"
-        view.font = .boldSystemFont(ofSize: 18)
-        return view
-    }()
-    let searchBar = {
-        let view = UISearchBar()
-        view.isUserInteractionEnabled = false
-        view.placeholder = "오늘 들었던 음악을 검색하세요"
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 2
-        view.backgroundColor = .clear
-        return view
-    }()
-    lazy var fakeButton = {
-        let view = UIButton()
-        view.backgroundColor = .clear
-        view.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
-        return view
-    }()
     
-    let genreChartLabel = {
-        let view = UILabel()
-        view.text = "장르별 음악"
-        view.font = .boldSystemFont(ofSize: 18)
-        return view
-    }()
-    lazy var genreCollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
+    
+    
+    
+    
+    
+    
+    
+    
+    let saveView = SaveView()
+    
+    /* setting */
+    func settingSaveView() {
+        saveView.fakeButton.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.showsHorizontalScrollIndicator = false
+        saveView.genreCollectionView.delegate = self
+        saveView.genreCollectionView.dataSource = self
         
-        view.delegate = self
-        view.dataSource = self
+        saveView.helpButton.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
         
-        view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
+        saveView.collectionView.delegate = self
+        saveView.collectionView.dataSource = self
+        saveView.collectionView.dragDelegate = self
+        saveView.collectionView.dropDelegate = self
+        saveView.collectionView.dragInteractionEnabled = true
         
-        return view
-    }()
+    }
     
-    let todayMusicLabel = {
-        let view = UILabel()
-        view.text = "오늘의 음악 기록"
-        view.font = .boldSystemFont(ofSize: 18)
-        return view
-    }()
-    lazy var helpButton = {
-        let view = UIButton()
+    func settingNavigation() {
+        switch viewModel.saveType {
+        case .addData:
+            navigationItem.title = "음악 기록하기"
+        case .modifyData:
+            navigationItem.title = "음악 수정하기"
+        default:
+            navigationItem.title = "음악 기록"
+        }
         
-        view.imageEdgeInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
-         
+        navigationItem.largeTitleDisplayMode = .never
         
-        view.setImage(UIImage(named: "question"), for: .normal)
-        view.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
-        return view
-    }()
-    lazy var collectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
+        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+        navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    func settingScrollView() {
         
-        view.isScrollEnabled = false
-
-        view.delegate = self
-        view.dataSource = self
-        view.dragDelegate = self
-        view.dropDelegate = self
-        view.dragInteractionEnabled = true
-        
-        view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
-        return view
-    }()
+    }
     
     
     
-    
-    
-    
+    /* addTarget function */
     @objc
     func searchBarClicked() {
         // 만약 이미 3개를 등록했으면 alert
@@ -131,43 +183,6 @@ class SaveViewController: BaseViewController {
     }
     
     
-    func settingNavigation() {
-        switch viewModel.saveType {
-        case .addData:
-            navigationItem.title = "음악 기록하기"
-        case .modifyData:
-            navigationItem.title = "음악 수정하기"
-        default:
-            navigationItem.title = "음악 기록"
-        }
-        
-        navigationItem.largeTitleDisplayMode = .never
-        
-        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
-        navigationItem.rightBarButtonItem = saveButton
-    }
-    
-    func settingScrollView() {
-        scrollView.showsVerticalScrollIndicator = false
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        
-        settingNavigation()
-        settingScrollView()
-        
-        
-        viewModel.updateMusicList()
-        
-        collectionView.reloadData() // 이건 왜 하고 있는거냐
-    }
-    
-
-
-    
     @objc
     func saveButtonClicked() {
         print("데이터가 저장됩니다")
@@ -187,95 +202,28 @@ class SaveViewController: BaseViewController {
         navigationController?.popViewController(animated: true)
 
     }
+ 
     
-    @objc
-    func buttonClicked() {
-        print("디비에 저장된 데이터입니다")
-
-        let vc = SearchViewController()
-        vc.delegate = self
-        navigationController?.pushViewController(vc, animated: true)
+    override func loadView() {
+        self.view = saveView
     }
     
-    override func setConfigure() {
-        super.setConfigure()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        settingSaveView()
+        settingNavigation()
+        settingScrollView()
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
         
-        contentView.addSubview(searchMusicLabel)
-        contentView.addSubview(searchBar)
-        contentView.addSubview(fakeButton)
-        contentView.addSubview(genreChartLabel)
-        contentView.addSubview(genreCollectionView)
-        contentView.addSubview(todayMusicLabel)
-        contentView.addSubview(helpButton)
-        contentView.addSubview(collectionView)
+        viewModel.updateMusicList()
         
+        saveView.collectionView.reloadData() // 이건 왜 하고 있는거냐
     }
     
-    override func setConstraints() {
-        super.setConstraints()
-        
-        // 스크롤 뷰
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
-            make.height.greaterThanOrEqualTo(view.snp.height).priority(.low)
-            make.width.equalTo(scrollView.snp.width)
-        }
-        
-        // 음악 검색
-        searchMusicLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.safeAreaLayoutGuide).inset(20)
-            make.horizontalEdges.equalTo(contentView).inset(18)
-        }
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(searchMusicLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(contentView).inset(8)
-            make.height.equalTo(40)
-        }
-        fakeButton.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(searchBar)
-            make.horizontalEdges.equalTo(contentView)
-        }
-        
-        // 장르별 음악
-        genreChartLabel.snp.makeConstraints { make in
-            make.top.equalTo(fakeButton.snp.bottom).offset(30)
-            make.horizontalEdges.equalTo(contentView).inset(18)
-        }
-        genreCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(genreChartLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(contentView)
-            make.height.equalTo(80)
-        }
-        
-        // 오늘의 음악
-        todayMusicLabel.snp.makeConstraints { make in
-            make.top.equalTo(genreCollectionView.snp.bottom).offset(30)
-            make.leading.equalTo(view).inset(18)
-        }
-        helpButton.snp.makeConstraints { make in
-            make.leading.equalTo(todayMusicLabel.snp.trailing).offset(-8)
-            make.height.equalTo(todayMusicLabel)
-            make.width.equalTo(helpButton.snp.height)
-            make.centerY.equalTo(todayMusicLabel)
-        }
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(todayMusicLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(view).inset(18)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
 
 
-        
-    }
 
 }
 
@@ -289,7 +237,7 @@ extension SaveViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if collectionView == genreCollectionView {
+        if collectionView == saveView.genreCollectionView {
             return viewModel.genreListCount()
         } else {
             return viewModel.musicListCount()
@@ -297,10 +245,8 @@ extension SaveViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt  cellForRowAt")
         
-        
-        if collectionView == genreCollectionView {
+        if collectionView == saveView.genreCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCatalogCell.description(), for: indexPath) as? GenreCatalogCell else { return UICollectionViewCell() }
             
             cell.nameLabel.text = viewModel.genreName(indexPath: indexPath)
@@ -334,7 +280,7 @@ extension SaveViewController: UICollectionViewDelegate {
         
         
         
-        if collectionView == genreCollectionView {
+        if collectionView == saveView.genreCollectionView {
             
             if viewModel.numberOfItems() >= 3 {
                 showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
@@ -389,7 +335,7 @@ extension SaveViewController: UICollectionViewDelegate {
                 collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
                 
             } completion: { [weak self] _ in
-                self?.collectionView.reloadData()
+                self?.saveView.collectionView.reloadData()
             }
         }
         
@@ -438,7 +384,7 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         } completion: { finish in
             print("finish : ", finish)
             coordinator.drop(sourceItem.dragItem, toItemAt: destinationIndexPath)
-            self.collectionView.reloadData()
+            self.saveView.collectionView.reloadData()
         }
 
     }
@@ -450,8 +396,8 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
         viewModel.removeMusic(sourceIndexPath)
         viewModel.insertMusic(sourceItem, indexPath: destinationIndexPath)
 
-        collectionView.deleteItems(at: [sourceIndexPath])
-        collectionView.insertItems(at: [destinationIndexPath])
+        saveView.collectionView.deleteItems(at: [sourceIndexPath])
+        saveView.collectionView.insertItems(at: [destinationIndexPath])
     }
     
     // dropSessionDidUpdate: drag하는 동안 계속 호출
@@ -481,6 +427,6 @@ extension SaveViewController: UpdateDataDelegate {
         
         viewModel.appendMusic(item)
         
-        collectionView.reloadData()
+        saveView.collectionView.reloadData()
     }
 }
