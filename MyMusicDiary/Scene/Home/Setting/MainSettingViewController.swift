@@ -91,6 +91,11 @@ extension MainSettingViewController: UITableViewDelegate, UITableViewDataSource 
             let vc = NotificationSettingViewController()
             
             navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath == IndexPath(row: 0, section: 1)
+            || indexPath == IndexPath(row: 1, section: 1){
+            if let url = URL(string: "https://forms.gle/NswcxpzvQ9hSoSmD6") {
+                UIApplication.shared.open(url, options: [:])
+            }
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)

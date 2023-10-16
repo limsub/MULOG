@@ -237,11 +237,11 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
 //            make.height.equalTo(countImageView.snp.width)
 //        }
         countLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(countBackView).offset(-12)
+            make.centerY.equalTo(countBackView).offset(-8)
             make.centerX.equalTo(countBackView).offset(8)
         }
         countRecordLabel.snp.makeConstraints { make in
-            make.top.equalTo(countLabel.snp.bottom).offset(4)
+            make.top.equalTo(countLabel.snp.bottom).offset(2)
             make.centerX.equalTo(countLabel)
         }
         
@@ -293,7 +293,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         }
         
         countLabel.text = "\(sender.count)"
-        if sender.count > 2 {
+        if sender.count > 1 {
             countRecordLabel.text = "records"
         } else {
             countRecordLabel.text = "record"
