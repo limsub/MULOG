@@ -65,7 +65,12 @@ class MonthCalendarView: BaseView {
         view.setImage(UIImage(named: "add"), for: .normal)
         return view
     }()
-    
+    let modifyButton = {
+        let view = UIButton(frame: .zero)
+        view.setImage(UIImage(named: "calendar_modify2"), for: .normal)
+
+        return view
+    }()
     
     /* CollectionView */
     lazy var collectionView = {
@@ -75,26 +80,26 @@ class MonthCalendarView: BaseView {
         view.layer.cornerRadius = 20
         return view
     }()
-    
-    lazy var modifyButton = {
-        let view = UIButton()
-        
-        view.setTitle("수정하기", for: .normal)
-        view.setTitleColor(Constant.Color.main2.withAlphaComponent(0.8), for: .normal)
-        
-        view.titleLabel?.adjustsFontSizeToFitWidth = true
-        view.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        
-        
-        view.layer.borderColor = Constant.Color.main2.withAlphaComponent(0.8).cgColor
-        view.layer.borderWidth = 1
-        view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.2)
-        
-        view.layer.cornerRadius = 20
-        
-        return view
-    }()
-    
+//
+//    lazy var modifyButton = {
+//        let view = UIButton()
+//
+//        view.setTitle("수정하기", for: .normal)
+//        view.setTitleColor(Constant.Color.main2.withAlphaComponent(0.8), for: .normal)
+//
+//        view.titleLabel?.adjustsFontSizeToFitWidth = true
+//        view.titleLabel?.font = .boldSystemFont(ofSize: 16)
+//
+//
+//        view.layer.borderColor = Constant.Color.main2.withAlphaComponent(0.8).cgColor
+//        view.layer.borderWidth = 1
+//        view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.2)
+//
+//        view.layer.cornerRadius = 20
+//
+//        return view
+//    }()
+//
 
     
     func createMonthBottomLayout() -> UICollectionViewLayout {
@@ -173,6 +178,12 @@ class MonthCalendarView: BaseView {
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
+        modifyButton.snp.makeConstraints { make in
+            make.centerY.equalTo(calendar.calendarHeaderView)
+            make.trailing.equalTo(hideButton.snp.leading).offset(-26)
+            make.width.equalTo(25)
+            make.height.equalTo(25)
+        }
         
         
         
@@ -182,19 +193,19 @@ class MonthCalendarView: BaseView {
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(12)
         }
         
-        modifyButton.snp.makeConstraints { make in
-//            make.center.equalTo(self)
-//            make.trailing.equalTo(collectionView).inset(8)
-            
-            
-            make.centerX.equalTo(self)
-            make.bottom.equalTo(collectionView).inset(8)
-            
-            make.width.equalTo(80)
-            make.height.equalTo(40)
-            
-//            make.size.equalTo(40)
-        }
+//        modifyButton.snp.makeConstraints { make in
+////            make.center.equalTo(self)
+////            make.trailing.equalTo(collectionView).inset(8)
+//
+//
+//            make.centerX.equalTo(self)
+//            make.bottom.equalTo(collectionView).inset(8)
+//
+//            make.width.equalTo(80)
+//            make.height.equalTo(40)
+//
+////            make.size.equalTo(40)
+//        }
         
         noDataViewToday.snp.makeConstraints { make in
             make.center.equalTo(collectionView)

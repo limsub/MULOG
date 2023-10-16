@@ -88,7 +88,7 @@ class SaveViewModel {
 //        let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
 //        print("데이터 추가===============\(a)")
 //        let todayTable = DayItemTable(day: a)
-//        Sample.shared.a += 1
+//        Sample.shared.a += 2
         
         
         // 저장할 음악들

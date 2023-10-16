@@ -9,6 +9,7 @@ import Foundation
 
 class MonthCalendarViewModel {
     
+    
     let repository = MusicItemTableRepository()
     
     var previousSelectedDate: Observable<Date> = Observable(Date())
@@ -65,4 +66,24 @@ class MonthCalendarViewModel {
         var isToday = currentSelectedDate.value.toString(of: .full) == Date().toString(of: .full)
         completionHandler(isToday)
     }
+    
+    
+    // 함수 좀 다시 만들어보자
+    // 선택된 날짜에 일기가 있으면 true, 없으면 false
+    func isCurrentSelectedDateHaveData() -> Bool {
+        if let selectedDateData = repository.fetchDay(currentSelectedDate.value) {
+            
+//            repository.deleteItem(selectedDateData)
+            return true
+        }
+        
+        return false
+    }
+    
+    // 선택된 날짜가 오늘이면 true, 아니면 false (미래 날짜는 선택 못할거니까 이전 날짜)
+    func isCurrentSelectedDateToday() -> Bool {
+        return currentSelectedDate.value.toString(of: .full) == Date().toString(of: .full)
+    }
+    
+    
 }

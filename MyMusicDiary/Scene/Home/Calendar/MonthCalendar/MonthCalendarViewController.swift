@@ -27,8 +27,8 @@ class MonthCalendarViewController: BaseViewController {
     /* dataSource */
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItemTable>?
     
-    
-    var currentPageDate = Date() // 캘린더 넘길 때, 타이틀 텍스트 바뀌게 하기 위함
+    // 캘린더 넘길 때 타이틀 텍스트 변화 + MonthScrollView 넘어갈 때 값전달
+    var currentPageDate = Date()
     
     
     /* calendar 상단 버튼 + 수정 버튼 */
@@ -113,6 +113,11 @@ class MonthCalendarViewController: BaseViewController {
     }
     
     
+    func bindData() {
+        viewModel.currentSelectedDate.bind { [weak self] _ in
+            self?.checkPlusModifyButton()
+        }
+    }
     
     override func loadView() {
         self.view = monthView
@@ -123,6 +128,8 @@ class MonthCalendarViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constant.Color.background
+        
+        bindData()
         
 
         
@@ -144,13 +151,18 @@ class MonthCalendarViewController: BaseViewController {
         // 여기선 애니메이션 안보이게
         // 오늘이 선택되어 있고, 오늘 일기가 쓰여있을 때 -> 수정 버튼 떠있어야함
         // else -> false
-        viewModel.showModifyButton { value in
-            if value && self.viewModel.isTodayWritten() {
-                self.monthView.modifyButton.isHidden = false
-            } else {
-                self.monthView.modifyButton.isHidden = true
-            }
-        }
+//        viewModel.showModifyButton { value in
+//            if value && self.viewModel.isTodayWritten() {
+//                self.monthView.modifyButton.isHidden = false
+//            } else {
+//                self.monthView.modifyButton.isHidden = true
+//            }
+//        }
+        
+        
+        
+        
+        
         checkShowNoDataView()
         
     }
@@ -160,12 +172,7 @@ class MonthCalendarViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-        
-        // 디비에 오늘 날짜 일기 있으면 플러스 버튼 히든처리
-        print("오늘 날짜 데이터가 있냐아아아ㅏ아", viewModel.isTodayWritten())
-        monthView.plusButton.isHidden = (viewModel.isTodayWritten()) ? true : false
-        
+        checkPlusModifyButton()
     }
     
 
@@ -173,12 +180,8 @@ class MonthCalendarViewController: BaseViewController {
     func settingNavigation() {
         // prefersLargeTitles 가 true인 상태에서,
         // largeTitleDisplayMode 로 현재 뷰컨의 nav 상태를 결정할 수 있다
-        
-        
         navigationItem.title = "Calendar"
         navigationController?.navigationBar.prefersLargeTitles = true
-
-//        navigationItem.largeTitleDisplayMode = .always
     }
     
     
@@ -195,16 +198,6 @@ class MonthCalendarViewController: BaseViewController {
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
         monthView.modifyButton.addTarget(self, action: #selector(modifyButtonClicked), for: .touchUpInside)
         
-    }
-    
-    // set
-    override func setConfigure() {
-        super.setConfigure()
-    }
-    
-
-    override func setConstraints() {
-        super.setConstraints()
     }
 }
 
@@ -263,10 +256,9 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         // collectionView
         viewModel.updateMusicList()
         updateSnapshot()
-        checkShowModifyButton()
         checkShowNoDataView()
 
-        
+
     }
     
     
@@ -333,43 +325,66 @@ extension MonthCalendarViewController {
         snapshot.appendItems(viewModel.currentMusicList.value)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
-    
-    func checkShowModifyButton() {
-        // 수정하기 버튼 띄워줄지 말지
-        viewModel.showModifyButton { value in
-            
-            if value && self.viewModel.isTodayWritten() {  // 띄워주기
-                self.monthView.modifyButton.isHidden = false
-                
-                UIView.animate(withDuration: 0.2) { [weak self] in
-                    self?.monthView.modifyButton.alpha = 1
-                }
-            } else {    // 가려주기
-                UIView.animate(withDuration: 0.2) { [weak self] in
-                    self?.monthView.modifyButton.alpha = 0
-                } completion: { [weak self] _ in
-                    self?.monthView.modifyButton.isHidden = true
-                }
-            }
-        }
-    }
-    func checkShowNoDataView() {
-        // noDataView 띄워줄지 말지
-        if viewModel.currentMusicList.value.isEmpty {
-            // (함수 가져다 쓴다) 선택된 날짜가 오늘이면 true, 오늘이 아니면 false
-            viewModel.showModifyButton { [weak self] value in
-                self?.monthView.noDataViewToday.isHidden = !value
-                self?.monthView.noDataViewPastDay.isHidden = value
-            }
+}
+
+extension MonthCalendarViewController {
+    // 추가 버튼, 수정 버튼, 빈 공간 결정하기
+    func checkPlusModifyButton() {
+        // 추가 : 오늘 날짜 선택 + 해당 날짜 일기 x
+        // 수정 : (1). 오늘 날짜 선택 + 해당 날짜 일기 o
+        //       (2). 이전 날짜 선택 + 해당 날짜 일기 o
+        // 빈 공간 : 이전 날짜 선택 + 해당 날짜 일기 x
+        
+        // 분기 처리
+        // 1. 선택된 날짜에 일기 있는지 -> true => 수정
+        // false => 2. 오늘 날짜를 선택했는지 -> true => 추가
+        //                                 false => 빈 공간
+        
+        // 실행해야 하는 시점
+        // 1. viewWillAppear, 2. didSelect, 3. reloadButtonClicked
+        // 2, 3 대신, currentSelectedDate에 bind로 걸어버리자
+        
+        if viewModel.isCurrentSelectedDateHaveData() {
+            print("선택된 날짜에 이미 일기가 있습니다. 수정 버튼을 띄워야 합니다")
+            monthView.plusButton.isHidden = true
+            monthView.modifyButton.isHidden = false
         } else {
-            monthView.noDataViewToday.isHidden = true
-            monthView.noDataViewPastDay.isHidden = true
+            print("선택된 날짜에 일기가 없습니다. 다음 분기 처리로 넘어갑니다", terminator: " -> ")
+            if viewModel.isCurrentSelectedDateToday() {
+                print("선택된 날짜가 오늘 날짜입니다. 추가 버튼을 띄워야 합니다")
+                monthView.plusButton.isHidden = false
+                monthView.modifyButton.isHidden = true
+            } else {
+                print("선택된 날짜가 이전 날짜입니다. 빈 공간으로 두어야 합니다")
+                monthView.plusButton.isHidden = true
+                monthView.modifyButton.isHidden = true
+            }
         }
     }
     
     
     
-    
+    // 로직 수정 필요. 새로 만든 함수 사용하기
+    func checkShowNoDataView() {
+//        // noDataView 띄워줄지 말지
+//        if viewModel.currentMusicList.value.isEmpty {
+//            // (함수 가져다 쓴다) 선택된 날짜가 오늘이면 true, 오늘이 아니면 false
+//            if viewModel.isCurrentSelectedDateToday() {
+//
+//            }
+//
+//            monthView.noDataViewToday.isHidden
+//            monthView.noDataViewPastDay.isHidden
+//
+//            viewModel.showModifyButton { [weak self] value in
+//                self?.monthView.noDataViewToday.isHidden = !value
+//                self?.monthView.noDataViewPastDay.isHidden = value
+//            }
+//        } else {
+//            monthView.noDataViewToday.isHidden = true
+//            monthView.noDataViewPastDay.isHidden = true
+//        }
+    }
 }
 
 
@@ -378,7 +393,7 @@ extension MonthCalendarViewController: ReloadProtocol {
         monthView.calendar.reloadData()
         viewModel.updateMusicList()
         updateSnapshot()
-        checkShowModifyButton()
         checkShowNoDataView()
+        checkPlusModifyButton() // 이게 있어야 하려나
     }
 }
