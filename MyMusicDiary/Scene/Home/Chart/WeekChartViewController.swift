@@ -12,8 +12,6 @@ import DGCharts
 // 20231001 - 20231007
 // currentPageDate를 첫날로 유지하자
 class WeekChartViewController: BaseViewController {
-    
-    var delegate: LargeTitleDelegate?
 
     // view
     let titleView = CustmTitleView()

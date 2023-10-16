@@ -9,12 +9,8 @@ import UIKit
 import Tabman
 import Pageboy
 
-protocol LargeTitleDelegate: AnyObject {
-    func setLargeTitle()
-    func setSmallTitle()
-}
 
-class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
+class ChartTabViewController: TabmanViewController {
     
     let monthChartVC = MonthChartViewController()
     let weekChartVC = WeekChartViewController()
@@ -22,78 +18,7 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
     private lazy var viewControllers = [monthChartVC, weekChartVC]
     
     
-   
-  
-    
-    func setLargeTitle() {
-        print(#function)
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.largeTitleDisplayMode = .automatic
-        
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//
-//        let v = viewControllers[0] as! MonthChartViewController
-//        v.reloadInputViews()
-        
-//        navigationController?.navigationBar.isHidden = false
-        
-//        viewControllers.forEach { vc in
-//            vc.view.contentInset = UIEdgeInsetsMake(self.navigationController!.navigationBar.bounds.size.height, 0, 0, 0);
-//
-//            view.safeAreaInsets
-//
-//
-//            print(view.safeAreaInsetsDidChange())
-//        }
-        
-//        let v = viewControllers[0] as! MonthChartViewController
-//        v.scrollView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bounds.size.height, left: 0, bottom: 0, right: 0);
-        
-        
-        
-        
-//        self.view.contentInset = UIEdgeInsetsMake(self.navigationController.navigationBar.bounds.size.height, 0, 0, 0);
-        
-    }
-    func setSmallTitle() {
-        print(#function)
-//        navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.navigationBar.prefersLargeTitles = false
-//        navigationItem.largeTitleDisplayMode = .automatic
-        
-//        navigationController?.setNavigationBarHidden(true, animated: true)
-        
-//        let v = viewControllers[0] as! MonthChartViewController
-//        v.scrollView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bounds.size.height, left: 0, bottom: 0, right: 0);
-//
-        
-//        self.view.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        
-//        navigationController?.navigationBar.isHidden = false
-        
-        
-        
-//        let v = viewControllers[0] as! MonthChartViewController
-//
-//        v.scrollView.automaticallyAdjustsScrollIndicatorInsets = true
-//        v.scrollView.scrollsToTop = true
-    }
-    
-    
-//    let button = UIButton()
-//    @objc
-//    func buttonClicked() {
-//        print("hi")
-//
-//        a.toggle()
-//        if a {
-//            navigationItem.largeTitleDisplayMode = .never
-//        } else {
-//            navigationItem.largeTitleDisplayMode = .always
-//        }
-//    }
-//    var a = false
+
     
     
     let customContainer = UIView()
@@ -113,11 +38,6 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         customContainer.layer.applyShadow(color: Constant.Color.main2, alpha: 0.8, x: 0, y: 0.2, blur: 0.5)
 //        customContainer.layer.cornerRadius = 20
 
-        
-        monthChartVC.delegate = self
-        weekChartVC.delegate = self
-        
-
         view.backgroundColor = UIColor(hexCode: "#F6F6F6")
         
         tabBarController?.tabBar.backgroundColor = .white
@@ -131,8 +51,8 @@ class ChartTabViewController: TabmanViewController, LargeTitleDelegate {
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .centerDistributed
-        bar.layout.contentMode = .intrinsic
-        bar.layout.interButtonSpacing = UIScreen.main.bounds.width/2
+        bar.layout.contentMode = .fit
+        bar.layout.interButtonSpacing = 0//
 //        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         bar.backgroundView.style = .clear
         
