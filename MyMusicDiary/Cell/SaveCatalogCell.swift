@@ -55,6 +55,7 @@ class BezierView: UIView {
 
 class SaveCatalogCell: BaseCollectionViewCell {
     
+    
     let backView = {
         let view = BezierView()
 //        view.backgroundColor = .lightGray.withAlphaComponent(0.05)
@@ -174,6 +175,15 @@ class SaveCatalogCell: BaseCollectionViewCell {
         return view
     }()
     
+//    let xButton = {
+//        let view = UIButton()
+//        view.setImage(UIImage(systemName: "xmark"), for: .normal)
+//        view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 12, right: 0)
+//        view.tintColor = .lightGray
+////        view.backgroundColor = .red
+//        return view
+//    }()
+    
     
     
     override func setConfigure() {
@@ -200,6 +210,9 @@ class SaveCatalogCell: BaseCollectionViewCell {
         backView.addSubview(recordView)
         
         backView.addSubview(representLabel)
+        
+        
+//        backView.addSubview(xButton)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -268,6 +281,11 @@ class SaveCatalogCell: BaseCollectionViewCell {
             make.trailing.equalTo(backView).inset(40)
             
         }
+        
+//        xButton.snp.makeConstraints { make in
+//            make.top.trailing.equalTo(backView)
+//            make.size.equalTo(40)
+//        }
     }
     
     func designCell(_ sender: MusicItem, recordCnt: Int, indexPath: IndexPath) {
@@ -315,6 +333,8 @@ class SaveCatalogCell: BaseCollectionViewCell {
             }
             
         }
+        
+//        xButton.addTarget(self, action: #selector(xButtonClicked), for: .touchUpInside)
     }
     
 }

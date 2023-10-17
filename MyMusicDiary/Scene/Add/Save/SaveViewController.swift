@@ -192,14 +192,19 @@ extension SaveViewController: UICollectionViewDataSource {
             cell.nameLabel.text = viewModel.genreName(indexPath: indexPath)
             cell.backView.backgroundColor = UIColor(hexCode: viewModel.genreColorName(indexPath: indexPath))
             
+            
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
+            
             
             let music = viewModel.music(indexPath)
             let recordCnt = viewModel.musicRecordCount(indexPath)
             
             cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
+            
+            
+            
 
             return cell
         }
@@ -212,6 +217,23 @@ extension SaveViewController: UICollectionViewDataSource {
 }
 
 
+protocol XButtonClickedProtocol: AnyObject {
+    func xButtonClicked(_ indexPath: IndexPath)
+}
+
+extension SaveViewController: XButtonClickedProtocol {
+    func xButtonClicked(_ indexPath: IndexPath) {
+        print("셀 삭제하기")
+        saveView.collectionView.performBatchUpdates {
+            viewModel.removeMusic(indexPath)
+            saveView.collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
+        } completion: { [weak self] _ in
+            self?.saveView.collectionView.reloadData()
+        }
+    }
+    
+    
+}
 
 // delegate
 extension SaveViewController: UICollectionViewDelegate {
@@ -230,10 +252,7 @@ extension SaveViewController: UICollectionViewDelegate {
             if viewModel.impossibleAddMusic() {
                 showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
             }
-            
-            
-            
-            
+    
             let vc = GenreViewController()
             vc.delegate = self
             vc.viewModel.title = viewModel.genreList[indexPath.item].koreanName
@@ -274,13 +293,19 @@ extension SaveViewController: UICollectionViewDelegate {
             
             print("장르 컬렉션뷰 선택됨")
         } else {
-            collectionView.performBatchUpdates {
-                viewModel.removeMusic(indexPath)
-                collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
-                
-            } completion: { [weak self] _ in
-                self?.saveView.collectionView.reloadData()
+            
+            self.showAlert("곡을 삭제하시겠습니까?", message: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요", okTitle: "확인") { [weak self] in
+                    print("셀 삭제하기")
+                    collectionView.performBatchUpdates {
+                        self?.viewModel.removeMusic(indexPath)
+                        collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
+        
+                    } completion: { [weak self] _ in
+                        self?.saveView.collectionView.reloadData()
+                    }
             }
+            
+
         }
         
     }

@@ -54,6 +54,12 @@ class PagerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // 데이터가 하나도 없다면 기본 이미지를 띄워주자
+        viewModel.fetchData { [weak self] value in  // dataList에 데이터 로드 -> 데이터의 유무에 따라 noDataView 히든 처리
+            self?.noDataView.isHidden = !value
+        }
+        
+        
 //        viewModel.fetchData()
 //        pagerView.reloadData()
     }
@@ -90,6 +96,8 @@ class PagerViewController: BaseViewController {
         player.seek(to: .zero)
         print("끝!!")
     }
+    
+    
     
     
     // RealmDataModified 싱글톤 패턴 활용

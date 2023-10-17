@@ -14,6 +14,7 @@ class ChartDataRepository {
     let realm = try! Realm()
     
     func delete() {
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         do {
             let item = realm.objects(DayItemTable.self).where{
                 $0.day == "20231004"
@@ -34,6 +35,9 @@ class ChartDataRepository {
     // 해당 월에 등록한 음악들의 장르별 개수
     // input example: "202309"
     func fetchMonthGenreDataForPieChart(_ yearMonth: String) -> ([String], [Int]) {
+        
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
+        
         var ansDict: [String: Int] = [:]
         
         let data = realm.objects(DayItemTable.self).where {
@@ -74,6 +78,7 @@ class ChartDataRepository {
     
     
     func fetchWeekGenreDataForPieChart(startDate: String, endDate: String) -> ([String], [Int]) {
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         
         var ansDict: [String: Int] = [:]
         var sortedKeys: [String] = []
@@ -123,6 +128,7 @@ class ChartDataRepository {
     
     /* ========== Bar Chart Data ========== */
     func fetchMonthGenreDataForBarChart(_ yearMonth: String) -> ([DayGenreCountForBarChart],  Int) {
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         
         var ansArr: [DayGenreCountForBarChart] = []
         var ansCnt = 0  // 총 음악 개수 리턴
@@ -164,6 +170,7 @@ class ChartDataRepository {
     }
     
     func fetchWeekGenreDataForBarChart(startDate: String, endDate: String) -> ([DayGenreCountForBarChart], Int) {
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         
         var ansArr: [DayGenreCountForBarChart] = []
         var ansCnt = 0
