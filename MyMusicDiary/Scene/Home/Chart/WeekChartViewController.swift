@@ -188,25 +188,27 @@ class WeekChartViewController: BaseViewController {
             barGraphView.isHidden = false
             pieGraphView.isHidden = false
             
-            /* circle Graph */
-            pieGraphView.titleLabel.text = "전체 장르 비율"
             
-            settingPieGraphView(dataPoints: genres, values: percentArr)
-            
-            pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
-            pieGraphView.collectionView.dataSource = self
-            pieGraphView.collectionView.showsVerticalScrollIndicator = false
-
-            
-            /* bar Graph */
-            barGraphView.titleLabel.text = "날짜별 장르 비율"
-            
-            settingBarGraphView()
-            
-            barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
-            barGraphView.collectionView.dataSource = self
-            barGraphView.collectionView.showsHorizontalScrollIndicator = false
         }
+        
+        /* circle Graph */
+        pieGraphView.titleLabel.text = "전체 장르 비율"
+        
+        settingPieGraphView(dataPoints: genres, values: percentArr)
+        
+        pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
+        pieGraphView.collectionView.dataSource = self
+        pieGraphView.collectionView.showsVerticalScrollIndicator = false
+
+        
+        /* bar Graph */
+        barGraphView.titleLabel.text = "날짜별 장르 비율"
+        
+        settingBarGraphView()
+        
+        barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())
+        barGraphView.collectionView.dataSource = self
+        barGraphView.collectionView.showsHorizontalScrollIndicator = false
 
     }
     
