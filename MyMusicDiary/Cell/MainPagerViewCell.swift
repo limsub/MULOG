@@ -129,6 +129,21 @@ class MainPagerViewCell: FSPagerViewCell {
         view.text = "K-POP"
         return view
     }()
+    
+    // 9. 음악 재생 설명 레이블
+    let explainPlayLabel = {
+        let view = UILabel()
+        view.font = .systemFont(ofSize: 11)
+        view.textColor = .lightGray
+        view.text = "앨범 커버를 터치하면 Apple Music API에서\n 제공하는 preview 음원이 재생됩니다"
+        view.textAlignment = .center
+        view.numberOfLines = 2
+        return view
+    }()
+    
+    
+    
+    
 
     @objc
     func playButtonClicked() {
@@ -196,6 +211,8 @@ class MainPagerViewCell: FSPagerViewCell {
         stackView.addArrangedSubview(genre1Label)
         stackView.addArrangedSubview(genre2Label)
         stackView.addArrangedSubview(genre3Label)
+        
+        addSubview(explainPlayLabel)
 
         // 얘는 뭔지 잘 모르겠네
         playButton.translatesAutoresizingMaskIntoConstraints = false
@@ -243,6 +260,10 @@ class MainPagerViewCell: FSPagerViewCell {
         }
         
         
+        explainPlayLabel.snp.makeConstraints { make in
+            make.top.equalTo(recordButton.snp.bottom).offset(4)
+            make.centerX.equalTo(contentView)
+        }
         
      
         
