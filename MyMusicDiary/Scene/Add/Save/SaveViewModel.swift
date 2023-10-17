@@ -10,7 +10,7 @@ import Foundation
 class Sample {
     static let shared = Sample()
     
-    var a = -20
+    var a = -15
 }
 
 enum SaveType {
@@ -72,6 +72,8 @@ class SaveViewModel {
         duplicationCompletionHandler: () -> Void
     ) {
         print("===== 저장 버튼이 클릭되었습니다 =====")
+        
+//        currentDate = Date()
     
         // 1. musicList가 빈 배열인지 확인
         if musicList.value.isEmpty {

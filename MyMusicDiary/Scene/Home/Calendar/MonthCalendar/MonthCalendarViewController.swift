@@ -97,6 +97,9 @@ class MonthCalendarViewController: BaseViewController {
                     }
                 }
             case .authorized:
+                
+                
+                
                 let vc = SaveViewController()
                 // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
                 vc.viewModel.saveType = .modifyData        // 1
@@ -106,6 +109,8 @@ class MonthCalendarViewController: BaseViewController {
                 // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
                 vc.delegate = self
                 navigationController?.pushViewController(vc, animated: true)
+                
+                
             @unknown default:
                 break
             }

@@ -143,6 +143,11 @@ class SaveViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        // 이전 날짜라면, 얼럿 한 번 띄워주기
+        if viewModel.currentDate?.toString(of: .full) != Date().toString(of: .full) {
+            showSingleAlert("이전 날짜의 데이터를 수정할 때는 곡 추가가 불가능합니다", message: "곡 삭제 시 주의해주세요")
+        }
+        
         settingSaveView()
         settingNavigation()
         settingScrollView()
