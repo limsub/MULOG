@@ -17,6 +17,13 @@ class PagerViewModel {
     var previewURL: String?     // 재생할 url
     
     
+    // viewWillAppear에서 데이터가 비었는지 확인한다
+    func checkDataEmpty() -> Bool {
+        let dataListForCheck = repository.fetchMusicForPagerView()
+        
+        return dataListForCheck.isEmpty
+    }
+    
     func fetchData(noDataCompletionHandler: @escaping (Bool) -> Void) {
         dataList = repository.fetchMusicForPagerView()
         

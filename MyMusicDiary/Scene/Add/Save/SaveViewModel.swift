@@ -71,23 +71,23 @@ class SaveViewModel {
         popViewCompletionHandler: @escaping () -> Void,
         duplicationCompletionHandler: () -> Void
     ) {
-        print("===== 저장 버튼이 클릭되었습니다 =====")
+        print("========== 저장 버튼이 클릭되었습니다 ==========")
         
 //        currentDate = Date()
     
         // 1. musicList가 빈 배열인지 확인
         if musicList.value.isEmpty {
             // 비었다 (삭제와 동일)
-            print("== 음악 배열이 비었습니다. 얼럿 버튼 클릭에 따라 함수가 진행됩니다", terminator: " -> ")
+            print("=== 1. 음악 배열이 비었습니다. 얼럿 버튼 클릭에 따라 함수가 진행됩니다", terminator: " -> ")
             emptyCompletionHandler(
                 // okClosure
                 { [weak self] in// 얼럿 확인 -> 함수 진행
-                    
+                    print("== 2. 확인 버튼을 눌렀습니다. 해당 날짜에 대한 데이터는 아무것도 저장되지 않습니다. 기존 데이터가 있었다면, 삭제합니다")
                     guard let date = self?.currentDate else { return }
                     
                     // 해당 날짜의 DayItemTable이 있는지 확인한다
                     if let alreadyItem = self?.repository.fetchDay(date) {
-                        print("해당 날짜의 데이터가 있습니다. 저장된 데이터를 모두 삭제합니다", terminator: " -> ")
+                        print("= 3. 해당 날짜의 데이터가 있습니다. 저장된 데이터를 모두 삭제합니다", terminator: " -> ")
                         // 있다
                         alreadyItem.musicItems.forEach { item in
                             self?.repository.minusCnt(item) // 1. 카운트 마이너스
@@ -99,7 +99,7 @@ class SaveViewModel {
                     
                     // 만약 해당 날짜가 오늘이라면, 알림을 다시 등록해줘야 한다
                     if date.toString(of: .full) == Date().toString(of: .full) {
-                        print("오늘 날짜의 데이터를 모두 삭제했습니다. 오늘 알림을 다시 켜줍니다. 켠 김에 싹 업데이트 시켜줍니다", terminator: " -> ")
+                        print("= 3. 오늘 날짜의 데이터를 모두 삭제했습니다. 오늘 알림을 다시 켜줍니다. 켠 김에 싹 업데이트 시켜줍니다", terminator: " -> ")
                         NotificationRepository.shared.updateNotifications()
                     }
                     
@@ -111,14 +111,14 @@ class SaveViewModel {
                 },
                 // cancelClosure
                 {// 얼럿 취소 -> 함수 종료 (return)
-                    print("얼럿 취소를 눌렀습니다. 함수를 종료합니다")
+                    print("== 2. 취소 버튼을 눌렀습니다. 함수를 종료합니다")
                     return
                 }
             )
             
         } else {
             // 안비었다 (데이터 수정 or 추가)
-            print("== 음악 배열이 비어있지 않습니다. 중복된 데이터가 있는지 확인합니다", terminator: " -> ")
+            print("=== 1. 음악 배열이 비어있지 않습니다. 중복된 데이터가 있는지 확인합니다", terminator: " -> ")
             
             // 1.5. 중복된 데이터가 있으면 얼럿 띄우고 함수 종료
             let list = musicList.value
@@ -126,25 +126,26 @@ class SaveViewModel {
             case 2:
                 if list[0].id == list[1].id {
                     duplicationCompletionHandler()
-                    print("중복된 데이터가 있기 때문에 함수 종료")
+                    print("== 2. 중복된 데이터가 있기 때문에 함수 종료")
                     return
                 }
             case 3:
                 if list[0].id == list[1].id || list[1].id == list[2].id || list[0].id == list[2].id {
                     duplicationCompletionHandler()
-                    print("중복된 데이터가 있기 때문에 함수 종료")
+                    print("== 2. 중복된 데이터가 있기 때문에 함수 종료")
                     return
                 }
             default:
-                print("중복된 데이터 없기 때문에 함수 계속 실행", terminator: " -> ")
                 break
             }
             
+            print("== 2. 중복된 데이터 없기 때문에 함수 계속 실행", terminator: " -> ")
             guard let date = currentDate else { return }
+            
             
             // 해당 날짜의 DayItemTable 있는지 확인한다
             if let alreadyItem = repository.fetchDay(date) {
-                print("해당 날짜의 데이터가 있습니다. 저장된 데이터를 모두 삭제합니다", terminator: " -> ")
+                print("= 3. 해당 날짜의 기존 데이터가 있습니다. 저장된 데이터를 모두 삭제합니다", terminator: " -> ")
                 // 있어 -> 기존 데이터 제거
                 alreadyItem.musicItems.forEach { item in
                     repository.minusCnt(item)   // 1.
@@ -155,7 +156,7 @@ class SaveViewModel {
             }
             
             // 데이터 추가
-            print("데이터를 추가합니다")
+            print("= 4. 새롭게 추가한 데이터를 저장합니다")
             let newTable = DayItemTable(day: date)
             
 //            let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
@@ -168,12 +169,14 @@ class SaveViewModel {
                 
                 if let alreadyMusic = repository.alreadySave($0.id) {
                     // 기존에 저장했던 음악
+                    print("= 5. \($0.name)은 기존에 저장해두었던 곡입니다. 원래 있던 MusicItem에 접근합니다")
                     repository.plusCnt(alreadyMusic)
                     repository.plusDate(alreadyMusic, today: date)
 //                repository.plusDate(alreadyMusic, today: a)
                     repository.appendMusicItem(newTable, musicItem: alreadyMusic)
                 } else {
                     // 새롭게 저장하는 음악
+                    print("= 5. \($0.name)은 기존 다른 날짜에 저장하지 않았던 곡입니다. 새롭게 MusicItem을 생성합니다")
                     let newMusic = MusicItemTable(musicItem: $0)
                     newMusic.dateList.append(date.toString(of: .full))
 //                newMusic.dateList.append(a.toString(of: .full))
@@ -182,6 +185,7 @@ class SaveViewModel {
                 }
                 
             }
+            
             
             // 오늘 날짜의 데이터를 새로 추가했으면, 오늘 알림은 제거해준다
             if date.toString(of: .full) == Date().toString(of: .full) {
