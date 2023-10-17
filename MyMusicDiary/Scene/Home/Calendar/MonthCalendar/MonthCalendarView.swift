@@ -239,7 +239,7 @@ class MonthCalendarView: BaseView {
         calendar.headerHeight = 66
         
         // 선택 날짜 색상
-        calendar.appearance.titleSelectionColor = .lightGray
+        calendar.appearance.titleSelectionColor = .lightGray.withAlphaComponent(0.5)
         
         // 각종 설정
         calendar.today = nil
