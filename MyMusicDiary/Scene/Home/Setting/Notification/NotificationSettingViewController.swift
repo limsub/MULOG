@@ -8,6 +8,13 @@
 import UIKit
 import UserNotifications
 
+class SystemNotification {
+    static let shared = SystemNotification()
+    private init() { }
+    
+    var isOn = Observable(true)
+}
+
 
 
 class NotificationSettingViewController: BaseViewController {
@@ -27,6 +34,7 @@ class NotificationSettingViewController: BaseViewController {
         NotificationRepository.shared.updateNotifications()
         
         print("알림 추가가 끝나고, 오늘 데이터가 있는지 확인합니다")
+        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         if repository.fetchDay(Date()) != nil {
             print("오늘은 이미 기록한 데이터가 있습니다. 알림을 삭제합니다")
             NotificationRepository.shared.delete(Date())
@@ -37,6 +45,30 @@ class NotificationSettingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 혹시나 백그라운드에서 변화가 있었을 때, 씬딜리게이트에서 값을 바꿔줄 예정
+        SystemNotification.shared.isOn.bind { value in
+            DispatchQueue.main.async {
+                if value {
+                    // 시스템에서 혀용했을 때는 다시 돌아오면 직접 허용시키게 하지만
+//                    self.settingView.controlSwitch.isOn = true
+//                    self.timeView.isHidden = false
+                } else {
+                    // 시스템에서 거절했을 때는 아예 여기서도 거절을 시켜줘야 한다
+                    self.settingView.controlSwitch.isOn = false
+                    self.timeView.isHidden = true
+                }
+            }
+        }
+        
+        // 시스템 알림이 꺼져있으면, 스위치를 off해준다
+        NotificationRepository.shared.checkSystemSetting {
+            SystemNotification.shared.isOn.value = true
+        } failureCompletionHandler: {
+            SystemNotification.shared.isOn.value = false
+        }
+        
+        
         
         view.backgroundColor = Constant.Color.background
         
@@ -62,16 +94,7 @@ class NotificationSettingViewController: BaseViewController {
         timeView.isHidden = !isSwitchOn
         
         
-        // 시스템 알림이 꺼져있으면, 스위치를 off해준다
-        NotificationRepository.shared.checkSystemSetting {
-            
-        } failureCompletionHandler: {
-            DispatchQueue.main.async {
-                self.settingView.controlSwitch.isOn = false
-                self.timeView.isHidden = true
-            }
-        
-        }
+
 
         
         
@@ -79,6 +102,15 @@ class NotificationSettingViewController: BaseViewController {
         
         settingView.layer.cornerRadius = 10
         settingView.controlSwitch.addTarget(self, action: #selector(switchClicked), for: .valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(#function)
+        
+        
+        
     }
     
     override func setConfigure() {
@@ -121,6 +153,7 @@ class NotificationSettingViewController: BaseViewController {
                         UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isAllowed.key)
                         
                         print("알림 추가가 끝나고, 오늘 데이터가 있는지 확인합니다")
+                        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
                         if self.repository.fetchDay(Date()) != nil {
                             print("오늘은 이미 기록한 데이터가 있습니다. 알림을 삭제합니다")
                             NotificationRepository.shared.delete(Date())

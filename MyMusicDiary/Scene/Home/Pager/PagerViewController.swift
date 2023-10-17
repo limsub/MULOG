@@ -30,6 +30,7 @@ class PagerViewController: BaseViewController {
 
     let viewModel = PagerViewModel()
     
+    
     @objc
     func settingButtonClicked() {
         let vc = MainSettingViewController()

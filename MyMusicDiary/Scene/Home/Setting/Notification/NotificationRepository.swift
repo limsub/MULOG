@@ -103,7 +103,7 @@ class NotificationRepository {
     func checkSystemSetting(_ successCompletionHandler: @escaping () -> Void, failureCompletionHandler: @escaping () -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
             
-            print("현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
+//            print("현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
             
             if success {
                 successCompletionHandler()
