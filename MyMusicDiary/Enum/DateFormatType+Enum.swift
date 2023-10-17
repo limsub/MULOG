@@ -38,4 +38,6 @@ enum DateFormatType: String {
     
     case day = "dd"
     
+    case singleDay = "d"
+    
 }

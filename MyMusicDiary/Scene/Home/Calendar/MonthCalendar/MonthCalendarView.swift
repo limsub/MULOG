@@ -49,9 +49,17 @@ class MonthCalendarView: BaseView {
         view.setImage(UIImage(named: "menu"), for: .normal)
         return view
     }()
+    let reloadBackLabel = {
+        let view = UILabel()
+        view.text = "1"
+        view.font = .boldSystemFont(ofSize: 12)
+        view.textAlignment = .center
+        return view
+    }()
     let reloadButton = {
         let view = UIButton(frame: .zero)
-        view.setImage(UIImage(named: "reload"), for: .normal)
+        view.setImage(UIImage(named: "blank_calendar"), for: .normal)
+        view.backgroundColor = .clear
         return view
     }()
     let hideButton = {
@@ -127,7 +135,10 @@ class MonthCalendarView: BaseView {
         addSubview(calendar)
         addSubview(headerLabel)
         addSubview(menuButton)
+        
+        addSubview(reloadBackLabel)
         addSubview(reloadButton)
+        
         addSubview(hideButton)
         addSubview(plusButton)
         
@@ -165,6 +176,10 @@ class MonthCalendarView: BaseView {
             make.trailing.equalTo(menuButton.snp.leading).offset(-26)
             make.width.equalTo(25)
             make.height.equalTo(25)
+        }
+        reloadBackLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(reloadButton).inset(1)
+            make.bottom.equalTo(reloadButton).inset(1)
         }
         hideButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
@@ -255,6 +270,7 @@ class MonthCalendarView: BaseView {
         calendar.weekdayHeight = 10
         calendar.placeholderType = .none
         
-        
+        // reloadBackLabel 데이터 설정
+        reloadBackLabel.text = Date().toString(of: .singleDay)
     }
 }
