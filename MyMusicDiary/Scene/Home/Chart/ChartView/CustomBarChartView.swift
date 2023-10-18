@@ -154,13 +154,17 @@ class CustomBarChartView: BaseView {
             }
             
             
-            for (key, value) in dayGenres {
+         
+            for (index, name) in genres.enumerated() {
                 
                 var barColor: UIColor = .lightGray
+                var valueCnt: Int = 0
                 
-                for (index, name) in genres.enumerated() {
+                for (key, value) in dayGenres {
+                    
                     if key == name {
                         barColor = UIColor(hexCode: colors[index])
+                        valueCnt = value
                     }
                 }
                 
@@ -172,14 +176,41 @@ class CustomBarChartView: BaseView {
                                 CGPoint(x: x, y: currentY)
                 )
                 barPath.addLine(to:
-                                    CGPoint(x: x, y: currentY - 15 * CGFloat(value))
+                                    CGPoint(x: x, y: currentY - 15 * CGFloat(valueCnt))
                 )
-                currentY -= 15 * CGFloat(value)
+                currentY -= 15 * CGFloat(valueCnt)
                 barPath.stroke()
                 barPath.close()
             }
             
+//            for (key, value) in dayGenres {
+//
+//                var barColor: UIColor = .lightGray
+//
+//                for (index, name) in genres.enumerated() {
+//                    if key == name {
+//                        barColor = UIColor(hexCode: colors[index])
+//                    }
+//                }
+//
+//                barColor.setStroke()
+//
+//                let barPath = UIBezierPath()
+//                barPath.lineWidth = barWidth
+//                barPath.move(to:
+//                                CGPoint(x: x, y: currentY)
+//                )
+//                barPath.addLine(to:
+//                                    CGPoint(x: x, y: currentY - 15 * CGFloat(value))
+//                )
+//                currentY -= 15 * CGFloat(value)
+//                barPath.stroke()
+//                barPath.close()
+//            }
+            
             x += itemWidth
         }
+        
+        
     }
 }
