@@ -16,10 +16,12 @@ class BaseViewController: UIViewController {
         
         setConfigure()
         setConstraints()
+        setting()
     }
     
     func setConfigure() { }
     func setConstraints() { }
+    func setting() { }
     
     
     static func createLayout() -> UICollectionViewLayout {

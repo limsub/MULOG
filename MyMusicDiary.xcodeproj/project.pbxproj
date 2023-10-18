@@ -89,6 +89,9 @@
 		48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */; };
 		48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC51022ADBF3F400705D4F /* RealmDataModified.swift */; };
 		48DC51062ADBF62C00705D4F /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DC51052ADBF62C00705D4F /* NoDataView.swift */; };
+		48EAFB472ADFA2BB001D80C3 /* HelpPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB462ADFA2BB001D80C3 /* HelpPageViewModel.swift */; };
+		48EAFB492ADFA303001D80C3 /* Help+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB482ADFA303001D80C3 /* Help+Enum.swift */; };
+		48EAFB4B2ADFA314001D80C3 /* Help+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +171,9 @@
 		48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48DC51022ADBF3F400705D4F /* RealmDataModified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataModified.swift; sourceTree = "<group>"; };
 		48DC51052ADBF62C00705D4F /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
+		48EAFB462ADFA2BB001D80C3 /* HelpPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPageViewModel.swift; sourceTree = "<group>"; };
+		48EAFB482ADFA303001D80C3 /* Help+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Enum.swift"; sourceTree = "<group>"; };
+		48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Protocol.swift"; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -433,9 +439,11 @@
 		484103902AD6CE09002D56C7 /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				48EAFB482ADFA303001D80C3 /* Help+Enum.swift */,
+				48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */,
 				484103912AD6CE21002D56C7 /* HelpPageViewController.swift */,
-				484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */,
-				48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */,
+				48EAFB462ADFA2BB001D80C3 /* HelpPageViewModel.swift */,
+				48EAFB452ADFA1C6001D80C3 /* HelpAlert */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -513,6 +521,15 @@
 				48DC51052ADBF62C00705D4F /* NoDataView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		48EAFB452ADFA1C6001D80C3 /* HelpAlert */ = {
+			isa = PBXGroup;
+			children = (
+				484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */,
+				48DC50F72ADB6AF500705D4F /* HelpAlertView.swift */,
+			);
+			path = HelpAlert;
 			sourceTree = "<group>";
 		};
 		99F964DB2FEB2A606827D0F7 /* Pods */ = {
@@ -693,6 +710,7 @@
 			files = (
 				488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */,
 				483790A02ACFAAFE003AC436 /* ChartDataRepository.swift in Sources */,
+				48EAFB472ADFA2BB001D80C3 /* HelpPageViewModel.swift in Sources */,
 				48BA31302AD4D7F50048AD05 /* RecordDateCollectionViewCell.swift in Sources */,
 				48A0A0E72AC548E1008DC198 /* MusicItemTableRepository.swift in Sources */,
 				483790462ACA9046003AC436 /* UIColor+Extension.swift in Sources */,
@@ -702,6 +720,7 @@
 				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
 				483790942ACEA51B003AC436 /* String+Extension.swift in Sources */,
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
+				48EAFB4B2ADFA314001D80C3 /* Help+Protocol.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */,
 				48A0A0E52AC548CB008DC198 /* RealmModel.swift in Sources */,
@@ -759,6 +778,7 @@
 				48DC50F62ADA812B00705D4F /* NotificationSettingListView.swift in Sources */,
 				4841038F2AD6BF16002D56C7 /* GenreViewModel.swift in Sources */,
 				48BA312E2AD4D2A60048AD05 /* RecordDateViewModel.swift in Sources */,
+				48EAFB492ADFA303001D80C3 /* Help+Enum.swift in Sources */,
 				4812D4FC2AC3A9ED00E7C6A4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

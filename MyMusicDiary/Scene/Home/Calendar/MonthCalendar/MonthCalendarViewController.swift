@@ -32,11 +32,53 @@ class MonthCalendarViewController: BaseViewController {
     
     
     /* calendar 상단 버튼 + 수정 버튼 */
+    func settingMenuButton() {
+//        let favorite = UIAction(title: "기록 수정하기", image: UIImage(named: "monthCalendarView_modifyButton"), handler: { _ in print("즐겨찾기") })
+//        let favorite1 = UIAction(title: "스크롤 화면으로 보기", image: UIImage(named: "monthCalendarView_menuDown2"), handler: { _ in print("즐겨찾기") })
+//        let favorite2 = UIAction(title: "앨범 커버만 보기", image: UIImage(named: "monthCalendarView_showOnlyAlbums"), handler: { _ in print("즐겨찾기") })
+//        let favorite3 = UIAction(title: "오늘로 돌아가기", image: UIImage(named: "monthCalendarView_todayButton2"), handler: { _ in
+//
+//            let kakaoTalk = "https://music.apple.com/kr/album/you-me/1709257167?i=1709257170"
+////            let kakaoTalk = "https://music.youtube.com/playlist?list=OLAK5uy_nrM4rmY7_viP2CGPMXGr7VPXGv-pzrc0E"
+////            let kakaoTalk = "https://www.melon.com/album/music.htm?albumId=354437"
+////            let kakaoTalk = "https://kko.to/aS9ku2_xm4"
+//
+//
+//            //URL 인스턴스를 만들어 주는 단계
+//            let kakaoTalkURL = NSURL(string: kakaoTalk)
+//
+//
+//            //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+//            if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
+//
+//                //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
+//                UIApplication.shared.open(kakaoTalkURL! as URL)
+//            }
+//            //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
+//            else {
+//                print("No kakaotalk installed.")
+//            }
+//
+//
+//        })
+//
+//        monthView.menuButton.menu = UIMenu(
+//            children: [
+//                favorite,
+//                favorite1,
+//                favorite2,
+//                favorite3
+//            ]
+//        )
+//        favorite.title = "hi"
+//
+    }
+    
     @objc
     private func menuButtonClicked() {  // 화면 전환
-        let vc = MonthScrollViewController()
-        vc.viewModel.currentPageDate = currentPageDate
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = MonthScrollViewController()
+//        vc.viewModel.currentPageDate = currentPageDate
+//        navigationController?.pushViewController(vc, animated: true)
     }
     @objc
     private func reloadButtonClicked() {    // 오늘 날짜 선택
@@ -143,6 +185,7 @@ class MonthCalendarViewController: BaseViewController {
         
         bindData()
 
+        settingMenuButton()
         
         settingMonthView()
         
@@ -171,6 +214,11 @@ class MonthCalendarViewController: BaseViewController {
         
         checkShowNoDataView()
         
+        
+        
+        
+        
+   
     }
 
     
@@ -189,6 +237,19 @@ class MonthCalendarViewController: BaseViewController {
         // largeTitleDisplayMode 로 현재 뷰컨의 nav 상태를 결정할 수 있다
         navigationItem.title = "Calendar"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+//        let monthScrollViewButton = UIBarButtonItem(image: UIImage(named: "monthCalendarView_menuDown"), style: .plain, target: self, action: #selector(monthScrollViewButtonClicked))
+//        navigationItem.rightBarButtonItem = monthScrollViewButton
+        
+        
+        
+    }
+    
+    @objc
+    func monthScrollViewButtonClicked() {
+        let vc = MonthScrollViewController()
+        vc.viewModel.currentPageDate = currentPageDate
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -199,7 +260,9 @@ class MonthCalendarViewController: BaseViewController {
         monthView.calendar.delegate = self
         monthView.calendar.dataSource = self
         
-        monthView.menuButton.addTarget(self, action: #selector(menuButtonClicked), for: .touchUpInside)
+        monthView.collectionView.delegate = self
+        
+        monthView.menuButton.addTarget(self, action: #selector(monthScrollViewButtonClicked), for: .touchUpInside)
         monthView.reloadButton.addTarget(self, action: #selector(reloadButtonClicked), for: .touchUpInside)
         monthView.hideButton.addTarget(self, action: #selector(hideButtonClicked), for: .touchUpInside)
         monthView.plusButton.addTarget(self, action: #selector(plusButtonClicked), for: .touchUpInside)
@@ -399,5 +462,65 @@ extension MonthCalendarViewController: ReloadProtocol {
         updateSnapshot()
         checkShowNoDataView()
         checkPlusModifyButton() // 이게 있어야 하려나
+    }
+}
+
+extension MonthCalendarViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let appleMusicURL = "https://music.apple.com/kr/album/you-me/1709257167?i=1709257170"
+        let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { _ in
+//            URL 인스턴스를 만들어 주는 단계
+                let kakaoTalkURL = NSURL(string: appleMusicURL)
+    
+    
+                //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+                if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
+    
+                    //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
+                    UIApplication.shared.open(kakaoTalkURL! as URL)
+                }
+                //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
+                else {
+                    print("No kakaotalk installed.")
+                }
+    
+    
+            }
+        
+        let youtubeMusicURL = "https://music.youtube.com/search?q=너랑 나"
+        
+        
+        let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: encodedStr)!
+        
+        
+        let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { _ in
+            let kakaoTalkURL = NSURL(string: encodedStr)
+
+
+            //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+            if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
+
+                //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
+                UIApplication.shared.open(kakaoTalkURL! as URL)
+            }
+            //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
+            else {
+                print("No kakaotalk installed.")
+            }
+
+
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(cancel)
+        alert.addAction(appleMusic)
+        alert.addAction(youtubeMusic)
+        
+        present(alert, animated: true)
+        
     }
 }

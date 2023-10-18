@@ -45,9 +45,7 @@ class HomeTabViewController: UITabBarController {
         
         view.backgroundColor = .clear
         
-        GenreDataModel.shared.fetchGenreChart {
-            print("앱의 맨 처음에 실행")
-        } // 앱의 맨 처음에 실행
+
         
         UITabBar.clearShadow()
         tabBar.layer.applyShadow()
@@ -56,9 +54,6 @@ class HomeTabViewController: UITabBarController {
         
     
         tabBar.layer.cornerRadius = 30
-        
-        
-        
         
         pagerVC.tabBarItem.image = UIImage(systemName: "music.note.house")
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")

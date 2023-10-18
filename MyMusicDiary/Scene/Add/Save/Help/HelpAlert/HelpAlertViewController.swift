@@ -18,7 +18,6 @@ class HelpAlertViewController: BaseViewController {
     
     lazy var alertView = HelpAlertView(type: type!)
     
-    
     lazy var neverSeeButton = {
         let view = UIButton()
         view.setTitle("다시 보지 않기", for: .normal)
@@ -36,12 +35,20 @@ class HelpAlertViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didSelected))
-        
+        alertView.layer.cornerRadius = 20
+        alertView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+    }
+    
+    override func setConfigure() {
+        super.setConfigure()
         
         view.addSubview(alertView)
         view.addSubview(neverSeeButton)
         view.addSubview(lineView)
+    }
+    override func setConstraints() {
+        super.setConstraints()
+        
         alertView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.horizontalEdges.equalTo(view).inset(40)
@@ -58,19 +65,15 @@ class HelpAlertViewController: BaseViewController {
             make.width.equalTo(neverSeeButton)
             make.height.equalTo(1)
         }
+    }
+    override func setting() {
+        super.setting()
         
-        alertView.layer.cornerRadius = 20
-        
-        alertView.nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
-
-//        view.addGestureRecognizer(tapGestureRecognizer)
-        
-
         switch type {
         case .drag:
             alertView.representLabel.isHidden = true
             alertView.firstImageView.image = UIImage(named: "up_down")
-            alertView.secondImageView.image = UIImage(named: "drag_finger")
+            alertView.secondImageView.image = UIImage(named: "saveView_scrollHand")
             
             alertView.titleLabel.text = "원하는 순서대로 곡을 배치해주세요"
             alertView.subtitleLable.text = "셀을 꾹 눌러서 순서를 바꿀 수 있어요"
@@ -97,11 +100,7 @@ class HelpAlertViewController: BaseViewController {
             break;
         }
     }
-    
-    @objc
-    func didSelected() {
-        nextPageDelegate?.dismiss()
-    }
+
     
     @objc
     func nextButtonClicked() {

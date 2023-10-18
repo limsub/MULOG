@@ -14,8 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        
-//        NotificationRepository.shared.delete(Date())
+        // 첫 번째 네트워크 통신 -> 장르 데이터 가져온다
+        GenreDataModel.shared.fetchGenreChart {
+            print("앱의 맨 처음에 실행")
+        } // 앱의 맨 처음에 실행
         
         
         // 혹시 알림 시간이 설정되어 있지 않으면, 디폴트 21:00으로 넣어준다.
@@ -24,12 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set("2100", forKey: NotificationUserDefaults.time.key)
         }
         
+        
         // 혹시 알림은 켜져 있는데, 남은 알림 리스트가 15개 미만이면, 알림 리스트를 업데이트 시켜준다
         // 시스템 알림이 꺼져 있으면 어차피 알림이 가지 않기 때문에, 시스템 알림 여부는 고려하지 않는다
         if UserDefaults.standard.bool(forKey: NotificationUserDefaults.isAllowed.key) {
-            
             UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-                
                 if requests.count < 15 {
                     print("등록된 알림 리스트가 15개 미만이기 때문에 새롭게 리스트를 등록합니다")
                     NotificationRepository.shared.updateNotifications()
@@ -71,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 혹시 백그라운드에서의 변화가 있었다면
         
-        // 시스템 알림이 꺼져있으면, 스위치를 off해준다
+        // 시스템 알림이 꺼져있으면, 스위치를 off해주기 위해 싱글톤 변수의 값을 바꿔준다. -> bind 로 스위치가 꺼지게 된다
         NotificationRepository.shared.checkSystemSetting {
             SystemNotification.shared.isOn.value = true
         } failureCompletionHandler: {
@@ -85,7 +86,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         
-        print(#function)
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.

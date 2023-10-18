@@ -42,7 +42,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
     let artworkImageView = {
         let view = UIImageView()
-        view.backgroundColor = .blue
+//        view.backgroundColor = .blue
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
         view.contentMode = .scaleAspectFit

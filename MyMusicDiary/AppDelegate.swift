@@ -18,11 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         sleep(1)
         
-        UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
-            
             UserDefaults.standard.set(success, forKey: NotificationUserDefaults.isAllowed.key)
-            
             print("시스템 알림 설정 여부 : ", success)
         }
         
@@ -44,10 +41,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
-
-
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    
 }

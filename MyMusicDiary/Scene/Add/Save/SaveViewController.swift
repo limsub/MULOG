@@ -101,7 +101,8 @@ class SaveViewController: BaseViewController {
     func helpButtonClicked() {
         
         let vc = HelpPageViewController()
-        vc.helpShowType = .selectButton
+        vc.viewModel.helpShowType = .selectButton
+//        vc.helpShowType = .selectButton
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
     }
@@ -161,7 +162,8 @@ class SaveViewController: BaseViewController {
         
         if !UserDefaults.standard.bool(forKey: helpView.showHelpView.rawValue) {
             let vc = HelpPageViewController()
-            vc.helpShowType = .firstTime
+            vc.viewModel.helpShowType = .firstTime
+//            vc.helpShowType = .firstTime
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true)
         }

@@ -45,8 +45,9 @@ class MonthCalendarView: BaseView {
        return view
     }()
     let menuButton = {
-        let view = UIButton(frame: .zero)
-        view.setImage(UIImage(named: "menu"), for: .normal)
+        let view = UIButton()
+        view.showsMenuAsPrimaryAction = true
+        view.setImage(UIImage(named: "monthCalendarView_menuDown2"), for: .normal)
         return view
     }()
     let reloadBackLabel = {
@@ -58,14 +59,14 @@ class MonthCalendarView: BaseView {
     }()
     let reloadButton = {
         let view = UIButton(frame: .zero)
-        view.setImage(UIImage(named: "blank_calendar"), for: .normal)
+        view.setImage(UIImage(named: "monthCalendarView_todayButton"), for: .normal)
         view.backgroundColor = .clear
         return view
     }()
     let hideButton = {
         let view = UIButton()
         view.setImage(UIImage(named: "hide"), for: .normal)
-        view.setImage(UIImage(named: "show"), for: .selected)
+        view.setImage(UIImage(named: "monthCalendarView_showAlbums"), for: .selected)
         return view
     }()
     let plusButton = {
@@ -75,7 +76,7 @@ class MonthCalendarView: BaseView {
     }()
     let modifyButton = {
         let view = UIButton(frame: .zero)
-        view.setImage(UIImage(named: "calendar_modify2"), for: .normal)
+        view.setImage(UIImage(named: "monthCalendarView_modifyButton"), for: .normal)
 
         return view
     }()

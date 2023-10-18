@@ -65,6 +65,11 @@ class GenreViewModel {
             
             currentOffset += 25
             
+            print("===== 링크", result.songCharts[0].items[0].url)
+            print("===== isrc", result.songCharts[0].items[0].isrc)
+            print("===== 앨범", result.songCharts[0].items[0].self)
+            
+            
             print("========================================================================================================")
             
             

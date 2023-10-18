@@ -58,8 +58,8 @@ class PieChartSideCollectionViewCell: BaseCollectionViewCell {
             make.centerY.equalTo(contentView)
         }
         percentLabel.snp.makeConstraints { make in
-            make.leading.equalTo(countLabel.snp.trailing).offset(8)
-            make.trailing.equalTo(contentView).inset(12)
+            make.leading.equalTo(countLabel.snp.trailing).offset(6)
+            make.trailing.equalTo(contentView).inset(16)
             make.centerY.equalTo(contentView)
         }
     }
