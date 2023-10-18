@@ -67,11 +67,19 @@ class ChartDataRepository {
         // "음악" key는 지워주기 -> * 다국어 대응
         ansDict["음악"] = nil
         
-        let sortedDict = ansDict.sorted {  $0.value > $1.value }
+        let sortedDict = ansDict.sorted {
+            if $0.value == $1.value {
+                return $0.key < $1.key
+            }
+            return $0.value > $1.value
+        }
+        print(sortedDict)
         
         let sortedKeys = sortedDict.map { $0.key }
         let sortedValues = sortedDict.map { $0.value }
     
+        print((sortedKeys, sortedValues))
+        
         return (sortedKeys, sortedValues)
     }
     
@@ -115,7 +123,13 @@ class ChartDataRepository {
         // * 다국어 대응
         ansDict["음악"] = nil
         
-        let sortedDict = ansDict.sorted { $0.value > $1.value }
+        let sortedDict = ansDict.sorted {
+            if $0.value == $1.value {
+                return $0.key < $1.key
+            }
+            return $0.value > $1.value
+            
+        }
         
         sortedKeys = sortedDict.map { $0.key }
         sortedValues = sortedDict.map { $0.value }

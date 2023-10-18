@@ -19,23 +19,7 @@ class MonthChartViewController: BaseViewController {
     
     // viewModel
     let viewModel = MonthChartViewModel()
-//    let repository = ChartDataRepository()
-    
-//    // 공통 data
-//    var currentPageDate = Date()
-//    var genres: [String] = []
-//    var colors: [String] = []
-//
-//    // title view
-//    var musicTotalCnt = 0
-//    var genreTotalCnt = 0
-//
-//    // pie chart
-//    var counts: [Double] = []
-//    var percentArr: [Double] = []
-//
-//    // bar chart
-//    var barData: [DayGenreCountForBarChart] = []
+
     
     override func loadView() {
         self.view = monthChartView
@@ -115,113 +99,9 @@ class MonthChartViewController: BaseViewController {
         monthChartView.pieGraphView.collectionView.dataSource = self
         monthChartView.barGraphView.collectionView.dataSource = self
         
-//        viewModel.fetchDataForPieChart()  // 디비에 저장된 값을 통해 genres, counts, genresTotalCnt 로드
-//        viewModel.fetchDataForBarChart()  // 디비에 저장된 값을 통해 barData, musicTotalCnt 로드
-        
-        
-        
-        /* titleView */
-//        monthChartView.titleView.setView(startDay: currentPageDate, musicCnt: musicTotalCnt, genreCnt: genreTotalCnt, type: .month)
-
-        
-//        if musicTotalCnt == 0 && genreTotalCnt == 0 {
-//            monthChartView.setHiddenView(true)
-//        } else  {
-//            monthChartView.setHiddenView(true)
-//        }
-        
-        // 얘는 그래도 viewDidLoad에서 최소한 해줘야 할 코드
-        /* circle Graph */
-//        settingPieGraphView(dataPoints: genres, values: percentArr)
-        
-        
-//        monthChartView.pieGraphView.collectionView.showsVerticalScrollIndicator = false
-//        monthChartView.pieGraphView.collectionView.reloadData()
-
-        
-        /* bar Graph */
-//        settingBarGraphView()
-
-        
-//        monthChartView.barGraphView.collectionView.showsHorizontalScrollIndicator = false
-//        monthChartView.barGraphView.collectionView.reloadData()
     }
     
-//    func initCurrentPageDate() {
-//        let calendar = Calendar.current
-//        var component = calendar.dateComponents([.year, .month], from: currentPageDate)
-//        component.day = 2
-//        currentPageDate = calendar.date(from: component) ?? Date()
-//    }
-    
-//    func fetchDataForPieChart(_ date: Date) {
-//
-//        let dateString = currentPageDate.toString(of: .yearMonth)
-//        let tuple = repository.fetchMonthGenreDataForPieChart(dateString)
-//
-//        genres = Array(tuple.0)
-//        counts = Array(tuple.1).map{ Double($0) }
-//
-//
-//        var sum: Double = 0
-//        percentArr.removeAll()
-//        counts.forEach { sum += $0 }
-//        counts.forEach { item in
-//            percentArr.append( (item/sum) * 100 )
-//        }
-//        genreTotalCnt = Int(sum)
-//
-//        let tmpColors = UIColor.GenreColor.allCases
-//        for colorString in tmpColors {
-//            colors.append(colorString.rawValue)
-//        }
-//    }
-    
-    
-//    func settingPieGraphView(dataPoints: [String], values: [Double]) {
-//        // dataPoints : genres, values: percentArr
-//
-//        var pieChartDataEntries: [ChartDataEntry] = []
-//        for i in 0..<dataPoints.count {
-//            let pieDataEntry = PieChartDataEntry(
-//                value: values[i],   // 차트 비율을 위한 값
-//                label: percentArr[i] < 8 ? nil : "\(Int(percentArr[i])) %" // 실제로 나타나는 값
-//            )
-//            pieChartDataEntries.append(pieDataEntry)
-//        }
-//
-//        let pieChartDataSet = PieChartDataSet(entries: pieChartDataEntries)
-//        pieChartDataSet.highlightEnabled = false
-//        pieChartDataSet.drawValuesEnabled = false
-//        pieChartDataSet.colors = colors.map{ UIColor(hexCode: $0) }
-//
-//        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-//        monthChartView.pieGraphView.pieChartView.data = pieChartData
-//    }
-    
-//    func fetchDataForBarChart() {
-//        let dateString = currentPageDate.toString(of: .yearMonth)
-//
-//        let data = repository.fetchMonthGenreDataForBarChart(dateString)
-//
-//        barData = data.0
-//        musicTotalCnt = data.1
-//    }
-    
-//    func settingBarGraphView() {
-//
-//        let dateString = currentPageDate.toString(of: .full)
-//
-//        // 값 전달(?)
-//        monthChartView.barGraphView.barChartView.dataList = barData
-//        monthChartView.barGraphView.barChartView.startDayString = dateString
-//        monthChartView.barGraphView.barChartView.dayCount = calculateDayCnt(dateString)
-//
-//        monthChartView.barGraphView.barChartView.genres = self.genres
-//        monthChartView.barGraphView.barChartView.colors = self.colors
-//    }
-
-    }
+}
 
 
 

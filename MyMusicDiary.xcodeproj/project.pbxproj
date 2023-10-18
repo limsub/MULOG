@@ -98,6 +98,8 @@
 		48EAFB542ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */; };
 		48EAFB582ADFE845001D80C3 /* MonthChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB572ADFE845001D80C3 /* MonthChartView.swift */; };
 		48EAFB5A2ADFEC44001D80C3 /* MonthChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB592ADFEC44001D80C3 /* MonthChartViewModel.swift */; };
+		48EAFB5C2ADFF92F001D80C3 /* WeekChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB5B2ADFF92F001D80C3 /* WeekChartView.swift */; };
+		48EAFB5E2ADFFC68001D80C3 /* WeekChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB5D2ADFFC68001D80C3 /* WeekChartViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -186,6 +188,8 @@
 		48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationUserDefaults+Enum.swift"; sourceTree = "<group>"; };
 		48EAFB572ADFE845001D80C3 /* MonthChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartView.swift; sourceTree = "<group>"; };
 		48EAFB592ADFEC44001D80C3 /* MonthChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartViewModel.swift; sourceTree = "<group>"; };
+		48EAFB5B2ADFF92F001D80C3 /* WeekChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartView.swift; sourceTree = "<group>"; };
+		48EAFB5D2ADFFC68001D80C3 /* WeekChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekChartViewModel.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -570,6 +574,8 @@
 			isa = PBXGroup;
 			children = (
 				483790B52AD174CA003AC436 /* WeekChartViewController.swift */,
+				48EAFB5B2ADFF92F001D80C3 /* WeekChartView.swift */,
+				48EAFB5D2ADFFC68001D80C3 /* WeekChartViewModel.swift */,
 			);
 			path = WeekChart;
 			sourceTree = "<group>";
@@ -760,8 +766,10 @@
 				4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */,
 				483790B22AD137AD003AC436 /* CustomTitleView.swift in Sources */,
 				4837908E2ACD6098003AC436 /* MonthScrollCatalogCell.swift in Sources */,
+				48EAFB5C2ADFF92F001D80C3 /* WeekChartView.swift in Sources */,
 				483790942ACEA51B003AC436 /* String+Extension.swift in Sources */,
 				4837908C2ACD535D003AC436 /* MonthScrollView.swift in Sources */,
+				48EAFB5E2ADFFC68001D80C3 /* WeekChartViewModel.swift in Sources */,
 				48EAFB4B2ADFA314001D80C3 /* Help+Protocol.swift in Sources */,
 				4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */,
 				48DC51032ADBF3F400705D4F /* RealmDataModified.swift in Sources */,

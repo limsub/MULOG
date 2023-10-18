@@ -53,5 +53,20 @@ enum DateFormatType: String {
             return 30
         }
     }
+    
+    // 주의 첫날과 마지막 날 리턴
+    static func getStartAndEndDateOfWeek(for date: Date) -> (Date, Date)? {
+        let calendar = Calendar.current
+        
+        // 주의 시작 날짜 찾기
+        var startDate = Date()
+        var interval = TimeInterval(0)
+        _ = calendar.dateInterval(of: .weekOfYear, start: &startDate, interval: &interval, for: date)
+        
+        // 주의 마지막 날짜 찾기
+        let endDate = calendar.date(byAdding: .day, value: +6, to: startDate)!
+        
+        return (startDate, endDate)
+    }
 
 }
