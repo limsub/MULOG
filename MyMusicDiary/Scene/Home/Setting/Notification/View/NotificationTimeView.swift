@@ -37,8 +37,6 @@ class NotificationTimeView: BaseView {
     override func setting() {
         super.setting()
         
-//        backgroundColor = .white
-        
         explainLabel.numberOfLines = 0
         explainLabel.font = .systemFont(ofSize: 12)
         

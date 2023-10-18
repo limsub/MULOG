@@ -102,9 +102,6 @@ class NotificationRepository {
     // failure 용으로 쓰는 곳 하나 있어서 일단 둔다
     func checkSystemSetting(_ successCompletionHandler: @escaping () -> Void, failureCompletionHandler: @escaping () -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
-            
-//            print("현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
-            
             if success {
                 successCompletionHandler()
             } else {
