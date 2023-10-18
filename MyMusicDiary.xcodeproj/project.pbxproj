@@ -93,6 +93,7 @@
 		48EAFB492ADFA303001D80C3 /* Help+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB482ADFA303001D80C3 /* Help+Enum.swift */; };
 		48EAFB4B2ADFA314001D80C3 /* Help+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */; };
 		48EAFB4D2ADFA6F4001D80C3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4C2ADFA6F4001D80C3 /* SearchView.swift */; };
+		48EAFB4F2ADFA9EF001D80C3 /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4E2ADFA9EF001D80C3 /* GenreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +177,7 @@
 		48EAFB482ADFA303001D80C3 /* Help+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Enum.swift"; sourceTree = "<group>"; };
 		48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Protocol.swift"; sourceTree = "<group>"; };
 		48EAFB4C2ADFA6F4001D80C3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		48EAFB4E2ADFA9EF001D80C3 /* GenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -435,6 +437,7 @@
 			children = (
 				4841038C2AD6BE3D002D56C7 /* GenreViewController.swift */,
 				4841038E2AD6BF16002D56C7 /* GenreViewModel.swift */,
+				48EAFB4E2ADFA9EF001D80C3 /* GenreView.swift */,
 			);
 			path = Genre;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				4812D52A2AC3AF3900E7C6A4 /* Observable.swift in Sources */,
 				483790AE2AD0E5A2003AC436 /* CustomBarChartViewWithExplanation.swift in Sources */,
 				483790B62AD174CA003AC436 /* WeekChartViewController.swift in Sources */,
+				48EAFB4F2ADFA9EF001D80C3 /* GenreView.swift in Sources */,
 				48BA31382AD518E30048AD05 /* NotificationSettingViewController.swift in Sources */,
 				483790A32ACFAB43003AC436 /* MonthChartViewController.swift in Sources */,
 				4812D5442AC3D74500E7C6A4 /* GenreDataModel.swift in Sources */,

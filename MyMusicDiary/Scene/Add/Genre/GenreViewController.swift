@@ -9,20 +9,12 @@ import UIKit
 
 class GenreViewController: BaseViewController {
     
-    lazy var activityIndicator = {
-        let view = UIActivityIndicatorView()
-        view.center = self.view.center
-        view.hidesWhenStopped = true
-        view.style = .medium
-        view.stopAnimating()
-        return view
-    }()
-    
     weak var delegate: UpdateDataDelegate?
     
     let viewModel = GenreViewModel()
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    let genreView = GenreView()
+    
     
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
     
@@ -32,17 +24,11 @@ class GenreViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-     
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(view)
-        }
         // 처음엔 무조건 로딩뷰 작동
-        activityIndicator.startAnimating()
-        
+        genreView.loadingIndicator(true)
         
         settingNavigation()
-        settingCollectionView()
+        settingGenreView()
         
         configureDataSource()
         bindModelData()
@@ -53,26 +39,13 @@ class GenreViewController: BaseViewController {
     }
     
     
-    // setting
-    override func setConfigure() {
-        super.setConfigure()
-        
-        view.addSubview(collectionView)
-    }
-    override func setConstraints() {
-        super.setConstraints()
-        
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
     func settingNavigation() {
         navigationItem.title = viewModel.title
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    func settingCollectionView() {
-        collectionView.prefetchDataSource = self
-        collectionView.delegate = self
+    func settingGenreView() {
+        genreView.collectionView.prefetchDataSource = self
+        genreView.collectionView.delegate = self
     }
     
     
@@ -81,30 +54,10 @@ class GenreViewController: BaseViewController {
         print("musicList에 바인드 : updateSnapshot")
         viewModel.musicList.bind { _ in
             DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
+                self.genreView.loadingIndicator(false)
+                self.updateSnapshot()
             }
-            self.updateSnapshot()
         }
-        
-//        viewModel.isLoading.bind { value in
-//            if value {
-//                // 로딩바 작동
-//                DispatchQueue.main.async {
-//                    self.activityIndicator.startAnimating()
-////                    self.loadingView.isHidden = false
-//                }
-//
-//                print("로딩바 작동")
-//            } else {
-//                // 로딩바 해제
-//                DispatchQueue.main.async {
-//                    self.activityIndicator.stopAnimating()
-////                    self.loadingView.isHidden = true
-//                }
-//
-//                print("로딩바 해제")
-//            }
-//        }
     }
     
     // datasource
@@ -115,7 +68,7 @@ class GenreViewController: BaseViewController {
         }
         
         dataSource = UICollectionViewDiffableDataSource(
-            collectionView: collectionView,
+            collectionView: genreView.collectionView,
             cellProvider: { collectionView, indexPath, itemIdentifier in
                 let cell = collectionView.dequeueConfiguredReusableCell(
                     using: cellRegistration,
@@ -132,9 +85,6 @@ class GenreViewController: BaseViewController {
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.musicList.value)
         dataSource?.apply(snapshot)
-        
-        // 컬렉션뷰 로드가 완료되면 false로 바꿔준다 -> bind에 의해 로딩뷰가 없어진다
-//        viewModel.isLoading.value = false
     }
     
 }

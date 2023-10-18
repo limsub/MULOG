@@ -1,5 +1,5 @@
 //
-//  SearchView.swift
+//  GenreView.swift
 //  MyMusicDiary
 //
 //  Created by 임승섭 on 2023/10/18.
@@ -7,11 +7,10 @@
 
 import UIKit
 
-class SearchView: BaseView {
+class GenreView: BaseView {
     
     lazy var collectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: createSearchLayout())
-        view.keyboardDismissMode = .onDrag
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createGenreLayout())
         return view
     }()
     
@@ -53,11 +52,8 @@ class SearchView: BaseView {
 }
 
 
-
-extension SearchView {
-    
-    
-    func createSearchLayout() -> UICollectionViewLayout {
+extension GenreView {
+    func createGenreLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         
         let width = UIScreen.main.bounds.width - 32
