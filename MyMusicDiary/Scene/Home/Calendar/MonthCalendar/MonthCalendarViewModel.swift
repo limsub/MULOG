@@ -35,6 +35,26 @@ class MonthCalendarViewModel {
         currentSelectedDate.value = newDate
     }
     
+    func updateBeforeSelectedDate() {
+        print("셀렉티드 데이 변경 전 : ", currentSelectedDate.value.convertedDate)
+        guard let newDate = Calendar.current.date(byAdding: .day, value: -1, to: currentSelectedDate.value) else { return }
+        previousSelectedDate.value = currentSelectedDate.value
+        currentSelectedDate.value = newDate
+        
+        print("셀렉티드 데이 변경 : ", currentSelectedDate.value.convertedDate)
+    }
+    func updateAfterSelectedDate() {
+        print("셀렉티드 데이 변경 전 : ", currentSelectedDate.value.convertedDate)
+        // 오늘 날짜에서는 플러스 시킬 수 없다
+        if isCurrentSelected(Date()) { return }
+        
+        guard let newDate = Calendar.current.date(byAdding: .day, value: +1, to: currentSelectedDate.value) else { return }
+        previousSelectedDate.value = currentSelectedDate.value
+        currentSelectedDate.value = newDate
+        
+        print("셀렉티드 데이 변경 : ", currentSelectedDate.value.convertedDate)
+    }
+    
     func isCurrentSelected(_ date: Date) -> Bool {  // selected Date인지 체크
         // 전체 date로 비교하면 시간까지 비교하기 때문에, 필요한 연월일만 비교한다
         return currentSelectedDate.value.toString(of: .full) == date.toString(of: .full) ? true : false

@@ -139,9 +139,6 @@ class MonthCalendarViewController: BaseViewController {
                     }
                 }
             case .authorized:
-                
-                
-                
                 let vc = SaveViewController()
                 // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
                 vc.viewModel.saveType = .modifyData        // 1
@@ -196,31 +193,49 @@ class MonthCalendarViewController: BaseViewController {
         viewModel.updateMusicList()
         updateSnapshot()
         
-        
-        // 여기선 애니메이션 안보이게
-        // 오늘이 선택되어 있고, 오늘 일기가 쓰여있을 때 -> 수정 버튼 떠있어야함
-        // else -> false
-//        viewModel.showModifyButton { value in
-//            if value && self.viewModel.isTodayWritten() {
-//                self.monthView.modifyButton.isHidden = false
-//            } else {
-//                self.monthView.modifyButton.isHidden = true
-//            }
-//        }
-        
-        
-        
-        
+
         
         checkShowNoDataView()
         
         
+        // 반대로 생각. left -> 이후 날짜 / right -> 이전 날짜
+        let afterSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(afterSwipeAction(_:)))
+        let beforeSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(beforeSwipeAction(_:)))
+        afterSwipeRecognizer.direction = .left
+        beforeSwipeRecognizer.direction = .right
         
-        
-        
-   
+        monthView.collectionView.addGestureRecognizer(afterSwipeRecognizer)
+        monthView.collectionView.addGestureRecognizer(beforeSwipeRecognizer)
     }
-
+    
+    @objc
+    func afterSwipeAction(_ sender: UISwipeGestureRecognizer) {
+        print("left")
+        
+        // 1. selectedDate 변경
+        viewModel.updateAfterSelectedDate()
+        // 2. calendar selected date 변경 + 이미지 흐리게 처리
+        monthView.calendar.select(viewModel.currentSelectedDate.value)
+        monthView.calendar.reloadData()
+        // 3. collectionView updatesnapshot
+        viewModel.updateMusicList()
+        updateSnapshot()
+        checkShowNoDataView()
+    }
+    @objc
+    func beforeSwipeAction(_ sender: UISwipeGestureRecognizer) {
+        print("right")
+        // 1. selectedDate 변경
+        viewModel.updateBeforeSelectedDate()
+        // 2. calendar selected date 변경 + 이미지 흐리게 처리
+        monthView.calendar.select(viewModel.currentSelectedDate.value)
+        monthView.calendar.reloadData()
+        // 3. collectionView updatesnapshot
+        viewModel.updateMusicList()
+        updateSnapshot()
+        checkShowNoDataView()
+    }
+  
     
     // 데이터 수정한 후 바로 반영될 수 있도록 설정
     override func viewWillAppear(_ animated: Bool) {
@@ -281,9 +296,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
 
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        
-//        print(#function, date)
-        
+  
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CalendarCell.description(), for: date, at: position) as? CalendarCell else { return FSCalendarCell() }
         
         cell.titleLabel.isHidden = false
@@ -313,7 +326,6 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         viewModel.updateSelectedDate(date)
         
         if !allShow {
-            
             // calendar 업데이트 (reloadData 쓰는 것보다 나을 듯)
             if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
                 previousCell.backImageView.alpha = 0.5
