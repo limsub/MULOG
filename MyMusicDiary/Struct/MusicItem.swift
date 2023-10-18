@@ -27,9 +27,11 @@ struct MusicItem: Identifiable, Hashable {
     
     var backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
     
+    let appleMusicURL: String?
+    
   
     
-    init(_id: UUID = UUID(), id: String, name: String, artist: String, bigImageURL: String? = nil, smallImageURL: String? = nil, previewURL: String? = nil, genres: [String], backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)) {
+    init(_id: UUID = UUID(), id: String, name: String, artist: String, bigImageURL: String? = nil, smallImageURL: String? = nil, previewURL: String? = nil, genres: [String], backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0), appleMusicURL: String? = nil) {
         self._id = _id
         self.id = id
         self.name = name
@@ -39,6 +41,8 @@ struct MusicItem: Identifiable, Hashable {
         self.previewURL = previewURL
         self.genres = genres
         self.backgroundColor = backgroundColor
+        
+        self.appleMusicURL = appleMusicURL
     }
 
     
@@ -58,6 +62,7 @@ struct MusicItem: Identifiable, Hashable {
             blue: CGFloat(musicItemTable.backgroundColors[2]),
             alpha: CGFloat(musicItemTable.backgroundColors[3])
         )
-
+        
+        self.appleMusicURL = musicItemTable.appleMusicURL
     }
 }

@@ -56,7 +56,10 @@ class MusicItemTable: Object {
     
     @Persisted var dateList: List<String> = List<String>()  // [20221011, 20221123, 20221201, ...]
     
-    convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String], colors: [Float]) {
+    
+    @Persisted var appleMusicURL: String?
+    
+    convenience init(id: String, name: String, artist: String, bigImageURL: String?, smallImageURL: String?, previewURL: String?, genres: [String], colors: [Float], appleMusicURL: String?) {
         self.init()
         
         self.id = id
@@ -72,6 +75,8 @@ class MusicItemTable: Object {
         colors.forEach { item in
             self.backgroundColors.append(item)
         }
+        
+        self.appleMusicURL = appleMusicURL
     }
     
     convenience init(musicItem: MusicItem) {
@@ -97,6 +102,8 @@ class MusicItemTable: Object {
         colorArr.forEach { item in
             self.backgroundColors.append(item)
         }
+        
+        self.appleMusicURL = musicItem.appleMusicURL
     }
 
 }

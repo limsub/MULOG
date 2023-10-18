@@ -19,6 +19,10 @@ class GenreViewController: BaseViewController {
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
     
     
+    override func loadView() {
+        self.view = genreView
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -52,8 +52,8 @@ class SearchViewModel {
                                 smallImageURL: $0.artwork?.url(width: 150, height: 150)?.absoluteString,
                                 previewURL: $0.previewAssets?[0].url?.absoluteString,
                                 genres: $0.genreNames,
-                                backgroundColor: $0.artwork?.backgroundColor
-                                
+                                backgroundColor: $0.artwork?.backgroundColor,
+                                appleMusicURL: $0.url?.absoluteString
                             )
                             
                         }

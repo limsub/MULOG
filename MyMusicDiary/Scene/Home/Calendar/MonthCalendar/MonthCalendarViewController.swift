@@ -290,7 +290,7 @@ class MonthCalendarViewController: BaseViewController {
 extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func maximumDate(for calendar: FSCalendar) -> Date {
-        print(#function)
+//        print(#function)
         return Date()
     }
 
@@ -477,11 +477,19 @@ extension MonthCalendarViewController: ReloadProtocol {
     }
 }
 
+
+
 extension MonthCalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        // 1. 현재 musicList의 indexPath에 접근
+        // 2. 걔의 url or title 가져옴
+        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let appleMusicURL = "https://music.apple.com/kr/album/you-me/1709257167?i=1709257170"
+        guard let appleMusicURL = viewModel.currentMusicList.value[indexPath.item].appleMusicURL else {
+            showSingleAlert("음악 데이터가 부족해서 앱을 실행할 수 없습니다", message: "")
+            return }
         let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { _ in
 //            URL 인스턴스를 만들어 주는 단계
                 let kakaoTalkURL = NSURL(string: appleMusicURL)
@@ -501,11 +509,11 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
     
             }
         
-        let youtubeMusicURL = "https://music.youtube.com/search?q=너랑 나"
         
-        
-        let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: encodedStr)!
+        let title = viewModel.currentMusicList.value[indexPath.item].name
+        let artist = viewModel.currentMusicList.value[indexPath.item].artist
+        let youtubeMusicURL = "https://music.youtube.com/search?q=\(title) \(artist)"
+         let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         
         let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { _ in

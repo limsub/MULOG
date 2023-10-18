@@ -76,7 +76,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         view.backgroundColor = .clear
         view.textColor = .lightGray
         view.font = .systemFont(ofSize: 14)
-        view.textAlignment = .center
+//        view.textAlignment = .center
         
         view.text = "락"
         return view
@@ -92,7 +92,9 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         view.backgroundColor = .clear
         view.textColor = .lightGray
         view.font = .systemFont(ofSize: 14)
-        view.textAlignment = .center
+//        view.textAlignment = .center
+        
+        view.adjustsFontForContentSizeCategory = true
         
         view.text = "발라드"
         return view
@@ -108,7 +110,9 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         view.backgroundColor = .clear
         view.textColor = .lightGray
         view.font = .systemFont(ofSize: 14)
-        view.textAlignment = .center
+//        view.textAlignment = .center
+        
+        view.adjustsFontForContentSizeCategory = true
         
         view.text = "K-POP"
         return view
@@ -205,20 +209,22 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         }
         artistLabel.snp.makeConstraints { make in
             make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
-            make.trailing.equalTo(backView).inset(12)
+            make.trailing.equalTo(backView).inset(50)
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
         }
         
         genre1Label.snp.makeConstraints { make in
-            make.leading.equalTo(artworkImageView.snp.trailing).offset(8)
+            make.leading.equalTo(artworkImageView.snp.trailing).offset(4)
             make.bottom.equalTo(backView).inset(5)
         }
         genre2Label.snp.makeConstraints { make in
-            make.leading.equalTo(genre1Label.snp.trailing).offset(8)
+            make.leading.equalTo(genre1Label.snp.trailing).offset(4)
+            make.trailing.greaterThanOrEqualTo(backView).inset(60).priority(.low)
             make.bottom.equalTo(backView).inset(5)
         }
         genre3Label.snp.makeConstraints { make in
-            make.leading.equalTo(genre2Label.snp.trailing).offset(8)
+            make.leading.equalTo(genre2Label.snp.trailing).offset(4)
+            make.trailing.equalTo(backView).inset(60)
             make.bottom.equalTo(backView).inset(5)
         }
         
@@ -298,6 +304,17 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         } else {
             countRecordLabel.text = "record"
         }
+        
+        
+        // 장르 레이블 잘림 방지
+        if let g1Size = genre1Label.text?.count, let g2Size = genre2Label.text?.count, g1Size + g2Size > 6 {
+            genre3Label.isHidden = true
+        }
+        if let g1Size = genre1Label.text?.count, g1Size > 7 {
+            genre2Label.isHidden = true
+        }
+        
+        
     }
     
     override func prepareForReuse() {
@@ -305,5 +322,9 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         
         dateLabel.isHidden = false
         yoilLabel.isHidden = false
+        
+        genre1Label.isHidden = false
+        genre2Label.isHidden = false
+        genre3Label.isHidden = false
     }
 }

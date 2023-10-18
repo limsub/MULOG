@@ -73,6 +73,7 @@ class SaveViewModel {
     ) {
         print("========== 저장 버튼이 클릭되었습니다 ==========")
         
+        /*0000000000000000*/
 //        currentDate = Date()
     
         // 1. musicList가 빈 배열인지 확인
@@ -165,8 +166,6 @@ class SaveViewModel {
 //            Sample.shared.a += 2
             
             musicList.value.forEach {
-                
-                
                 if let alreadyMusic = repository.alreadySave($0.id) {
                     // 기존에 저장했던 음악
                     print("= 5. \($0.name)은 기존에 저장해두었던 곡입니다. 원래 있던 MusicItem에 접근합니다")
