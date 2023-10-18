@@ -130,6 +130,7 @@ class MonthChartView: BaseView {
         barGraphView.barChartView.genres = genres
         barGraphView.barChartView.colors = colors
         
+        barGraphView.barDateView.reDesign(.month, startDate: currentPageDate)
     }
     
     

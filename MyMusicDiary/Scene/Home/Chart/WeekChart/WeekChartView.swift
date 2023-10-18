@@ -124,6 +124,7 @@ class WeekChartView: BaseView {
         barGraphView.barChartView.genres = genres
         barGraphView.barChartView.colors = colors
         
+        barGraphView.barDateView.reDesign(.week, startDate: currentPageDate)
     }
 }
 

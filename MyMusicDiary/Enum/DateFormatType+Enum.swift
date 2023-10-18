@@ -13,6 +13,8 @@ enum DateFormatType: String {
     case month = "MM"
     case fullMonth = "MMMM"
     
+    case slashMonthDay = "M/dd"
+    
     case year = "yyyy"
     
     case fullMonthYear = "MMMM yyyy"
