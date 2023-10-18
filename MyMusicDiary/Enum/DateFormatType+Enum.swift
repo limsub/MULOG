@@ -40,4 +40,18 @@ enum DateFormatType: String {
     
     case singleDay = "d"
     
+    
+    static func calculateDayCnt(_ starDayString: String) -> Int {
+    
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: starDayString.toDate(to: .full) ?? Date())
+        if let nextMonthDate = calendar.date(from: components),
+           let lastDay = calendar.date(byAdding: DateComponents(day: -1), to: calendar.date(byAdding: DateComponents(month: 1), to: nextMonthDate)!) {
+
+            return calendar.component(.day, from: lastDay)
+        } else {
+            return 30
+        }
+    }
+
 }

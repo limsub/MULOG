@@ -96,6 +96,8 @@
 		48EAFB4F2ADFA9EF001D80C3 /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4E2ADFA9EF001D80C3 /* GenreView.swift */; };
 		48EAFB522ADFAC69001D80C3 /* SystemNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB512ADFAC69001D80C3 /* SystemNotification.swift */; };
 		48EAFB542ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */; };
+		48EAFB582ADFE845001D80C3 /* MonthChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB572ADFE845001D80C3 /* MonthChartView.swift */; };
+		48EAFB5A2ADFEC44001D80C3 /* MonthChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB592ADFEC44001D80C3 /* MonthChartViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,6 +184,8 @@
 		48EAFB4E2ADFA9EF001D80C3 /* GenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
 		48EAFB512ADFAC69001D80C3 /* SystemNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemNotification.swift; sourceTree = "<group>"; };
 		48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationUserDefaults+Enum.swift"; sourceTree = "<group>"; };
+		48EAFB572ADFE845001D80C3 /* MonthChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartView.swift; sourceTree = "<group>"; };
+		48EAFB592ADFEC44001D80C3 /* MonthChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartViewModel.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -419,8 +423,8 @@
 			isa = PBXGroup;
 			children = (
 				483790B32AD174BC003AC436 /* ChartTabViewController.swift */,
-				483790A22ACFAB43003AC436 /* MonthChartViewController.swift */,
-				483790B52AD174CA003AC436 /* WeekChartViewController.swift */,
+				48EAFB552ADFE81D001D80C3 /* MonthChart */,
+				48EAFB562ADFE822001D80C3 /* WeekChart */,
 				483790AA2AD0D850003AC436 /* ChartView */,
 			);
 			path = Chart;
@@ -550,6 +554,24 @@
 				488935552AD666E000E4B0B0 /* NotificationRepository.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		48EAFB552ADFE81D001D80C3 /* MonthChart */ = {
+			isa = PBXGroup;
+			children = (
+				483790A22ACFAB43003AC436 /* MonthChartViewController.swift */,
+				48EAFB572ADFE845001D80C3 /* MonthChartView.swift */,
+				48EAFB592ADFEC44001D80C3 /* MonthChartViewModel.swift */,
+			);
+			path = MonthChart;
+			sourceTree = "<group>";
+		};
+		48EAFB562ADFE822001D80C3 /* WeekChart */ = {
+			isa = PBXGroup;
+			children = (
+				483790B52AD174CA003AC436 /* WeekChartViewController.swift */,
+			);
+			path = WeekChart;
 			sourceTree = "<group>";
 		};
 		99F964DB2FEB2A606827D0F7 /* Pods */ = {
@@ -757,6 +779,7 @@
 				483790842ACD3B7E003AC436 /* BaseView.swift in Sources */,
 				48DC51062ADBF62C00705D4F /* NoDataView.swift in Sources */,
 				48EAFB542ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift in Sources */,
+				48EAFB582ADFE845001D80C3 /* MonthChartView.swift in Sources */,
 				4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */,
 				4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */,
 				483790432ACA7AEE003AC436 /* DayItemTableRepository.swift in Sources */,
@@ -769,6 +792,7 @@
 				48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */,
 				48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
+				48EAFB5A2ADFEC44001D80C3 /* MonthChartViewModel.swift in Sources */,
 				483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */,
 				4837908A2ACD52B8003AC436 /* MonthScrollViewController.swift in Sources */,
 				4812D5322AC3BBB900E7C6A4 /* BaseCollectionViewCell.swift in Sources */,

@@ -17,59 +17,56 @@ class ChartTabViewController: TabmanViewController {
     
     private lazy var viewControllers = [monthChartVC, weekChartVC]
     
-    
-
-    
-    
+    // Bar 부분을 담고 있기 위한 커스텀 뷰
     let customContainer = UIView()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
 
+        settingCustomContainer()
+        settingNavigation()
+        settingTabman()
+    }
+    
+    func settingCustomContainer() {
+        customContainer.backgroundColor = .clear
+        customContainer.layer.applyShadow(color: Constant.Color.main2, alpha: 0.8, x: 0, y: 0.2, blur: 0.5)
+        
         view.addSubview(customContainer)
         customContainer.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(14)
             make.height.equalTo(50)
         }
-        customContainer.backgroundColor = .clear
-        
-        customContainer.layer.applyShadow(color: Constant.Color.main2, alpha: 0.8, x: 0, y: 0.2, blur: 0.5)
-//        customContainer.layer.cornerRadius = 20
-
-        view.backgroundColor = UIColor(hexCode: "#F6F6F6")
-        
-        tabBarController?.tabBar.backgroundColor = .white
-        
+    }
+    
+    func settingNavigation() {
         navigationItem.title = "Chart"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        
+    }
+    
+    func settingTabman() {
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .fit
-        bar.layout.interButtonSpacing = 0//
-//        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        bar.layout.interButtonSpacing = 0
         bar.backgroundView.style = .clear
-        
         bar.indicator.overscrollBehavior = .bounce
-        
         bar.indicator.tintColor = Constant.Color.main2
         bar.indicator.weight = .custom(value: 3)
         bar.indicator.cornerStyle = .eliptical
-
-        
         bar.buttons.customize { button in
             button.tintColor = .lightGray
             button.selectedTintColor = Constant.Color.main2
         }
         
         bar.backgroundColor = .white
-//        bar.layer.backgroundColor = UIColor.red.cgColor
         bar.layer.cornerRadius = 10
         bar.layer.maskedCorners = [
             .layerMaxXMaxYCorner,
@@ -79,10 +76,7 @@ class ChartTabViewController: TabmanViewController {
         ]
         
         addBar(bar, dataSource: self, at: .custom(view: customContainer, layout: nil))
-        
     }
-    
-    
 
 }
 
@@ -101,10 +95,6 @@ extension ChartTabViewController: PageboyViewControllerDataSource, TMBarDataSour
     }
     
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        if index == 0 {
-            return TMBarItem(title: "월")
-        } else {
-            return TMBarItem(title: "주")
-        }
+        return TMBarItem(title: (index == 0) ? "월" : "주")        
     }
 }

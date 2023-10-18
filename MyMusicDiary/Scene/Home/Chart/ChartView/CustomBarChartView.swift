@@ -12,13 +12,67 @@ enum ChartType {
     case month
 }
 
-class CustomBarChartView: UIView {
+class CustomBarChartView: BaseView {
     
     // 주 -> 7
     // 월 -> 29, 30, 31
     // => Int 매개변수로 받기
     
-
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        
+        return stackView
+    }()
+    
+    func makeDayLabel(_ day: String) -> UILabel {
+            
+        let view = UILabel()
+//        view.backgroundColor = .red
+        view.textColor = .darkGray
+        view.text = day
+        view.font = .systemFont(ofSize: 12)
+        view.textAlignment = .center
+        return view
+    }
+    
+    lazy var day1Label = makeDayLabel("10/1")
+    lazy var day2Label = makeDayLabel("10/15")
+    lazy var day3Label = makeDayLabel("10/31")
+    
+    override func setConfigure() {
+        super.setConfigure()
+        
+        addSubview(day1Label)
+        addSubview(day2Label)
+        addSubview(day3Label)
+        
+    }
+    override func setConstraints() {
+        super.setConstraints()
+        
+//        let leftSpace: CGFloat = 20
+//        let itemWidth = (self.frame.width - leftSpace * 2) / CGFloat(7)
+//  
+//        day1Label.snp.makeConstraints { make in
+//            make.leading.equalTo(self).inset(20)
+//            make.bottom.equalTo(self)
+//            make.width.equalTo(30)
+//        }
+//        day2Label.snp.makeConstraints { make in
+//            make.centerX.equalTo(self)
+//            make.bottom.equalTo(self)
+//            make.width.equalTo(30)
+//        }
+//        day3Label.snp.makeConstraints { make in
+//            make.trailing.equalTo(self).inset(20)
+//            make.bottom.equalTo(self)
+//            make.width.equalTo(30)
+//        }
+    
+    }
     
     var dataList: [DayGenreCountForBarChart] = []
     var dayCount: Int = 7   // 7 / 29, 30, 31
@@ -46,10 +100,7 @@ class CustomBarChartView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
-//        dump(dataList)
-        
-        
+
         // 상하좌우 여백 -> SnapKit 따로 안쓴다
         let leftSpace: CGFloat = 18
         let rightSpace: CGFloat = 18

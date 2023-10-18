@@ -66,7 +66,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
     
     let genre1Label = {
-        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 4))
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
@@ -75,14 +75,14 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
-        view.font = .systemFont(ofSize: 14)
-//        view.textAlignment = .center
+        view.font = .systemFont(ofSize: 12)
+        view.textAlignment = .center
         
         view.text = "락"
         return view
     }()
     let genre2Label = {
-        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
@@ -91,8 +91,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
-        view.font = .systemFont(ofSize: 14)
-//        view.textAlignment = .center
+        view.font = .systemFont(ofSize: 12)
+        view.textAlignment = .center
         
         view.adjustsFontForContentSizeCategory = true
         
@@ -100,7 +100,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         return view
     }()
     let genre3Label = {
-        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 8, bottom: 2, right: 8))
+        let view = BasePaddingLabel(padding: UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4))
     
         view.clipsToBounds = true
         view.layer.cornerRadius = 8
@@ -109,8 +109,8 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
 //        view.backgroundColor = .white.withAlphaComponent(0.8)
         view.backgroundColor = .clear
         view.textColor = .lightGray
-        view.font = .systemFont(ofSize: 14)
-//        view.textAlignment = .center
+        view.font = .systemFont(ofSize: 12)
+        view.textAlignment = .center
         
         view.adjustsFontForContentSizeCategory = true
         
@@ -214,17 +214,15 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         }
         
         genre1Label.snp.makeConstraints { make in
-            make.leading.equalTo(artworkImageView.snp.trailing).offset(4)
+            make.leading.equalTo(artworkImageView.snp.trailing).offset(12)
             make.bottom.equalTo(backView).inset(5)
         }
         genre2Label.snp.makeConstraints { make in
             make.leading.equalTo(genre1Label.snp.trailing).offset(4)
-            make.trailing.greaterThanOrEqualTo(backView).inset(60).priority(.low)
             make.bottom.equalTo(backView).inset(5)
         }
         genre3Label.snp.makeConstraints { make in
             make.leading.equalTo(genre2Label.snp.trailing).offset(4)
-            make.trailing.equalTo(backView).inset(60)
             make.bottom.equalTo(backView).inset(5)
         }
         

@@ -52,6 +52,7 @@ class HomeTabViewController: UITabBarController {
         
         tabBar.tintColor = Constant.Color.main2
         
+        tabBarController?.tabBar.backgroundColor = .white
     
         tabBar.layer.cornerRadius = 30
         
