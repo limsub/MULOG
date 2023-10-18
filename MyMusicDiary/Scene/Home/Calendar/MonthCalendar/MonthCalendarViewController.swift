@@ -487,23 +487,23 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
+        
         guard let appleMusicURL = viewModel.currentMusicList.value[indexPath.item].appleMusicURL else {
-            showSingleAlert("음악 데이터가 부족해서 앱을 실행할 수 없습니다", message: "")
-            return }
-        let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { _ in
-//            URL 인스턴스를 만들어 주는 단계
-                let kakaoTalkURL = NSURL(string: appleMusicURL)
-    
+            showSingleAlert("앱을 실행할 수 없습니다", message: "")
+            return
+        }
+        let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { [weak self] _ in
+                guard let kakaoTalkURL = NSURL(string: appleMusicURL) else { return }
     
                 //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
-                if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
+                if (UIApplication.shared.canOpenURL(kakaoTalkURL as URL)) {
     
                     //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
-                    UIApplication.shared.open(kakaoTalkURL! as URL)
+                    UIApplication.shared.open(kakaoTalkURL as URL)
                 }
                 //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
                 else {
-                    print("No kakaotalk installed.")
+                    self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
                 }
     
     
@@ -513,22 +513,22 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         let title = viewModel.currentMusicList.value[indexPath.item].name
         let artist = viewModel.currentMusicList.value[indexPath.item].artist
         let youtubeMusicURL = "https://music.youtube.com/search?q=\(title) \(artist)"
-         let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        guard let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            showSingleAlert("앱을 실행할 수 없습니다", message: "")
+            return
+        }
         
-        
-        let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { _ in
-            let kakaoTalkURL = NSURL(string: encodedStr)
-
-
+        let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { [weak self] _ in
+            guard let kakaoTalkURL = NSURL(string: encodedStr) else { return }
             //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
-            if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
+            if (UIApplication.shared.canOpenURL(kakaoTalkURL as URL)) {
 
                 //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
-                UIApplication.shared.open(kakaoTalkURL! as URL)
+                UIApplication.shared.open(kakaoTalkURL as URL)
             }
             //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
             else {
-                print("No kakaotalk installed.")
+                self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
             }
 
 
@@ -536,11 +536,12 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
+        
+        
         alert.addAction(cancel)
         alert.addAction(appleMusic)
         alert.addAction(youtubeMusic)
         
         present(alert, animated: true)
-        
     }
 }
