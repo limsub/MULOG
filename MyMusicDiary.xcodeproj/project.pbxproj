@@ -92,6 +92,7 @@
 		48EAFB472ADFA2BB001D80C3 /* HelpPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB462ADFA2BB001D80C3 /* HelpPageViewModel.swift */; };
 		48EAFB492ADFA303001D80C3 /* Help+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB482ADFA303001D80C3 /* Help+Enum.swift */; };
 		48EAFB4B2ADFA314001D80C3 /* Help+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */; };
+		48EAFB4D2ADFA6F4001D80C3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB4C2ADFA6F4001D80C3 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +175,7 @@
 		48EAFB462ADFA2BB001D80C3 /* HelpPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPageViewModel.swift; sourceTree = "<group>"; };
 		48EAFB482ADFA303001D80C3 /* Help+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Enum.swift"; sourceTree = "<group>"; };
 		48EAFB4A2ADFA314001D80C3 /* Help+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Help+Protocol.swift"; sourceTree = "<group>"; };
+		48EAFB4C2ADFA6F4001D80C3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.release.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.release.xcconfig"; sourceTree = "<group>"; };
 		F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMusicDiary.debug.xcconfig"; path = "Target Support Files/Pods-MyMusicDiary/Pods-MyMusicDiary.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -278,6 +280,7 @@
 			children = (
 				4812D51F2AC3AC9B00E7C6A4 /* SearchViewController.swift */,
 				4812D5212AC3ACA000E7C6A4 /* SearchViewModel.swift */,
+				48EAFB4C2ADFA6F4001D80C3 /* SearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				48DAF6902AD2D25600932539 /* PagerViewDataRepository.swift in Sources */,
 				4812D4FE2AC3A9ED00E7C6A4 /* ViewController.swift in Sources */,
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
+				48EAFB4D2ADFA6F4001D80C3 /* SearchView.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
 				48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */,
 				48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */,

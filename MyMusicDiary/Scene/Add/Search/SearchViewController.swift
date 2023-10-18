@@ -20,66 +20,35 @@ class SearchViewController: BaseViewController {
     // ViewModel
     let viewModel = SearchViewModel()
     
-    let searchBar = UISearchBar()
+    let searchView = SearchView()
     
-    let searchController = UISearchController()
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    
+    let searchBar = UISearchBar()
     
     var dataSource: UICollectionViewDiffableDataSource<Int, MusicItem>?
     
     
-    // view
-    lazy var activityIndicator = {
-        let view = UIActivityIndicatorView()
-        view.center = self.view.center
-        view.hidesWhenStopped = true
-        view.style = .medium
-        view.stopAnimating()
-        return view
-    }()
+    override func loadView() {
+        self.view = searchView
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        
-        
-        settingCollectionView()
+        settingSearchView()
         settingNavigationItem()
 
         configureDataSource()
         bindModelData()
     }
     
-    
-    
-    // set
-    override func setConfigure() {
-        super.setConfigure()
-        
-        view.addSubview(collectionView)
-        view.addSubview(activityIndicator)
-    }
-    override func setConstraints() {
-        super.setConstraints()
-        
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(view)
-        }
-    }
-    private func settingCollectionView() {
-        collectionView.keyboardDismissMode = .onDrag
-        collectionView.prefetchDataSource = self
-        collectionView.delegate = self
+    private func settingSearchView() {
+        searchView.collectionView.prefetchDataSource = self
+        searchView.collectionView.delegate = self
     }
     private func settingNavigationItem() {
-        
-        
-        
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "오늘 들었던 음악을 검색하세요"
@@ -104,7 +73,7 @@ class SearchViewController: BaseViewController {
         }
         
         dataSource = UICollectionViewDiffableDataSource(
-            collectionView: collectionView,
+            collectionView: searchView.collectionView,
             cellProvider: { collectionView, indexPath, itemIdentifier in
                 let cell = collectionView.dequeueConfiguredReusableCell(
                     using: cellRegistration,
@@ -127,14 +96,15 @@ class SearchViewController: BaseViewController {
 // searchBar
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        activityIndicator.startAnimating()
+        searchView.loadingIndicator(true)
+        
         guard let text = searchBar.text else { return }
         viewModel.searchTerm = text
         viewModel.page = 1
         viewModel.musicList.value.removeAll()
         viewModel.fetchSearchMusic {
             DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
+                self.searchView.loadingIndicator(false)
             }
         }
     }
@@ -143,20 +113,13 @@ extension SearchViewController: UISearchBarDelegate {
 // prefetch
 extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("prefetch. 추후 pagination 필요")
-        
-        
-        
         for indexPath in indexPaths {
             if indexPath.row == viewModel.musicList.value.count - 1 {
-//                activityIndicator.startAnimating()    // 여긴 있는게 더 어색하다
                 viewModel.page += 1
                 viewModel.fetchSearchMusic {
-                    
                 }
             }
         }
-        
     }
 }
 
@@ -167,7 +130,5 @@ extension SearchViewController: UICollectionViewDelegate {
         delegate?.updateMusicList(item: viewModel.musicList.value[indexPath.item])
         
         dismiss(animated: true)
-        
-        
     }
 }
