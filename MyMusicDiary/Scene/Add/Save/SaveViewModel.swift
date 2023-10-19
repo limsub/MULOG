@@ -10,7 +10,7 @@ import Foundation
 class Sample {
     static let shared = Sample()
     
-    var a = -15
+    var a = -10
 }
 
 enum SaveType {
@@ -163,7 +163,7 @@ class SaveViewModel {
 //            let a = Calendar.current.date(byAdding: .day, value: Sample.shared.a, to: Date())!
 //            print("데이터 추가===============\(a)")
 //            let newTable = DayItemTable(day: a)
-//            Sample.shared.a += 2
+//            Sample.shared.a += 1
             
             musicList.value.forEach {
                 if let alreadyMusic = repository.alreadySave($0.id) {

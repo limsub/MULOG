@@ -25,8 +25,20 @@ extension UIColor {
          case k =   "#f7f6a6"
          case l =   "#f8f8ad"
          case m =   "#f9f9b4"
+         case aa = "#f9f9b5"
+         case bb = "#f9f9bb"
+         case cc = "#f9f9c1"
+         case dd = "#f9f9c7"
+         case ee = "#f9f9cd"
          case n =   "#fafab9"
-         case o =   "#fbfbbf"
+        case o = "#fafaba"
+        case p = "#fafbb0"
+        case q = "#fafcaf"
+        case r = "#fafdb5"
+        case s = "#fafeb9"
+         case t =   "#fbfbbf"
+        
+        
     }
 
     // hexCode로 UIColor 반환
