@@ -247,9 +247,11 @@ extension SaveViewController: UICollectionViewDelegate {
     // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
-        
         if collectionView == saveView.genreCollectionView {
+            print("장르 컬렉션뷰 선택됨")
+            if !NetworkMonitor.shared.isConnected {
+                showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+            }
             
             if viewModel.numberOfItems() >= 3 {
                 showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
@@ -298,8 +300,9 @@ extension SaveViewController: UICollectionViewDelegate {
             
 
             
-            print("장르 컬렉션뷰 선택됨")
-        } else {
+            
+        }
+        else {
             
             self.showAlert("곡을 삭제하시겠습니까?", message: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요", okTitle: "확인") { [weak self] in
                     print("셀 삭제하기")

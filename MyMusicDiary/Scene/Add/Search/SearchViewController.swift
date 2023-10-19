@@ -96,6 +96,12 @@ class SearchViewController: BaseViewController {
 // searchBar
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if !NetworkMonitor.shared.isConnected {
+            showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+            return
+        }
+        
         searchView.loadingIndicator(true)
         
         guard let text = searchBar.text else { return }
@@ -106,7 +112,14 @@ extension SearchViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 self.searchView.loadingIndicator(false)
             }
+        } noDataCompletionHandler: {
+            DispatchQueue.main.async {
+                self.showSingleAlert("검색된 음악이 없습니다", message: "검색어를 다시 확인해주세요")
+            }
+            
         }
+        
+        
     }
 }
 
@@ -116,8 +129,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         for indexPath in indexPaths {
             if indexPath.row == viewModel.musicList.value.count - 1 {
                 viewModel.page += 1
-                viewModel.fetchSearchMusic {
-                }
+                viewModel.fetchSearchMusic {} noDataCompletionHandler: {}
             }
         }
     }

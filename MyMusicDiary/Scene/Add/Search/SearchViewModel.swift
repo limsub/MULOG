@@ -16,7 +16,7 @@ class SearchViewModel {
     var page = 1
     var searchTerm: String?
     
-    func fetchSearchMusic(completionHandler: @escaping () -> Void) {
+    func fetchSearchMusic(completionHandler: @escaping () -> Void, noDataCompletionHandler: @escaping () -> Void) {
         guard let searchTerm else { return }
         Task {
             let status = await MusicAuthorization.request()
@@ -59,7 +59,9 @@ class SearchViewModel {
                         }
                     )
                     
-                    
+                    if musicList.value.isEmpty {
+                        noDataCompletionHandler()
+                    }
                     
                 }
             @unknown default:

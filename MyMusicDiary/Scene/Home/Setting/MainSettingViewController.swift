@@ -31,6 +31,7 @@ class MainSettingViewController: BaseViewController {
         
         navigationItem.title = "Setting"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .black
     }
     
     

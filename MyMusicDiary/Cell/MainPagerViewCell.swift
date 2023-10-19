@@ -154,7 +154,16 @@ class MainPagerViewCell: FSPagerViewCell {
         // parentVC.isPlaying을 사용하면 어떨까
         
         
+        
+        
         if parentVC == nil { return }
+        
+        
+        if !NetworkMonitor.shared.isConnected {
+            guard let vc = parentVC as? UIViewController else { return }
+            vc.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+            return
+        }
                 
         print("현재 상태 : \(parentVC?.isPlaying)")
         

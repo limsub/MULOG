@@ -256,6 +256,7 @@ class MonthCalendarViewController: BaseViewController {
 //        let monthScrollViewButton = UIBarButtonItem(image: UIImage(named: "monthCalendarView_menuDown"), style: .plain, target: self, action: #selector(monthScrollViewButtonClicked))
 //        navigationItem.rightBarButtonItem = monthScrollViewButton
         
+        navigationController?.navigationBar.tintColor = .black
         
         
     }
@@ -493,21 +494,30 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
             return
         }
         let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { [weak self] _ in
-                guard let kakaoTalkURL = NSURL(string: appleMusicURL) else { return }
-    
-                //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
-                if (UIApplication.shared.canOpenURL(kakaoTalkURL as URL)) {
-    
-                    //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
-                    UIApplication.shared.open(kakaoTalkURL as URL)
+            
+            if !NetworkMonitor.shared.isConnected {
+                DispatchQueue.main.async {
+                    self?.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
                 }
-                //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
-                else {
-                    self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
-                }
-    
-    
+                return
             }
+            
+            
+            guard let kakaoTalkURL = NSURL(string: appleMusicURL) else { return }
+
+            //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+            if (UIApplication.shared.canOpenURL(kakaoTalkURL as URL)) {
+
+                //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
+                UIApplication.shared.open(kakaoTalkURL as URL)
+            }
+            //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
+            else {
+                self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
+            }
+    
+    
+        }
         
         
         let title = viewModel.currentMusicList.value[indexPath.item].name
@@ -519,6 +529,15 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         }
         
         let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { [weak self] _ in
+            
+            if !NetworkMonitor.shared.isConnected {
+                DispatchQueue.main.async {
+                    self?.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+                }
+                return
+            }
+            
+            
             guard let kakaoTalkURL = NSURL(string: encodedStr) else { return }
             //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
             if (UIApplication.shared.canOpenURL(kakaoTalkURL as URL)) {
