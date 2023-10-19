@@ -12,6 +12,7 @@ class CustomPieChartView: BaseView {
     
     let titleLabel = {
         let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 16)
         return view
     }()
     let pieChartView = PieChartView()

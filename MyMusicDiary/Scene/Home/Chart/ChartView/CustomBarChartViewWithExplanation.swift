@@ -106,7 +106,11 @@ class CustomBarChartDayLabelView: BaseView {
 
 class CustomBarChartViewWithExplanation: BaseView {
     
-    let titleLabel = UILabel()
+    let titleLabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 16)
+        return view
+    }()
     var barChartView = CustomBarChartView()
     
     var barDateView: CustomBarChartDayLabelView = CustomBarChartDayLabelView(.month, startDate: Date())

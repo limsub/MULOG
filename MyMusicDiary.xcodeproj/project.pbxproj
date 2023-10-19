@@ -29,6 +29,8 @@
 		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
 		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
 		4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */; };
+		48303CB02AE0FB4D000C72EA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 48303CAF2AE0FB4D000C72EA /* Settings.bundle */; };
+		48303CB32AE0FDA7000C72EA /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */; };
 		4837903D2ACA4C20003AC436 /* MonthCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */; };
 		4837903F2ACA4C86003AC436 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4837903E2ACA4C86003AC436 /* CalendarCell.swift */; };
 		483790412ACA7873003AC436 /* MonthCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483790402ACA7873003AC436 /* MonthCalendarViewModel.swift */; };
@@ -123,6 +125,8 @@
 		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewModel.swift; sourceTree = "<group>"; };
 		4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCatalogCell.swift; sourceTree = "<group>"; };
+		48303CAF2AE0FB4D000C72EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		4837903C2ACA4C20003AC436 /* MonthCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewController.swift; sourceTree = "<group>"; };
 		4837903E2ACA4C86003AC436 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		483790402ACA7873003AC436 /* MonthCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewModel.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 		4812D4ED2AC3A9ED00E7C6A4 = {
 			isa = PBXGroup;
 			children = (
+				48303CAF2AE0FB4D000C72EA /* Settings.bundle */,
 				4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */,
 				4812D4F72AC3A9ED00E7C6A4 /* Products */,
 				99F964DB2FEB2A606827D0F7 /* Pods */,
@@ -349,6 +354,14 @@
 				4812D5432AC3D74500E7C6A4 /* GenreDataModel.swift */,
 			);
 			path = GenreModel;
+			sourceTree = "<group>";
+		};
+		48303CB12AE0FD4B000C72EA /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */,
+			);
+			path = Privacy;
 			sourceTree = "<group>";
 		};
 		4837903B2ACA4C04003AC436 /* Home */ = {
@@ -492,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				48BA31322AD515E40048AD05 /* MainSettingViewController.swift */,
+				48303CB12AE0FD4B000C72EA /* Privacy */,
 				48BA31342AD518C70048AD05 /* Notification */,
 			);
 			path = Setting;
@@ -679,6 +693,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48303CB02AE0FB4D000C72EA /* Settings.bundle in Resources */,
 				4812D5062AC3A9EE00E7C6A4 /* LaunchScreen.storyboard in Resources */,
 				4812D5032AC3A9EE00E7C6A4 /* Assets.xcassets in Resources */,
 				48DC50FA2ADBBAE900705D4F /* GoogleService-Info.plist in Resources */,
@@ -797,6 +812,7 @@
 				48CD19122AD282DE000BF7F3 /* PagerViewController.swift in Sources */,
 				48EAFB4D2ADFA6F4001D80C3 /* SearchView.swift in Sources */,
 				4812D5222AC3ACA000E7C6A4 /* SearchViewModel.swift in Sources */,
+				48303CB32AE0FDA7000C72EA /* PrivacyViewController.swift in Sources */,
 				48DC50F42ADA812100705D4F /* NotificationTimeView.swift in Sources */,
 				48BA31332AD515E40048AD05 /* MainSettingViewController.swift in Sources */,
 				4812D5272AC3AE8600E7C6A4 /* MusicItem.swift in Sources */,
@@ -977,7 +993,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
@@ -1011,7 +1027,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;

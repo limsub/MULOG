@@ -9,7 +9,7 @@ import UIKit
 
 class MainSettingViewController: BaseViewController {
     
-    let settingData = [["알림"], ["버그, 오류 제보", "문의", "앱 공유"], ["라이선스", "개인정보 처리방침"] ]
+    let settingData = [["알림"], ["버그, 오류 제보", "문의"], ["개인정보 처리방침"] ]
     
     lazy var tableView = {
         let view = UITableView(frame: .zero, style: .insetGrouped)
@@ -74,15 +74,30 @@ extension MainSettingViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // 알림 설정
         if indexPath == IndexPath(row: 0, section: 0) {
             let vc = NotificationSettingViewController()
             
             navigationController?.pushViewController(vc, animated: true)
-        } else if indexPath == IndexPath(row: 0, section: 1)
-            || indexPath == IndexPath(row: 1, section: 1){
+        }
+        // 버그, 오류 제보
+        else if indexPath == IndexPath(row: 0, section: 1) {
             if let url = URL(string: "https://forms.gle/NswcxpzvQ9hSoSmD6") {
                 UIApplication.shared.open(url, options: [:])
             }
+        }
+        else if indexPath == IndexPath(row: 1, section: 1) {
+            if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSfZdqKA8ahnLymVmoOpftc7yBBFO0WuOKvSLp0ulEfejFK4fA/viewform?usp=sf_link") {
+                UIApplication.shared.open(url, options: [:])
+            }
+        }
+                    
+        // 개인정보 처리방침
+        else if indexPath == IndexPath(row: 0, section: 2) {
+            
+            let vc = PrivarcyViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            present(nav, animated: true)
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
