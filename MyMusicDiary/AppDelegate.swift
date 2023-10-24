@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAnalytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,12 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
+        
         NetworkMonitor.shared.startMonitoring()
         
         sleep(1)
         
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
-            UserDefaults.standard.set(success, forKey: NotificationUserDefaults.isAllowed.key)
+            // 맨 처음이라는 점을 분기처리하기 위함 -> 추가적인 UserDefault를 하나 더 넣어준다
+            if !UserDefaults.standard.bool(forKey: NotificationUserDefaults.isFirst.key) {
+                UserDefaults.standard.set(success, forKey: NotificationUserDefaults.isAllowed.key)
+                UserDefaults.standard.set(true, forKey: NotificationUserDefaults.isFirst.key)
+            }
             print("시스템 알림 설정 여부 : ", success)
         }
         

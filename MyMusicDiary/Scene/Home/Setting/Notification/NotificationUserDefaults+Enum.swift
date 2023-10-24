@@ -10,6 +10,7 @@ import Foundation
 enum NotificationUserDefaults {
     case isAllowed
     case time
+    case isFirst
     
     var key: String {
         switch self {
@@ -17,6 +18,8 @@ enum NotificationUserDefaults {
             return "notificationAllowed"
         case .time:
             return "notificationTime"
+        case .isFirst:
+            return "notificationFirst"
         }
     }
 }

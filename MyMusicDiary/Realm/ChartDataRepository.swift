@@ -180,6 +180,10 @@ class ChartDataRepository {
         }
         
         
+        let ansSet = Set(ansArr)
+        print("곡 수 카운트 수정 전=========================", ansCnt)
+        print("곡 수 카운트 수정 후=========================", ansSet.count)
+        
         return (ansArr, ansCnt)
     }
     
@@ -232,7 +236,7 @@ class ChartDataRepository {
     }
 }
 
-struct DayGenreCountForBarChart {
+struct DayGenreCountForBarChart: Hashable { // 중복된 곡 제외하고 카운트 세기 위해 set으로 변환 필요 -> hashable 추가
     let day: String
     let genreCounts: [String: Int]
 }

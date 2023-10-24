@@ -78,6 +78,7 @@ class NotificationSettingViewController: BaseViewController {
         
         // UserDefaults에 저장된 값을 통해, 스위치 on/off를 결정한다
         let isSwitchOn = UserDefaults.standard.bool(forKey: NotificationUserDefaults.isAllowed.key)
+        print("유저디폴츠에 저장되있는 알림 허용 여부 값 : ", isSwitchOn)
         settingView.controlSwitch.isOn = isSwitchOn
         timeView.isHidden = !isSwitchOn
     }
