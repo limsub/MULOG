@@ -89,26 +89,7 @@ class MonthCalendarView: BaseView {
         view.layer.cornerRadius = 20
         return view
     }()
-//
-//    lazy var modifyButton = {
-//        let view = UIButton()
-//
-//        view.setTitle("수정하기", for: .normal)
-//        view.setTitleColor(Constant.Color.main2.withAlphaComponent(0.8), for: .normal)
-//
-//        view.titleLabel?.adjustsFontSizeToFitWidth = true
-//        view.titleLabel?.font = .boldSystemFont(ofSize: 16)
-//
-//
-//        view.layer.borderColor = Constant.Color.main2.withAlphaComponent(0.8).cgColor
-//        view.layer.borderWidth = 1
-//        view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.2)
-//
-//        view.layer.cornerRadius = 20
-//
-//        return view
-//    }()
-//
+
 
     
     func createMonthBottomLayout() -> UICollectionViewLayout {

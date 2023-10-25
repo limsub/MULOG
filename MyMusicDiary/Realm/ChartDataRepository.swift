@@ -145,7 +145,9 @@ class ChartDataRepository {
         print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         
         var ansArr: [DayGenreCountForBarChart] = []
-        var ansCnt = 0  // 총 음악 개수 리턴
+//        var ansCnt = 0  // 총 음악 개수 리턴
+        
+        var ansCntSet = Set<String>()
         
         let data = realm.objects(DayItemTable.self).sorted(byKeyPath: "day").where {
             $0.day.contains(yearMonth)
@@ -158,7 +160,10 @@ class ChartDataRepository {
             // 어떤 노래인지 상관x. 그냥 장르 별 개수만 리턴하기
             var addGenreCounts: [String : Int] = [:]
             dayItem.musicItems.forEach { musicItem in
-                ansCnt += 1
+//                ansCnt += 1
+                
+                ansCntSet.insert(musicItem.id)
+                
                 musicItem.genres.forEach { genre in
                     
                     if addGenreCounts[genre] != nil {
@@ -180,22 +185,21 @@ class ChartDataRepository {
         }
         
         
-        let ansSet = Set(ansArr)
-        print("곡 수 카운트 수정 전=========================", ansCnt)
-        print("곡 수 카운트 수정 후=========================", ansSet.count)
         
-        return (ansArr, ansCnt)
+        return (ansArr, ansCntSet.count)
     }
     
     func fetchWeekGenreDataForBarChart(startDate: String, endDate: String) -> ([DayGenreCountForBarChart], Int) {
         print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         
         var ansArr: [DayGenreCountForBarChart] = []
-        var ansCnt = 0
+//        var ansCnt = 0
         
-        guard let startDateInt = Int(startDate), let endDateInt = Int(endDate) else { return (ansArr, ansCnt) }
+        var ansCntSet = Set<String>()
         
-        if startDateInt > endDateInt { return (ansArr, ansCnt) }
+        guard let startDateInt = Int(startDate), let endDateInt = Int(endDate) else { return (ansArr, 0) }
+        
+        if startDateInt > endDateInt { return (ansArr, 0) }
         
         let arrInt = Array(startDateInt...endDateInt)
         let arrString = arrInt.map { String($0) }
@@ -204,12 +208,17 @@ class ChartDataRepository {
             $0.day.in(arrString)
         }
         
+        print("=========123123")
+        
         for dayItem in data {
             let addDay = dayItem.day
-            
+
             var addGenreCounts: [String: Int] = [:]
             dayItem.musicItems.forEach { musicItem in
-                ansCnt += 1
+//                ansCnt += 1
+                
+                ansCntSet.insert(musicItem.id)
+                
                 
                 musicItem.genres.forEach { genre in
                     
@@ -221,6 +230,7 @@ class ChartDataRepository {
                 }
             }
             
+            
             // * 다국어 대응
             addGenreCounts["음악"] = nil
             
@@ -232,7 +242,12 @@ class ChartDataRepository {
             ansArr.append(addItem)
         }
         
-        return (ansArr, ansCnt)
+        print("=========123123")
+        print(ansCntSet)
+        print(ansCntSet.count)
+//        print(ansCnt)
+        
+        return (ansArr, ansCntSet.count)
     }
 }
 

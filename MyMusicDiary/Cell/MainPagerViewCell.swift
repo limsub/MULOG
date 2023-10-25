@@ -15,8 +15,6 @@ class MainPagerViewCell: FSPagerViewCell {
     
     var parentVC: PlayButtonActionProtocol?
     
-//    var isPlaying = false   // 현재 재생 여부를 일단 여기에 저장
-    
     // 1. 앨범 커버 이미지 -> 기본 imageView 사용
     // 2. 제목 레이블
     let titleLabel = {
@@ -202,9 +200,7 @@ class MainPagerViewCell: FSPagerViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        backgroundColor = .lightGray.withAlphaComponent(0.1)
-  
-        
+
         self.imageView!.clipsToBounds = true
         self.imageView!.layer.cornerRadius = 10
         
@@ -273,20 +269,6 @@ class MainPagerViewCell: FSPagerViewCell {
             make.top.equalTo(recordButton.snp.bottom).offset(4)
             make.centerX.equalTo(contentView)
         }
-        
-     
-        
-//        NSLayoutConstraint.activate([
-//            button1.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-//            button1.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-//            button1.widthAnchor.constraint(equalToConstant: 100),
-//            button1.heightAnchor.constraint(equalToConstant: 40),
-//
-//            button2.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-//            button2.leadingAnchor.constraint(equalTo: button1.trailingAnchor, constant: 20),
-//            button2.widthAnchor.constraint(equalToConstant: 100),
-//            button2.heightAnchor.constraint(equalToConstant: 40),
-//        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -30,56 +30,7 @@ class MonthCalendarViewController: BaseViewController {
     // 캘린더 넘길 때 타이틀 텍스트 변화 + MonthScrollView 넘어갈 때 값전달
     var currentPageDate = Date()
     
-    
-    /* calendar 상단 버튼 + 수정 버튼 */
-    func settingMenuButton() {
-//        let favorite = UIAction(title: "기록 수정하기", image: UIImage(named: "monthCalendarView_modifyButton"), handler: { _ in print("즐겨찾기") })
-//        let favorite1 = UIAction(title: "스크롤 화면으로 보기", image: UIImage(named: "monthCalendarView_menuDown2"), handler: { _ in print("즐겨찾기") })
-//        let favorite2 = UIAction(title: "앨범 커버만 보기", image: UIImage(named: "monthCalendarView_showOnlyAlbums"), handler: { _ in print("즐겨찾기") })
-//        let favorite3 = UIAction(title: "오늘로 돌아가기", image: UIImage(named: "monthCalendarView_todayButton2"), handler: { _ in
-//
-//            let kakaoTalk = "https://music.apple.com/kr/album/you-me/1709257167?i=1709257170"
-////            let kakaoTalk = "https://music.youtube.com/playlist?list=OLAK5uy_nrM4rmY7_viP2CGPMXGr7VPXGv-pzrc0E"
-////            let kakaoTalk = "https://www.melon.com/album/music.htm?albumId=354437"
-////            let kakaoTalk = "https://kko.to/aS9ku2_xm4"
-//
-//
-//            //URL 인스턴스를 만들어 주는 단계
-//            let kakaoTalkURL = NSURL(string: kakaoTalk)
-//
-//
-//            //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
-//            if (UIApplication.shared.canOpenURL(kakaoTalkURL! as URL)) {
-//
-//                //open(_:options:completionHandler:) 메소드를 호출해서 카카오톡 앱 열기
-//                UIApplication.shared.open(kakaoTalkURL! as URL)
-//            }
-//            //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
-//            else {
-//                print("No kakaotalk installed.")
-//            }
-//
-//
-//        })
-//
-//        monthView.menuButton.menu = UIMenu(
-//            children: [
-//                favorite,
-//                favorite1,
-//                favorite2,
-//                favorite3
-//            ]
-//        )
-//        favorite.title = "hi"
-//
-    }
-    
-    @objc
-    private func menuButtonClicked() {  // 화면 전환
-//        let vc = MonthScrollViewController()
-//        vc.viewModel.currentPageDate = currentPageDate
-//        navigationController?.pushViewController(vc, animated: true)
-    }
+
     @objc
     private func reloadButtonClicked() {    // 오늘 날짜 선택
         // 0. UI
@@ -182,8 +133,6 @@ class MonthCalendarViewController: BaseViewController {
         
         bindData()
 
-        settingMenuButton()
-        
         settingMonthView()
         
         settingNavigation()

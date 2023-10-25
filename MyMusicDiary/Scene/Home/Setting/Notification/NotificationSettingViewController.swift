@@ -83,6 +83,8 @@ class NotificationSettingViewController: BaseViewController {
         timeView.isHidden = !isSwitchOn
     }
     
+  
+    
     override func setConfigure() {
         super.setConfigure()
         
