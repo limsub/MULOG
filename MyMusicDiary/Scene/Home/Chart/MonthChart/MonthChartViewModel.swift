@@ -67,7 +67,7 @@ class MonthChartViewModel {
         counts.forEach { item in
             percentArr.append( (item/sum) * 100 )
         }
-        genreTotalCnt = Int(sum)
+        genreTotalCnt = genres.count // Int(sum)
 
         let tmpColors = UIColor.GenreColor.allCases
         for colorString in tmpColors {
