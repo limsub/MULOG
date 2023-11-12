@@ -9,12 +9,16 @@ import UIKit
 import FSCalendar
 import Kingfisher
 import MusicKit
+import RxSwift
+import RxCocoa
 
 // view - viewCont 구분
 // 1. addTarget은 VC에서 (self 들어가는건 VC에서)
 
 
 class MonthCalendarViewController: BaseViewController {
+    
+    let disposeBag = DisposeBag()
     
     var allShow = false
     
@@ -121,6 +125,32 @@ class MonthCalendarViewController: BaseViewController {
         }
     }
     
+    func bindDataRx() {
+        
+        // 싱글톤에 바인드 -> 값은 SceneDelegate에서 onNext
+        TodayDate.shared.todayDateString
+            .bind(with: self) { owner , value in
+                
+                // 오늘 날짜가 변하면 바꿔야 하는 것
+                // 1. 캘린더 리로드 -> 선택할 수 있는 범위가 달라짐
+                // 2. 리로드 버튼 뒤에 레이블 -> 날짜 바뀌어야 함
+                // 3. 리로드 버튼 클릭 범주..? -> 얘는 클릭할 때 Date를 계산하기 때문에 따로 여기서 해줄 필요 없다
+                
+                print("오늘 날짜 변경!!")
+                
+                // 1.
+                owner.monthView.calendar.reloadData()
+                
+                
+                // 2.
+                owner.monthView.reloadBackLabel.text = value
+                    .toDate(to: .full)?
+                    .toString(of: .singleDay)
+            }
+            .disposed(by: disposeBag)
+      
+    }
+    
     override func loadView() {
         self.view = monthView
     }
@@ -132,6 +162,7 @@ class MonthCalendarViewController: BaseViewController {
         view.backgroundColor = Constant.Color.background
         
         bindData()
+        bindDataRx()
 
         settingMonthView()
         
@@ -189,6 +220,10 @@ class MonthCalendarViewController: BaseViewController {
     // 데이터 수정한 후 바로 반영될 수 있도록 설정
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // 화면이 등장할 때 todayDateString은 다시 계산 -> SceneDelegate에서 처리
+//        viewModel.todayDateString.onNext(Date().toString(of: .full))
+        
         
         checkPlusModifyButton()
         checkShowNoDataView()

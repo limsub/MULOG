@@ -78,6 +78,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } failureCompletionHandler: {
             SystemNotification.shared.isOn.value = false
         }
+        
+        TodayDate.shared.todayDateString.onNext(Date().toString(of: .full))
 
         
         // Called as the scene transitions from the background to the foreground.

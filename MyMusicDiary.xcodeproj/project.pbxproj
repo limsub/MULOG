@@ -29,6 +29,7 @@
 		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
 		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
 		4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */; };
+		4821570B2B00BF0A00E2A66D /* TodayDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4821570A2B00BF0A00E2A66D /* TodayDate.swift */; };
 		48303CB02AE0FB4D000C72EA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 48303CAF2AE0FB4D000C72EA /* Settings.bundle */; };
 		48303CB32AE0FDA7000C72EA /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */; };
 		48303CB62AE10651000C72EA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48303CB52AE10651000C72EA /* NetworkMonitor.swift */; };
@@ -65,6 +66,8 @@
 		484103922AD6CE21002D56C7 /* HelpPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103912AD6CE21002D56C7 /* HelpPageViewController.swift */; };
 		484103942AD6CE9B002D56C7 /* HelpAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */; };
 		485311412ADD1A88008146A9 /* SaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485311402ADD1A88008146A9 /* SaveView.swift */; };
+		48772DF82AFF8F09002B5D56 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 48772DF72AFF8F09002B5D56 /* RxCocoa */; };
+		48772DFA2AFF8F09002B5D56 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48772DF92AFF8F09002B5D56 /* RxSwift */; };
 		488935562AD666E000E4B0B0 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935552AD666E000E4B0B0 /* NotificationRepository.swift */; };
 		488935582AD66D7800E4B0B0 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */; };
 		4889355A2AD68ECA00E4B0B0 /* GenreCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */; };
@@ -126,6 +129,7 @@
 		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewModel.swift; sourceTree = "<group>"; };
 		4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCatalogCell.swift; sourceTree = "<group>"; };
+		4821570A2B00BF0A00E2A66D /* TodayDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDate.swift; sourceTree = "<group>"; };
 		48303CAF2AE0FB4D000C72EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		48303CB52AE10651000C72EA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -207,9 +211,11 @@
 			files = (
 				48A0A0E02AC54896008DC198 /* Realm in Frameworks */,
 				4812D5352AC3D42200E7C6A4 /* Tabman in Frameworks */,
+				48772DF82AFF8F09002B5D56 /* RxCocoa in Frameworks */,
 				48A0A0E22AC54896008DC198 /* RealmSwift in Frameworks */,
 				4812D5182AC3AB2400E7C6A4 /* DGCharts in Frameworks */,
 				4812D50F2AC3AAE600E7C6A4 /* Kingfisher in Frameworks */,
+				48772DFA2AFF8F09002B5D56 /* RxSwift in Frameworks */,
 				4812D5152AC3AB1000E7C6A4 /* FSCalendar in Frameworks */,
 				4812D5122AC3AAF200E7C6A4 /* SnapKit in Frameworks */,
 				48DC50FF2ADBBC3300705D4F /* FirebaseCrashlytics in Frameworks */,
@@ -431,6 +437,7 @@
 		483790902ACEA484003AC436 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */,
 				483790912ACEA490003AC436 /* DateFormatType+Enum.swift */,
 				4889355B2AD6939000E4B0B0 /* Genre+Enum.swift */,
 			);
@@ -527,7 +534,6 @@
 			children = (
 				48BA31372AD518E30048AD05 /* NotificationSettingViewController.swift */,
 				48DC50F22ADA811200705D4F /* View */,
-				48EAFB532ADFAD32001D80C3 /* NotificationUserDefaults+Enum.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 			children = (
 				48DC51022ADBF3F400705D4F /* RealmDataModified.swift */,
 				48EAFB512ADFAC69001D80C3 /* SystemNotification.swift */,
+				4821570A2B00BF0A00E2A66D /* TodayDate.swift */,
 			);
 			path = SingleTon;
 			sourceTree = "<group>";
@@ -651,6 +658,8 @@
 				48A0A0E12AC54896008DC198 /* RealmSwift */,
 				48DC50FC2ADBBC3300705D4F /* FirebaseAnalyticsWithoutAdIdSupport */,
 				48DC50FE2ADBBC3300705D4F /* FirebaseCrashlytics */,
+				48772DF72AFF8F09002B5D56 /* RxCocoa */,
+				48772DF92AFF8F09002B5D56 /* RxSwift */,
 			);
 			productName = MyMusicDiary;
 			productReference = 4812D4F62AC3A9ED00E7C6A4 /* MyMusicDiary.app */;
@@ -689,6 +698,7 @@
 				4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */,
 				48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				48DC50FB2ADBBC3300705D4F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				48772DF62AFF8F09002B5D56 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 4812D4F72AC3A9ED00E7C6A4 /* Products */;
 			projectDirPath = "";
@@ -843,6 +853,7 @@
 				485311412ADD1A88008146A9 /* SaveView.swift in Sources */,
 				4812D4FA2AC3A9ED00E7C6A4 /* AppDelegate.swift in Sources */,
 				48C7E2F62AD295CA00879D36 /* MainPagerViewCell.swift in Sources */,
+				4821570B2B00BF0A00E2A66D /* TodayDate.swift in Sources */,
 				483790B02AD117B2003AC436 /* BarChartSideCollectionViewCell.swift in Sources */,
 				48DC50F82ADB6AF500705D4F /* HelpAlertView.swift in Sources */,
 				483790922ACEA490003AC436 /* DateFormatType+Enum.swift in Sources */,
@@ -1005,7 +1016,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
@@ -1014,14 +1025,15 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1040,7 +1052,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
@@ -1049,14 +1061,15 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1132,6 +1145,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		48772DF62AFF8F09002B5D56 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		48A0A0DE2AC54896008DC198 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1175,6 +1196,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4812D5332AC3D42200E7C6A4 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		48772DF72AFF8F09002B5D56 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48772DF62AFF8F09002B5D56 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		48772DF92AFF8F09002B5D56 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48772DF62AFF8F09002B5D56 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		48A0A0DF2AC54896008DC198 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -52,7 +52,8 @@ class MonthCalendarView: BaseView {
     }()
     let reloadBackLabel = {
         let view = UILabel()
-        view.text = "1"
+        view.text = Date().toString(of: .singleDay)
+        
         view.font = .boldSystemFont(ofSize: 12)
         view.textAlignment = .center
         return view

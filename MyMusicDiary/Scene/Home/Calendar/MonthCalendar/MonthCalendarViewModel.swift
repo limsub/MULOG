@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import RxSwift
+
 
 class MonthCalendarViewModel {
+    
+    // 오늘 날짜 변화 감지
+//    let todayDateString = BehaviorSubject(value: Date().toString(of: .full))
+    
+    
     
     
     let repository = MusicItemTableRepository()
