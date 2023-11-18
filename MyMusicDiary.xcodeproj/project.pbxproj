@@ -29,6 +29,7 @@
 		4812D54C2AC41C0700E7C6A4 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */; };
 		4812D54E2AC41C0D00E7C6A4 /* SaveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */; };
 		4812D5502AC43ED400E7C6A4 /* SaveCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */; };
+		4820B4192B088B72003F4578 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4820B4182B088B72003F4578 /* .gitignore */; };
 		4821570B2B00BF0A00E2A66D /* TodayDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4821570A2B00BF0A00E2A66D /* TodayDate.swift */; };
 		48303CB02AE0FB4D000C72EA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 48303CAF2AE0FB4D000C72EA /* Settings.bundle */; };
 		48303CB32AE0FDA7000C72EA /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */; };
@@ -129,6 +130,7 @@
 		4812D54B2AC41C0700E7C6A4 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		4812D54D2AC41C0D00E7C6A4 /* SaveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewModel.swift; sourceTree = "<group>"; };
 		4812D54F2AC43ED400E7C6A4 /* SaveCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCatalogCell.swift; sourceTree = "<group>"; };
+		4820B4182B088B72003F4578 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4821570A2B00BF0A00E2A66D /* TodayDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDate.swift; sourceTree = "<group>"; };
 		48303CAF2AE0FB4D000C72EA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		48303CB22AE0FDA7000C72EA /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		4812D4ED2AC3A9ED00E7C6A4 = {
 			isa = PBXGroup;
 			children = (
+				4820B4182B088B72003F4578 /* .gitignore */,
 				48303CAF2AE0FB4D000C72EA /* Settings.bundle */,
 				4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */,
 				4812D4F72AC3A9ED00E7C6A4 /* Products */,
@@ -714,6 +717,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4820B4192B088B72003F4578 /* .gitignore in Resources */,
 				48303CB02AE0FB4D000C72EA /* Settings.bundle in Resources */,
 				4812D5062AC3A9EE00E7C6A4 /* LaunchScreen.storyboard in Resources */,
 				4812D5032AC3A9EE00E7C6A4 /* Assets.xcassets in Resources */,
