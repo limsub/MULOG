@@ -75,6 +75,7 @@ class SearchCatalogCell: BaseCollectionViewCell {
         guard let smallURL = sender.smallImageURL else { return }
         let url = URL(string: smallURL)
         
+        // * 다운샘플링 필요
         artworkImageView.kf.setImage(with: url)
         titleLabel.text = sender.name
         

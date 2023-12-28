@@ -22,23 +22,6 @@ class DayItemTable: Object {
     }
 }
 
-
-//struct MusicItem: Identifiable, Hashable {
-//    var _id = UUID()
-//
-//    let id: String
-//    let name: String
-//    let artist: String
-////    let imageURL: Artwork?
-//    let bigImageURL: String?    // 700 x 700
-//    let smallImageURL: String?  // 150 x 150
-//    let previewURL: String?
-//
-//    let genres: [String]
-//
-//    var backgroundColor: CGColor? = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
-//}
-
 class MusicItemTable: Object {
     
     @Persisted(primaryKey: true) var id: String

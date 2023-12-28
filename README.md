@@ -40,6 +40,7 @@
 - SingleTon Pattern의 활용 - 데이터 변경 감지 및 foreground 진입 시 상태 변화 감지
 - UIBezierPath를 이용한 Bar chart 구현
 - AVPlayer를 이용한 음악 재생 기능 구현
+- DiffableDatasource를 이용한 UICollectionView 애니메이션 구현
 
 <br>
 

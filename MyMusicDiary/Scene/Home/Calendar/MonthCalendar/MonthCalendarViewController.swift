@@ -288,6 +288,7 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         cell.backImageView.image = nil
         
         viewModel.fetchArtwork(date) { url in
+            // * 다운샘플링 필요
             cell.backImageView.kf.setImage(with: url)
             print(date)
         }

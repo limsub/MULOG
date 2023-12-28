@@ -67,6 +67,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     func designCell(_ sender: MusicItemTable) {
         
         if let str = sender.bigImageURL, let url = URL(string: str) {
+            // * 다운샘플링 필요
             artworkImageView.kf.setImage(with: url)
         }
         

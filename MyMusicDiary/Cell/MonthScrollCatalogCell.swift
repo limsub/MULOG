@@ -266,6 +266,7 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
         yoilLabel.text = yoilFormat.string(from: date)
         
         guard let str = sender.bigImageURL, let url = URL(string: str) else { return }
+        // * 다운샘플링 필요
         artworkImageView.kf.setImage(with: url)
         
         titleLabel.text = sender.name

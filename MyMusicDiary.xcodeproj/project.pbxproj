@@ -109,6 +109,19 @@
 		48EAFB5E2ADFFC68001D80C3 /* WeekChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EAFB5D2ADFFC68001D80C3 /* WeekChartViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		48758CF12B391451005F8002 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		341F314FA86A76EFB2377A55 /* Pods_MyMusicDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMusicDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4812D4F62AC3A9ED00E7C6A4 /* MyMusicDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMusicDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +181,10 @@
 		484103912AD6CE21002D56C7 /* HelpPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpPageViewController.swift; sourceTree = "<group>"; };
 		484103932AD6CE9B002D56C7 /* HelpAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAlertViewController.swift; sourceTree = "<group>"; };
 		485311402ADD1A88008146A9 /* SaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveView.swift; sourceTree = "<group>"; };
+		48758CDF2B39144D005F8002 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		48758CE12B39144D005F8002 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		48758CFB2B39160F005F8002 /* MyMusicDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMusicDiary.entitlements; sourceTree = "<group>"; };
+		48758CFC2B391628005F8002 /* MulogWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MulogWidgetExtension.entitlements; sourceTree = "<group>"; };
 		488935552AD666E000E4B0B0 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		488935572AD66D7800E4B0B0 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		488935592AD68ECA00E4B0B0 /* GenreCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCatalogCell.swift; sourceTree = "<group>"; };
@@ -232,6 +249,7 @@
 		4812D4ED2AC3A9ED00E7C6A4 = {
 			isa = PBXGroup;
 			children = (
+				48758CFC2B391628005F8002 /* MulogWidgetExtension.entitlements */,
 				4820B4182B088B72003F4578 /* .gitignore */,
 				48303CAF2AE0FB4D000C72EA /* Settings.bundle */,
 				4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */,
@@ -252,6 +270,7 @@
 		4812D4F82AC3A9ED00E7C6A4 /* MyMusicDiary */ = {
 			isa = PBXGroup;
 			children = (
+				48758CFB2B39160F005F8002 /* MyMusicDiary.entitlements */,
 				48303CB42AE10649000C72EA /* Network */,
 				48EAFB502ADFABD2001D80C3 /* Notification */,
 				48DC50F92ADBBAE900705D4F /* GoogleService-Info.plist */,
@@ -628,6 +647,8 @@
 			isa = PBXGroup;
 			children = (
 				341F314FA86A76EFB2377A55 /* Pods_MyMusicDiary.framework */,
+				48758CDF2B39144D005F8002 /* WidgetKit.framework */,
+				48758CE12B39144D005F8002 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -645,6 +666,7 @@
 				4812D4F42AC3A9ED00E7C6A4 /* Resources */,
 				4CF7B1A1CCC17F47FBDAB01E /* [CP] Embed Pods Frameworks */,
 				48DC51002ADBBCE800705D4F /* ShellScript */,
+				48758CF12B391451005F8002 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -675,7 +697,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					4812D4F52AC3A9ED00E7C6A4 = {
@@ -1017,10 +1039,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4D8442AED55653543FCE550 /* Pods-MyMusicDiary.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMusicDiary/MyMusicDiary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
@@ -1029,7 +1053,7 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1037,7 +1061,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1053,10 +1077,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D293728EF7C31CA6E7B21C9 /* Pods-MyMusicDiary.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyMusicDiary/MyMusicDiary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2S9WHYP486;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMusicDiary/Info.plist;
@@ -1065,7 +1091,7 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Apple music api를 이용해서 음악 검색을 하기 때문에 접근 권한이 필요합니다. 허용하지 않으면 음악 검색이 불가능합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1073,7 +1099,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sub.MULOGproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
