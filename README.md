@@ -41,6 +41,7 @@
 - UIBezierPath를 이용한 Bar chart 구현
 - AVPlayer를 이용한 음악 재생 기능 구현
 - DiffableDatasource를 이용한 UICollectionView 애니메이션 구현
+- Realm Migration
 
 <br>
 
