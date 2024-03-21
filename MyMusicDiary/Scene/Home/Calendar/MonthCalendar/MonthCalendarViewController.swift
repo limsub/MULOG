@@ -129,6 +129,7 @@ class MonthCalendarViewController: BaseViewController {
         
         // 싱글톤에 바인드 -> 값은 SceneDelegate에서 onNext
         TodayDate.shared.todayDateString
+            .distinctUntilChanged()
             .bind(with: self) { owner , value in
                 
                 // 오늘 날짜가 변하면 바꿔야 하는 것
