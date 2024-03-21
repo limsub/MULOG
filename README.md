@@ -217,6 +217,7 @@ extension PagerViewController {
 
 </div>
 </details>
+
 <details>
 
 <summary><b>preview 음원 재생</b> </summary>
@@ -335,6 +336,7 @@ func updateNotifications() {
 - **DiffableDataSource** 를 이용한 snapshot 기반 UICollectionView 애니메이션 구현
 - **UISwipeGestureRecognizer** 를 이용한 이전/이후 날짜 전환에 대해 간편한 방법 제공
 - **UICollectionViewDragDelegate**, **UICollectionViewDropDelegate** 를 이용한 셀 drag & drop 구현
+- **UIBezierPath** 를 이용한 Custom Bar Chart 구현
 
 
 <br>
@@ -343,7 +345,30 @@ func updateNotifications() {
 
 ## 🔥트러블 슈팅
 ### 1. 백그라운드 상태에서의 날짜 변경을 감지하지 못하는 이슈
-- Singleton pattern과 Observable 클래스를 활용한 데이터 변경 감지
+이슈
+- Calendar 화면에서 `Date()` 값을 기반으로 오늘 날짜 파악 및 초기 세팅
+- `viewDidLoad` 에서만 파악하기 때문에, 백그라운드 모드에서 날짜 변경을 감지하지 못함.
+
+<details>
+<summary><b>앱스토어 버그 제보</b> </summary>
+<div markdown="1">
+
+![image](https://github.com/limsub/MULOG/assets/99518799/cc603973-0c55-4c7b-9cc9-90630bed603c)
+
+
+</div>
+</details>
+
+해결
+- SceneDelegate의 `sceneWillEnterForeground` 에서 오늘 날짜 파악
+- **Singleton Pattern** 을 활용하여 SceneDelegate와 CalendarVC에서 모두 접근 가능한 변수 생성
+- **RxSwift**의 `BehaviorSubject` 타입으로 변수 생성, <br>
+  새로 파악한 날짜를 `.onNext` 로 전달<br>
+  `.bind` 로 이벤트 구독, `.distinctUntilChanged()` 로 값이 변경된 경우, 원하는 세팅
+- 세팅이 필요한 UI 객체
+  ![image](https://github.com/limsub/MULOG/assets/99518799/d8580588-6141-4f83-917d-4a55d8514a4c)
+
 
 
 ### 2. 시스템 알림 허용 여부와 앱 내 알림 허용 여부 동작 관리
+1. 시스템 알림이 
