@@ -531,16 +531,9 @@ func updateNotifications() {
 
 
 ### 2. 시스템 알림 허용 여부와 앱 내 알림 허용 여부 동작 관리
-<details>
-<summary><b>시스템 알림 & 앱 내 알림 동작 Flow Chart</b> </summary>
-<div markdown="1">
 
 <img src="https://github.com/limsub/MULOG/assets/99518799/7d7d72ff-e488-4889-a7fa-5334f168b507" align="center">
 
-</div>
-</details>
-
-<br>
 
 #### 2 - 1. 시스템 알림이 허용되어 있을 때, 앱 내 알림을 off해도 **앱 재실행 시 앱 내 알림이 on되는 이슈**
 
