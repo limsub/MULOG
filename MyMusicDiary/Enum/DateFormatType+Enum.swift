@@ -42,6 +42,8 @@ enum DateFormatType: String {
     
     case singleDay = "d"
     
+    case instaStory = "MMMM d, yyyy"
+    
     
     static func calculateDayCnt(_ starDayString: String) -> Int {
     

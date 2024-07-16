@@ -88,12 +88,15 @@ class MonthCalendarView: BaseView {
         view.isScrollEnabled = false
         
         view.layer.cornerRadius = 20
+
         return view
     }()
+    
+
 
 
     
-    func createMonthBottomLayout() -> UICollectionViewLayout {
+    private func createMonthBottomLayout() -> UICollectionViewLayout {
         let spacing: CGFloat = 10
         
         let layout = UICollectionViewFlowLayout()
@@ -219,6 +222,7 @@ class MonthCalendarView: BaseView {
         super.setting()
         
         settingCalendar()
+        setInstaShareButton()
     }
     
     
@@ -255,5 +259,36 @@ class MonthCalendarView: BaseView {
         
         // reloadBackLabel 데이터 설정
         reloadBackLabel.text = Date().toString(of: .singleDay)
+    }
+    
+    
+    
+    // 24.07.15 인스타 스토리 공유하기 버튼
+    lazy var instaShareButton: UIButton = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "instagram")?.withTintColor(Constant.Color.main2)
+
+        
+        let view = UIButton()
+        view.backgroundColor = .clear
+        
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.size.equalTo(30)
+            make.center.equalToSuperview()
+        }
+        
+        return view
+    }()
+    func setInstaShareButton() {
+        
+        // collectionView에 올리면 레이아웃을 못잡는다. 그냥 view에 올린다
+        self.addSubview(instaShareButton)
+        instaShareButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(18) // 12 (collectionView) + 4 (padding)
+            make.trailing.equalTo(self).inset(20) // 14 + 4
+        }
     }
 }

@@ -114,3 +114,19 @@ class MonthCalendarViewModel {
     
     
 }
+
+
+// 24.07.16 인스타 스토리 공유하기
+extension MonthCalendarViewModel {
+    func dataForInstaStory() -> InstaStoryData? {
+        guard let data = currentMusicList.value.first else { return nil }
+        
+        return InstaStoryData(
+            date: currentSelectedDate.value,
+            imageURL: data.bigImageURL!,
+            title: data.name,
+            artist: data.artist,
+            genres: data.genres.map { $0 }
+        )
+    }
+}

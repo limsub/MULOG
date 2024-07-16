@@ -49,5 +49,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if url.scheme == "mulogapp" {
+            let alert = UIAlertController(title: "Opened via URL", message: "App was opened via Instagram Story", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            
+//            window?.rootViewController?.present(alert, animated: true, completion: nil)
+            
+            
+            return true
+        }
+        return false
+    }
 }

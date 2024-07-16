@@ -187,6 +187,10 @@ class MonthCalendarViewController: BaseViewController {
         
         monthView.collectionView.addGestureRecognizer(afterSwipeRecognizer)
         monthView.collectionView.addGestureRecognizer(beforeSwipeRecognizer)
+        
+        
+        // 24.07.15
+        setInstaShareButton()
     }
     
     @objc
@@ -446,9 +450,11 @@ extension MonthCalendarViewController {
                 monthView.noDataViewToday.isHidden = true
                 monthView.noDataViewPastDay.isHidden = false
             }
+            monthView.instaShareButton.isHidden = true
         } else {
             monthView.noDataViewToday.isHidden = true
             monthView.noDataViewPastDay.isHidden = true
+            monthView.instaShareButton.isHidden = false
         }
     }
 }
@@ -548,5 +554,33 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         alert.addAction(youtubeMusic)
         
         present(alert, animated: true)
+    }
+}
+
+
+
+
+// 24.07.15 인스타그램 공유하기 버튼 생성
+extension MonthCalendarViewController {
+    // 버튼 액션 등록
+    func setInstaShareButton() {
+        self.monthView.instaShareButton.addTarget(self , action: #selector(shareInstaStory), for: .touchUpInside)
+    }
+    
+    // 인스타 스토리 공유
+    @objc private func shareInstaStory() {
+        guard let musicData = viewModel.dataForInstaStory() else { return }
+        
+        let view = MakeViewForInstaStory.shared.makeViewForInstaStory(musicData)
+        
+//        monthView.addSubview(view)
+//        view.snp.makeConstraints { make in
+//            make.center.equalTo(monthView)
+//        }
+        
+        
+        let repo = ShareInstaStoryRepository(view)
+        
+        repo.shareToInstaStory()
     }
 }
