@@ -6,22 +6,29 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseCore
 import FirebaseAnalytics
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+    
+        // Use Firebase Library to Configure API
         FirebaseApp.configure()
         Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
-        
+
+        // Initialize the Google Mobile Ads SDK
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "688a5ac5d9e08c55a3e93dc953c49aad" ]
+
         NetworkMonitor.shared.startMonitoring()
         
         sleep(1)
-        
+
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
             // 맨 처음이라는 점을 분기처리하기 위함 -> 추가적인 UserDefault를 하나 더 넣어준다

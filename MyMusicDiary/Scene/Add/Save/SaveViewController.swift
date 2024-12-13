@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 // collectionView index 기반으로 구현
 
@@ -27,6 +28,8 @@ enum helpView: String {
 class SaveViewController: BaseViewController {
     
     weak var delegate: ReloadProtocol?
+    
+    private var interstitial: GADInterstitialAd?    // Google AdMob
 
     /* 뷰모델 */
     let viewModel = SaveViewModel()
@@ -112,27 +115,41 @@ class SaveViewController: BaseViewController {
         
         // ===== 새로 짠 로직 =====
         viewModel.saveButtonClicked { [weak self] okClosure, cancelClosure in
-            
+            /* empty        : 선택한 음악이 없는 경우. 팝업 후 추가 기능 */
+            print("empty CompletionHandler")
             self?.showAlertTwoCases("선택한 곡이 없습니다", message: "이대로 저장하시겠습니까?") {
-                okClosure()
+                okClosure()         // 데이터 없는 채로 저장
             } cancelCompletionHandler: {
-                cancelClosure()
+                cancelClosure()     // 취소
             }
         } popViewCompletionHandler: { [weak self] in
-            self?.delegate?.update()  // 캘린더뷰 + 컬렉션뷰 리로드
-            self?.navigationController?.popViewController(animated: true)
+            /* popView      : 작업 완료 후 뒤로 가기 */
+            print("popView CompletionHandler")
+            
+            // Google AdMob
+            // 광고 시청 완료되면 아래 코드 실행시키기
+            let request = GADRequest()
+            
+            GADInterstitialAd.load(
+                withAdUnitID: "ca-app-pub-8155830639201287/2218945200",
+                request: request) { ad, error in
+                    if let error {
+                        print("Failed to load interstitial ad with error : \(error.localizedDescription)")
+                        self?.successForSavingAndPopVC()    // 에러가 나면 어쩔 수 없이 그냥 성공 처리 해줌
+                        return
+                    }
+                    self?.interstitial = ad
+                    self?.interstitial?.fullScreenContentDelegate = self
+                    
+                    self?.showGoogleAdMobs()
+                }
+            
         } duplicationCompletionHandler: { [weak self] in
+            /* duplication  : 중복된 곡인 경우 팝업 */
+            print("duplication CompletionHandler")
+            
             self?.showSingleAlert("같은 곡을 두 개 이상 저장할 수 없습니다", message: "중복되는 곡을 삭제해주세요")
         }
-        // =====================
-        
-        // 오늘 날짜이고, 데이터가 비어있지 않을 때, 오늘 날짜에 대한 알림을 제거한다
-        
-        
-        
-        // 기존 로직에서 알림 제거, navigation pop을 아예 다 뷰모델 안에서 처리한다
-//        NotificationRepository.shared.delete(Date())
-//        navigationController?.popViewController(animated: true)
     }
  
     
@@ -168,10 +185,6 @@ class SaveViewController: BaseViewController {
             present(vc, animated: true)
         }
     }
-    
-
-
-
 }
 
 
@@ -321,9 +334,6 @@ extension SaveViewController: UICollectionViewDelegate {
     }
 }
 
-
-
-
 // drag and drop
 extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
@@ -394,8 +404,6 @@ extension SaveViewController: UICollectionViewDragDelegate, UICollectionViewDrop
     }
 }
 
-
-
 // delegate function
 extension SaveViewController: UpdateDataDelegate {
     
@@ -408,4 +416,38 @@ extension SaveViewController: UpdateDataDelegate {
         
         saveView.collectionView.reloadData()
     }
+}
+
+// private func
+extension SaveViewController {
+    private func showGoogleAdMobs() {
+        guard let interstitial = self.interstitial else { return }
+        interstitial.present(fromRootViewController: self)
+    }
+    
+    private func successForSavingAndPopVC() {
+        self.delegate?.update()  // 캘린더뷰 + 컬렉션뷰 리로드
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+// Google AdMobs
+extension SaveViewController: GADFullScreenContentDelegate {
+    
+    /// Tells the delegate that the ad failed to present full screen content.
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        print("Ad did fail to present full screen content.")
+    }
+
+    /// Tells the delegate that the ad will present full screen content.
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("Ad will present full screen content.")
+    }
+
+    /// Tells the delegate that the ad dismissed full screen content.
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("Ad did dismiss full screen content.")
+        successForSavingAndPopVC()
+    }
+    
 }
