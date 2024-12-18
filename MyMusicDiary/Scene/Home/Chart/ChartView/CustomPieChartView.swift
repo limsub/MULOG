@@ -7,8 +7,17 @@
 
 import UIKit
 import DGCharts
+import RxSwift
 
 class CustomPieChartView: BaseView {
+    
+    private var disposeBag = DisposeBag()
+    
+    let noAdmobFakeButton = {   // 누르면 구글 광고 안나오게 해버리는 가짜 버튼
+        let view = UIButton()
+        view.backgroundColor = .clear
+        return view
+    }()
     
     let titleLabel = {
         let view = UILabel()
@@ -24,6 +33,7 @@ class CustomPieChartView: BaseView {
         
         self.backgroundColor = .white
         self.layer.cornerRadius = 10
+        setNoAdMobButton()
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +47,7 @@ class CustomPieChartView: BaseView {
         self.addSubview(titleLabel)
         self.addSubview(pieChartView)
         self.addSubview(collectionView)
+        self.addSubview(noAdmobFakeButton)
     }
     override func setConstraints() {
         super.setConstraints()
@@ -59,6 +70,9 @@ class CustomPieChartView: BaseView {
             make.leading.equalTo(pieChartView.snp.trailing)
         }
         
+        noAdmobFakeButton.snp.makeConstraints { make in
+            make.edges.equalTo(pieChartView).inset(10)
+        }
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -71,8 +85,17 @@ class CustomPieChartView: BaseView {
         
         return layout
     }
+}
 
-    
-    
-    
+
+// 광고 막아주는 로직
+extension CustomPieChartView {
+    private func setNoAdMobButton() {
+        self.noAdmobFakeButton.rx.tap
+            .subscribe(with: self) { owner , _ in
+                UserDefaults.standard.setValue(true, forKey: "NoAdMobUser")
+                print("NoAdMobUser UserDefaults setting success. UserDefault value : \(UserDefaults.standard.bool(forKey: "NoAdMobUser"))")
+            }
+            .disposed(by: disposeBag)
+    }
 }

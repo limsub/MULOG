@@ -126,23 +126,32 @@ class SaveViewController: BaseViewController {
             /* popView      : 작업 완료 후 뒤로 가기 */
             print("popView CompletionHandler")
             
-            // Google AdMob
-            // 광고 시청 완료되면 아래 코드 실행시키기
-            let request = GADRequest()
             
-            GADInterstitialAd.load(
-                withAdUnitID: "ca-app-pub-8155830639201287/2218945200",
-                request: request) { ad, error in
-                    if let error {
-                        print("Failed to load interstitial ad with error : \(error.localizedDescription)")
-                        self?.successForSavingAndPopVC()    // 에러가 나면 어쩔 수 없이 그냥 성공 처리 해줌
-                        return
+            // UserDefualts 확인해서 true이면 광고 면제 시켜줌
+            let pass = UserDefaults.standard.bool(forKey: "NoAdMobUser")
+            print("UserDefault - NoAdMobUser Value : \(pass)")
+            
+            if pass {
+                self?.successForSavingAndPopVC()
+            } else {
+                // Google AdMob
+                // 광고 시청 완료되면 아래 코드 실행시키기
+                let request = GADRequest()
+                
+                GADInterstitialAd.load(
+                    withAdUnitID: "ca-app-pub-8155830639201287/2218945200",
+                    request: request) { ad, error in
+                        if let error {
+                            print("Failed to load interstitial ad with error : \(error.localizedDescription)")
+                            self?.successForSavingAndPopVC()    // 에러가 나면 어쩔 수 없이 그냥 성공 처리 해줌
+                            return
+                        }
+                        self?.interstitial = ad
+                        self?.interstitial?.fullScreenContentDelegate = self
+                        
+                        self?.showGoogleAdMobs()
                     }
-                    self?.interstitial = ad
-                    self?.interstitial?.fullScreenContentDelegate = self
-                    
-                    self?.showGoogleAdMobs()
-                }
+            }
             
         } duplicationCompletionHandler: { [weak self] in
             /* duplication  : 중복된 곡인 경우 팝업 */
