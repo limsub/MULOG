@@ -41,8 +41,8 @@ class SaveViewController: BaseViewController {
     func settingSaveView() {
         saveView.fakeButton.addTarget(self, action: #selector(searchBarClicked), for: .touchUpInside)
         
-        saveView.genreCollectionView.delegate = self
-        saveView.genreCollectionView.dataSource = self
+//        saveView.genreCollectionView.delegate = self
+//        saveView.genreCollectionView.dataSource = self
         
         saveView.helpButton.addTarget(self, action: #selector(helpButtonClicked), for: .touchUpInside)
         
@@ -137,22 +137,24 @@ class SaveViewController: BaseViewController {
                 // Google AdMob
                 // 광고 시청 완료되면 아래 코드 실행시키기
                 let request = GADRequest()
-                
                 GADInterstitialAd.load(
+                    // test id : ca-app-pub-3940256099942544/4411468910
+                    // real id : ca-app-pub-8155830639201287/2218945200
                     withAdUnitID: "ca-app-pub-8155830639201287/2218945200",
                     request: request) { ad, error in
+                        if let ad {
+                            self?.interstitial = ad
+                            self?.interstitial?.fullScreenContentDelegate = self
+                            self?.showGoogleAdMobs()
+                        }
+                        
                         if let error {
                             print("Failed to load interstitial ad with error : \(error.localizedDescription)")
                             self?.successForSavingAndPopVC()    // 에러가 나면 어쩔 수 없이 그냥 성공 처리 해줌
                             return
                         }
-                        self?.interstitial = ad
-                        self?.interstitial?.fullScreenContentDelegate = self
-                        
-                        self?.showGoogleAdMobs()
                     }
             }
-            
         } duplicationCompletionHandler: { [weak self] in
             /* duplication  : 중복된 곡인 경우 팝업 */
             print("duplication CompletionHandler")
@@ -206,37 +208,37 @@ extension SaveViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if collectionView == saveView.genreCollectionView {
-            return viewModel.genreListCount()
-        } else {
-            return viewModel.musicListCount()
-        }
+//        if collectionView == saveView.genreCollectionView {
+//            return viewModel.genreListCount()
+//        } else {
+        return viewModel.musicListCount()
+//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if collectionView == saveView.genreCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCatalogCell.description(), for: indexPath) as? GenreCatalogCell else { return UICollectionViewCell() }
-            
-            cell.nameLabel.text = viewModel.genreName(indexPath: indexPath)
-            cell.backView.backgroundColor = UIColor(hexCode: viewModel.genreColorName(indexPath: indexPath))
-            
-            
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
-            
-            
-            let music = viewModel.music(indexPath)
-            let recordCnt = viewModel.musicRecordCount(indexPath)
-            
-            cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
-            
-            
-            
+//        if collectionView == saveView.genreCollectionView {
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCatalogCell.description(), for: indexPath) as? GenreCatalogCell else { return UICollectionViewCell() }
+//            
+//            cell.nameLabel.text = viewModel.genreName(indexPath: indexPath)
+//            cell.backView.backgroundColor = UIColor(hexCode: viewModel.genreColorName(indexPath: indexPath))
+//            
+//            
+//            return cell
+//        } else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SaveCatalogCell.description(), for: indexPath) as? SaveCatalogCell else { return UICollectionViewCell() }
+        
+        
+        let music = viewModel.music(indexPath)
+        let recordCnt = viewModel.musicRecordCount(indexPath)
+        
+        cell.designCell(music, recordCnt: recordCnt, indexPath: indexPath)
+        
+        
+        
 
-            return cell
-        }
+        return cell
+//        }
         
     }
     
@@ -269,76 +271,76 @@ extension SaveViewController: UICollectionViewDelegate {
     // 셀 클릭 시 셀 삭제
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if collectionView == saveView.genreCollectionView {
-            print("장르 컬렉션뷰 선택됨")
-            if !NetworkMonitor.shared.isConnected {
-                showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
-            }
+//        if collectionView == saveView.genreCollectionView {
+//            print("장르 컬렉션뷰 선택됨")
+//            if !NetworkMonitor.shared.isConnected {
+//                showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+//            }
+//            
+//            if viewModel.numberOfItems() >= 3 {
+//                showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
+//                return
+//            }
+//            
+//            if viewModel.impossibleAddMusic() {
+//                showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
+//            }
+//    
+//            let vc = GenreViewController()
+//            vc.delegate = self
+//            vc.viewModel.title = viewModel.genreList[indexPath.item].koreanName
+//            
+//            // GenreData가 다 로드되었는지 확인
+//            if !GenreDataModel.shared.isEmpty() {
+//                // 다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능
+//                print("다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능")
+//
+//                vc.viewModel.genre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
+//                vc.viewModel.fetchInitialMusic()
+//                
+//                let nav = UINavigationController(rootViewController: vc)
+//                present(nav, animated: true)
+//                
+//            } else {
+//                // 아직 로드되지 않았다면 일단 present하고 로딩바 재생 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결
+//                print("아직 로드되지 않았다면 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결")
+//                
+//                // vc 생성 (isLoading = false) -> viewDidLoad (true) -> updateSnapshot (false)
+//                // 데이터 로드 끝나면 updateSnapshot
+//                let nav = UINavigationController(rootViewController: vc)
+//                present(nav, animated: true)
+//                
+//                GenreDataModel.shared.fetchGenreChart { [weak self] in
+//                    print("다시 실행시킨 fetchGenre done")
+//                    
+//                    guard let genre = self?.viewModel.genreList[indexPath.item] else { return }
+//                    
+//                    vc.viewModel.genre = GenreDataModel.shared.findGenre(genre)
+//                    vc.viewModel.fetchInitialMusic()
+//                    
+//                    
+//                }
+//            }
+//            
+//
+//            
+//            
+//        }
+//        else {
             
-            if viewModel.numberOfItems() >= 3 {
-                showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
-                return
-            }
-            
-            if viewModel.impossibleAddMusic() {
-                showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
-            }
+        self.showAlert("곡을 삭제하시겠습니까?", message: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요", okTitle: "확인") { [weak self] in
+                print("셀 삭제하기")
+                collectionView.performBatchUpdates {
+                    self?.viewModel.removeMusic(indexPath)
+                    collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
     
-            let vc = GenreViewController()
-            vc.delegate = self
-            vc.viewModel.title = viewModel.genreList[indexPath.item].koreanName
-            
-            // GenreData가 다 로드되었는지 확인
-            if !GenreDataModel.shared.isEmpty() {
-                // 다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능
-                print("다 로드 되었다면 -> 네트워크 통신 금방 함 -> 바로 음악들 로드 가능")
-
-                vc.viewModel.genre = GenreDataModel.shared.findGenre(viewModel.genreList[indexPath.item])
-                vc.viewModel.fetchInitialMusic()
-                
-                let nav = UINavigationController(rootViewController: vc)
-                present(nav, animated: true)
-                
-            } else {
-                // 아직 로드되지 않았다면 일단 present하고 로딩바 재생 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결
-                print("아직 로드되지 않았다면 -> 다시 로드 시작 -> completionHandler로 끝나는 시점에 연결")
-                
-                // vc 생성 (isLoading = false) -> viewDidLoad (true) -> updateSnapshot (false)
-                // 데이터 로드 끝나면 updateSnapshot
-                let nav = UINavigationController(rootViewController: vc)
-                present(nav, animated: true)
-                
-                GenreDataModel.shared.fetchGenreChart { [weak self] in
-                    print("다시 실행시킨 fetchGenre done")
-                    
-                    guard let genre = self?.viewModel.genreList[indexPath.item] else { return }
-                    
-                    vc.viewModel.genre = GenreDataModel.shared.findGenre(genre)
-                    vc.viewModel.fetchInitialMusic()
-                    
-                    
+                } completion: { [weak self] _ in
+                    self?.saveView.collectionView.reloadData()
                 }
-            }
+        }
             
 
-            
-            
-        }
-        else {
-            
-            self.showAlert("곡을 삭제하시겠습니까?", message: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요", okTitle: "확인") { [weak self] in
-                    print("셀 삭제하기")
-                    collectionView.performBatchUpdates {
-                        self?.viewModel.removeMusic(indexPath)
-                        collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        
-                    } completion: { [weak self] _ in
-                        self?.saveView.collectionView.reloadData()
-                    }
-            }
-            
-
-        }
+//        }
         
     }
 }

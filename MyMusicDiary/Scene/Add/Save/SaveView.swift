@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class SaveView: BaseView {
     
@@ -43,6 +44,9 @@ class SaveView: BaseView {
         return view
     }()
     
+    
+    /* ===== 12/21. 장르별 음악 제거 ===== */
+    /*
     let genreChartLabel = {
         let view = UILabel()
         view.text = "장르별 음악"
@@ -63,6 +67,7 @@ class SaveView: BaseView {
 //        view.backgroundColor = .black
         return view
     }()
+     */
     
     let todayMusicLabel = {
         let view = UILabel()
@@ -84,10 +89,26 @@ class SaveView: BaseView {
         view.isScrollEnabled = false
         view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
         
-//        view.backgroundColor = .black
+//        view.backgroundColor = .blue
         return view
     }()
     
+    // 12/21. 구글 애드몹 배너 추가
+    let bannerView = {
+        let view = GADBannerView(adSize: GADAdSizeBanner)
+        view.alpha = 1
+        // test id : ca-app-pub-3940256099942544/2435281174
+        // real id : ca-app-pub-8155830639201287/8054433650
+        let isMyDevice = UserDefaults.standard.bool(forKey: "isMyDevice")   // 내 폰에서만 테스트 틀어지게 함.
+        view.adUnitID = isMyDevice ? "ca-app-pub-3940256099942544/2435281174" : "ca-app-pub-8155830639201287/8054433650"
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 여기서 바로 로드해도 되는지는 모르겠지만... 되겠지 뭐
+        view.load(GADRequest())
+        
+//        view.backgroundColor = .red
+        return view
+    }()
     
     
     
@@ -102,11 +123,13 @@ class SaveView: BaseView {
         contentView.addSubview(searchMusicLabel)
         contentView.addSubview(searchBar)
         contentView.addSubview(fakeButton)
-        contentView.addSubview(genreChartLabel)
-        contentView.addSubview(genreCollectionView)
         contentView.addSubview(todayMusicLabel)
         contentView.addSubview(helpButton)
         contentView.addSubview(collectionView)
+        
+        // bannerView는 스크롤과 상관 없어야 함.
+        // 스크롤뷰 위에 얹는 방식으로 구현
+        self.addSubview(bannerView)
     }
     
     
@@ -138,20 +161,9 @@ class SaveView: BaseView {
             make.horizontalEdges.equalTo(contentView)
         }
         
-        // 장르별 음악
-        genreChartLabel.snp.makeConstraints { make in
-            make.top.equalTo(fakeButton.snp.bottom).offset(30)
-            make.horizontalEdges.equalTo(contentView).inset(18)
-        }
-        genreCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(genreChartLabel.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(contentView)
-            make.height.equalTo(50)
-        }
-        
         // 몇월 며칠의 음악
         todayMusicLabel.snp.makeConstraints { make in
-            make.top.equalTo(genreCollectionView.snp.bottom).offset(30)
+            make.top.equalTo(fakeButton.snp.bottom).offset(30)
             make.leading.equalTo(self).inset(18)
         }
         helpButton.snp.makeConstraints { make in
@@ -166,7 +178,12 @@ class SaveView: BaseView {
             make.bottom.equalTo(contentView).inset(12)
         }
         
-        
+        // 배너뷰는 스크롤뷰 위에 올라가는 방식으로 구현
+        bannerView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(self)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(60)
+        }
     }
     
 

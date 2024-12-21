@@ -10,6 +10,8 @@ import Firebase
 import FirebaseCore
 import FirebaseAnalytics
 import GoogleMobileAds
+import AdSupport
+import AppTrackingTransparency
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize the Google Mobile Ads SDK
         GADMobileAds.sharedInstance().start(completionHandler: nil)
 //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "688a5ac5d9e08c55a3e93dc953c49aad" ]
+//        GADMobileAds.sharedInstance().start { status  in
+//            print("AdMob STATUS : ", status.adapterStatusesByClassName)
+//        }
 
         NetworkMonitor.shared.startMonitoring()
         
@@ -38,6 +43,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             print("시스템 알림 설정 여부 : ", success)
         }
+        
+        // 앱 추적 권한 요청
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            ATTrackingManager.requestTrackingAuthorization() { status in
+                switch status {
+                case .authorized:           // 허용됨
+                    print("APP TRACKING Authorized")
+                    print("IDFA = \(ASIdentifierManager.shared().advertisingIdentifier)")
+                case .denied:               // 거부됨
+                    print("APP TRACKING Denied")
+                case .notDetermined:        // 결정되지 않음
+                    print("APP TRACKING Not Determined")
+                case .restricted:           // 제한됨
+                    print("APP TRACKING Restricted")
+                @unknown default:           // 알려지지 않음
+                    print("APP TRACKING Unknown")
+                }
+            }
+        }
+        
+//        UserDefaults.standard.set(true, forKey: "isMyDevice")   // 광고 테스트 모드 틀어주기 위함
         
         return true
     }
