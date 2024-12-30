@@ -34,7 +34,7 @@ class CustmTitleView: BaseView {
     
     let songLabel = {
         let view = UILabel()
-        view.text = "곡 수"
+        view.text = String(localized: "곡 수")
         view.font = .boldSystemFont(ofSize: 16)
         view.textColor = Constant.Color.main2
         view.textAlignment = .center
@@ -51,7 +51,7 @@ class CustmTitleView: BaseView {
     
     let genresLabel = {
         let view = UILabel()
-        view.text = "장르 수"
+        view.text = String(localized: "장르 수")
         view.font = .boldSystemFont(ofSize: 16)
         view.textColor = Constant.Color.main2
         view.textAlignment = .center
@@ -137,7 +137,7 @@ class CustmTitleView: BaseView {
             let month = startDay.toString(of: .singleMonth)
             let year = startDay.toString(of: .year)
             
-            dateLabel.text = "\(year)년 \(month)월"
+            dateLabel.text = String(localized: "\(year)년 \(month)월")
             
         } else {
             let calendar = Calendar.current
@@ -149,8 +149,8 @@ class CustmTitleView: BaseView {
             dateLabel.text = "\(start) ~ \(end)"
             
         }
-        songsCountlabel.text = "\(musicCnt) 개"
-        genresCountLabel.text = "\(genreCnt) 개"
+        songsCountlabel.text = String(localized: "\(musicCnt) 개")
+        genresCountLabel.text = String(localized: "\(genreCnt) 개")
     }
     
     

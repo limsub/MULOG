@@ -60,7 +60,11 @@ class MonthCalendarViewController: BaseViewController {
             switch status {
             case .notDetermined, .denied, .restricted:
                 guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                self.showAlert("미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다", message: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요", okTitle: "설정으로 이동") {
+                self.showAlert(
+                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
+                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
+                    okTitle: String(localized: "설정으로 이동")
+                ) {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url)
                     }
@@ -88,7 +92,11 @@ class MonthCalendarViewController: BaseViewController {
             switch status {
             case .notDetermined, .denied, .restricted:
                 guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                self.showAlert("미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다", message: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요", okTitle: "설정으로 이동") {
+                self.showAlert(
+                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
+                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
+                    okTitle: String(localized: "설정으로 이동")
+                ) {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url)
                     }
@@ -482,14 +490,15 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         
         
         guard let appleMusicURL = viewModel.currentMusicList.value[indexPath.item].appleMusicURL else {
-            showSingleAlert("앱을 실행할 수 없습니다", message: "")
+            showSingleAlert(String(localized: "앱을 실행할 수 없습니다"), message: "")
             return
         }
-        let appleMusic = UIAlertAction(title: "Apple Music 앱에서 듣기", style: .default) { [weak self] _ in
+        let appleMusic = UIAlertAction(title: String(localized: "Apple Music 앱에서 듣기"), style: .default) { [weak self] _ in
             
             if !NetworkMonitor.shared.isConnected {
                 DispatchQueue.main.async {
-                    self?.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+                    self?.showSingleAlert(String(localized: "네트워크 연결 상태가 좋지 않습니다"),
+                                          message: String(localized: "연결 상태를 확인해주세요"))
                 }
                 return
             }
@@ -505,7 +514,7 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
             }
             //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
             else {
-                self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
+                self?.showSingleAlert(String(localized: "앱을 실행할 수 없습니다"), message: "")
             }
     
     
@@ -516,15 +525,15 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
         let artist = viewModel.currentMusicList.value[indexPath.item].artist
         let youtubeMusicURL = "https://music.youtube.com/search?q=\(title) \(artist)"
         guard let encodedStr = youtubeMusicURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            showSingleAlert("앱을 실행할 수 없습니다", message: "")
+            showSingleAlert(String(localized: "앱을 실행할 수 없습니다"), message: "")
             return
         }
         
-        let youtubeMusic = UIAlertAction(title: "Youtube Music 앱에서 듣기", style: .default) { [weak self] _ in
+        let youtubeMusic = UIAlertAction(title: String(localized: "Youtube Music 앱에서 듣기"), style: .default) { [weak self] _ in
             
             if !NetworkMonitor.shared.isConnected {
                 DispatchQueue.main.async {
-                    self?.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+                    self?.showSingleAlert(String(localized: "네트워크 연결 상태가 좋지 않습니다"), message: String(localized: "연결 상태를 확인해주세요"))
                 }
                 return
             }
@@ -539,13 +548,13 @@ extension MonthCalendarViewController: UICollectionViewDelegate {
             }
             //사용 불가능한 URLScheme일 때(카카오톡이 설치되지 않았을 경우)
             else {
-                self?.showSingleAlert("앱을 실행할 수 없습니다", message: "")
+                self?.showSingleAlert(String(localized: "앱을 실행할 수 없습니다"), message: "")
             }
 
 
         }
         
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        let cancel = UIAlertAction(title: String(localized: "취소"), style: .cancel)
         
         
         

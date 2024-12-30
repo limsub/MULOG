@@ -15,12 +15,12 @@ class MonthCalendarView: BaseView {
     /* no data */
     let noDataViewToday = NoDataView(
         imageName: "nodata_headphone",
-        labelStatement: "아직 오늘의 음악을 기록하지 않았습니다\n플러스 버튼을 눌러서 음악을 기록해주세요",
+        labelStatement: String(localized: "아직 오늘의 음악을 기록하지 않았습니다\n플러스 버튼을 눌러서 음악을 기록해주세요"),
         imageSize: 100
     )
     let noDataViewPastDay = NoDataView(
         imageName: "nodata_headphone",
-        labelStatement: "해당 날짜에 기록한 음악이 없습니다",
+        labelStatement: String(localized: "해당 날짜에 기록한 음악이 없습니다"),
         imageSize: 100
     )
     
@@ -246,7 +246,7 @@ class MonthCalendarView: BaseView {
         // 각종 설정
         calendar.today = nil
         calendar.scrollDirection = .horizontal
-        calendar.locale = Locale.init(identifier: "en")
+        calendar.locale = Locale.init(identifier: "en") // TODO: Localization 필요?
         calendar.scope = .month
         calendar.translatesAutoresizingMaskIntoConstraints = false
         calendar.appearance.selectionColor = .clear

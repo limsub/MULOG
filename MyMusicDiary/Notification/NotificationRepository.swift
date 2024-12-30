@@ -35,8 +35,8 @@ class NotificationRepository {
     func updateNotifications() {
         
         // content 세팅
-        content.title = "오늘의 음악을 기록해주세요!"
-        content.body = "아직 오늘 음악을 기록하지 않았습니다"
+        content.title = String(localized: "오늘의 음악을 기록해주세요!")
+        content.body = String(localized: "아직 오늘 음악을 기록하지 않았습니다")
         content.badge = 1
         content.sound = .default
         

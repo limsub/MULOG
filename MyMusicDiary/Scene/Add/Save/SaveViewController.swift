@@ -57,16 +57,16 @@ class SaveViewController: BaseViewController {
     func settingNavigation() {
         switch viewModel.saveType {
         case .addData:
-            navigationItem.title = "음악 기록하기"
+            navigationItem.title = String(localized: "음악 기록하기")
         case .modifyData:
-            navigationItem.title = "음악 수정하기"
+            navigationItem.title = String(localized: "음악 수정하기")
         default:
-            navigationItem.title = "음악 기록"
+            navigationItem.title = String(localized: "음악 기록")
         }
         
         navigationItem.largeTitleDisplayMode = .never
         
-        let saveButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonClicked))
+        let saveButton = UIBarButtonItem(title: String(localized: "저장"), style: .plain, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -84,13 +84,19 @@ class SaveViewController: BaseViewController {
     func searchBarClicked() {
         // 만약 이미 3개를 등록했으면 alert
         if viewModel.numberOfItems() >= 3 {
-            showSingleAlert("하루 최대 3개의 음악을 기록할 수 있습니다", message: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
+            showSingleAlert(
+                String(localized: "하루 최대 3개의 음악을 기록할 수 있습니다"),
+                message: String(localized: "다른 곡 추가를 원하시면 기존의 곡을 지워주세요")
+            )
             return
         }
         
         // 만약 이전 날짜의 데이터를 수정하려고 들어왔으면 alert
         if viewModel.impossibleAddMusic() {
-            showSingleAlert("이전 날짜에는 곡을 추가할 수 없습니다", message: "순서 수정 또는 곡 삭제만 가능합니다")
+            showSingleAlert(
+                String(localized: "이전 날짜에는 곡을 추가할 수 없습니다"),
+                message: String(localized: "순서 수정 또는 곡 삭제만 가능합니다")
+            )
         }
         
         // 아니면
@@ -117,7 +123,9 @@ class SaveViewController: BaseViewController {
         viewModel.saveButtonClicked { [weak self] okClosure, cancelClosure in
             /* empty        : 선택한 음악이 없는 경우. 팝업 후 추가 기능 */
             print("empty CompletionHandler")
-            self?.showAlertTwoCases("선택한 곡이 없습니다", message: "이대로 저장하시겠습니까?") {
+            self?.showAlertTwoCases(
+                String(localized: "선택한 곡이 없습니다"),
+                message: String(localized: "이대로 저장하시겠습니까?")) {
                 okClosure()         // 데이터 없는 채로 저장
             } cancelCompletionHandler: {
                 cancelClosure()     // 취소
@@ -159,7 +167,9 @@ class SaveViewController: BaseViewController {
             /* duplication  : 중복된 곡인 경우 팝업 */
             print("duplication CompletionHandler")
             
-            self?.showSingleAlert("같은 곡을 두 개 이상 저장할 수 없습니다", message: "중복되는 곡을 삭제해주세요")
+            self?.showSingleAlert(
+                String(localized: "같은 곡을 두 개 이상 저장할 수 없습니다"),
+                message: String(localized: "중복되는 곡을 삭제해주세요"))
         }
     }
  
@@ -174,7 +184,10 @@ class SaveViewController: BaseViewController {
         
         // 이전 날짜라면, 얼럿 한 번 띄워주기
         if viewModel.currentDate?.toString(of: .full) != Date().toString(of: .full) {
-            showSingleAlert("이전 날짜의 데이터를 수정할 때는 곡 추가가 불가능합니다", message: "곡 삭제 시 주의해주세요")
+            showSingleAlert(
+                String(localized: "이전 날짜의 데이터를 수정할 때는 곡 추가가 불가능합니다"),
+                message: String(localized: "곡 삭제 시 주의해주세요")
+            )
         }
         
         settingSaveView()
@@ -328,7 +341,10 @@ extension SaveViewController: UICollectionViewDelegate {
 //        }
 //        else {
             
-        self.showAlert("곡을 삭제하시겠습니까?", message: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요", okTitle: "확인") { [weak self] in
+        self.showAlert(
+            String(localized: "곡을 삭제하시겠습니까?"),
+            message: String(localized: "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요"),
+            okTitle: String(localized: "확인")) { [weak self] in
                 print("셀 삭제하기")
                 collectionView.performBatchUpdates {
                     self?.viewModel.removeMusic(indexPath)

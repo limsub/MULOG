@@ -17,7 +17,7 @@ class HelpAlertView: BaseView {
         view.clipsToBounds = true
         view.layer.cornerRadius = 24
         view.backgroundColor = Constant.Color.main2.withAlphaComponent(0.3)
-        view.text = "대표"
+        view.text = String(localized: "대표")
         view.textColor = .white
         view.font = .boldSystemFont(ofSize: 40)
         view.textAlignment = .center
@@ -58,7 +58,7 @@ class HelpAlertView: BaseView {
     
     lazy var nextButton = {
         let view = UIButton()
-        view.setTitle("확인", for: .normal)
+        view.setTitle(String(localized: "확인"), for: .normal)
 //        view.backgroundColor = .red
         view.backgroundColor = Constant.Color.main2
         view.layer.cornerRadius = 20

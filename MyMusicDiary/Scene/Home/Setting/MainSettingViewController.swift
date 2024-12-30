@@ -9,7 +9,11 @@ import UIKit
 
 class MainSettingViewController: BaseViewController {
     
-    let settingData = [["알림"], ["버그, 오류 제보", "문의"], ["개인정보 처리방침"] ]
+    let settingData = [
+        [String(localized: "알림")],
+        [String(localized: "버그, 오류 제보"), String(localized: "문의")],
+        [String(localized: "개인정보 처리방침")]
+    ]
     
     lazy var tableView = {
         let view = UITableView(frame: .zero, style: .insetGrouped)

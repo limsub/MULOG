@@ -147,7 +147,7 @@ class SaveCatalogCell: BaseCollectionViewCell {
 //        view.layer.borderColor = UIColor(hexCode: "#FF9E85", alpha: 0.8).cgColor
 //        view.layer.borderWidth = 1
         
-        view.text = "대표"
+        view.text = String(localized: "대표")
         
         view.textColor = .white
         

@@ -40,11 +40,11 @@ class NotificationTimeView: BaseView {
         explainLabel.numberOfLines = 0
         explainLabel.font = .systemFont(ofSize: 12)
         
-        explainLabel.text = "원하시는 시간을 선택해주세요. 그 날 음악이 기록되지 않은 경우, 알림을 보내드립니다"
+        explainLabel.text = String(localized: "원하시는 시간을 선택해주세요. 그 날 음악이 기록되지 않은 경우, 알림을 보내드립니다")
         
         timePicker.preferredDatePickerStyle = .compact
         timePicker.datePickerMode = .time
         
-        timePicker.locale = Locale(identifier: "ko") // 다국어 대응
+        timePicker.locale = Locale(identifier: String(localized: "ko")) 
     }
 }

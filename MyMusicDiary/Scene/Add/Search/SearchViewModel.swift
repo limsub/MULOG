@@ -41,6 +41,9 @@ class SearchViewModel {
                     
                     completionHandler()
                     
+                    print("--------------------------------------------------------------------")
+                    print(result)
+                    print("--------------------------------------------------------------------")
                     
                     self.musicList.value.append(contentsOf:
                         result.songs.map {

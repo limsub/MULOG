@@ -9,7 +9,7 @@ import UIKit
 
 
 enum Constant {
-    
+    // TODO: Localization 필요?
     enum DateFormat {
         static let headerDateFormatter = {
             let dateFormatter = DateFormatter()

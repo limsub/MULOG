@@ -22,7 +22,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     let titleLabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 16)
-        view.text = "제목"
+        view.text = String(localized: "제목")
         view.numberOfLines = 1
         return view
     }()
@@ -30,7 +30,7 @@ class MonthCalendarCatalogCell: BaseCollectionViewCell {
     var artistLabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 12)
-        view.text = "가수"
+        view.text = String(localized: "가수")
         view.textColor = .lightGray
         view.numberOfLines = 1
         return view

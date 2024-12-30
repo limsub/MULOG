@@ -95,6 +95,6 @@ extension ChartTabViewController: PageboyViewControllerDataSource, TMBarDataSour
     }
     
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        return TMBarItem(title: (index == 0) ? "월" : "주")        
+        return TMBarItem(title: (index == 0) ? String(localized: "월") : String(localized: "주"))        
     }
 }

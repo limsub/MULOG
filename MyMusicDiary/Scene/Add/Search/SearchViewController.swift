@@ -51,7 +51,7 @@ class SearchViewController: BaseViewController {
     private func settingNavigationItem() {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
-        searchBar.placeholder = "오늘 들었던 음악을 검색하세요"
+        searchBar.placeholder = String(localized: "오늘 들었던 음악을 검색하세요")
         searchBar.becomeFirstResponder()
     }
     
@@ -98,7 +98,9 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if !NetworkMonitor.shared.isConnected {
-            showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+            showSingleAlert(
+                String(localized: "네트워크 연결 상태가 좋지 않습니다"),
+                message: String(localized: "연결 상태를 확인해주세요"))
             return
         }
         
@@ -114,7 +116,9 @@ extension SearchViewController: UISearchBarDelegate {
             }
         } noDataCompletionHandler: {
             DispatchQueue.main.async {
-                self.showSingleAlert("검색된 음악이 없습니다", message: "검색어를 다시 확인해주세요")
+                self.showSingleAlert(
+                    String(localized: "검색된 음악이 없습니다"),
+                    message: String(localized: "검색어를 다시 확인해주세요"))
             }
             
         }

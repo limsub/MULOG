@@ -26,7 +26,7 @@ class PrivarcyViewController: BaseViewController, WKNavigationDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        navigationItem.title = "개인정보 처리방침"
+        navigationItem.title = String(localized: "개인정보 처리방침")
         
         webView.navigationDelegate = self
         

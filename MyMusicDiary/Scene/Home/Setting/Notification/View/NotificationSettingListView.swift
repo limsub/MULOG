@@ -39,7 +39,7 @@ class NotificationSettingListView: BaseView {
         
         backgroundColor = .white
         
-        nameLabel.text = "알림 허용"
+        nameLabel.text = String(localized: "알림 허용")
         controlSwitch.isOn = false  // UserDefault
     }
 }

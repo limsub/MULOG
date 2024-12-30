@@ -15,7 +15,7 @@ extension UIViewController {
         let ok = UIAlertAction(title: okTitle, style: .default) { _ in
             completionHandler()
         }
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        let cancel = UIAlertAction(title: String(localized: "취소"), style: .cancel)
         
         
         
@@ -28,7 +28,7 @@ extension UIViewController {
     func showSingleAlert(_ title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "확인", style: .default)
+        let ok = UIAlertAction(title: String(localized: "확인"), style: .default)
     
         alert.addAction(ok)
         
@@ -40,10 +40,10 @@ extension UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "확인", style: .default) { _ in
+        let ok = UIAlertAction(title: String(localized: "확인"), style: .default) { _ in
             okCompletionHandler()
         }
-        let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: String(localized: "취소"), style: .cancel) { _ in
             cancelCompletionHandler()
         }
         

@@ -12,14 +12,14 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
     let dateLabel = {
         let view = UILabel()
-        view.text = "날짜"
+        view.text = String(localized: "날짜")
         view.font = .boldSystemFont(ofSize: 24)
         view.textAlignment = .center
         return view
     }()
     let yoilLabel = {
         let view = UILabel()
-        view.text = "요일"
+        view.text = String(localized: "요일")
         view.font = .boldSystemFont(ofSize: 16)
         view.textAlignment = .center
         return view
@@ -51,14 +51,14 @@ class MonthScrollCatalogCell: BaseCollectionViewCell {
     
     let titleLabel = {
         let view = UILabel()
-        view.text = "제목"
+        view.text = String(localized: "제목")
         view.font = .systemFont(ofSize: 16)
         return view
     }()
     
     let artistLabel = {
         let view = UILabel()
-        view.text = "가수"
+        view.text = String(localized: "가수")
         view.font = .systemFont(ofSize: 13)
         view.textColor = .darkGray
         return view

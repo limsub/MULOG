@@ -69,8 +69,8 @@ class WeekChartView: BaseView {
         barGraphView.backgroundColor = .white
         
         
-        pieGraphView.titleLabel.text = "전체 장르 비율"
-        barGraphView.titleLabel.text = "날짜별 장르 비율"
+        pieGraphView.titleLabel.text = String(localized: "전체 장르 비율")
+        barGraphView.titleLabel.text = String(localized: "날짜별 장르 비율")
         
         pieGraphView.collectionView.register(PieChartSideCollectionViewCell.self, forCellWithReuseIdentifier: PieChartSideCollectionViewCell.description())
         barGraphView.collectionView.register(BarChartSideCollectionViewCell.self, forCellWithReuseIdentifier: BarChartSideCollectionViewCell.description())

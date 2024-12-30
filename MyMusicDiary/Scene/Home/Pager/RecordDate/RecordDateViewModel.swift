@@ -59,16 +59,16 @@ class RecordDateViewModel {
     // label
     func countText() -> String {
         guard let item else { return ""  }
-        return "\(item.count)번 기록한 음악이에요 🎉"
+        return String(localized: "\(item.count)번 기록한 음악이에요 🎉")
     }
     
     func dateListText() -> String {
-        guard let item else { return "기록 결과가 없습니다" }
+        guard let item else { return String(localized: "기록 결과가 없습니다") }
         
         
         
         
-        var ansTxt = "언제 기록했냐면"
+        var ansTxt = String(localized: "언제 기록했냐면")
         item.dateList.forEach { date in
             ansTxt += "\n"
             ansTxt += "\(date)"
@@ -83,7 +83,11 @@ class RecordDateViewModel {
     }
     func cellForItem(_ indexPath: IndexPath) -> String {
         
-        guard let dateString = item?.dateList[indexPath.item].toDate(to: .full)?.toString(of: .fullKorean) else { return ""}
+//        guard let dateString = item?.dateList[indexPath.item].toDate(to: .full)?.toString(of: .fullKorean) else { return ""}
+        
+        guard let dateString = item?.dateList[indexPath.item].toDate(to: .full)?.toFullString() else { return "" }
+        
+        
         
         return dateString
     }

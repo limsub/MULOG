@@ -1,0 +1,742 @@
+{
+  "sourceLanguage" : "ko",
+  "strings" : {
+    "%@년 %@월" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@년 %2$@월"
+          }
+        }
+      }
+    },
+    "%@의 음악 기록" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music Record of %@"
+          }
+        }
+      }
+    },
+    "%lld 개" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld items"
+          }
+        }
+      }
+    },
+    "%lld번 기록한 음악이에요 🎉" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music recorded %lld times 🎉"
+          }
+        }
+      }
+    },
+    "Apple Music 앱에서 듣기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen on Apple Music app"
+          }
+        }
+      }
+    },
+    "ko" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en"
+          }
+        }
+      }
+    },
+    "M월 dd일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M. dd"
+          }
+        }
+      }
+    },
+    "Youtube Music 앱에서 듣기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Listen on Youtube Music app"
+          }
+        }
+      }
+    },
+    "yyyy년 M월 dd일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy. M. dd"
+          }
+        }
+      }
+    },
+    "가수" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "artist"
+          }
+        }
+      }
+    },
+    "같은 곡을 두 개 이상 저장할 수 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cannot save the same song more than once."
+          }
+        }
+      }
+    },
+    "개인정보 처리방침" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
+    "검색된 음악이 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No music found"
+          }
+        }
+      }
+    },
+    "검색어를 다시 확인해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your search term again."
+          }
+        }
+      }
+    },
+    "곡 삭제 시 주의해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Be cautious when deleting a song."
+          }
+        }
+      }
+    },
+    "곡 수" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Num of Songs"
+          }
+        }
+      }
+    },
+    "곡을 삭제하시겠습니까?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to delete this song?"
+          }
+        }
+      }
+    },
+    "기록 결과가 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No records found"
+          }
+        }
+      }
+    },
+    "기록한 음악이 없습니다\n캘린더 화면에서\n오늘의 음악을 기록해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No music recorded\nPlease record today's music\non the calendar screen."
+          }
+        }
+      }
+    },
+    "날짜" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
+      }
+    },
+    "날짜별 장르 비율" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genre ratio by date"
+          }
+        }
+      }
+    },
+    "네트워크 연결 상태가 좋지 않습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The network connection is poor."
+          }
+        }
+      }
+    },
+    "다른 곡 추가를 원하시면 기존의 곡을 지워주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To add another song, please delete an existing one."
+          }
+        }
+      }
+    },
+    "다시 보지 않기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't show again"
+          }
+        }
+      }
+    },
+    "대표" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Head"
+          }
+        }
+      }
+    },
+    "대표 음악을 선택해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select a head song."
+          }
+        }
+      }
+    },
+    "맨 위에 있는 음악이 대표 음악이 됩니다. 대표 음악은 캘린더에서 바로 확인할 수 있어요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The song at the top will be the head song. You can check it directly on the calendar."
+          }
+        }
+      }
+    },
+    "몇월 며칠의 음악 기록" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music record for specific date"
+          }
+        }
+      }
+    },
+    "문의" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inquiry"
+          }
+        }
+      }
+    },
+    "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access to Media and Apple Music is not allowed."
+          }
+        }
+      }
+    },
+    "버그, 오류 제보" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bug/Error Report"
+          }
+        }
+      }
+    },
+    "선택한 곡이 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No selected song."
+          }
+        }
+      }
+    },
+    "설정으로 이동" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Settings"
+          }
+        }
+      }
+    },
+    "셀을 꾹 눌러서 순서를 바꿀 수 있어요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press and hold the cell to change its order."
+          }
+        }
+      }
+    },
+    "셀을 한 번 터치하면 곡이 지워져요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a cell once to delete a song."
+          }
+        }
+      }
+    },
+    "순서 수정 또는 곡 삭제만 가능합니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can only modify the order or delete songs."
+          }
+        }
+      }
+    },
+    "시스템 알림 설정이 해제되어 있습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System notification settings are disabled."
+          }
+        }
+      }
+    },
+    "아직 오늘 음악을 기록하지 않았습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You haven't recorded today's music yet."
+          }
+        }
+      }
+    },
+    "아직 오늘의 음악을 기록하지 않았습니다\n플러스 버튼을 눌러서 음악을 기록해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You haven't recorded today's music yet.\nPress the plus button to record it."
+          }
+        }
+      }
+    },
+    "알림" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification"
+          }
+        }
+      }
+    },
+    "알림 허용" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow Notifications"
+          }
+        }
+      }
+    },
+    "앨범 커버를 터치하면 Apple Music API에서\n 제공하는 preview 음원이 재생됩니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touch the album cover to play the preview audio\n provided by the Apple Music API"
+          }
+        }
+      }
+    },
+    "앱을 실행할 수 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot launch the app."
+          }
+        }
+      }
+    },
+    "언제 기록했냐면" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The record was made on"
+          }
+        }
+      }
+    },
+    "연결 상태를 확인해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your connection."
+          }
+        }
+      }
+    },
+    "오늘 들었던 음악을 검색하세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for the music"
+          }
+        }
+      }
+    },
+    "오늘의 음악을 기록해주세요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please record today's music!"
+          }
+        }
+      }
+    },
+    "요일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day of the week"
+          }
+        }
+      }
+    },
+    "원하는 순서대로 곡을 배치해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrange the songs in your desired order."
+          }
+        }
+      }
+    },
+    "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow notifications to receive them at your desired time."
+          }
+        }
+      }
+    },
+    "원하시는 시간을 선택해주세요. 그 날 음악이 기록되지 않은 경우, 알림을 보내드립니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your preferred time. Notifications will be sent if no music is recorded for that day."
+          }
+        }
+      }
+    },
+    "월" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        }
+      }
+    },
+    "음악" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music"
+          }
+        }
+      }
+    },
+    "음악 검색" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Music"
+          }
+        }
+      }
+    },
+    "음악 기록" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music Record"
+          }
+        }
+      }
+    },
+    "음악 기록하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record Music"
+          }
+        }
+      }
+    },
+    "음악 수정하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Music"
+          }
+        }
+      }
+    },
+    "이대로 저장하시겠습니까?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to save it as is?"
+          }
+        }
+      }
+    },
+    "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Songs cannot be added when editing previous date data. Please be cautious."
+          }
+        }
+      }
+    },
+    "이전 날짜에는 곡을 추가할 수 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Songs cannot be added to previous dates."
+          }
+        }
+      }
+    },
+    "이전 날짜의 데이터를 수정할 때는 곡 추가가 불가능합니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Songs cannot be added when editing previous date data."
+          }
+        }
+      }
+    },
+    "잘못 선택한 곡은 지워주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please delete any incorrectly selected songs."
+          }
+        }
+      }
+    },
+    "장르 수" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Num of Genres"
+          }
+        }
+      }
+    },
+    "저장" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "전체 장르 비율" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overall Genre Ratio"
+          }
+        }
+      }
+    },
+    "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music search is not possible without access permission. Please allow it."
+          }
+        }
+      }
+    },
+    "제목" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
+          }
+        }
+      }
+    },
+    "주" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week"
+          }
+        }
+      }
+    },
+    "중복되는 곡을 삭제해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please delete duplicate songs."
+          }
+        }
+      }
+    },
+    "취소" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "하루 최대 3개의 음악을 기록할 수 있습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can record up to 3 songs per day."
+          }
+        }
+      }
+    },
+    "해당 날짜에 기록한 음악이 없습니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No music recorded for the specified date."
+          }
+        }
+      }
+    },
+    "확인" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

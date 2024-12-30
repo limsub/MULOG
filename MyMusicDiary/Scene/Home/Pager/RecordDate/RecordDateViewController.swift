@@ -172,7 +172,7 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let year = viewModel.sectionList[indexPath.section]?.substring(from: 0, to: 3) else { return header }
         guard let month = viewModel.sectionList[indexPath.section]?.substring(from: 4, to: 5) else { return header }
         
-        let title = "\(year)년 \(month)월"
+        let title = String(localized: "\(year)년 \(month)월")
         header.label.text = title
 
         return header

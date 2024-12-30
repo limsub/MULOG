@@ -17,8 +17,24 @@ extension Date {
     
     func toStringKorean(of type: DateFormatType) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko")
+        dateFormatter.locale = Locale(identifier: String(localized: "ko"))
         dateFormatter.dateFormat = type.rawValue
+        return dateFormatter.string(from: self)
+    }
+    
+    
+    // Enum의 rawValue는 Localized가 안됨
+    func toMonthDayString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en")
+        dateFormatter.dateFormat = String(localized: "M월 dd일")
+        return dateFormatter.string(from: self)
+    }
+    
+    func toFullString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en")
+        dateFormatter.dateFormat = String(localized: "yyyy년 M월 dd일")
         return dateFormatter.string(from: self)
     }
 }

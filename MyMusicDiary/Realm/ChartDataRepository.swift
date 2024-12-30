@@ -64,8 +64,8 @@ class ChartDataRepository {
             }
         }
         
-        // "음악" key는 지워주기 -> * 다국어 대응
-        ansDict["음악"] = nil
+        // "음악" key는 지워주기 -> * 다국어 대응 
+        ansDict[String(localized: "음악")] = nil
         
         let sortedDict = ansDict.sorted {
             if $0.value == $1.value {
@@ -121,7 +121,7 @@ class ChartDataRepository {
         }
         
         // * 다국어 대응
-        ansDict["음악"] = nil
+        ansDict[String(localized: "음악")] = nil
         
         let sortedDict = ansDict.sorted {
             if $0.value == $1.value {
@@ -174,7 +174,7 @@ class ChartDataRepository {
                 }
             }
             // * 다국어 대응
-            addGenreCounts["음악"] = nil
+            addGenreCounts[String(localized: "음악")] = nil
             
             let addItem = DayGenreCountForBarChart(
                 day: addDay,
@@ -232,7 +232,7 @@ class ChartDataRepository {
             
             
             // * 다국어 대응
-            addGenreCounts["음악"] = nil
+            addGenreCounts[String(localized: "음악")] = nil
             
             let addItem = DayGenreCountForBarChart(
                 day: addDay,

@@ -133,9 +133,9 @@ class MainPagerViewCell: FSPagerViewCell {
         let view = UILabel()
         view.font = .systemFont(ofSize: 11)
         view.textColor = .lightGray
-        view.text = "앨범 커버를 터치하면 Apple Music API에서\n 제공하는 preview 음원이 재생됩니다"
+        view.text = String(localized: "앨범 커버를 터치하면 Apple Music API에서\n 제공하는 preview 음원이 재생됩니다")
         view.textAlignment = .center
-        view.numberOfLines = 2
+        view.numberOfLines = 0
         return view
     }()
     
@@ -159,7 +159,9 @@ class MainPagerViewCell: FSPagerViewCell {
         
         if !NetworkMonitor.shared.isConnected {
             guard let vc = parentVC as? UIViewController else { return }
-            vc.showSingleAlert("네트워크 연결 상태가 좋지 않습니다", message: "연결 상태를 확인해주세요")
+            vc.showSingleAlert(String(localized: "네트워크 연결 상태가 좋지 않습니다"),
+                               message: String(localized: "연결 상태를 확인해주세요")
+            )
             return
         }
                 
@@ -268,6 +270,7 @@ class MainPagerViewCell: FSPagerViewCell {
         explainPlayLabel.snp.makeConstraints { make in
             make.top.equalTo(recordButton.snp.bottom).offset(4)
             make.centerX.equalTo(contentView)
+//            make.horizontalEdges.equalToSuperview().inset(30)
         }
     }
     

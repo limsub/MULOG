@@ -7,6 +7,7 @@
 
 import Foundation
 
+// deprecated
 enum GenreType {
     case kpop
     case pop

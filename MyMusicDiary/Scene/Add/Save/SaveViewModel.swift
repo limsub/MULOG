@@ -32,7 +32,7 @@ class SaveViewModel {
     var musicList: Observable<[MusicItem]> = Observable([])
     
     
-    
+    // deprecated
     let genreList: [GenreType] = [.kpop, .pop, .ost, .hiphop, .rb]
     
     func numberOfItems() -> Int {
@@ -60,7 +60,9 @@ class SaveViewModel {
     func makeDateLabelString() -> String {
         guard let currentDate else { return "" }
         
-        return "\(currentDate.toString(of: .monthYearKorean))의 음악 기록"
+//        return String(localized: "\(currentDate.toString(of: .monthYearKorean))의 음악 기록")
+        
+        return String(localized: "\(currentDate.toMonthDayString())의 음악 기록")
     }
     
 

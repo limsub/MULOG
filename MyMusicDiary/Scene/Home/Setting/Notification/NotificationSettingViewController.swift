@@ -152,7 +152,10 @@ class NotificationSettingViewController: BaseViewController {
                 } else {
                     guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
                     print("권한이 허용되어 있지 않습니다. 시스템 설정으로 갈 수 있는 얼럿을 띄우겠습니다")
-                    self.showAlert("시스템 알림 설정이 해제되어 있습니다", message: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요", okTitle: "설정으로 이동") {
+                    self.showAlert(
+                        String(localized: "시스템 알림 설정이 해제되어 있습니다"),
+                        message: String(localized: "원하는 시간에 알림을 받기 위해서 알림을 허용해주세요"),
+                        okTitle: String(localized: "설정으로 이동")) {
                         if UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.open(url)
                         }

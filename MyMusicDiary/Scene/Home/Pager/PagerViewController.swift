@@ -47,7 +47,7 @@ class PagerViewController: BaseViewController {
     
     let noDataView = NoDataView(
         imageName: "nodata_headphone",
-        labelStatement: "기록한 음악이 없습니다\n캘린더 화면에서\n오늘의 음악을 기록해주세요",
+        labelStatement: String(localized: "기록한 음악이 없습니다\n캘린더 화면에서\n오늘의 음악을 기록해주세요"),
         imageSize: 150
     )
     

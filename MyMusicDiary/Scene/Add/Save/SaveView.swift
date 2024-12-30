@@ -25,14 +25,14 @@ class SaveView: BaseView {
     
     let searchMusicLabel = {
         let view = UILabel()
-        view.text = "음악 검색"
+        view.text = String(localized: "음악 검색")
         view.font = .boldSystemFont(ofSize: 18)
         return view
     }()
     let searchBar = {
         let view = UISearchBar()
         view.isUserInteractionEnabled = false
-        view.placeholder = "오늘 들었던 음악을 검색하세요"
+        view.placeholder = String(localized: "오늘 들었던 음악을 검색하세요")
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 2
         view.backgroundColor = .clear
@@ -71,7 +71,7 @@ class SaveView: BaseView {
     
     let todayMusicLabel = {
         let view = UILabel()
-        view.text = "몇월 며칠의 음악 기록"
+        view.text = String(localized: "몇월 며칠의 음악 기록")
         view.font = .boldSystemFont(ofSize: 18)
         
 //        view.backgroundColor = .blue
@@ -94,7 +94,7 @@ class SaveView: BaseView {
     }()
     
     // 12/21. 구글 애드몹 배너 추가
-    let bannerView = {
+    lazy var bannerView = {
         let view = GADBannerView(adSize: GADAdSizeBanner)
         view.alpha = 1
         // test id : ca-app-pub-3940256099942544/2435281174
@@ -105,8 +105,11 @@ class SaveView: BaseView {
         
         // 여기서 바로 로드해도 되는지는 모르겠지만... 되겠지 뭐
         view.load(GADRequest())
+//        view.load(GADRequest())
         
 //        view.backgroundColor = .red
+        
+        view.delegate = self
         return view
     }()
     
@@ -215,4 +218,36 @@ extension SaveView {
         return layout
     }
     
+}
+
+extension SaveView: GADBannerViewDelegate {
+    /// 광고가 로드되었을 때 호출
+        func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+            print("Ad received successfully.")
+        }
+
+        /// 광고 로드에 실패했을 때 호출
+        func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+            print("Ad failed to load: \(error.localizedDescription)")
+        }
+
+        /// 광고가 클릭되었을 때 호출
+        func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
+            print("Ad clicked.")
+        }
+
+        /// 광고가 화면에 표시되었을 때 호출
+        func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+            print("Ad will present screen.")
+        }
+
+        /// 광고 화면이 닫혔을 때 호출
+        func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+            print("Ad will dismiss screen.")
+        }
+
+        /// 광고 화면이 완전히 닫혔을 때 호출
+        func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+            print("Ad dismissed.")
+        }
 }
