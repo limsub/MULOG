@@ -44,6 +44,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let vc = HomeTabViewController()
+        
+//        let vc = UINavigationController(rootViewController: PeriodSelectViewController())
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
