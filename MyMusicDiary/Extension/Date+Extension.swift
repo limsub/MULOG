@@ -21,20 +21,27 @@ extension Date {
         dateFormatter.dateFormat = type.rawValue
         return dateFormatter.string(from: self)
     }
+        
     
-    
-    // Enum의 rawValue는 Localized가 안됨
-    func toMonthDayString() -> String {
+    // MARK: - for localized
+    func toMonthDayStringLocalized() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en")
-        dateFormatter.dateFormat = String(localized: "M월 dd일")
+        dateFormatter.dateFormat = String(localized: "M월 d일")
+        return dateFormatter.string(from: self)
+    }
+    
+    func toYearMonthStringLocalized() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en")
+        dateFormatter.dateFormat = String(localized: "yyyy년 M월")
         return dateFormatter.string(from: self)
     }
     
     func toFullString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en")
-        dateFormatter.dateFormat = String(localized: "yyyy년 M월 dd일")
+        dateFormatter.dateFormat = String(localized: "yyyy년 M월 d일")
         return dateFormatter.string(from: self)
     }
 }

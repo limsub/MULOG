@@ -137,8 +137,7 @@ class CustmTitleView: BaseView {
             let month = startDay.toString(of: .singleMonth)
             let year = startDay.toString(of: .year)
             
-            dateLabel.text = String(localized: "\(year)년 \(month)월")
-            
+            dateLabel.text = startDay.toYearMonthStringLocalized()
         } else {
             let calendar = Calendar.current
             guard let endDay = calendar.date(byAdding: .day, value: +6, to: startDay) else { return }
@@ -147,7 +146,6 @@ class CustmTitleView: BaseView {
             let end = endDay.toStringKorean(of: .fullSlashWithSingleMonthAndYoil)
             
             dateLabel.text = "\(start) ~ \(end)"
-            
         }
         songsCountlabel.text = String(localized: "\(musicCnt) 개")
         genresCountLabel.text = String(localized: "\(genreCnt) 개")

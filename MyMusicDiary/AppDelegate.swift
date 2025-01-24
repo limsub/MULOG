@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         sleep(1)
 
-        
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { success, error in
             // 맨 처음이라는 점을 분기처리하기 위함 -> 추가적인 UserDefault를 하나 더 넣어준다
             if !UserDefaults.standard.bool(forKey: NotificationUserDefaults.isFirst.key) {

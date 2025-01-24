@@ -2,6 +2,7 @@
   "sourceLanguage" : "ko",
   "strings" : {
     "%@년 %@월" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -68,11 +69,22 @@
       }
     },
     "M월 dd일" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "M. dd"
+            "value" : "MMMM d"
+          }
+        }
+      }
+    },
+    "M월 d일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MMMM d"
           }
         }
       }
@@ -87,12 +99,33 @@
         }
       }
     },
+    "yyyy년 M월" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MMMM, yyyy"
+          }
+        }
+      }
+    },
     "yyyy년 M월 dd일" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "yyyy. M. dd"
+          }
+        }
+      }
+    },
+    "yyyy년 M월 d일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MMMM d, yyyy"
           }
         }
       }
@@ -148,6 +181,7 @@
       }
     },
     "곡 삭제 시 주의해주세요" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -317,6 +351,9 @@
         }
       }
     },
+    "삭제 후에도 다시 음악을 추가할 수 있습니다" : {
+
+    },
     "선택한 곡이 없습니다" : {
       "localizations" : {
         "en" : {
@@ -358,6 +395,7 @@
       }
     },
     "순서 수정 또는 곡 삭제만 가능합니다" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -588,6 +626,7 @@
       }
     },
     "이전 날짜 데이터를 수정할 때는 곡 추가가 불가능합니다. 주의해주세요" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -598,6 +637,7 @@
       }
     },
     "이전 날짜에는 곡을 추가할 수 없습니다" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -608,6 +648,7 @@
       }
     },
     "이전 날짜의 데이터를 수정할 때는 곡 추가가 불가능합니다" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

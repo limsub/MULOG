@@ -17,6 +17,7 @@ class SaveView: BaseView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     let contentView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +30,7 @@ class SaveView: BaseView {
         view.font = .boldSystemFont(ofSize: 18)
         return view
     }()
+    
     let searchBar = {
         let view = UISearchBar()
         view.isUserInteractionEnabled = false
@@ -38,58 +40,25 @@ class SaveView: BaseView {
         view.backgroundColor = .clear
         return view
     }()
+    
     lazy var fakeButton = {
         let view = UIButton()
         view.backgroundColor = .clear
         return view
     }()
-    
-    
-    /* ===== 12/21. 장르별 음악 제거 ===== */
-    /*
-    let genreChartLabel = {
-        let view = UILabel()
-        view.text = "장르별 음악"
-        view.font = .boldSystemFont(ofSize: 18)
-        
-//        view.backgroundColor = .blue
-        return view
-    }()
-    lazy var genreCollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: self.createGenreSaveLayout() )
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.showsHorizontalScrollIndicator = false
 
-        view.register(GenreCatalogCell.self, forCellWithReuseIdentifier: GenreCatalogCell.description())
-        
-        
-//        view.backgroundColor = .black
-        return view
-    }()
-     */
-    
     let todayMusicLabel = {
         let view = UILabel()
         view.text = String(localized: "몇월 며칠의 음악 기록")
         view.font = .boldSystemFont(ofSize: 18)
-        
-//        view.backgroundColor = .blue
         return view
     }()
-    lazy var helpButton = {
-        let view = UIButton()
-        view.imageEdgeInsets = UIEdgeInsets(top: 22, left: 22, bottom: 22, right: 22)
-        view.setImage(UIImage(named: "question"), for: .normal)
-        return view
-    }()
+    
     lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: self.createSaveLayout() )
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isScrollEnabled = false
         view.register(SaveCatalogCell.self, forCellWithReuseIdentifier: SaveCatalogCell.description())
-        
-//        view.backgroundColor = .blue
         return view
     }()
     
@@ -105,10 +74,6 @@ class SaveView: BaseView {
         
         // 여기서 바로 로드해도 되는지는 모르겠지만... 되겠지 뭐
         view.load(GADRequest())
-//        view.load(GADRequest())
-        
-//        view.backgroundColor = .red
-        
         view.delegate = self
         return view
     }()
@@ -127,7 +92,6 @@ class SaveView: BaseView {
         contentView.addSubview(searchBar)
         contentView.addSubview(fakeButton)
         contentView.addSubview(todayMusicLabel)
-        contentView.addSubview(helpButton)
         contentView.addSubview(collectionView)
         
         // bannerView는 스크롤과 상관 없어야 함.
@@ -169,12 +133,6 @@ class SaveView: BaseView {
             make.top.equalTo(fakeButton.snp.bottom).offset(30)
             make.leading.equalTo(self).inset(18)
         }
-        helpButton.snp.makeConstraints { make in
-            make.leading.equalTo(todayMusicLabel.snp.trailing).offset(-8)
-            make.height.equalTo(65)
-            make.width.equalTo(65)
-            make.centerY.equalTo(todayMusicLabel)
-        }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(todayMusicLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(self).inset(18)
@@ -195,8 +153,7 @@ class SaveView: BaseView {
 
 // collectionView 레이아웃 함수
 extension SaveView {
-    
-    func createSaveLayout() -> UICollectionViewLayout {
+    private func createSaveLayout() -> UICollectionViewLayout {
        let layout = UICollectionViewFlowLayout()
        
        let width = UIScreen.main.bounds.width - 32
@@ -206,18 +163,6 @@ extension SaveView {
        
        return layout
    }
-    
-    func createGenreSaveLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        
-        layout.scrollDirection = .horizontal
-        
-        layout.itemSize = CGSize(width: 100, height: 50)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
-        
-        return layout
-    }
-    
 }
 
 extension SaveView: GADBannerViewDelegate {

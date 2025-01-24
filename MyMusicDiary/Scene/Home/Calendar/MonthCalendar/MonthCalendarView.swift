@@ -10,6 +10,7 @@ import FSCalendar
 
 
 
+
 class MonthCalendarView: BaseView {
     
     /* no data */
@@ -125,7 +126,7 @@ class MonthCalendarView: BaseView {
         addSubview(reloadBackLabel)
         addSubview(reloadButton)
         
-        addSubview(hideButton)
+//        addSubview(hideButton)
         addSubview(plusButton)
         
         addSubview(collectionView)
@@ -167,21 +168,21 @@ class MonthCalendarView: BaseView {
             make.horizontalEdges.equalTo(reloadButton).inset(1)
             make.bottom.equalTo(reloadButton).inset(1)
         }
-        hideButton.snp.makeConstraints { make in
+//        hideButton.snp.makeConstraints { make in
+//            make.centerY.equalTo(calendar.calendarHeaderView)
+//            make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
+//            make.width.equalTo(25)
+//            make.height.equalTo(25)
+//        }
+        plusButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
             make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
-        plusButton.snp.makeConstraints { make in
-            make.centerY.equalTo(calendar.calendarHeaderView)
-            make.trailing.equalTo(hideButton.snp.leading).offset(-26)
-            make.width.equalTo(25)
-            make.height.equalTo(25)
-        }
         modifyButton.snp.makeConstraints { make in
             make.centerY.equalTo(calendar.calendarHeaderView)
-            make.trailing.equalTo(hideButton.snp.leading).offset(-26)
+            make.trailing.equalTo(reloadButton.snp.leading).offset(-26)
             make.width.equalTo(25)
             make.height.equalTo(25)
         }
@@ -193,20 +194,6 @@ class MonthCalendarView: BaseView {
             make.horizontalEdges.equalTo(self).inset(14)
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(12)
         }
-        
-//        modifyButton.snp.makeConstraints { make in
-////            make.center.equalTo(self)
-////            make.trailing.equalTo(collectionView).inset(8)
-//
-//
-//            make.centerX.equalTo(self)
-//            make.bottom.equalTo(collectionView).inset(8)
-//
-//            make.width.equalTo(80)
-//            make.height.equalTo(40)
-//
-////            make.size.equalTo(40)
-//        }
         
         noDataViewToday.snp.makeConstraints { make in
             make.center.equalTo(collectionView)
@@ -289,6 +276,22 @@ class MonthCalendarView: BaseView {
             
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(18) // 12 (collectionView) + 4 (padding)
             make.trailing.equalTo(self).inset(20) // 14 + 4
+        }
+    }
+}
+
+
+// MARK: - func for VC
+extension MonthCalendarView {
+    func showPlusButton(_ value: Bool) {
+        if value {
+            Logger.print("Selected date has no record. Show Plus Button")
+            self.plusButton.isHidden    = false
+            self.modifyButton.isHidden  = true
+        } else {
+            Logger.print("Selected date already has record. Show Modify Button")
+            self.plusButton.isHidden    = true
+            self.modifyButton.isHidden  = false
         }
     }
 }

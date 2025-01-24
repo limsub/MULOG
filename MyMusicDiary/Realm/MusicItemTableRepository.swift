@@ -164,7 +164,6 @@ class MusicItemTableRepository {
     
     
     func minusDate(_ data: MusicItemTable, today: Date) {
-//        print("(realm 대비) 현재 메인쓰레드? : ", OperationQueue.current == OperationQueue.main)
         do {
             try realm.write {
                 let todayString = today.toString(of: .full)

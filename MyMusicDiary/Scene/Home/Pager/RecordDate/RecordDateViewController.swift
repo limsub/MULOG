@@ -69,10 +69,6 @@ class RecordDateViewController: BaseViewController {
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
         
-    
-        
-        
-    
         return layout
     }
     
@@ -133,32 +129,14 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordDateCollectionViewCell.description(), for: indexPath) as? RecordDateCollectionViewCell else { return UICollectionViewCell() }
-        
-//        cell.dateLabel.text = viewModel.cellForItem(indexPath)
-        
+
         cell.designCell(viewModel.dateList[indexPath.section][indexPath.row])
-        
-//        cell.dateLabel.text = viewModel.dateList[indexPath.section][indexPath.row]
-        
-//        cell.backgroundColor = .lightGray
-        
+
         return cell
     }
     
-    
-    
-    
-    
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        print("HIHIHI")
-        
-        print(kind == UICollectionView.elementKindSectionHeader)
-        
-        
+
         guard kind == UICollectionView.elementKindSectionHeader, // 헤더일때
           let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
@@ -166,14 +144,13 @@ extension RecordDateViewController: UICollectionViewDelegate, UICollectionViewDa
             for: indexPath
           ) as? CustomCollectionHeaderView else { return UICollectionReusableView()}
     
-            print("hiHIhihih'")
-        
-        
+
         guard let year = viewModel.sectionList[indexPath.section]?.substring(from: 0, to: 3) else { return header }
         guard let month = viewModel.sectionList[indexPath.section]?.substring(from: 4, to: 5) else { return header }
         
-        let title = String(localized: "\(year)년 \(month)월")
-        header.label.text = title
+        // sectionList : yyyyMM
+        let date = viewModel.sectionList[indexPath.section]?.toDate(to: .yearMonth)
+        header.label.text = date?.toYearMonthStringLocalized()
 
         return header
     }

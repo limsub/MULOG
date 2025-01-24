@@ -47,8 +47,8 @@ class RecordDateViewModel {
         dateList.append(dayList)
         
         
-        print(dateList)
-        print(sectionList)
+        Logger.print("dateList : \(dateList)")
+        Logger.print("sectionList : \(sectionList)")
     }
     
     // data sort
@@ -65,9 +65,6 @@ class RecordDateViewModel {
     func dateListText() -> String {
         guard let item else { return String(localized: "기록 결과가 없습니다") }
         
-        
-        
-        
         var ansTxt = String(localized: "언제 기록했냐면")
         item.dateList.forEach { date in
             ansTxt += "\n"
@@ -81,14 +78,10 @@ class RecordDateViewModel {
     func numberOfItems() -> Int{
         return item?.dateList.count ?? 0
     }
+    
     func cellForItem(_ indexPath: IndexPath) -> String {
-        
-//        guard let dateString = item?.dateList[indexPath.item].toDate(to: .full)?.toString(of: .fullKorean) else { return ""}
-        
+
         guard let dateString = item?.dateList[indexPath.item].toDate(to: .full)?.toFullString() else { return "" }
-        
-        
-        
         return dateString
     }
     

@@ -16,11 +16,18 @@ import RxCocoa
 // 1. addTarget은 VC에서 (self 들어가는건 VC에서)
 
 
+// (SaveView -> MonthCalendarView)
+// SaveView에서 저장 버튼 클릭 시, 캘린더뷰 reload
+protocol ReloadProtocol: AnyObject {
+    func update()
+}
+
+
 class MonthCalendarViewController: BaseViewController {
     
     let disposeBag = DisposeBag()
     
-    var allShow = false
+//    var allShow = false
     
     /* viewModel */
     let viewModel = MonthCalendarViewModel()
@@ -35,95 +42,7 @@ class MonthCalendarViewController: BaseViewController {
     var currentPageDate = Date()
     
 
-    @objc
-    private func reloadButtonClicked() {    // 오늘 날짜 선택
-        // 0. UI
-        monthView.calendar.setCurrentPage(Date(), animated: true)
-        monthView.calendar.select(Date())
-        
-        
-        // 1. selected date를 오늘 날짜로 업데이트한다
-        viewModel.updateSelectedDate(Date())
-        
-        // 2 - 1. 캘린더 reload -> currentSelectedDate 기준으로 배경 alpha값 변경
-        monthView.calendar.reloadData()
-        
-        // 2 - 2. 컬렉션뷰 reload -> currentSelectedDated 기준으로 data 다시 부르고, collectionView reload (update snapshot)
-        viewModel.updateMusicList()
-        updateSnapshot()
-    }
-    @objc
-    private func plusButtonClicked() {
-        Task {
-            let status = await MusicAuthorization.request()
-            
-            switch status {
-            case .notDetermined, .denied, .restricted:
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                self.showAlert(
-                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
-                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
-                    okTitle: String(localized: "설정으로 이동")
-                ) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
-                }
-            case .authorized:
-                let vc = SaveViewController()
-                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
-                vc.viewModel.saveType = .addData        // 1
-                vc.viewModel.preMusicList.value = []    // 2
-                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
-                
-                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
-                vc.delegate = self
-                navigationController?.pushViewController(vc, animated: true)
-            @unknown default:
-                break
-            }
-        }
-    }
-    @objc
-    func modifyButtonClicked() {
-        Task {
-            let status = await MusicAuthorization.request()
-            
-            switch status {
-            case .notDetermined, .denied, .restricted:
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                self.showAlert(
-                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
-                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
-                    okTitle: String(localized: "설정으로 이동")
-                ) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
-                }
-            case .authorized:
-                let vc = SaveViewController()
-                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
-                vc.viewModel.saveType = .modifyData        // 1
-                vc.viewModel.preMusicList.value = viewModel.currentMusicList.value.map { MusicItem($0) }    // 2
-                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
-                
-                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
-                vc.delegate = self
-                navigationController?.pushViewController(vc, animated: true)
-                
-                
-            @unknown default:
-                break
-            }
-        }
-    }
-    @objc
-    func hideButtonClicked() {
-        allShow.toggle()
-        monthView.hideButton.isSelected = allShow
-        monthView.calendar.reloadData()
-    }
+    
     
     
     func bindData() {
@@ -230,13 +149,8 @@ class MonthCalendarViewController: BaseViewController {
     }
   
     
-    // 데이터 수정한 후 바로 반영될 수 있도록 설정
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 화면이 등장할 때 todayDateString은 다시 계산 -> SceneDelegate에서 처리
-//        viewModel.todayDateString.onNext(Date().toString(of: .full))
-        
         
         checkPlusModifyButton()
         checkShowNoDataView()
@@ -284,7 +198,105 @@ class MonthCalendarViewController: BaseViewController {
     }
 }
 
+// MARK: - @obj button clicked
+extension MonthCalendarViewController {
+    @objc
+    private func reloadButtonClicked() {    // 오늘 날짜 선택
+        // 0. UI
+        monthView.calendar.setCurrentPage(Date(), animated: true)
+        monthView.calendar.select(Date())
+        
+        
+        // 1. selected date를 오늘 날짜로 업데이트한다
+        viewModel.updateSelectedDate(Date())
+        
+        // 2 - 1. 캘린더 reload -> currentSelectedDate 기준으로 배경 alpha값 변경
+        monthView.calendar.reloadData()
+        
+        // 2 - 2. 컬렉션뷰 reload -> currentSelectedDated 기준으로 data 다시 부르고, collectionView reload (update snapshot)
+        viewModel.updateMusicList()
+        updateSnapshot()
+    }
+    @objc
+    private func plusButtonClicked() {
+        Task {
+            let status = await MusicAuthorization.request()
+            
+            switch status {
+            case .notDetermined, .denied, .restricted:
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                self.showAlert(
+                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
+                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
+                    okTitle: String(localized: "설정으로 이동")
+                ) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            case .authorized:
+                let vc = SaveViewController()
+                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
+                vc.viewModel.saveType = .addData        // 1
+                vc.viewModel.preMusicList.value = []    // 2
+                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
+                                
+                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
+                vc.delegate = self
+                
+                Logger.print("type :        \(vc.viewModel.saveType?.descriptionForLog)")
+                Logger.print("currentDate : \(vc.viewModel.currentDate?.toString(of: .full)) ")
+                
+                navigationController?.pushViewController(vc, animated: true)
+            @unknown default:
+                break
+            }
+        }
+    }
+    @objc
+    func modifyButtonClicked() {
+        Task {
+            let status = await MusicAuthorization.request()
+            
+            switch status {
+            case .notDetermined, .denied, .restricted:
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                self.showAlert(
+                    String(localized: "미디어 및 Apple Music에 대한 접근이 허용되어 있지 않습니다"),
+                    message: String(localized: "접근 권한이 없으면 음악 검색이 불가능합니다. 권한을 허용해주세요"),
+                    okTitle: String(localized: "설정으로 이동")
+                ) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            case .authorized:
+                let vc = SaveViewController()
+                // 값전달 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
+                vc.viewModel.saveType = .modifyData        // 1
+                vc.viewModel.preMusicList.value = viewModel.currentMusicList.value.map { MusicItem($0) }    // 2
+                vc.viewModel.currentDate = viewModel.currentSelectedDate.value // 3
+                
+                // 저장 버튼 눌렀을 때 액션 연결시켜주기 위한 delegate
+                vc.delegate = self
+                
+                Logger.print("type :        \(vc.viewModel.saveType?.descriptionForLog)")
+                Logger.print("currentDate : \(vc.viewModel.currentDate?.toString(of: .full)) ")
+                
+                navigationController?.pushViewController(vc, animated: true)
+            @unknown default:
+                break
+            }
+        }
+    }
+    @objc
+    func hideButtonClicked() {
+        // TODO: - Show Random Music Summary View
+        print("// TODO: - Show Random Music Summary View")
+    }
+}
 
+// MARK: - FSCalendar
 extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func maximumDate(for calendar: FSCalendar) -> Date {
@@ -303,43 +315,32 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         viewModel.fetchArtwork(date) { url in
             // * 다운샘플링 필요
             cell.backImageView.kf.setImage(with: url)
-            print(date)
         }
         
         cell.backImageView.alpha = viewModel.isCurrentSelected(date) ? 1 : 0.5
-        
-        
-        if allShow {
-            cell.titleLabel.isHidden = true
-            cell.backImageView.alpha = 1
-        }
         
         return cell
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-//        print(#function, date)
-        
-        // currentSelectedDate 업데이트
+        // 1. currentSelectedDate 업데이트 (preciousDate, currentDate)
         viewModel.updateSelectedDate(date)
         
-        if !allShow {
-            // calendar 업데이트 (reloadData 쓰는 것보다 나을 듯)
-            if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
-                previousCell.backImageView.alpha = 0.5
-            }
-            if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
-                currentCell.backImageView.alpha = 1
-            }
+
+        // 2. calendarCell alpha update
+        if let previousCell = calendar.cell(for: viewModel.previousSelectedDate.value, at: monthPosition) as? CalendarCell {
+            previousCell.backImageView.alpha = 0.5
         }
+        if let currentCell = calendar.cell(for: viewModel.currentSelectedDate.value, at: monthPosition) as? CalendarCell {
+            currentCell.backImageView.alpha = 1
+        }
+
         
-        // collectionView
+        // 3. bottom collectionView
         viewModel.updateMusicList()
         updateSnapshot()
         checkShowNoDataView()
-
-
     }
     
     
@@ -367,18 +368,15 @@ extension MonthCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         currentPageDate = calendar.currentPage
         monthView.headerLabel.text = Constant.DateFormat.headerDateFormatter.string(from: currentPageDate)
-        
         calendar.reloadData()
     }
 }
 
 
-
-
-// * CollectionView
+// MARK: - Bottom CollectionView
 extension MonthCalendarViewController {
     
-    func configureDataSource() {
+    private func configureDataSource() {
         // cellRegistration
          let cellRegistration = UICollectionView.CellRegistration<MonthCalendarCatalogCell, MusicItemTable> { cell, indexPath, itemIdentifier in
 
@@ -400,7 +398,7 @@ extension MonthCalendarViewController {
         
     }
     
-    func updateSnapshot() {
+    private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, MusicItemTable>()
         snapshot.appendSections([0])
         snapshot.appendItems(viewModel.currentMusicList.value)
@@ -408,43 +406,20 @@ extension MonthCalendarViewController {
     }
 }
 
+
+// MARK: - private func
 extension MonthCalendarViewController {
     // 추가 버튼, 수정 버튼, 빈 공간 결정하기
-    func checkPlusModifyButton() {
-        // 추가 : 오늘 날짜 선택 + 해당 날짜 일기 x
-        // 수정 : (1). 오늘 날짜 선택 + 해당 날짜 일기 o
-        //       (2). 이전 날짜 선택 + 해당 날짜 일기 o
-        // 빈 공간 : 이전 날짜 선택 + 해당 날짜 일기 x
-        
-        // 분기 처리
-        // 1. 선택된 날짜에 일기 있는지 -> true => 수정
-        // false => 2. 오늘 날짜를 선택했는지 -> true => 추가
-        //                                 false => 빈 공간
-        
-        // 실행해야 하는 시점
-        // 1. viewWillAppear, 2. didSelect, 3. reloadButtonClicked
-        // 2, 3 대신, currentSelectedDate에 bind로 걸어버리자
-        
-        if viewModel.isCurrentSelectedDateHaveData() {
-            print("선택된 날짜에 이미 일기가 있습니다. 수정 버튼을 띄워야 합니다")
-            monthView.plusButton.isHidden = true
-            monthView.modifyButton.isHidden = false
-        } else {
-            print("선택된 날짜에 일기가 없습니다. 다음 분기 처리로 넘어갑니다", terminator: " -> ")
-            if viewModel.isCurrentSelectedDateToday() {
-                print("선택된 날짜가 오늘 날짜입니다. 추가 버튼을 띄워야 합니다")
-                monthView.plusButton.isHidden = false
-                monthView.modifyButton.isHidden = true
-            } else {
-                print("선택된 날짜가 이전 날짜입니다. 빈 공간으로 두어야 합니다")
-                monthView.plusButton.isHidden = true
-                monthView.modifyButton.isHidden = true
-            }
-        }
+    private func checkPlusModifyButton() {
+        // * (1/24) 이전 날짜도 음악 추가 가능하도록 구현
+        // 1. 선택된 날에 일기가 있다         -> 수정 버튼
+        // 2. 선택된 날에 일기가 없다         -> 추가 버튼
+        let showPlusButton: Bool = !viewModel.isCurrentSelectedDateHaveData()
+        monthView.showPlusButton(showPlusButton)
     }
     
     // 기록한 음악이 없습니다 기본 뷰
-    func checkShowNoDataView() {
+    private func checkShowNoDataView() {
         // 1. 선택한 날짜에 데이터가 없는지
         // 2. 선택한 날짜가 오늘 날짜인지
         
