@@ -19,10 +19,10 @@ class MonthCalendarViewModel {
     
     let repository = MusicItemTableRepository()
     
-    var previousSelectedDate: Observable<Date> = Observable(Date())
-    var currentSelectedDate: Observable<Date> = Observable(Date())  // 초기값 오늘
+    var previousSelectedDate: CustomObservable<Date> = CustomObservable(Date())
+    var currentSelectedDate: CustomObservable<Date> = CustomObservable(Date())  // 초기값 오늘
     
-    var currentMusicList: Observable<[MusicItemTable]> = Observable([])
+    var currentMusicList: CustomObservable<[MusicItemTable]> = CustomObservable([])
     
     
     // 해당 날짜의 artwork url 받아옴

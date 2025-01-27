@@ -352,7 +352,14 @@
       }
     },
     "삭제 후에도 다시 음악을 추가할 수 있습니다" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can add musics after deleted"
+          }
+        }
+      }
     },
     "선택한 곡이 없습니다" : {
       "localizations" : {

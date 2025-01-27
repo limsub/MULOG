@@ -14,7 +14,7 @@ class RealmDataModified {
     private init() { }
     
     
-    var modifyProperty: Observable<Bool> = Observable(false)
+    var modifyProperty: CustomObservable<Bool> = CustomObservable(false)
     
     
 }

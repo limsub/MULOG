@@ -15,7 +15,7 @@ class MonthScrollViewModel {
     let allYear = Array(2020...2030)
     let allMonth = Array(1...12)
     
-    var data: Observable<[DayItemTable]> = Observable([])
+    var data: CustomObservable<[DayItemTable]> = CustomObservable([])
     
     var currentPageDate = Date()
     

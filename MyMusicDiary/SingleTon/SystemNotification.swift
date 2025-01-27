@@ -11,5 +11,5 @@ class SystemNotification {
     static let shared = SystemNotification()
     private init() { }
     
-    var isOn = Observable(true)
+    var isOn = CustomObservable(true)
 }

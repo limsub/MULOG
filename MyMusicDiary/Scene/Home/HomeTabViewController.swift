@@ -35,6 +35,8 @@ class HomeTabViewController: UITabBarController {
     
     let calendarVC = MonthCalendarViewController()
     
+    let summaryVC = SummaryMonthViewController(SummaryMonthReactor())
+    
     let chartVC = ChartTabViewController()
     
     let settingVC = MainSettingViewController()
@@ -58,11 +60,13 @@ class HomeTabViewController: UITabBarController {
         
         pagerVC.tabBarItem.image = UIImage(systemName: "music.note.house")
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
+        summaryVC.tabBarItem.image = UIImage(systemName: "music.note.list")
         chartVC.tabBarItem.image = UIImage(systemName: "chart.pie")
         settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
         
         
-        [pagerVC, calendarVC, chartVC, settingVC].forEach { vc in
+        
+        [pagerVC, calendarVC, summaryVC, chartVC, settingVC].forEach { vc in
             vc.tabBarItem.imageInsets = UIEdgeInsets(
                 top: -30,
                 left: 0,
@@ -74,11 +78,12 @@ class HomeTabViewController: UITabBarController {
         
 //        let navPager = UINavigationController(rootViewController: pagerVC)
         let navCalendar = UINavigationController(rootViewController: calendarVC)
+        let navSummary = UINavigationController(rootViewController: summaryVC)
         let navChart = UINavigationController(rootViewController: chartVC)
         let navSetting = UINavigationController(rootViewController: settingVC)
         
         
-        let tabItem = [pagerVC, navCalendar, navChart, navSetting]
+        let tabItem = [pagerVC, navCalendar, navSummary, navChart, navSetting]
         self.viewControllers = tabItem
         
     

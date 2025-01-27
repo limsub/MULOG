@@ -13,12 +13,12 @@ class GenreViewModel {
     
     var genre: Genre?
     
-    var musicList: Observable<[MusicItem]> = Observable([])
+    var musicList: CustomObservable<[MusicItem]> = CustomObservable([])
     var wholeData: [MusicItem] = []
     
     var title: String?
     
-//    var isLoading: Observable<Bool> = Observable(false)
+//    var isLoading: CustomObservable<Bool> = CustomObservable(false)
     
     var currentOffset: Int = 0
     

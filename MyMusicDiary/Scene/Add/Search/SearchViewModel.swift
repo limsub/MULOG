@@ -11,7 +11,7 @@ import MusicKit
 
 class SearchViewModel {
     
-    var musicList: Observable<[MusicItem]> = Observable([])
+    var musicList: CustomObservable<[MusicItem]> = CustomObservable([])
     
     var page = 1
     var searchTerm: String?

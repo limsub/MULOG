@@ -32,13 +32,13 @@ class SaveViewModel {
     
     // 전달받을 데이터 1. 수정추가 enum, 2. 데이터 배열, 3. 날짜
     var saveType: SaveType? // 1.
-    var preMusicList: Observable<[MusicItem]> = Observable([]) // 2.
+    var preMusicList: CustomObservable<[MusicItem]> = CustomObservable([]) // 2.
     var currentDate: Date?  // 3.
     
 
     let repository = MusicItemTableRepository()
     
-    var musicList: Observable<[MusicItem]> = Observable([])
+    var musicList: CustomObservable<[MusicItem]> = CustomObservable([])
 }
 
 
